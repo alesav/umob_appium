@@ -19,6 +19,7 @@
     },
     "include": [
         "./config/**/*.ts",
-        "./tests/**/*.ts"
+        "./tests/**/*.ts",
+       "./tests-umob/**/*.ts"
     ]
 }
