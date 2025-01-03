@@ -5,7 +5,7 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     //specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/bookLime.spec.ts"],
-    specs: ["c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts"],
+    specs: ["c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"],
     capabilities: [
         {
             platformName: "Android",
