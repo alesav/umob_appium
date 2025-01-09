@@ -1,3 +1,4 @@
+// Hello
 import { execSync } from "child_process";
 
 const getScreenCenter = async () => {
