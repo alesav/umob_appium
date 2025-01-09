@@ -4,7 +4,7 @@ import { config as baseConfig } from "./wdio.shared.local.appium.conf.js";
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
-    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/bookLime.spec.ts"],
+    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/login/*.spec.ts"],
     capabilities: [
         {
             platformName: "Android",
@@ -16,5 +16,6 @@ export const config: WebdriverIO.Config = {
             //"appium:noReset": true,
           },
     ],
+    maxInstances: 1
 };
        
