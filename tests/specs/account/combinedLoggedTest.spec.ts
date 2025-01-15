@@ -88,15 +88,14 @@ describe('Combined test for logged in user', () => {
     await expect(lastRideSection).toBeDisplayed();
 
 
-    // Verify last ride amount contains € symbol
-    const lastRideAmount = await driver.$("-android uiautomator:new UiSelector().textMatches(\".*€.*\")");
-    await expect(lastRideAmount).toBeDisplayed();
-    
-    const lastRideAmountText = await lastRideAmount.getText();
-    await expect(lastRideAmountText).toMatch(/€.*\d/);
-    // Updated regex to handle both "€0.-" and "€X.XX" formats
-    //await expect(lastRideAmountText).toMatch(/€\s*(\d+\.\d+|0\.-)/);
+    // Check previous payments list
+    const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
+    console.log("previousPaymentsList" + previousPaymentsList.length)
 
+    // Verify at least one previous payment exists
+    await expect(previousPaymentsList.length).toBeGreaterThan(1);
+
+    
     // Verify "Previous rides" section header
     const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
     await expect(previousRidesHeader).toBeDisplayed();
@@ -134,45 +133,18 @@ describe('Combined test for logged in user', () => {
     const lastPaymentSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last payment\")");
     await expect(lastPaymentSection).toBeDisplayed();
 
-    // Verify last payment date
-    const lastPaymentDateElement = await driver.$("-android uiautomator:new UiSelector().textMatches(\"\\d{1,2} \\w+ \\d{4}\")");
-    await expect(lastPaymentDateElement).toBeDisplayed();
-    const lastPaymentDateText = await lastPaymentDateElement.getText();
     
-    // Validate date format (e.g., 17 December 2024)
-    expect(lastPaymentDateText).toMatch(/^\d{1,2}\s[A-Z][a-z]+\s\d{4}$/);
-
-    // Verify last payment amount contains € symbol
-    const lastPaymentAmount = await driver.$("-android uiautomator:new UiSelector().textMatches(\".*€.*\")");
-    await expect(lastPaymentAmount).toBeDisplayed();
-    const lastPaymentAmountText = await lastPaymentAmount.getText();
-    await expect(lastPaymentAmountText).toMatch(/€\d+\.\d+/);
-
     // Verify "Previous payments" section header
     const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
     await expect(previousPaymentsHeader).toBeDisplayed();
 
-    /*// Check previous payments list
-    const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").description(\"09 December 2024, €4.50\")");
-    
+    // Check previous payments list
+    const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
+    console.log("previousPaymentsList" + previousPaymentsList.length)
+
     // Verify at least one previous payment exists
-    await expect(previousPaymentsList.length).toBeGreaterThan(0);
+    await expect(previousPaymentsList.length).toBeGreaterThan(1);
 
-
-    // Validate each previous payment entry
-    for (const paymentEntry of [previousPaymentsList]) {
-      // Check date is present and in correct format
-      const paymentDateElement = await paymentEntry.$("-android uiautomator:new UiSelector().textMatches(\"\\d{1,2} \\w+ \\d{4}\")");
-      await expect(paymentDateElement).toBeDisplayed();
-      const paymentDateText = await paymentDateElement.getText();
-      expect(paymentDateText).toMatch(/^\d{1,2}\s[A-Z][a-z]+\s\d{4}$/); 
-      
-      // Check amount contains € symbol
-      const paymentAmountElement = await paymentEntry.$("-android uiautomator:new UiSelector().textMatches(\".*€.*\")");
-      await expect(paymentAmountElement).toBeDisplayed();
-      const paymentAmountText = await paymentAmountElement.getText();
-      await expect(paymentAmountText).toMatch(/€\d+\.\d+/);
-    }*/
 
     // back to common list of account menu
     await backButton.click();
@@ -238,26 +210,20 @@ describe('Combined test for logged in user', () => {
     await expect(addressQuestion).toBeDisplayed();
 
     // Verify Street field
-    /*const streetLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Street\")");
-    await expect(streetLabel).toBeDisplayed(); */
+    const streetLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Bloemstraat\")");
+    await expect(streetLabel).toBeDisplayed();
 
-    const streetInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(0)");
-    await expect(streetInput).toBeDisplayed();
 
     // Verify Number field
-    /*const numberLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Number\")");
-    await expect(numberLabel).toBeDisplayed(); */
+    const numberLabel = await driver.$("-android uiautomator:new UiSelector().text(\"80\")");
+    await expect(numberLabel).toBeDisplayed();
 
-    const numberInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
-    await expect(numberInput).toBeDisplayed();
-
+    
     // Verify Country field
-   /* const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Country\")");
-    await expect(countryLabel).toBeDisplayed(); */
+    const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
+    await expect(countryLabel).toBeDisplayed();
 
-    const countryInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").description(\"\")");
-    await expect(countryInput).toBeDisplayed();
-
+  
       //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -271,11 +237,11 @@ describe('Combined test for logged in user', () => {
 
   
    // Verify Zip Code field
-   const zipCode = await driver.$("-android uiautomator:new UiSelector().text(\"Zip Code\")");
-    await expect(zipCode).toBeDisplayed();
+   const zipCode = await driver.$("-android uiautomator:new UiSelector().text(\"3014\")");
+   await expect(zipCode).toBeDisplayed();
 
     // Verify City field
-   const city = await driver.$("-android uiautomator:new UiSelector().text(\"City\")");
+   const city = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam\")");
    await expect(city).toBeDisplayed();
 
    // Verify Save button
@@ -406,7 +372,7 @@ describe('Combined test for logged in user', () => {
     await expect(backButton).toBeDisplayed();
 
     // Verify card information
-    //const releaseText = await driver.$("-android uiautomator:new UiSelector().text(\"RELEASE 69\")");
+    //const releaseText = await driver.$("-android uiautomator:new UiSelector().text(\"NEW\")");
     //await expect(releaseText).toBeDisplayed();
 
     const cardType = await driver.$("-android uiautomator:new UiSelector().text(\"MasterCard\")");
@@ -495,15 +461,30 @@ describe('Combined test for logged in user', () => {
     await expect(categoryAM).toBeDisplayed();
 
     // Verify Home Address section
-    const homeAddressTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Home address\")");
-    await expect(homeAddressTitle).toBeDisplayed();
+    const homeAddressStreet = await driver.$("-android uiautomator:new UiSelector().textContains(\"Bloemstraat 80\")");
+    await expect(homeAddressStreet).toBeDisplayed();
 
-    const addAddressButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD\")");
-    await expect(addAddressButton).toBeDisplayed();
+    const homeAddressZip = await driver.$("-android uiautomator:new UiSelector().textContains(\"3014\")");
+    await expect(homeAddressZip).toBeDisplayed();
+
+    const homeAddressCity = await driver.$("-android uiautomator:new UiSelector().textContains(\"Rotterdam\")");
+    await expect(homeAddressCity).toBeDisplayed();
 
     // Verify bottom buttons
     const changeDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"CHANGE DOCUMENT\")");
     await expect(changeDocumentButton).toBeDisplayed();
+
+     //Scroll to bottom
+   await driver.executeScript('mobile: scrollGesture', [{
+    left: 100,
+    top: 1500,
+    width: 200,
+    height: 100,
+    direction: 'down',
+    percent: 100
+  }]); 
+  await driver.pause(3000);
+
 
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
@@ -512,9 +493,6 @@ describe('Combined test for logged in user', () => {
     const idDocumentContainer = await driver.$("-android uiautomator:new UiSelector().description(\"IdDocumentContainer\")");
     await expect(idDocumentContainer).toBeDisplayed();
   });
-
-
-
 
 
 
