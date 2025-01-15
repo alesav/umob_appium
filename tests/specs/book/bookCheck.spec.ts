@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiJiMzI0ZDRlNy01OGNmLTRkZTMtOWE2Yi04N2YxYzcyYzM0ZjUiLCJ1bmlxdWVfbmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJBbGVrcyIsImZhbWlseV9uYW1lIjoiU2F2IiwiZW1haWwiOiI0YmlnZm9vdCsxOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwicGhvbmVfbnVtYmVyIjoiKzMxOTcwMTA1ODc3MjQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjRkYTQ1MTk2LTA2OTEtYjg4MC04MTM2LTNhMTZlNTk4OWY2NSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiIyYTlhNjMwNS1hMjYxLTgwMjQtOTQ5Yy0zYTE2ZTU5ODlmN2EiLCJhdWQiOiJ1TW9iIiwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyB1TW9iIiwianRpIjoiY2QyM2VlMzktMTE2Mi00ZDhmLTkyMDgtZDgxMDdiZTc2MGYxIiwiaXNzIjoiaHR0cHM6Ly9iYWNrZW5kLXRlc3QudW1vYmFwcC5jb20vIiwiZXhwIjoxNzQyMTk0ODc2LCJpYXQiOjE3MzQ0MTg4NzZ9.u6ndZq46MDie48o9UNmzjTzAmSpyEJcHEmgKWkKB_UT0EC6vQXSIifrrD3KtFy9gD_Y0DFa3k043uRvEp7Cp1Gnu1OEWl6BKjIi0FOZ4yHTHPgTLhSQWSFfxJx_0yjtanvmC5aFg-t6kGvA76S8QMlbNYOKJf9R3mv3fPmnC1jIRMlZeIuikzHBJ1D3czlx1Pk3lFjsWoQcdZbWEpsRY4PEv28uLfh46COq2myEHDA_mk9WG-V7ocPuNRYiHamHcjttHem5Y_yNNUfoXDPwsQSlehtAuZnB6dyIL1C5OrNl5ZfyFiD1p6XWuBAFUmh5wOSWE23Fmm8fruD2UXSPPWg';
@@ -117,43 +118,7 @@ describe('Lime Scooter Booking Tests', () => {
       await logInBtn.isClickable();
       await logInBtn.click();
 
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("4bigfoot+10@gmail.com");
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue("123Qwerty!");
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Wait for welcome message
-      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
-
-
-        
-        // Check Account is presented
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Account")'
-        ).waitForEnabled();
+      await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -161,9 +126,9 @@ describe('Lime Scooter Booking Tests', () => {
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Account")'
-        ).waitForEnabled();
+
+        await PageObjects.accountButton.waitForExist();
+
   });
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -232,12 +197,9 @@ describe('Lime Scooter Booking Tests', () => {
                     await driver.pause(4000);
 
           // Wait for Home screen to be loaded
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Account")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Account")'
-          ).click();
+          await PageObjects.accountButton.waitForExist();
+          await PageObjects.accountButton.click();
+
           await driver.$(
             '-android uiautomator:new UiSelector().text("My Account")'
           ).isDisplayed();
