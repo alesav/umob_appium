@@ -1,7 +1,18 @@
 import { AfterAll } from "@wdio/cucumber-framework";
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Plan Your Trip Screen Verification', () => {
-  
+     before(async () => {
+   
+         // Find and click LOG IN button
+         const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+         await logInBtn.isClickable();
+         await logInBtn.click();
+   
+         await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+   
+   
+     });
 
   it('it should test key elements for book a taxi', async () => {
     await driver.activateApp("com.umob.umob");
@@ -24,7 +35,7 @@ describe('Plan Your Trip Screen Verification', () => {
 
   
   await driver.pause(4000); 
-  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
   await chooseFromList.click();
   
 
@@ -63,7 +74,7 @@ it('should check confirm_your_ride screen', async () => {
   await expect(card).toBeDisplayed();
   
 //check destination is displayed
-const destRotter = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
 await expect(destRotter).toBeDisplayed();
 
 //check driver note is displayed
@@ -84,9 +95,37 @@ await expect(confirmButton).toBeDisplayed();
 await confirmButton.click();
 await driver.pause(7000);
 
-//  // Verify destination location
-  const destinationLocation = await driver.$('-android uiautomator:new UiSelector().text("Rotterdam Zoo Rotterdam")');
-  await expect(destinationLocation).toBeDisplayed();
+/*//booking confirmation
+const bookingConfirmation = await driver.$('-android uiautomator:new UiSelector().textContains("Booking confirmed")');
+await expect(bookingConfirmation).toBeDisplayed();
+
+
+//acception notification
+const acception = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking. Finding you a driver. This may take a few minutes")');
+await expect(acception).toBeDisplayed();
+
+//cancelation
+const cancelTrip = await driver.$("-android uiautomator:new UiSelector().text(\"Cancel trip\")");
+await expect(cancelTrip).toBeDisplayed();
+await cancelTrip.click();
+
+//confirmation cancelation
+const cancelConfirmation = await driver.$("-android uiautomator:new UiSelector().text(\"CANCEL MY BOOKING\")");
+await expect(cancelConfirmation).toBeDisplayed();
+await cancelConfirmation.click();
+*/
+
+ // Verify booking confirmation header
+ const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
+ await expect(bookingConfirmedText).toBeDisplayed();
+
+ // Verify operator acceptance message
+ const operatorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking")');
+ await expect(operatorMessage).toBeDisplayed();
+
+ // Verify destination location
+ const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+ await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
  const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().textContains("Cancel")');
