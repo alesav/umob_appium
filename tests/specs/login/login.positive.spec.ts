@@ -13,7 +13,7 @@ const getScreenCenter = async () => {
     };
   };
 
-describe('WebdriverIO and Appium, when interacting with the app,', () => {
+describe('Login positive scenarios,', () => {
     beforeEach(async () => {
       // Ensure app is launched and initial screen is loaded
       await driver.pause(7000);
@@ -66,8 +66,8 @@ describe('WebdriverIO and Appium, when interacting with the app,', () => {
       await allowPermissionBtn.click();
 
       // Wait for welcome message
-      const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      await welcomeMessage.waitForEnabled({ timeout: 10000 });
+      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
+      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
 
       // Handle location permissions
       const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");

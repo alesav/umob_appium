@@ -17,5 +17,6 @@ export const config: WebdriverIO.Config = {
             "appium:noReset": true,
           },
     ],
+    maxInstances: 1
 };
        
