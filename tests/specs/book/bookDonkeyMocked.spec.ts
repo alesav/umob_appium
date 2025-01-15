@@ -1,6 +1,20 @@
 import { execSync } from 'child_process';
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Bike Booking Test', () => {
+
+    before(async () => {
+  
+        // Find and click LOG IN button
+        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+        await logInBtn.isClickable();
+        await logInBtn.click();
+  
+        await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+  
+  
+    });
+
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
   });

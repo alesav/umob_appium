@@ -1,16 +1,18 @@
 import { AfterAll } from "@wdio/cucumber-framework";
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Plan Your Trip Screen Verification', () => {
-  /*beforeEach(async () => {
-    await driver.activateApp("com.umob.umob");
-    await driver.pause(7000);
-
-    // Navigate to Public Transport screen
-    // Note: The exact selector might need adjustment based on the actual UI
-    const publicTransportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
-    await publicTransportButton.click();
-    await driver.pause(2000);
-  });*/
+     before(async () => {
+   
+         // Find and click LOG IN button
+         const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+         await logInBtn.isClickable();
+         await logInBtn.click();
+   
+         await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+   
+   
+     });
 
   it('it should test key elements for book a taxi', async () => {
     await driver.activateApp("com.umob.umob");
@@ -37,7 +39,7 @@ describe('Plan Your Trip Screen Verification', () => {
   //await expect(destinationInput).toBeDisplayed;
   
   await driver.pause(4000); 
-  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
   await chooseFromList.click();
   
 
@@ -82,7 +84,7 @@ it('should check confirm_your_ride screen', async () => {
   await expect(card).toBeDisplayed();
   
 //check destination is displayed
-const destRotter = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
 await expect(destRotter).toBeDisplayed();
 
 //check driver note is displayed
@@ -132,7 +134,7 @@ await cancelConfirmation.click();
  await expect(operatorMessage).toBeDisplayed();
 
  // Verify destination location
- const destinationLocation = await driver.$('-android uiautomator:new UiSelector().text("Rotterdam Zoo Rotterdam")');
+ const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button

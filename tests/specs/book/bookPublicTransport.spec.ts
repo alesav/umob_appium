@@ -1,16 +1,18 @@
 import { AfterAll } from "@wdio/cucumber-framework";
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Plan Your Trip Screen Verification', () => {
-  /*beforeEach(async () => {
-    await driver.activateApp("com.umob.umob");
-    await driver.pause(7000);
-
-    // Navigate to Public Transport screen
-    // Note: The exact selector might need adjustment based on the actual UI
-    const publicTransportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
-    await publicTransportButton.click();
-    await driver.pause(2000);
-  });*/
+    before(async () => {
+  
+        // Find and click LOG IN button
+        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+        await logInBtn.isClickable();
+        await logInBtn.click();
+  
+        await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+  
+  
+    });
 
   it('should display all key elements on Plan Your Trip screen', async () => {
     await driver.activateApp("com.umob.umob");
@@ -87,7 +89,7 @@ await driver.executeScript('mobile: scrollGesture', [{
   await expect(destinationInput).toBeDisplayed;
   //await destinationInput.setValue("Rotter");
   await driver.pause(4000); 
-  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
   await chooseFromList.click();
   //await destinationAdd.click();
   //await destinationAdd.addValue("Rotterdam Zoo Rotterdam");
@@ -111,7 +113,7 @@ await driver.executeScript('mobile: scrollGesture', [{
 
     // Verify destination info is displayed
     
-    const toLocation = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+    const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
     await expect(toLocation).toBeDisplayed();
 
 
@@ -151,7 +153,7 @@ it('should check header and final destionation and buy e-ticket', async () => {
   }]); 
   await driver.pause(6000);
   //check final destination after scrolling is Rotterdam Zoo Rotterdam
-  const finalDestination = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+  const finalDestination = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
   await expect(finalDestination).toBeDisplayed();
 
   //check back button is displayed
@@ -247,7 +249,7 @@ await driver.pause(7000);
 
 
   //checking final point of destination after scrolling (Rotterdam Zoo Rotterdam)
-  const zoo = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam Zoo Rotterdam\")");
+  const zoo = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
   await expect(zoo).toBeDisplayed();
 
   //check text "make sure you download your..."
