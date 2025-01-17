@@ -1,13 +1,55 @@
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+
 describe('Combined test for logged in user', () => {
+
+  
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);
   });
 
+  before(async () => {
+    
+
+    // Find and click LOG IN button
+    const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+    await logInBtn.isClickable();
+    await logInBtn.click();
+
+    await PageObjects.login({ username:'new@gmail.com', password: '123Qwerty!' });
+});
+
+
+it('should display key navigation elements on the main screen', async () => {
+  // Verify bottom navigation menu items
+  const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("Taxi")');
+  await expect(taxiButton).toBeDisplayed();
+
+  const publicTransportButton = await driver.$('-android uiautomator:new UiSelector().text("Public transport")');
+  await expect(publicTransportButton).toBeDisplayed();
+
+  const accountButton = await driver.$('-android uiautomator:new UiSelector().text("Account")');
+  await expect(accountButton).toBeDisplayed();
+
+  const settingsButton = await driver.$('-android uiautomator:new UiSelector().text("Settings")');
+  await expect(settingsButton).toBeDisplayed();
+
+  // Verify filter button is displayed
+  const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
+  await expect(assetFilterToggle).toBeDisplayed();
+
+  // Check for map root element
+  const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
+  await expect(mapRoot).toBeDisplayed();
+});
+
+
+
   it('should display all key account screen elements', async () => {
     // Click on Account button
-    const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await PageObjects.accountButton.waitForExist();
+    await PageObjects.accountButton.click();
+
     await driver.pause(2000);
 
     // Verify screen header
@@ -494,6 +536,205 @@ describe('Combined test for logged in user', () => {
     await expect(idDocumentContainer).toBeDisplayed();
   });
 
+  it('should display all key delete account screen elements', async () => {
+    // Click on Account button
+    const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
+    await accountButton.click();
+    await driver.pause(2000);
+
+    // Scroll down to make Delete account button visible
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 1000,
+      width: 200,
+      height: 800,
+      direction: 'down',
+      percent: 50.0
+    }]);
+    await driver.pause(1000);
+
+    // Click on Delete account button
+    const deleteAccountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Delete account\")");
+    await expect(deleteAccountButton).toBeDisplayed();
+    await deleteAccountButton.click();
+    await driver.pause(2000);
+
+    // Verify delete account screen title
+    const screenTitle = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsTitle\")");
+    await expect(screenTitle).toBeDisplayed();
+    await expect(await screenTitle.getText()).toBe("Are you sure you want to delete your account?");
+
+    // Verify warning message
+    const warningMessage = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsMessage\")");
+    await expect(warningMessage).toBeDisplayed();
+    const messageText = await warningMessage.getText();
+    await expect(messageText).toContain("Please note that by confirming deletion");
+    await expect(messageText).toContain("Delete Policy");
+
+    // Verify checkbox and its text
+    const checkbox = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsCheckBox\")");
+    await expect(checkbox).toBeDisplayed();
+    const checkboxText = await checkbox.getText();
+    await expect(checkboxText).toBe("I understand that all my data will be deleted and I can no longer use the umob service");
+
+    // Verify DELETE button
+    const deleteButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsDelete\")");
+    await expect(deleteButton).toBeDisplayed();
+    const deleteButtonText = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsDelete-text\")");
+    await expect(await deleteButtonText.getText()).toBe("DELETE");
+    // Verify DELETE button is initially disabled
+    await expect(await deleteButton.isEnabled()).toBe(false);
+
+    // Verify CANCEL button
+    const cancelButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsCancel\")");
+    await expect(cancelButton).toBeDisplayed();
+    const cancelButtonText = await driver.$("-android uiautomator:new UiSelector().resourceId(\"DeleteAccountDetailsCancel-text\")");
+    await expect(await cancelButtonText.getText()).toBe("CANCEL");
+    // Verify CANCEL button is enabled
+    await expect(await cancelButton.isEnabled()).toBe(true);
+
+    // Verify Help button
+    const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
+    await expect(helpButton).toBeDisplayed();
+  });
+
+  it('should display all key map theme settings screen elements', async () => {
+    // Click on Settings button to navigate to settings
+    const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
+    await settingsButton.click();
+    await driver.pause(2000);
+
+    // Click on Map theme settings option
+    const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
+    await mapThemeOption.click();
+    await driver.pause(2000);
+
+    // Verify header elements
+    const backButton = await driver.$('~back_button');
+    await expect(backButton).toBeDisplayed();
+
+    const headerTitle = await driver.$('~settings_menu_map_theme_comp-header-title');
+    await expect(headerTitle).toBeDisplayed();
+    await expect(await headerTitle.getText()).toBe("Map theme settings");
+
+    // Verify map preview image is displayed
+    const mapPreviewImage = await driver.$('android.widget.ImageView');
+    await expect(mapPreviewImage).toBeDisplayed();
+
+    // Verify all theme options are displayed and check their properties
+    const themeOptions = [
+      { name: 'Dark' },
+      { name: 'Light' },
+      { name: 'Terrain' },
+      { name: 'Playground' }
+    ];
+
+    for (const theme of themeOptions) {
+      // Verify the theme text using UiSelector
+      const themeText = await driver.$(`-android uiautomator:new UiSelector().text("${theme.name}")`);
+      await expect(themeText).toBeDisplayed();
+
+      // Verify the theme container using content-desc
+      const themeContainer = await driver.$(`~${theme.name}`);
+      await expect(themeContainer).toBeDisplayed();
+
+      // If it's the Light theme (which appears selected in the XML), verify the selection indicator
+      if (theme.name === 'Light') {
+        const container = await driver.$(`-android uiautomator:new UiSelector().text("${theme.name}").fromParent(new UiSelector().className("com.horcrux.svg.SvgView"))`);
+        await expect(container).toBeDisplayed();
+      }
+    }
+    // click back button to go to the app settings
+    await backButton.click();
+    await driver.pause(2000);
+  });
+
+
+
+  it('should display all key language screen elements and settings screen key elements', async () => {
+    
+    const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
+    await settingsButton.click();
+    await driver.pause(2000);
+
+    // Click on Language option to navigate to language screen
+    const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+    await languageOption.click();
+    await driver.pause(2000);
+
+    // Verify header elements
+    const backButton = await driver.$('~back_button');
+    await expect(backButton).toBeDisplayed();
+
+    const headerTitle = await driver.$('~undefined-header-title');
+    await expect(headerTitle).toBeDisplayed();
+    await expect(await headerTitle.getText()).toBe("Language");
+
+    // Verify all language options are displayed
+    const languageOptions = [
+      { name: "English", selected: true },
+      { name: "Français", selected: false },
+      { name: "Dutch", selected: false },
+      { name: "Deutsche", selected: false },
+      { name: "Español", selected: false }
+    ];
+
+    for (const language of languageOptions) {
+      const languageElement = await driver.$(`~${language.name}`);
+      await expect(languageElement).toBeDisplayed();
+      
+      // Verify the language text
+      const languageText = await driver.$(`-android uiautomator:new UiSelector().text("${language.name}")`);
+      await expect(languageText).toBeDisplayed();
+
+      // If it's the selected language (English by default), verify the selection indicator
+      if (language.selected) {
+        // The SVG checkmark is present only for the selected language
+        const checkmark = await languageElement.$('com.horcrux.svg.SvgView');
+        await expect(checkmark).toBeDisplayed();
+      }
+    }
+
+    //click the back button to the app settings screen
+    await backButton.click();
+    await driver.pause(2000);
+
+    // Verify "App settings" header is present
+    const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"App settings\")");
+    await expect(appSettingsHeader).toBeDisplayed();
+
+    // Verify Support section header
+    const supportHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
+    await expect(supportHeader).toBeDisplayed();
+
+    // Verify Privacy & Legal section
+    const privacyLegalButton = await driver.$("-android uiautomator:new UiSelector().text(\"Privacy & Legal\")");
+    await expect(privacyLegalButton).toBeDisplayed();
+
+    // Verify LogOut button
+    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
+    await expect(logoutButton).toBeDisplayed();
+
+  });
+
+  
+  it('should successfully logout from the app', async () => {
+    // Click on Settings button to navigate to settings
+    const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
+    await settingsButton.click();
+    await driver.pause(2000);
+
+    // Click on LogOut option 
+    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
+    await expect(logoutButton).toBeDisplayed();
+    await logoutButton.click();
+
+    // verify Sign up button appeared
+    const signUpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Sign up\")");
+    await expect(signUpButton).toBeDisplayed();
+  });
+
+
 
 
   afterEach(async () => {
@@ -503,4 +744,4 @@ describe('Combined test for logged in user', () => {
       console.log('Error terminating app:', error);
     }
   });
-});
+})

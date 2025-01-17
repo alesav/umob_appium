@@ -95,25 +95,6 @@ await expect(confirmButton).toBeDisplayed();
 await confirmButton.click();
 await driver.pause(7000);
 
-/*//booking confirmation
-const bookingConfirmation = await driver.$('-android uiautomator:new UiSelector().textContains("Booking confirmed")');
-await expect(bookingConfirmation).toBeDisplayed();
-
-
-//acception notification
-const acception = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking. Finding you a driver. This may take a few minutes")');
-await expect(acception).toBeDisplayed();
-
-//cancelation
-const cancelTrip = await driver.$("-android uiautomator:new UiSelector().text(\"Cancel trip\")");
-await expect(cancelTrip).toBeDisplayed();
-await cancelTrip.click();
-
-//confirmation cancelation
-const cancelConfirmation = await driver.$("-android uiautomator:new UiSelector().text(\"CANCEL MY BOOKING\")");
-await expect(cancelConfirmation).toBeDisplayed();
-await cancelConfirmation.click();
-*/
 
  // Verify booking confirmation header
  const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
