@@ -4,12 +4,20 @@ class PageObjects extends Page {
     /**
      * define elements
      */
+
+    // Initial page objects
     get username () { return $('#username'); }
     get password () { return $('#password'); }
     get submitButton () { return $('#login button[type=submit]'); }
     get flash () { return $('#flash'); }
 
+    // The main screen with the map
     get accountButton () { return $('-android uiautomator:new UiSelector().text("Account")'); } 
+
+    // My account screen
+    // ....
+    // my rides and tickets button
+
 
     /**
      * a method to encapsule automation code to interact with the page

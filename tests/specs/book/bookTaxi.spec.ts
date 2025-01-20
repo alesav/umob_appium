@@ -19,7 +19,7 @@ describe('Plan Your Trip Screen Verification', () => {
     await driver.pause(7000);    
     const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await taxiButton.click();
-    await driver.pause(2000);
+   // await driver.pause(2000);
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Book a taxi\")");
     await expect(screenHeader).toBeDisplayed();
@@ -33,10 +33,6 @@ describe('Plan Your Trip Screen Verification', () => {
     const destinationInput = await driver.$("-android uiautomator:new UiSelector().text(\"Destination\")");
     await expect(destinationInput).toBeDisplayed();
 
-
-  // click on destination and text Rotterdam Zoo Rotterdam
-  //const destinationInput = await driver.$('android=new UiSelector().className("android.widget.EditText").text("")');
-  //await expect(destinationInput).toBeDisplayed;
   
   await driver.pause(4000); 
   const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
@@ -58,20 +54,14 @@ describe('Plan Your Trip Screen Verification', () => {
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
     await expect(firstRoutePrice).toBeDisplayed();
     
-    //const firstTaxiOption = await driver.$('[content-desc="DTMTaxi Any taxi, Arrives in 5 mins, 4, ± €3.76"]');
-    //await firstTaxiOption.click();
     
-    //const selectButton = await driver.$("-android uiautomator:new UiSelector().text(\"SELECT\")");
-    //await expect(selectButton).toBeDisplayed();
-    //await selectButton.click();
-
-
     const selectButton = await driver.$('-android uiautomator:new UiSelector().textContains("SELECT")');
 await expect(selectButton).toBeDisplayed();
 await selectButton.click();
     await driver.pause(5000);
 
 });
+
 
 it('should check confirm_your_ride screen', async () => {
 
@@ -105,25 +95,6 @@ await expect(confirmButton).toBeDisplayed();
 await confirmButton.click();
 await driver.pause(7000);
 
-/*//booking confirmation
-const bookingConfirmation = await driver.$('-android uiautomator:new UiSelector().textContains("Booking confirmed")');
-await expect(bookingConfirmation).toBeDisplayed();
-
-
-//acception notification
-const acception = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking. Finding you a driver. This may take a few minutes")');
-await expect(acception).toBeDisplayed();
-
-//cancelation
-const cancelTrip = await driver.$("-android uiautomator:new UiSelector().text(\"Cancel trip\")");
-await expect(cancelTrip).toBeDisplayed();
-await cancelTrip.click();
-
-//confirmation cancelation
-const cancelConfirmation = await driver.$("-android uiautomator:new UiSelector().text(\"CANCEL MY BOOKING\")");
-await expect(cancelConfirmation).toBeDisplayed();
-await cancelConfirmation.click();
-*/
 
  // Verify booking confirmation header
  const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
@@ -138,17 +109,31 @@ await cancelConfirmation.click();
  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
- const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().text("Cancel trip")');
+ const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().textContains("Cancel")');
  await expect(cancelTripButton).toBeDisplayed();
+ await driver.pause(1000);
  await cancelTripButton.click();
  
  // Wait for confirmation dialog and confirm cancellation
- await driver.pause(2000);
+ //await driver.pause(2000);
  const confirmCancelButton = await driver.$('-android uiautomator:new UiSelector().text("CANCEL MY BOOKING")');
  await expect(confirmCancelButton).toBeDisplayed();
  await confirmCancelButton.click();
 
+ //check main screen is displayed
+const confirmMainScreen = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
+await expect(confirmMainScreen).toBeDisplayed();
+
 });
+
+after(async () => {
+  try {
+    await driver.terminateApp("com.umob.umob");
+  } catch (error) {
+    console.log('Error terminating app:', error);
+  }
+});
+
 });
 
 

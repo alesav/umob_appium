@@ -175,22 +175,6 @@ it('final step of confirmation for buying a ticket', async () => {
 const header = await driver.$("-android uiautomator:new UiSelector().text(\"Buy e-tickets\")");
   await expect(header).toBeDisplayed();
 
-//check key elements are displayed (from)
-  // From check
-  //const fromLabel = await driver.$("id:ticket-TranzerUmob:31540186-from-item-row-label");
-  //await expect(fromLabel).toHaveText("From");
-
-//check key elements are displayed (to)
-//const toLabel = await driver.$("id:ticket-TranzerUmob:31540186-to-item-row-label");
-  //await expect(toLabel).toHaveText("To");
-
-//check key elements are displayed (type)
-//const typeLabel = await driver.$("id:ticket-TranzerUmob:31540186-type-item-row-label");
-//await expect(typeLabel).toHaveText("Type");
-
-//check key elements are displayed (e-ticket)
-//const eTicketTitle = await driver.$("id:ticket-TranzerUmob:31540186-title");
-//await expect(eTicketTitle).toHaveText("E-ticket");
 
 //check key elements are displayed (conditions,travel costs)
 //const conditions = await driver.$("id:ticket-TranzerUmob:31540186-terms-and-conditions");
@@ -282,16 +266,9 @@ const ticketHeader = await driver.$("-android uiautomator:new UiSelector().text(
 const validBetweenSection = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Valid between")');
 await expect(validBetweenSection).toBeDisplayed();
 
-// Check ticket conditions link is displayed (ticket id could be different, dont know how to check)
-//const ticketConditions = await driver.$('id=ticket-f1e0f397-921d-27dc-4a61-3a171ba1aaea-terms-and-conditions');
-//await expect(ticketConditions).toBeDisplayed();
-//await expect(ticketConditions).toHaveText('Ticket conditions');
 
 // Check vehicle section is displayed
-/*const vehicleHeader = await driver.$('id=journey-ticket-ptheader');
-await expect(vehicleHeader).toBeDisplayed();
-await expect(vehicleHeader).toHaveText('Vehicle');*/
-const vehicleHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Vehicle\")");
+  const vehicleHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Vehicle\")");
   await expect(vehicleHeader).toBeDisplayed();
 
 // Check vehicle type is displayed

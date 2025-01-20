@@ -71,7 +71,7 @@ const getScreenCenter = async () => {
           'Authorization': AUTH_TOKEN,
           'Accept-Language': 'en',
           'X-Requested-With': 'XMLHttpRequest',
-          'App-Version': '1.22959.3.22959',
+          'App-Version': '1.23316.3.23316',
           'App-Platform': 'android'
         },
         body: JSON.stringify({
@@ -106,7 +106,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Check Booking Tests', () => {
+describe('Reserve Felyx Test', () => {
   let scooters;
 
   before(async () => {
@@ -132,12 +132,12 @@ describe('Check Booking Tests', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Positive Scenario: Reserve Felyx moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
     const targetScooter = scooters.find(
-      scooter => scooter.id.includes('Check')
+      scooter => scooter.id.includes('Felyx')
     );
 
     // Set location to specific scooter coordinates
