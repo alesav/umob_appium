@@ -453,7 +453,7 @@ it('should display key navigation elements on the main screen', async () => {
     await idDocumentButton.click();
 
     // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"ID document\")");
+    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"ID Document\")");
     await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
