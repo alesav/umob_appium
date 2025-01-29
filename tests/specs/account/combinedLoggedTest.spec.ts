@@ -108,8 +108,9 @@ it('should display key navigation elements on the main screen', async () => {
     
     // Click on Account button
    const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-   await accountButton.click();
+   await expect(accountButton).toBeDisplayed();
    await driver.pause(2000);
+   await accountButton.click();
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
@@ -155,8 +156,9 @@ it('should display key navigation elements on the main screen', async () => {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -199,8 +201,9 @@ it('should display key navigation elements on the main screen', async () => {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
 
     //navigate to personal info
 
@@ -306,8 +309,9 @@ it('should display key navigation elements on the main screen', async () => {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
@@ -350,8 +354,9 @@ it('should display key navigation elements on the main screen', async () => {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
     
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
@@ -397,8 +402,9 @@ it('should display key navigation elements on the main screen', async () => {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
     
     // Navigate to Payment Settings screen
     const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment settings\")");
@@ -443,8 +449,10 @@ it('should display key navigation elements on the main screen', async () => {
   });
 
   it('should display all key ID Document screen elements', async () => {
-    // Navigate to Account screen first
+    // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
+    await expect(accountButton).toBeDisplayed();
+    await driver.pause(2000);
     await accountButton.click();
 
     // Navigate to ID Document screen
@@ -539,8 +547,9 @@ it('should display key navigation elements on the main screen', async () => {
   it('should display all key delete account screen elements', async () => {
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
+    await expect(accountButton).toBeDisplayed();
     await driver.pause(2000);
+    await accountButton.click();
 
     // Scroll down to make Delete account button visible
     await driver.executeScript('mobile: scrollGesture', [{

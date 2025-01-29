@@ -61,6 +61,11 @@ describe('Bike Booking Test', () => {
 
     await continueButton.click();
 
+          // Handle permissions
+          const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+          await expect(allowPermissionBtn).toBeDisplayed();
+          await allowPermissionBtn.click();
+
 
     await driver.pause(5000);
     //Scroll to bottom

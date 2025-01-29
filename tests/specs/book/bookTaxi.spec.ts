@@ -29,14 +29,28 @@ describe('Plan Your Trip Screen Verification', () => {
     await expect(departureDestinationLabel).toBeDisplayed();
         
 
-    // Verify destination input
-    const destinationInput = await driver.$("-android uiautomator:new UiSelector().text(\"Destination\")");
-    await expect(destinationInput).toBeDisplayed();
-
-  
+  // click on destination and text Rotterdam Zoo Rotterdam
+  const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+  await el1.click();
+  await el1.addValue("Rotterdam Zoo");
   await driver.pause(4000); 
-  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
-  await chooseFromList.click();
+
+// First get the element's location and size
+const location = await el1.getLocation();
+const size = await el1.getSize();
+
+
+// Create a touch action to tap 50 pixels below the element
+await browser.action('pointer', { parameters: { pointerType: 'touch' }})
+    .move({ 
+        x: location.x +100,
+        y: location.y + size.height + 160
+    })
+    .down()
+    .up()
+    .perform();
+
+    await driver.hideKeyboard();
   
 
   // click the continue button after adding destination
