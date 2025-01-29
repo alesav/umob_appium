@@ -4,7 +4,7 @@ import { config as baseConfig } from "./wdio.shared.local.appium.conf.js";
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
-    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/account/*.spec.ts"],
+    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/*.spec.ts"],
     //specs: ["c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts"],
     capabilities: [
         {
@@ -13,7 +13,7 @@ export const config: WebdriverIO.Config = {
             "appium:deviceName": "Android",
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
-            "appium:newCommandTimeout": 240,
+            "appium:newCommandTimeout": 120,
             //"appium:noReset": true,
           },
     ],

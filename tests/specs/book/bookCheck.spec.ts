@@ -116,6 +116,7 @@ describe('Check Booking Tests', () => {
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.isClickable();
+      await driver.pause(3000);
       await logInBtn.click();
 
       await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
@@ -175,6 +176,10 @@ describe('Check Booking Tests', () => {
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
     await driver.pause(2000);
+
+        // Verify screen is loaded
+        const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');
+        await expect(prices).toBeDisplayed();
 
     // Click Reserve
     await driver.$(

@@ -20,14 +20,17 @@ describe('Account Screen Elements Validation', () => {
       await expect(exploreMapButton).toBeDisplayed();
       await exploreMapButton.click();
       
-      // Add a pause to allow the map to load after clicking explore
-      await driver.pause(4000);
     } catch (error) {
       console.log('Popup not found or already handled:', error);
     }
   });
 
   it('should display key navigation elements on the main screen', async () => {
+          // Handle location permissions
+          const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+          await expect(allowForegroundPermissionBtn).toBeDisplayed();
+          await allowForegroundPermissionBtn.click();
+
     // Verify bottom navigation menu items
     const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("Taxi")');
     await expect(taxiButton).toBeDisplayed();
@@ -56,9 +59,8 @@ describe('Account Screen Elements Validation', () => {
     //await driver.pause(7000);    
     const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(2)");
     await expect(qButton).toBeDisplayed();
+    await driver.pause(2000);
     await qButton.click();
-    await driver.pause(4000);
-
 
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
@@ -312,9 +314,6 @@ for (const text of contentElements2) {
     const signInButtonText = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Sign in")');
     await expect(await signInButtonText.getText()).toBe("Sign in");
 
-    //click back button to main screen
-    const clickBack = await driver.$('//android.view.ViewGroup[@clickable="true" and @bounds="[44,126][88,170]"]');
-    await clickBack.click();
   });
 
   
@@ -323,8 +322,8 @@ for (const text of contentElements2) {
   it('should display all key map theme settings screen elements', async () => {
     // Click on Settings button to navigate to settings
     const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-    await settingsButton.click();
     await driver.pause(2000);
+    await settingsButton.click();
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");

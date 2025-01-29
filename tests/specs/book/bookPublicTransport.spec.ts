@@ -1,4 +1,3 @@
-import { AfterAll } from "@wdio/cucumber-framework";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Plan Your Trip Screen Verification', () => {
@@ -85,12 +84,34 @@ await driver.executeScript('mobile: scrollGesture', [{
 
   it('should put in destination and book a ticket', async () => {
   // click on destination and text Rotterdam Zoo Rotterdam
-  const destinationInput = await driver.$('android=new UiSelector().className("android.widget.EditText").text("")');
-  await expect(destinationInput).toBeDisplayed;
-  //await destinationInput.setValue("Rotter");
+  const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+  await el1.addValue("Rotterdam Zoo");
   await driver.pause(4000); 
-  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
-  await chooseFromList.click();
+
+// First get the element's location and size
+const location = await el1.getLocation();
+const size = await el1.getSize();
+
+
+// Create a touch action to tap 50 pixels below the element
+await browser.action('pointer', { parameters: { pointerType: 'touch' }})
+    .move({ 
+        x: location.x +100,
+        y: location.y + size.height + 160
+    })
+    .down()
+    .up()
+    .perform();
+
+    await driver.hideKeyboard();
+
+    // Set location to specific scooter coordinates
+    // execSync(
+    //   `adb shell input tap ${location.x + 100}  ${location.y + size.height + 160}`
+    // );
+
+  //const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+  //await chooseFromList.click();
   //await destinationAdd.click();
   //await destinationAdd.addValue("Rotterdam Zoo Rotterdam");
 
@@ -201,7 +222,7 @@ const agreementText = await driver.$("~I agree to the sharing of personal data r
   await expect(agreementText).toBeDisplayed();
 
 //click to the checking box
-const checkbox = await driver.$('//android.view.ViewGroup[@bounds="[66,1312][116,1604]"]');
+const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(21)');
 await checkbox.click();
 
 //click on enabled confirm button and wait 10seconds

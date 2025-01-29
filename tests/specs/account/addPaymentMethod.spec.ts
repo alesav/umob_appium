@@ -10,6 +10,7 @@ describe('Lime Scooter Booking Tests', () => {
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.isClickable();
+      await driver.pause(2000);
       await logInBtn.click();
 
       // Login form elements
@@ -91,12 +92,14 @@ describe('Lime Scooter Booking Tests', () => {
           ).click();
 
            //CLick Remove payment method
+           /*
            await driver.$(
             '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
           ).waitForDisplayed();
           await driver.$(
             '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
           ).click();          
+          */
 
            //CLick Cards
            await driver.$(
@@ -122,26 +125,28 @@ describe('Lime Scooter Booking Tests', () => {
           await el5.click();
 
            //Assert Remove payment method button is displayed
-            await driver.$(
+            const removeBtn =await driver.$(
              '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-           ).waitForDisplayed();
+           )
+           await removeBtn.waitForDisplayed();
+           await removeBtn.click();
 
-           const el6 = await driver.$("accessibility id:back_button");
-           await el6.click();
-           const el7 = await driver.$("-android uiautomator:new UiSelector().text(\"Welcome back,\")");
-           await el7.waitForDisplayed();
+          //  await driver.pause(5000);
+          //  const el6 = await driver.$("accessibility id:back_button");
+          //  await el6.click();
 
-          // Wait for Home screen to be loaded
-          // await driver.$(
-          //   '-android uiautomator:new UiSelector().text("Account")'
-          // ).waitForDisplayed();
-          // await driver.$(
-          //   '-android uiautomator:new UiSelector().text("Account")'
-          // ).click();
-          // await driver.$(
-          //   '-android uiautomator:new UiSelector().text("My Account")'
-          // ).isDisplayed();
-          await driver.pause(2000);
+           //CLick Payment Settings
+           await driver.$(
+            '-android uiautomator:new UiSelector().text("Payment settings")'
+          ).waitForDisplayed();
+          await driver.$(
+            '-android uiautomator:new UiSelector().text("Payment settings")'
+          ).click();
+
+           //Verify Add payment method
+           await driver.$(
+            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
+          ).waitForDisplayed();
 
 
   });
