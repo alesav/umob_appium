@@ -10,7 +10,7 @@ describe('Bike Booking Test', () => {
         await logInBtn.isClickable();
         await logInBtn.click();
   
-        await PageObjects.login({ username:'new5@gmail.com', password: '123Qwerty!' });
+        await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
   
   
     });
