@@ -226,7 +226,7 @@ for (const text of contentElements2) {
     const bicycle = await driver.$("-android uiautomator:new UiSelector().text(\"Bicycle\")");
     await expect(bicycle).toBeDisplayed();
 
-    const bicycleProviders = await driver.$("-android uiautomator:new UiSelector().text(\"7 providers\")");
+    const bicycleProviders = await driver.$("-android uiautomator:new UiSelector().text(\"8 providers\")");
     await expect(bicycleProviders).toBeDisplayed();
 
     const moped = await driver.$("-android uiautomator:new UiSelector().text(\"Moped\")");
@@ -238,7 +238,7 @@ for (const text of contentElements2) {
     const step = await driver.$("-android uiautomator:new UiSelector().text(\"Step\")");
     await expect(moped).toBeDisplayed();
 
-    const stepProviders = await driver.$("-android uiautomator:new UiSelector().text(\"2 providers\")");
+    const stepProviders = await driver.$("-android uiautomator:new UiSelector().text(\"3 providers\")");
     await expect(stepProviders).toBeDisplayed();
 
     //Scroll to bottom
