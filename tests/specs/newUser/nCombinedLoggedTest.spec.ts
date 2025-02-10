@@ -16,7 +16,7 @@ describe('Combined test for logged in user', () => {
     await logInBtn.isClickable();
     await logInBtn.click();
 
-    await PageObjects.login({ username:'new5@gmail.com', password: '123Qwerty!' });
+    await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
 });
 
 
