@@ -129,6 +129,7 @@ describe('Lime Scooter Booking Tests', () => {
              '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
            )
            await removeBtn.waitForDisplayed();
+           await driver.pause(2000);
            await removeBtn.click();
 
           //  await driver.pause(5000);

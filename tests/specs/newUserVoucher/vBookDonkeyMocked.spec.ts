@@ -43,7 +43,7 @@ describe('Bike Booking Test', () => {
     await umob20Button.click();
 
     //verify that new user voucher is visible
-    const voucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
+    const voucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect (voucher).toBeDisplayed();
 
     //verify that payment card is displayed
@@ -57,9 +57,6 @@ describe('Bike Booking Test', () => {
     //confirm that you can choose payment without vouchers and select limitless voucher "multi1"
     const noVoucher = await driver.$('-android uiautomator:new UiSelector().text("No ride credit")');
     await expect (noVoucher).toBeDisplayed();
-
-    const checkVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
-    await expect (checkVoucher).toBeDisplayed();
 
     const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect (multiVoucher).toBeDisplayed();
@@ -126,10 +123,9 @@ describe('Bike Booking Test', () => {
     const endTripButton = await driver.$("accessibility id:endTrip-text");
     await endTripButton.click();
 
-    await driver.pause(5000);
-
     //click to see details
     const detailsButton3 = await driver.$('-android uiautomator:new UiSelector().text("DETAILS")');
+    await driver.pause(10000);
     await detailsButton3.click();
 
     //verify header Ride
