@@ -1,7 +1,8 @@
 import { AfterAll } from "@wdio/cucumber-framework";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Plan Your Trip Screen Verification', () => {
+describe('Book a Taxi', () => {
      before(async () => {
    
          // Find and click LOG IN button
@@ -14,7 +15,22 @@ describe('Plan Your Trip Screen Verification', () => {
    
      });
 
-  it('it should test key elements for book a taxi', async () => {
+  it('test key elements for book a taxi, add destination', async () => {
+
+    const testId = "a73ec856-52d6-4bdf-8b9b-0eb82fa06fed"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+
+
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
     const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
@@ -63,6 +79,19 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
 
   it('should display at least one option for taxi and click select button', async () => {
+
+    const testId = "a73ec856-52d6-4bdf-8b9b-0eb82fa06fed"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+      } catch (error) {
+        console.error('Failed to submit test run:', error);
+        }
   
     // check if at least one option exists with euro price
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
@@ -77,7 +106,20 @@ await selectButton.click();
 });
 
 
-it('should check confirm_your_ride screen', async () => {
+it('should check confirm_your_ride screen for Taxi and cancel a ride', async () => {
+
+  const testId = "a73ec856-52d6-4bdf-8b9b-0eb82fa06fed"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
 
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");

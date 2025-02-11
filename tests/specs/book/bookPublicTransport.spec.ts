@@ -1,6 +1,7 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Plan Your Trip Screen Verification', () => {
+describe('Book Public Transport', () => {
     before(async () => {
   
         // Find and click LOG IN button
@@ -13,7 +14,21 @@ describe('Plan Your Trip Screen Verification', () => {
   
     });
 
-  it('should display all key elements on Plan Your Trip screen', async () => {
+  it('should display all key elements on Plan Your Trip screen for Public Transport', async () => {
+
+    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
     const publicTransportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
@@ -82,7 +97,21 @@ await driver.executeScript('mobile: scrollGesture', [{
   });
 
 
-  it('should put in destination and book a ticket', async () => {
+  it('should put in destination and book a ticket for Public Transport', async () => {
+
+    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+
   // click on destination and text Rotterdam Zoo Rotterdam
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.addValue("Rotterdam Zoo");
@@ -128,6 +157,20 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
 
   it('should display all key elements and pick up the route', async () => {
+
+    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+
    // Check key elements on route selection screen
     const routeHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Travel Options\")");
     await expect(routeHeader).toBeDisplayed();
@@ -152,7 +195,21 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
 });
 
-it('should check header and final destionation and buy e-ticket', async () => {
+it('should check screen and buy e-ticket', async () => {
+
+  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+  
 
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Travel details\")");
@@ -191,6 +248,19 @@ await expect(backButton).toBeDisplayed();
 
 
 it('final step of confirmation for buying a ticket', async () => {
+
+  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
 
 //check key elements are displayed (header)
 const header = await driver.$("-android uiautomator:new UiSelector().text(\"Buy e-tickets\")");
@@ -233,7 +303,20 @@ const confirmButton = await driver.$("-android uiautomator:new UiSelector().text
 
 });
 
-it('check that key elements are displayed, scroll and click show e-tickets', async () => {
+it('check key elements, scroll and click show e-tickets', async () => {
+
+  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
 
   
   //checking header is displayed
@@ -271,6 +354,20 @@ await driver.pause(7000);
 });
 
 it('check ticket information and click got_it button', async () => {
+
+  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    // Send results
+    try {
+      const result = await submitTestRun(
+        testId,
+        'Pass',
+        'Optional details about the test run'
+      );
+      console.log('Test run submitted successfully:', result);
+    } catch (error) {
+      console.error('Failed to submit test run:', error);
+    }
+
 
 // Check header is displayed
 const ticketHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Ticket\")");

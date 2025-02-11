@@ -107,8 +107,8 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-const testId = "f8809156-2807-4999-a95e-80245d2caf16"
-describe('Check Booking Tests', () => {
+
+describe('Check Reservation Tests', () => {
   let scooters;
 
   before(async () => {
@@ -135,9 +135,9 @@ describe('Check Booking Tests', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  const testId = "f8809156-2807-4999-a95e-80245d2caf16"
-  it('Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
-
+  
+  it('Positive Reservation Scenario for Check Moped: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+    const testId = "f8809156-2807-4999-a95e-80245d2caf16"
 // Send results
 try {
   const result = await submitTestRun(

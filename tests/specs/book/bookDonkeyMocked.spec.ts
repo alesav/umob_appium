@@ -1,7 +1,9 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Bike Booking Test', () => {
+
+describe('Donkey Bike Booking Test', () => {
 
     before(async () => {
   
@@ -20,6 +22,20 @@ describe('Bike Booking Test', () => {
   });
 
   it('Book UMOB Bike 20', async () => {
+
+    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+// Send results
+try {
+  const result = await submitTestRun(
+    testId,
+    'Pass',
+    'Optional details about the test run'
+  );
+  console.log('Test run submitted successfully:', result);
+} catch (error) {
+  console.error('Failed to submit test run:', error);
+}
+
     // Set initial location
     execSync(
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
