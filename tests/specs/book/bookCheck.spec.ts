@@ -106,7 +106,13 @@ const getScreenCenter = async () => {
       throw error;
     }
   };
+<<<<<<< HEAD
+/////////////////////////////////////////////////////////////////////////////////
+
+describe('Check Reservation Tests', () => {
+=======
 describe("Check Booking Tests", () => {
+>>>>>>> 0d574b30e3e6c097f8cb3af4d2f2bcb9931479fc
   let scooters;
 
   before(async () => {
@@ -123,6 +129,23 @@ describe("Check Booking Tests", () => {
     await PageObjects.accountButton.waitForExist();
   });
 
+<<<<<<< HEAD
+  ////////////////////////////////////////////////////////////////////////////////
+  
+  it('Positive Reservation Scenario for Check Moped: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+    const testId = "f8809156-2807-4999-a95e-80245d2caf16"
+// Send results
+try {
+  const result = await submitTestRun(
+    testId,
+    'Pass',
+    'Optional details about the test run'
+  );
+  console.log('Test run submitted successfully:', result);
+} catch (error) {
+  console.error('Failed to submit test run:', error);
+}
+=======
   it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
     const testId = "f8809156-2807-4999-a95e-80245d2caf16";
     let testStatus = "Pass";
@@ -135,6 +158,7 @@ describe("Check Booking Tests", () => {
       execSync(
         `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
       );
+>>>>>>> 0d574b30e3e6c097f8cb3af4d2f2bcb9931479fc
 
       await applyFilters();
       const { centerX, centerY } = await getScreenCenter();

@@ -1,7 +1,8 @@
 import { AfterAll } from "@wdio/cucumber-framework";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Plan Your Trip Screen Verification', () => {
+describe('Book a Taxi', () => {
      before(async () => {
    
          // Find and click LOG IN button
@@ -14,7 +15,18 @@ describe('Plan Your Trip Screen Verification', () => {
    
      });
 
-  it('it should test key elements for book a taxi', async () => {
+  it('test key elements for book a taxi, add destination', async () => {
+
+    const testId = "bea0eebe-b441-4b73-9b11-cae5b162962c"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
+    try {
+
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
     const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
@@ -59,10 +71,51 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     await continueButton.click();
   await driver.pause(15000);
 
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
   });
 
 
   it('should display at least one option for taxi and click select button', async () => {
+
+    const testId = "fb24bdfd-4eb6-410e-90d0-6a220971973a"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
+    try {
   
     // check if at least one option exists with euro price
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
@@ -74,10 +127,52 @@ await expect(selectButton).toBeDisplayed();
 await selectButton.click();
     await driver.pause(5000);
 
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
 });
 
 
-it('should check confirm_your_ride screen', async () => {
+it('should check confirm_your_ride screen for Taxi and cancel a ride', async () => {
+
+  const testId = "4468d287-8cbd-458c-9531-c1ebeffd1093"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
+    try {
 
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
@@ -137,6 +232,38 @@ await driver.pause(7000);
  //check main screen is displayed
 const confirmMainScreen = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
 await expect(confirmMainScreen).toBeDisplayed();
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
 
 });
 

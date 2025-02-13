@@ -9,7 +9,8 @@ const submitTestRun = async (testId, status, details = '', screenshot = null) =>
     // Add the JSON data as a string field
     formData.append('data', JSON.stringify({
       status,
-      details
+      details,
+      "hash":"60e35107-893f-4204-980f-e050c9b8884"
     }));
 
     // Add the screenshot file if provided
@@ -30,11 +31,15 @@ const submitTestRun = async (testId, status, details = '', screenshot = null) =>
       formData.append('file', file);
     }
 
+    console.log("testId:" + testId);
     const response = await fetch('https://umobqa.pages.dev/api/v2/runs/' + testId, {
       method: 'POST',
       // Don't set Content-Type header - browser will set it automatically with boundary
       body: formData
+      
     });
+    
+    console.log("Response:" + response);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
