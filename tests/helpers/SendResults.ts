@@ -9,7 +9,8 @@ const submitTestRun = async (testId, status, details = '', screenshot = null) =>
     // Add the JSON data as a string field
     formData.append('data', JSON.stringify({
       status,
-      details
+      details,
+      "hash": "60e35107-893f-4204-980f-e0150c9b8884"
     }));
 
     // Add the screenshot file if provided

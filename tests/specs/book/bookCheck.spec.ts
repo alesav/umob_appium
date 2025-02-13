@@ -150,7 +150,7 @@ describe("Check Booking Tests", () => {
       const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');
       await expect(prices).toBeDisplayed();
 
-      await driver.$('-android uiautomator:new UiSelector().text("RESERVE123")').waitForEnabled();
+      await driver.$('-android uiautomator:new UiSelector().text("RESERVE1234")').waitForEnabled();
       await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
 
       await driver.$('-android uiautomator:new UiSelector().text("CANCEL")').waitForEnabled();
@@ -169,6 +169,8 @@ describe("Check Booking Tests", () => {
       testStatus = "Fail";
       testDetails = e.message;
 
+      console.log("Test 123")
+
       // Capture screenshot on failure
       screenshotPath = "./screenshots/"+ testId+".png";
       await driver.saveScreenshot(screenshotPath);
@@ -179,6 +181,9 @@ describe("Check Booking Tests", () => {
     } finally {
       // Submit test run result
       try {
+
+        console.log("Test 456")
+
         await submitTestRun(testId, testStatus, testDetails, screenshotPath);
         console.log("Test run submitted successfully");
       } catch (submitError) {
