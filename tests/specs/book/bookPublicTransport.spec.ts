@@ -16,18 +16,15 @@ describe('Book Public Transport', () => {
 
   it('should display all key elements on Plan Your Trip screen for Public Transport', async () => {
 
-    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+     const testId = "ef526412-4497-470b-bcf8-1854b13613c4"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
@@ -94,23 +91,54 @@ await driver.executeScript('mobile: scrollGesture', [{
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+  
   });
 
 
   it('should put in destination and book a ticket for Public Transport', async () => {
 
-    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+    const testId = "25c6b504-c751-443e-9092-cc33a650d19c"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
 
   // click on destination and text Rotterdam Zoo Rotterdam
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
@@ -153,23 +181,53 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
   await continuePress.click();
   await driver.pause(10000);
 
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
   });
 
 
   it('should display all key elements and pick up the route', async () => {
 
-    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+    const testId = "a9cd327a-1c6c-450e-b299-48656dac1663"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
 
    // Check key elements on route selection screen
     const routeHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Travel Options\")");
@@ -191,24 +249,52 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     await firstRoutePrice.click();
     await driver.pause(2000);
 
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
     
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
 
 });
 
 it('should check screen and buy e-ticket', async () => {
 
-  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+  const testId = "b7149cf2-3c8f-40d2-ac3b-3f4c4362fa89"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
   
 
   //check header is displayed
@@ -243,24 +329,54 @@ await expect(backButton).toBeDisplayed();
   //await expect(buyButton.isEnabled()).toBe(true);
   await buyButton.click();
   await driver.pause(7000);
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
   
 });
 
 
 it('final step of confirmation for buying a ticket', async () => {
 
-  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+  const testId = "2923bdca-4d57-4962-94d7-09907c0068d3"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
 
 //check key elements are displayed (header)
 const header = await driver.$("-android uiautomator:new UiSelector().text(\"Buy e-tickets\")");
@@ -301,22 +417,52 @@ const confirmButton = await driver.$("-android uiautomator:new UiSelector().text
   await confirmButton.click();
   await driver.pause(15000);
 
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
 });
 
 it('check key elements, scroll and click show e-tickets', async () => {
 
-  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+  const testId = "bf5c25a6-a863-4635-820f-5459703ccbe2"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
 
   
   //checking header is displayed
@@ -350,23 +496,53 @@ await driver.pause(7000);
   await showButton.click();
   await driver.pause(10000);
 
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
 
 });
 
 it('check ticket information and click got_it button', async () => {
 
-  const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
-    // Send results
+  const testId = "f8b9d103-0549-434c-ba15-a133b7e806b6"
+
+// Send results
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
     try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-    } catch (error) {
-      console.error('Failed to submit test run:', error);
-    }
+
 
 
 // Check header is displayed
@@ -436,6 +612,38 @@ try {
   // Fallback to content-desc
   const gotItButtonAlt = await driver.$('[content-desc="ride-details-primary-button"]');
   await gotItButtonAlt.click();
+}
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
 }
 
 });

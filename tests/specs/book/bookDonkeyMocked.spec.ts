@@ -23,18 +23,14 @@ describe('Donkey Bike Booking Test', () => {
 
   it('Book UMOB Bike 20', async () => {
 
-    const testId = "7a51aa16-2e2c-40d6-abf4-571d91eed81a"
+    const testId = "4421c5ee-46d9-40d9-867c-0ea5c0a5ddce"
 // Send results
-try {
-  const result = await submitTestRun(
-    testId,
-    'Pass',
-    'Optional details about the test run'
-  );
-  console.log('Test run submitted successfully:', result);
-} catch (error) {
-  console.error('Failed to submit test run:', error);
-}
+let testStatus = "Pass";
+    let screenshotPath = "";
+    let testDetails = ""
+    let error = null;
+
+    try {
 
     // Set initial location
     execSync(
@@ -136,6 +132,38 @@ try {
     // Click close button
     const closeButton = await driver.$("accessibility id:closeButton-text");
     await closeButton.click();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
   });
 
   afterEach(async () => {

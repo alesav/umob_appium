@@ -163,25 +163,23 @@ describe('Mocked Umob Scooter Booking Tests', () => {
         await driver.$(
           '-android uiautomator:new UiSelector().text("Account")'
         ).waitForEnabled();
+
+        
+
   });
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Positive Scenario: Book Mocked Umob Scooter with ID UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE', async () => {
 
 
-    const testId = "c2e1a14f-f63c-4aa8-a657-2a22057a6058"
-    // Send results
-    try {
-      const result = await submitTestRun(
-        testId,
-        'Pass',
-        'Optional details about the test run'
-      );
-      console.log('Test run submitted successfully:', result);
-      } catch (error) {
-        console.error('Failed to submit test run:', error);
-        }
+    const testId = "bcc7fe09-7a38-4ae4-a952-35020cd08cf7"
+   // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
 
+try {
     const targetScooter = scooters.find(
       scooter => scooter.id === 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE'
     );
@@ -337,12 +335,55 @@ describe('Mocked Umob Scooter Booking Tests', () => {
           await driver.$(
             '-android uiautomator:new UiSelector().text("Account")'
           ).waitForEnabled();
+
+        } catch (e) {
+          error = e;
+          console.error("Test failed:", error);
+          testStatus = "Fail";
+          testDetails = e.message;
+      
+          console.log("TEST 123")
+      
+          // Capture screenshot on failure
+          screenshotPath = "./screenshots/"+ testId+".png";
+          await driver.saveScreenshot(screenshotPath);
+          // execSync(
+          //   `adb exec-out screencap -p > ${screenshotPath}`
+          // );
+          
+        } finally {
+          // Submit test run result
+          try {
+              console.log("TEST 456")
+      
+            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+            console.log("Test run submitted successfully");
+          } catch (submitError) {
+            console.error("Failed to submit test run:", submitError);
+          }
+      
+          // If there was an error in the main try block, throw it here to fail the test
+          if (error) {
+            throw error;
+          }
+        }
    
 
   });
 
   ////////////////////////////////////////////////////////////////////////////////////
   it('Negative Scenario: Vehicle Not Operational Error', async () => {
+
+    const testId = "7cbc5c95-5d52-4ef0-898d-e0646091633b"
+   // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
+
     const targetScooter = scooters.find(
       scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_VEHICLE_NOT_OPERATIONAL'
     );
@@ -400,10 +441,53 @@ describe('Mocked Umob Scooter Booking Tests', () => {
     await driver.$(
       '-android uiautomator:new UiSelector().text("VEHICLE_NOT_OPERATIONAL (60000)")'
     ).waitForDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
   });
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Negative Scenario: User Blocked Error', async () => {
+
+    const testId = "50eedb87-d5d3-4848-a9c2-7318831cd974"
+   // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
     const targetScooter = scooters.find(
       scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_USER_BLOCKED'
     );
@@ -463,11 +547,54 @@ describe('Mocked Umob Scooter Booking Tests', () => {
     await driver.$(
       '-android uiautomator:new UiSelector().text("USER_BLOCKED (60000)")'
     ).waitForDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
   });
 
 
     ////////////////////////////////////////////////////////////////////////////////
     it('Negative Scenario: Book Scooter with Geo Error (UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR)', async () => {
+
+      const testId = "e5d22565-01c6-4e29-9d9c-627922756a39"
+   // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
       const targetScooter = scooters.find(
         scooter => scooter.id === 'UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR'
       );
@@ -681,9 +808,52 @@ describe('Mocked Umob Scooter Booking Tests', () => {
     //           await driver.$(
     //             '-android uiautomator:new UiSelector().text("CLOSE")'
     //           ).click();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+
+    console.log("TEST 123")
+
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
     });
 
     it('Negative Scenario: Book Scooter with Geo OUTSIDE OF SERVICE AREA (UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE)', async () => {
+
+      const testId = "bc02c0ce-4c5f-4649-8f7f-d0f16ee79e86"
+   // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
       const targetScooter = scooters.find(
         scooter => scooter.id === 'UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE'
       );
@@ -727,6 +897,38 @@ describe('Mocked Umob Scooter Booking Tests', () => {
           await driver.$(
             '-android uiautomator:new UiSelector().text("Account")'
           ).waitForEnabled();
+
+        } catch (e) {
+          error = e;
+          console.error("Test failed:", error);
+          testStatus = "Fail";
+          testDetails = e.message;
+      
+          console.log("TEST 123")
+      
+          // Capture screenshot on failure
+          screenshotPath = "./screenshots/"+ testId+".png";
+          await driver.saveScreenshot(screenshotPath);
+          // execSync(
+          //   `adb exec-out screencap -p > ${screenshotPath}`
+          // );
+          
+        } finally {
+          // Submit test run result
+          try {
+              console.log("TEST 456")
+      
+            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+            console.log("Test run submitted successfully");
+          } catch (submitError) {
+            console.error("Failed to submit test run:", submitError);
+          }
+      
+          // If there was an error in the main try block, throw it here to fail the test
+          if (error) {
+            throw error;
+          }
+        }
 
     });
 
