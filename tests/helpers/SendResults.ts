@@ -31,15 +31,17 @@ const submitTestRun = async (testId, status, details = '', screenshot = null) =>
       formData.append('file', file);
     }
 
-    console.log("testId:" + testId);
-    const response = await fetch('https://umobqa.pages.dev/api/v2/runs/' + testId, {
+    const postUrl = 'https://umobqa.pages.dev/api/v2/runs/' + testId;
+
+    console.log("POST URL:" + postUrl);
+    const response = await fetch(postUrl, {
       method: 'POST',
       // Don't set Content-Type header - browser will set it automatically with boundary
       body: formData
       
     });
     
-    console.log("Response:" + response);
+    console.log("Response:" + JSON.stringify(response));
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

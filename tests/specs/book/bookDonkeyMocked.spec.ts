@@ -9,7 +9,8 @@ describe('Donkey Bike Booking Test', () => {
   
         // Find and click LOG IN button
         const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-        await logInBtn.isClickable();
+        await logInBtn.isClickable();    
+        await driver.pause(5000);
         await logInBtn.click();
   
         await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
