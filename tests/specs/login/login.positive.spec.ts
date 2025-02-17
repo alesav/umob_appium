@@ -1,5 +1,6 @@
 // Hello
 import { execSync } from "child_process";
+import submitTestRun from '../../helpers/SendResults.js';
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -20,6 +21,16 @@ describe('Login positive scenarios,', () => {
     });
 
     it('should display all key elements on the initial screen', async () => {
+
+      const testId = "97ad3bd3-1c89-4fbf-8f25-28c32e138a7f"
+      // Send results
+   let testStatus = "Pass";
+   let screenshotPath = "";
+   let testDetails = ""
+   let error = null;
+   
+   try {
+
       // Check sign up and registration elements
       const signUpTitle = await driver.$('-android uiautomator:new UiSelector().text("Sign up & get €10,-")');
       await expect(signUpTitle).toBeDisplayed();
@@ -36,9 +47,53 @@ describe('Login positive scenarios,', () => {
 
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await expect(logInBtn).toBeDisplayed();
+
+    } catch (e) {
+      error = e;
+      console.error("Test failed:", error);
+      testStatus = "Fail";
+      testDetails = e.message;
+    
+      console.log("TEST 123")
+    
+      // Capture screenshot on failure
+      screenshotPath = "./screenshots/"+ testId+".png";
+      await driver.saveScreenshot(screenshotPath);
+      // execSync(
+      //   `adb exec-out screencap -p > ${screenshotPath}`
+      // );
+      
+    } finally {
+      // Submit test run result
+      try {
+          console.log("TEST 456")
+    
+        await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+        console.log("Test run submitted successfully");
+      } catch (submitError) {
+        console.error("Failed to submit test run:", submitError);
+      }
+    
+      // If there was an error in the main try block, throw it here to fail the test
+      if (error) {
+        throw error;
+      }
+    }
+
     });
 
+
     it('should be able to login successfully', async () => {
+
+      const testId = "0dcfc86c-c4da-41ca-93ec-2836b814721a"
+      // Send results
+   let testStatus = "Pass";
+   let screenshotPath = "";
+   let testDetails = ""
+   let error = null;
+   
+   try {
+
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.click();
@@ -95,6 +150,39 @@ describe('Login positive scenarios,', () => {
       // Navigate to Account section
       const accountButton = await driver.$("accessibility id:menu_button_account");
       await accountButton.click();
+
+    } catch (e) {
+      error = e;
+      console.error("Test failed:", error);
+      testStatus = "Fail";
+      testDetails = e.message;
+    
+      console.log("TEST 123")
+    
+      // Capture screenshot on failure
+      screenshotPath = "./screenshots/"+ testId+".png";
+      await driver.saveScreenshot(screenshotPath);
+      // execSync(
+      //   `adb exec-out screencap -p > ${screenshotPath}`
+      // );
+      
+    } finally {
+      // Submit test run result
+      try {
+          console.log("TEST 456")
+    
+        await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+        console.log("Test run submitted successfully");
+      } catch (submitError) {
+        console.error("Failed to submit test run:", submitError);
+      }
+    
+      // If there was an error in the main try block, throw it here to fail the test
+      if (error) {
+        throw error;
+      }
+    }
+
     });
 
     it('should be able to terminate the app', async () => {

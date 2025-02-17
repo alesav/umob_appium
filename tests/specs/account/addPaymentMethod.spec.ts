@@ -1,8 +1,9 @@
 import { execSync } from "child_process";
+import submitTestRun from "../../helpers/SendResults.js";
 
 
 /////////////////////////////////////////////////////////////////////////////////
-describe('Lime Scooter Booking Tests', () => {
+describe('Add Payment Methdo', () => {
   let scooters;
 
   before(async () => {
@@ -64,6 +65,17 @@ describe('Lime Scooter Booking Tests', () => {
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Positive Scenario: Add credit card', async () => {
+
+    const testId = "19f3aab0-8cd8-4770-9093-d329714dc817"
+    
+    // Send results
+    let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = ""
+        let error = null;
+    
+        try {
+    
     await driver.pause(2000);
 
         // Check Account is presented
@@ -149,7 +161,39 @@ describe('Lime Scooter Booking Tests', () => {
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).waitForDisplayed();
 
+        } catch (e) {
+          error = e;
+          console.error("Test failed:", error);
+          testStatus = "Fail";
+          testDetails = e.message;
+        
+          console.log("TEST 123")
+        
+          // Capture screenshot on failure
+          screenshotPath = "./screenshots/"+ testId+".png";
+          await driver.saveScreenshot(screenshotPath);
+          // execSync(
+          //   `adb exec-out screencap -p > ${screenshotPath}`
+          // );
+          
+        } finally {
+          // Submit test run result
+          try {
+              console.log("TEST 456")
+        
+            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+            console.log("Test run submitted successfully");
+          } catch (submitError) {
+            console.error("Failed to submit test run:", submitError);
+          }
+        
+          // If there was an error in the main try block, throw it here to fail the test
+          if (error) {
+            throw error;
+          }
+        }
 
+        
   });
 
 

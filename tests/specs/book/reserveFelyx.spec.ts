@@ -133,9 +133,9 @@ describe('Reserve Felyx Test', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Felyx moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Positive Scenario: Reserve Felyx moped', async () => {
 
-    const testId = "296e871b-b22b-46ec-bf33-567bab7ef35f"
+    const testId = "4820ba79-0e15-4d1e-88f7-61e204392233"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
