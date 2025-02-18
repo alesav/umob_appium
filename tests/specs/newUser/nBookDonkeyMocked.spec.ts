@@ -11,7 +11,7 @@ describe('Donkey Bike Booking Test For The New User Without Card', () => {
         await logInBtn.isClickable();
         await logInBtn.click();
   
-        await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
+        await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
   
   
     });

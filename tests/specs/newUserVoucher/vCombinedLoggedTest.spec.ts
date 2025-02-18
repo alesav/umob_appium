@@ -1,6 +1,7 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Combined test for logged in user', () => {
+describe('Combined tests for logged in user with unlimited multi voucher', () => {
 
   
   beforeEach(async () => {
@@ -21,6 +22,16 @@ describe('Combined test for logged in user', () => {
 
 
 it('should display key navigation elements on the main screen', async () => {
+
+  const testId = "f66e0031-f31a-4694-b769-3aa9772b80fe"
+  // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
   // Verify bottom navigation menu items
   const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("Taxi")');
   await expect(taxiButton).toBeDisplayed();
@@ -41,11 +52,55 @@ it('should display key navigation elements on the main screen', async () => {
   // Check for map root element
   const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
   await expect(mapRoot).toBeDisplayed();
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+
 });
 
 
 
   it('should display all key account screen elements', async () => {
+
+    const testId = "18fb8bc3-a1db-44af-81a4-53df167418cd"
+  // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
@@ -100,11 +155,54 @@ it('should display key navigation elements on the main screen', async () => {
     // Verify back button is present
     const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
     await expect(backButton).toBeDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key My Rides & Tickets screen elements', async () => {
+
+    const testId = "cbbfbc83-2d4c-484f-88c6-9ac7da5fdbef"
+    // Send results
+  let testStatus = "Pass";
+  let screenshotPath = "";
+  let testDetails = ""
+  let error = null;
+  
+  try {
     
     // Click on Account button
    const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -147,11 +245,54 @@ it('should display key navigation elements on the main screen', async () => {
     // back to common list of account menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key My Payments screen elements', async () => {
+
+    const testId = "da75bc89-8bb5-4db1-9e42-524161e964a5"
+    // Send results
+  let testStatus = "Pass";
+  let screenshotPath = "";
+  let testDetails = ""
+  let error = null;
+  
+  try {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -191,11 +332,55 @@ it('should display key navigation elements on the main screen', async () => {
     // back to common list of account menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key Personal Info screen elements', async () => {
+
+    const testId = "6a7a6836-8165-4e41-acca-16665c6539dc"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -303,11 +488,54 @@ it('should display key navigation elements on the main screen', async () => {
     // click back button to main acount menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key Ride Credit screen elements', async () => {
+
+    const testId = "3f9c12b7-8c3f-4a3e-bc2c-fdb09536c0a2"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -361,11 +589,54 @@ it('should display key navigation elements on the main screen', async () => {
     // click back button to main acount menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key Invite Friends screen elements', async () => {
+
+    const testId = "9c072b4f-6df0-41f8-a64e-42b410edb3e0"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -408,11 +679,54 @@ it('should display key navigation elements on the main screen', async () => {
     // click back button to main acount menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
   
   it('should display all key Payment Settings screen elements', async () => {
+
+    const testId = "40a243d5-466e-4a01-8de2-7e40b713f260"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
 
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -459,9 +773,54 @@ it('should display key navigation elements on the main screen', async () => {
     // click back button to main acount menu
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
+
   it('should display all key ID Document screen elements', async () => {
+
+    const testId = "a4ff4276-103e-439b-9e0a-f13ff1900ec4"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
     // Navigate to Account screen first
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     await accountButton.click();
@@ -557,9 +916,54 @@ it('should display key navigation elements on the main screen', async () => {
     // Optional: Verify main container
     const idDocumentContainer = await driver.$("-android uiautomator:new UiSelector().description(\"IdDocumentContainer\")");
     await expect(idDocumentContainer).toBeDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
+
   it('should display all key delete account screen elements', async () => {
+
+    const testId = "a3b733a8-a9ba-42cf-b0d9-5b5dff6af6f6"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
     // Click on Account button
     const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     await accountButton.click();
@@ -619,9 +1023,55 @@ it('should display key navigation elements on the main screen', async () => {
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
+
   it('should display all key map theme settings screen elements', async () => {
+
+    const testId = "3b2fecf4-01af-4c36-9a14-819cbbe70f1b"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
+
     // Click on Settings button to navigate to settings
     const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     await settingsButton.click();
@@ -670,11 +1120,54 @@ it('should display key navigation elements on the main screen', async () => {
     // click back button to go to the app settings
     await backButton.click();
     await driver.pause(2000);
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 
 
   it('should display all key language screen elements and settings screen key elements', async () => {
+
+    const testId = "73556f25-f1ad-4985-abc5-4d9459a2509c"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
     
     const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     await settingsButton.click();
@@ -738,10 +1231,55 @@ it('should display key navigation elements on the main screen', async () => {
     const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
     await expect(logoutButton).toBeDisplayed();
 
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
+
   });
 
   
   it('should successfully logout from the app', async () => {
+
+    const testId = "fc651985-1b70-4dbe-96a9-87e00a3f96b1"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
+
     // Click on Settings button to navigate to settings
     const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     await settingsButton.click();
@@ -755,6 +1293,40 @@ it('should display key navigation elements on the main screen', async () => {
     // verify Sign up button appeared
     const signUpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Sign up\")");
     await expect(signUpButton).toBeDisplayed();
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
+
+
   });
 
 

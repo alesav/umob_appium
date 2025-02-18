@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDU5MTE1MDksImlhdCI6MTczODEzNTUwOSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjgwODcyNmQ4LWRhNzEtNDI5Zi1iYTE2LWU4MjA4Y2IwMzkwNiIsInN1YiI6IjA1Nzg4NjE2LTc3NDUtNDJiZC05MjgyLTI2ZGM3MmU2OWJhNiIsInVuaXF1ZV9uYW1lIjoibmV3NkBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc2QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW1pdGxlc3MgIiwiZmFtaWx5X25hbWUiOiJOZXc2IiwiZW1haWwiOiJuZXc2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE2MTY1NjE5MDkiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImFiNWRhNTYwLWQ4YWQtMjdjNy00YzMxLTNhMTdjMzFmZjI2MSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiOTE1YzQ5OS0yNmY3LTliOTktYzM3Zi0zYTE3YzMxZmYyYTUifQ.ByPVz_kFwrxDY57_zqqJQZ7VLz76aZcEvSqLpNlIx2xzyjF3Azdnut6oq1P95Ij2E4Wjhsv1N5efciATjzEcOIGyRdGNxsfCV_F1Ci5DRrQaDOK362hVhpiVbdbGQWeR8S4qFYUHum-wFWgYBZB5bBiz91Vr_odMtVAzyk277W1gXF0DsbPHXVX7gC8zzN-sRvCad5ixbQHGOQ0uOEgHZXX15vAJZOA6PmqgLlP_d_8_2YbYn2kT8ha1brRv00T5MFplyVOjAV8eoKkZ32KYiQ456VAGxYBt9wdD-BC1vz1d2GOnUbyHJdZMEDRzT0Ylt5_TcF3bqf-wnpAhGJeu6A';
@@ -106,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Book Felyx Test', () => {
+describe('Felyx Booking Test with unlimited multi voucher', () => {
   let scooters;
 
   before(async () => {
@@ -132,7 +133,17 @@ describe('Book Felyx Test', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Felyx moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Book Felyx moped with multi voucher', async () => {
+    
+    const testId = "9a8a6f87-2ccd-42c9-9676-b1bd0b8b27a3"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+    
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
@@ -418,6 +429,41 @@ await expect(lastRide1).toBeDisplayed();
           await driver.pause(2000);
 
 */
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+
+
   });
 
 

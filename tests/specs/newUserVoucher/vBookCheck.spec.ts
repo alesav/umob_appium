@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDUyMzc4ODUsImlhdCI6MTczNzQ2MTg4NSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjI0ZGM1OTVlLWQwM2UtNDU3Ny04MGVmLWQ4MDI0NGM0NzFhZCIsInN1YiI6IjA1Nzg4NjE2LTc3NDUtNDJiZC05MjgyLTI2ZGM3MmU2OWJhNiIsInVuaXF1ZV9uYW1lIjoibmV3NkBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc2QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW1pdGxlc3MgIiwiZmFtaWx5X25hbWUiOiJOZXc2IiwiZW1haWwiOiJuZXc2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE2MTY1NjE5MDkiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjM1MTY5ZDdmLTI4NDEtYTJlMi02OWQzLTNhMTc5YWY5NDI3NiIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiI5MDJiM2E4Ny1hMDVkLWI2MmQtY2UwNi0zYTE3OWFmOTQyOTUifQ.1A3cHFkl9yVIdO9eG4dFLDCu3JnfY3_nl59P8P2i038NAkiR1wlFZBfq2nNUuikKXnwFiqsDQwSzWjkdvb5zeyxKtcRTmD_f6-VZRDuYiSAa16Hr-panm65tQWsyqaWdEIjG9qFHhKxNj0f69f03V6sKOcOtTsJ03PJBKyrAzrg2R_Nb7Eeyer1XSlabfOpnHVcjdnT2wd9Ykun85KkBfRsKTxC4aRzqxVu84MwOr-RNwHr8JOvUI45n407IwAXKwo2MYNfHKDEm3JiUgVTm6FSWU3F5TP0ln9XvogcNnc54qmV3f09VrUk3XW3yO18GEbZeR0mLufUS4pjje-1Sww';
@@ -106,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Check Booking Tests', () => {
+describe('Check Booking Test with unlimited multi voucher', () => {
   let scooters;
 
   before(async () => {
@@ -132,7 +133,17 @@ describe('Check Booking Tests', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Book Check moped with multi voucher. Moped ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+    
+    const testId = "d4866e43-1015-4cf3-aa2c-2f32b6842f6a"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+    
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
@@ -409,6 +420,38 @@ await myRides.click();
 //verify that payment is visible in my rides and tickets screen and it is 0 Euro
 const lastRide1 = await driver.$('-android uiautomator:new UiSelector().textContains("€0")');
 await expect(lastRide1).toBeDisplayed();
+
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
 
 
   });

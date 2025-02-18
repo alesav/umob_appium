@@ -1,7 +1,8 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Bike Booking Test', () => {
+describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
 
     before(async () => {
   
@@ -19,7 +20,17 @@ describe('Bike Booking Test', () => {
     await driver.activateApp("com.umob.umob");
   });
 
-  it('Book UMOB Bike 20', async () => {
+  it('Book Donkey UMOB Bike 20 with multi voucher', async () => {
+
+    const testId = "5599063f-c9d2-427c-89eb-bcc23d3c669f"
+    // Send results
+ let testStatus = "Pass";
+ let screenshotPath = "";
+ let testDetails = ""
+ let error = null;
+ 
+ try {
+
     // Set initial location
     execSync(
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
@@ -178,6 +189,39 @@ describe('Bike Booking Test', () => {
     //verify that payment is visible in my rides and tickets screen and it is 0 Euro
     const lastRide1 = await driver.$('-android uiautomator:new UiSelector().textContains("€0")');
     await expect(lastRide1).toBeDisplayed();
+
+
+  } catch (e) {
+    error = e;
+    console.error("Test failed:", error);
+    testStatus = "Fail";
+    testDetails = e.message;
+  
+    console.log("TEST 123")
+  
+    // Capture screenshot on failure
+    screenshotPath = "./screenshots/"+ testId+".png";
+    await driver.saveScreenshot(screenshotPath);
+    // execSync(
+    //   `adb exec-out screencap -p > ${screenshotPath}`
+    // );
+    
+  } finally {
+    // Submit test run result
+    try {
+        console.log("TEST 456")
+  
+      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+      console.log("Test run submitted successfully");
+    } catch (submitError) {
+      console.error("Failed to submit test run:", submitError);
+    }
+  
+    // If there was an error in the main try block, throw it here to fail the test
+    if (error) {
+      throw error;
+    }
+  }
 
 
   });

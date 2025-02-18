@@ -22,7 +22,7 @@ describe('Donkey Bike Booking Test', () => {
     await driver.activateApp("com.umob.umob");
   });
 
-  it('Book UMOB Bike 20', async () => {
+  it('Book Donkey UMOB Bike 20', async () => {
 
     const testId = "4421c5ee-46d9-40d9-867c-0ea5c0a5ddce"
 // Send results

@@ -133,10 +133,10 @@ describe('Reserve Felyx Test For The New User Without Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Reserve Felyx Moped Without Card with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Reserve Felyx Moped Without Card', async () => {
    
     
-    const testId = "cdf289df-b14f-4f7d-8874-aca9e633b5aa"
+    const testId = "f8c39b91-153c-431c-8c49-8bf1246f7416"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -188,6 +188,7 @@ describe('Reserve Felyx Test For The New User Without Card', () => {
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
     await driver.pause(2000);
+    
 
     //verify that payment method not set up
     await driver.$(

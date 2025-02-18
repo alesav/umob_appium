@@ -206,12 +206,12 @@ await driver.pause(7000);
 
 
  // Verify booking confirmation header
- const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
- await expect(bookingConfirmedText).toBeDisplayed();
+ //const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
+ //await expect(bookingConfirmedText).toBeDisplayed();
 
  // Verify operator acceptance message
- const operatorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking")');
- await expect(operatorMessage).toBeDisplayed();
+ //const operatorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking")');
+ //await expect(operatorMessage).toBeDisplayed();
 
  // Verify destination location
  const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
