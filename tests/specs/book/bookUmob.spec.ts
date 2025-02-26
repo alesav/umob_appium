@@ -115,6 +115,7 @@ describe('Mocked Umob Scooter Booking Tests', () => {
 
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+      await driver.pause(2000);
       await logInBtn.click();
 
       // Login form elements

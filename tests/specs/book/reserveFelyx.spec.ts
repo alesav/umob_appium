@@ -117,6 +117,7 @@ describe('Reserve Felyx Test', () => {
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.isClickable();
+      await driver.pause(2000);
       await logInBtn.click();
 
       await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });

@@ -1,5 +1,6 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import { execSync } from "child_process";
 
 describe('Book Public Transport', () => {
     before(async () => {
@@ -10,6 +11,11 @@ describe('Book Public Transport', () => {
         await logInBtn.click();
   
         await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+
+            // Set location to specific scooter coordinates
+            execSync(
+              `adb shell am startservice -e longitude 4.467446 -e latitude 51.9242868 io.appium.settings/.LocationService`
+            );
   
   
     });
@@ -409,6 +415,7 @@ const agreementText = await driver.$("~I agree to the sharing of personal data r
 
 //click to the checking box
 const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(21)');
+await expect(checkbox).toBeDisplayed();
 await checkbox.click();
 
 //click on enabled confirm button and wait 10seconds

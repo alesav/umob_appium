@@ -137,6 +137,8 @@ describe('Combined Not Logged User Tests', () => {
     const where = await driver.$("-android uiautomator:new UiSelector().text(\"Where\")");
     await expect(where).toBeDisplayed();
 
+    // Click on "FAQ" to be sure you are in the right place
+    await faq.click()
     
         // Verify main content headers and text
         const contentElements = [
@@ -408,11 +410,11 @@ for (const text of contentElements2) {
     const alreadyHaveAccountText = await driver.$('android=new UiSelector().text("Already have an account? ")');
     await expect(alreadyHaveAccountText).toBeDisplayed();
 
-    // Verify "Sign in" button
+    // Verify "Login" button
     const signInButton = await driver.$('~login_button');
     await expect(signInButton).toBeDisplayed();
-    const signInButtonText = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Sign in")');
-    await expect(await signInButtonText.getText()).toBe("Sign in");
+    const signInButtonText = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Login")');
+    await expect(await signInButtonText.getText()).toBe("Login");
 
   } catch (e) {
     error = e;

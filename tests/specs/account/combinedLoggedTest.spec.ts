@@ -15,6 +15,7 @@ describe('Combined test for the logged in user with rides history', () => {
     // Find and click LOG IN button
     const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
     await logInBtn.isClickable();
+    await driver.pause(2000);
     await logInBtn.click();
 
     await PageObjects.login({ username:'new@gmail.com', password: '123Qwerty!' });
