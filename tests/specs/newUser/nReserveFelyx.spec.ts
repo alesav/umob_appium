@@ -107,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Reserve Felyx Test For The New User Without Card', () => {
+describe('Trying to Reserve Felyx by a New User Without a Card', () => {
   let scooters;
 
   before(async () => {
@@ -133,7 +133,7 @@ describe('Reserve Felyx Test For The New User Without Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Reserve Felyx Moped Without Card', async () => {
+  it('Trying to Reserve Felyx Moped Without a Card', async () => {
    
     
     const testId = "f8c39b91-153c-431c-8c49-8bf1246f7416"

@@ -218,6 +218,7 @@ await driver.pause(7000);
  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
+ await driver.pause(10000);
  const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().textContains("Cancel")');
  await expect(cancelTripButton).toBeDisplayed();
  await driver.pause(1000);

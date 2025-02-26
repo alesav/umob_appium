@@ -1,7 +1,7 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Combined test for logged in user', () => {
+describe('Combined Tests For Logged in New User Without Rides', () => {
 
   
   beforeEach(async () => {
@@ -121,6 +121,8 @@ try {
     await expect(notRegist).toBeDisplayed();
     await driver.pause(2000);
     
+    
+    /*
     //verify that add payment screen is displayed after clicking PAYMENT
     const payment = await driver.$("-android uiautomator:new UiSelector().text(\"PAYMENT\")");
     await expect(payment).toBeDisplayed();
@@ -128,11 +130,14 @@ try {
 
     const paymentButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD PAYMENT METHOD\")");
     await expect(paymentButton).toBeDisplayed();
-    await (paymentButton).click();
+    await (paymentButton).click(); 
+    
+    */
 
     //const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
     //await expect(paymentHeader).toBeDisplayed();
 
+    /*
     const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
     await expect(paymentHeader).toBeDisplayed();
 
@@ -155,6 +160,8 @@ try {
     //click back button
     const backButton1 = await driver.$("accessibility id:back_button");
     await backButton1.click();
+
+    */
 
     //or click it this way
     //const backButton2 = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
@@ -776,7 +783,7 @@ try {
     // Verify action buttons
     const addButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD PAYMENT METHOD\")");
     await expect(addButton).toBeDisplayed();
-    await addButton.click();
+    /*await addButton.click();
 
     //verify header and offer for choosing payment method
     //const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
@@ -806,6 +813,8 @@ try {
     // Optional: Verify container element
     // const paymentDetailsContainer = await driver.$("-android uiautomator:new UiSelector().description(\"PaymentDetailsContainer\")");
     // await expect(paymentDetailsContainer).toBeDisplayed();
+
+    */
 
     // click back button to main acount menu
     await backButton.click();

@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Donkey Bike Booking Test For The New User Without Card', () => {
+describe('Trying to Book Donkey bike by a New User Without a Card', () => {
 
     before(async () => {
   
@@ -20,7 +20,7 @@ describe('Donkey Bike Booking Test For The New User Without Card', () => {
     await driver.activateApp("com.umob.umob");
   });
 
-  it('Book Donkey UMOB Bike 20 Without Card', async () => {
+  it('New User is Trying to Book Donkey UMOB Bike 20 Without a Card', async () => {
 
     const testId = "a66df007-2bfa-4531-af52-87e3eec81280"
     // Send results

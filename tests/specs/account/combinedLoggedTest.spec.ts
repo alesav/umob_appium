@@ -1,7 +1,7 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Combined test for the logged in user with rides history', () => {
+describe('Combined test for the logged in old user with rides history', () => {
 
   
   beforeEach(async () => {

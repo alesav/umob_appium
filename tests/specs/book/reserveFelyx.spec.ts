@@ -80,7 +80,7 @@ const getScreenCenter = async () => {
           stationId: "",
           longitude: 4.47586407,
           latitude: 51.92502035,
-          radius: 1166.6137310913994,
+          radius: 116.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],
@@ -117,6 +117,7 @@ describe('Reserve Felyx Test', () => {
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.isClickable();
+      await driver.pause(2000);
       await logInBtn.click();
 
       await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });

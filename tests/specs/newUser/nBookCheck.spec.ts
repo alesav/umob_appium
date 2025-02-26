@@ -107,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Check Reservation Tests For The New User Without Card', () => {
+describe('Trying to Reserve Check by a New User Without a Card', () => {
   let scooters;
 
   before(async () => {
@@ -119,7 +119,7 @@ describe('Check Reservation Tests For The New User Without Card', () => {
       await logInBtn.isClickable();
       await logInBtn.click();
 
-      await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
+      await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -133,7 +133,7 @@ describe('Check Reservation Tests For The New User Without Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Check moped Withou Card with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('New user is trying to Reserve Check moped without a card Check:b76ce2d0-7fe5-4914-9d1b-580928859efd)', async () => {
     
     const testId = "0fe2a0b7-708f-4a27-98e2-f62dfbf77bed"
     // Send results

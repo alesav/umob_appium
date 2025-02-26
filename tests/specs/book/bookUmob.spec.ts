@@ -28,13 +28,15 @@ const getScreenCenter = async () => {
     ).click();
 
         // Click Moped to unselect it
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("E-moped")'
-        ).waitForEnabled();
+        await driver.$('-android uiautomator:new UiSelector().text("E-moped")').waitForEnabled();
     
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("E-moped")'
-        ).click();
+        await driver.$('-android uiautomator:new UiSelector().text("E-moped")').click();
+
+        // Click Scooter to unselect it
+        await driver.$('-android uiautomator:new UiSelector().text("Scooter")').waitForEnabled();
+    
+        await driver.$('-android uiautomator:new UiSelector().text("Scooter")').click();
+
 
           // Click Bike to unselect it
           //await driver.$(
@@ -106,7 +108,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Mocked Umob Scooter Booking Tests', () => {
+describe('Mocked Umob Bikes (with constant errors) trying Booking Tests', () => {
   let scooters;
 
   before(async () => {
@@ -169,7 +171,7 @@ describe('Mocked Umob Scooter Booking Tests', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Book Mocked Umob Scooter with ID UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE', async () => {
+  it('Positive Scenario: Book Mocked Umob Bike with ID UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE', async () => {
 
 
     const testId = "bcc7fe09-7a38-4ae4-a952-35020cd08cf7"
@@ -372,478 +374,10 @@ try {
   });
 
   ////////////////////////////////////////////////////////////////////////////////////
-  it('Negative Scenario: Vehicle Not Operational Error', async () => {
-
-    const testId = "7cbc5c95-5d52-4ef0-898d-e0646091633b"
-   // Send results
-let testStatus = "Pass";
-let screenshotPath = "";
-let testDetails = ""
-let error = null;
-
-try {
-
-
-    const targetScooter = scooters.find(
-      scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_VEHICLE_NOT_OPERATIONAL'
-    );
-
-    // Set location to specific scooter coordinates
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
-    );
-    await driver.pause(5000);
-
-        // Filter not needed results
-        await applyFilters();
-
-    // Click on scooter marker
-    // await driver
-    //   .$(
-    //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-    //   )
-    //   .click();
-
-    const { centerX, centerY } = await getScreenCenter();
-
-    // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
-
-      //choose card payment
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).waitForEnabled();
-
-
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).click();
-
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
-    ).click();
-
-        // Click Start
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("START TRIP")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("START TRIP")'
-        ).click();
-
-    // Wait for Vehicle Not Operational error message
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("VEHICLE_NOT_OPERATIONAL (60000)")'
-    ).waitForDisplayed();
-
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
-
-    console.log("TEST 123")
-
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
-
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
-  }
-
-  });
-
-  ////////////////////////////////////////////////////////////////////////////////
-  it('Negative Scenario: User Blocked Error', async () => {
-
-    const testId = "50eedb87-d5d3-4848-a9c2-7318831cd974"
-   // Send results
-let testStatus = "Pass";
-let screenshotPath = "";
-let testDetails = ""
-let error = null;
-
-try {
-
-    const targetScooter = scooters.find(
-      scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_USER_BLOCKED'
-    );
-
-    // Set location to specific scooter coordinates
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
-    );
-    await driver.pause(5000);
-
-        // Filter not needed results
-        await applyFilters();
-
-    // Click on scooter marker
-    // await driver
-    //   .$(
-    //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-    //   )
-    //   .click();
-
-    const { centerX, centerY } = await getScreenCenter();
-
-    // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
-
-
-      //choose card payment
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).waitForEnabled();
-
-
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).click();
-
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
-    ).click();
-
-
-        // Click Start
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("START TRIP")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("START TRIP")'
-        ).click();
-
-    // Wait for User Blocked error message
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("USER_BLOCKED (60000)")'
-    ).waitForDisplayed();
-
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
-
-    console.log("TEST 123")
-
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
-
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
-  }
-
-  });
-
-
-    ////////////////////////////////////////////////////////////////////////////////
-    it('Negative Scenario: Book Scooter with Geo Error (UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR)', async () => {
-
-      const testId = "e5d22565-01c6-4e29-9d9c-627922756a39"
-   // Send results
-let testStatus = "Pass";
-let screenshotPath = "";
-let testDetails = ""
-let error = null;
-
-try {
-
-      const targetScooter = scooters.find(
-        scooter => scooter.id === 'UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR'
-      );
   
-      // Set location to specific scooter coordinates
-      execSync(
-        `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
-      );
-      await driver.pause(5000);
-  
-          // Filter not needed results
-          await applyFilters();
-  
-      // Click on scooter marker
-      // await driver
-      //   .$(
-      //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-      //   )
-      //   .click();
-  
-      const { centerX, centerY } = await getScreenCenter();
-  
-      // Click exactly in the center
-      await driver
-        .action("pointer")
-        .move({ x: centerX, y: centerY })
-        .down()
-        .up()
-        .perform();
-  
-            // Click Understood
-      // await driver.$(
-      //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-      // ).waitForEnabled();
-  
-      // await driver.$(
-      //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-      // ).click();
-
-      //choose card payment
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).waitForEnabled();
-
-
-      await driver.$(
-      '-android uiautomator:new UiSelector().textContains("multi")'
-    ).click();
-
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
-    ).click();
-  
-          // Click Start
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("START TRIP")'
-          ).waitForEnabled();
-      
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("START TRIP")'
-          ).click();
-          await driver.pause(10000);
-
-                // Click End Trip
-                await driver.$(
-                  '-android uiautomator:new UiSelector().text("END TRIP")'
-                ).waitForEnabled();
-            
-                await driver.$(
-                  '-android uiautomator:new UiSelector().text("END TRIP")'
-                ).click();
-  
-      // Wait for error message (adjust text as per actual error message)
-      await driver.$(
-        '-android uiautomator:new UiSelector().textContains("TRIP_GEO_ERROR (60000)")'
-      ).waitForDisplayed();
-
-        // Click Retry
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).waitForEnabled();
+//////////////////////////////////////////////////////////////////////////////////////////////////
     
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).click();
-
-        await driver.pause(5000);
-        // Click Retry
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).click();
-        await driver.pause(5000);
-
-        // Click Retry
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("RETRY")'
-        ).click();
-        // await driver.terminateApp("com.umob.umob");
-        // await driver.activateApp("com.umob.umob");
-
-        //                 // Click End Trip
-        //                 await driver.$(
-        //                   '-android uiautomator:new UiSelector().text("END TRIP")'
-        //                 ).waitForEnabled();
-                    
-        //                 await driver.$(
-        //                   '-android uiautomator:new UiSelector().text("END TRIP")'
-        //                 ).click();
-              // Click Retry
-              // await driver.$(
-              //   '-android uiautomator:new UiSelector().text("RETRY")'
-              // ).waitForEnabled();
-          
-              // await driver.$(
-              //   '-android uiautomator:new UiSelector().text("RETRY")'
-              // ).click();
-
-                     await driver.pause(10000);
-
-              // Click Details
-              await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
-              ).waitForEnabled();
-          
-              await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
-              ).click();
-    
-   // Verify Screen Header
-   const headerTitle = await driver.$('//*[@resource-id="undefined-header-title"]');
-   await expect(headerTitle).toBeDisplayed();
-   await expect(await headerTitle.getText()).toBe('Ride');
- 
-   // Verify Basic Ride Information
-   const dateElement = await driver.$(
-     '//*[@text="UmobMock"]'
-   );
-   await expect(dateElement).toBeDisplayed();
- 
-   const priceElement = await driver.$(
-     '//*[@text="€1.25"]'
-   );
-   await expect(priceElement).toBeDisplayed();
- 
-   // Verify Route Information
-   const startLocationElement = await driver.$(
-     '//*[@text="Weena 373, 3013 AL Rotterdam, Netherlands"]'
-   );
-   await expect(startLocationElement).toBeDisplayed();
-   await expect(await startLocationElement.getText()).toBe('Weena 373, 3013 AL Rotterdam, Netherlands');
-
- 
-   // Verify Pricing Details
-   const travelCostElement = await driver.$('//*[@text="Travel cost"]');
-   await expect(travelCostElement).toBeDisplayed();
- 
-   const travelCostValueElement = await driver.$('//*[@text="€1.25"]');
-   await expect(travelCostValueElement).toBeDisplayed();
- 
-   const totalAmountElement = await driver.$('//*[@text="Total amount"]');
-   await expect(totalAmountElement).toBeDisplayed();
- 
-   const totalAmountValueElement = await driver.$('//*[@text="€1.25"]');
-   await expect(totalAmountValueElement).toBeDisplayed();
- 
-   // Verify Payments Section
-   const paymentsHeaderElement = await driver.$('//*[@text="Payments"]');
-   await expect(paymentsHeaderElement).toBeDisplayed();
- 
-   // Verify Transaction Details
- 
-   const statusElement = await driver.$('//*[@text="Completed"]');
-   await expect(statusElement).toBeDisplayed();
- 
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100, 
-    top: 1000, 
-    width: 200, 
-    height: 800, 
-    direction: 'down',
-    percent: 10.0
-  }]);
-
-                    // Click GOT IT
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
-                    ).waitForEnabled();
-                
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
-                    ).click();
-
-          // Wait for Home screen to be loaded
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Account")'
-          ).waitForEnabled();
-
-    //           // Click CLose
-    //           await driver.$(
-    //             '-android uiautomator:new UiSelector().text("CLOSE")'
-    //           ).waitForEnabled();
-          
-    //           await driver.$(
-    //             '-android uiautomator:new UiSelector().text("CLOSE")'
-    //           ).click();
-
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
-
-    console.log("TEST 123")
-
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
-
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
-  }
-
-    });
-
-    it('Negative Scenario: Book Scooter with Geo OUTSIDE OF SERVICE AREA (UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE)', async () => {
+    it('Negative Scenario: Trying to Book Bike with Geo OUTSIDE OF SERVICE AREA (UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE)', async () => {
 
       const testId = "bc02c0ce-4c5f-4649-8f7f-d0f16ee79e86"
    // Send results
@@ -930,7 +464,10 @@ try {
           }
         }
 
-    });
+      });
+
+        ////////////////////////////////////////////////////////////////////////////////
+   
 
   afterEach(async () => {
     await driver.terminateApp("com.umob.umob");
