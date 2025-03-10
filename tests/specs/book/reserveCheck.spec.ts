@@ -17,6 +17,7 @@ const getScreenCenter = async () => {
     };
   };
 
+  /*
   // Filter mopeds and stations 
   const applyFilters = async () => {
     // Click ? icon
@@ -61,6 +62,8 @@ const getScreenCenter = async () => {
             ).click();
 
   };
+
+  */
 
   const fetchScooterCoordinates = async () => {
     try {
@@ -126,7 +129,7 @@ describe('Check Reservation Tests', () => {
   });
 
   it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
-    const testId = "f8809156-2807-4999-a95e-80245d2caf16";
+    const testId = "a803283c-c3ca-419e-b25c-6eb20254e186";
     let testStatus = "Pass";
     let screenshotPath = "";
     let testDetails = ""
@@ -137,8 +140,8 @@ describe('Check Reservation Tests', () => {
       execSync(
         `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
       );
-
-      await applyFilters();
+      await driver.pause(4000);
+      //await applyFilters();
       const { centerX, centerY } = await getScreenCenter();
 
       await driver

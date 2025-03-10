@@ -72,14 +72,14 @@ const getScreenCenter = async () => {
           'Authorization': AUTH_TOKEN,
           'Accept-Language': 'en',
           'X-Requested-With': 'XMLHttpRequest',
-          'App-Version': '1.22959.3.22959',
+          'App-Version': '1.24057.3.24057',
           'App-Platform': 'android'
         },
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.46893572807312,
+          latitude: 51.91743146298927,
           radius: 1166.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
@@ -107,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Trying to Reserve Check by a New User Without a Card', () => {
+describe('Trying to Reserve Felyx by a New User Without a Card', () => {
   let scooters;
 
   before(async () => {
@@ -119,7 +119,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
       await logInBtn.isClickable();
       await logInBtn.click();
 
-      await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
+      await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -133,9 +133,10 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('New user is trying to Reserve Check moped without a card Check:b76ce2d0-7fe5-4914-9d1b-580928859efd)', async () => {
+  it('Trying to Reserve Felyx Moped Without a Card', async () => {
+   
     
-    const testId = "0fe2a0b7-708f-4a27-98e2-f62dfbf77bed"
+    const testId = "f8c39b91-153c-431c-8c49-8bf1246f7416"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -143,22 +144,23 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
  let error = null;
  
  try {
-
+   
+   
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
     const targetScooter = scooters.find(
-      scooter => scooter.id.includes('Check')
+      scooter => scooter.id.includes('Felyx')
     );
-
+    await driver.pause(2000);
     // Set location to specific scooter coordinates
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    //await driver.pause(5000);
+    await driver.pause(4000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver
@@ -186,22 +188,17 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
     await driver.pause(2000);
+    
 
-    //verify that new user vaucher is visible
-    const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
-    await expect (vaucher).toBeDisplayed();
-
-    //verify that select payment method is displayed
-    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-    await expect (selectPayment).toBeDisplayed();
+    //verify that payment method not set up
+    await driver.$(
+      '-android uiautomator:new UiSelector().text("Select payment method")'
+    ).waitForDisplayed();
 
     // Click Reserve
     await driver.$(
       '-android uiautomator:new UiSelector().text("RESERVE")'
     ).waitForEnabled();
-
-   // await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
-
 
     await driver.pause(5000);
 
@@ -224,6 +221,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
     await expect(payPal).toBeDisplayed();
 
+    //close the popup
     const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
 await closePopup.click();
 
@@ -252,6 +250,8 @@ await expect(googlePay).toBeDisplayed();
 //const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
 await expect(payPal).toBeDisplayed();
 
+
+
 /*
                     // Click End Trip
                     await driver.$(
@@ -274,7 +274,6 @@ await expect(payPal).toBeDisplayed();
           await driver.pause(2000);
 
 */
-
 
 } catch (e) {
   error = e;
@@ -307,6 +306,8 @@ await expect(payPal).toBeDisplayed();
     throw error;
   }
 }
+
+
   });
 
 

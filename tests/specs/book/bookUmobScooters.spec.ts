@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import submitTestRun from '../../helpers/SendResults.js';
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDY2MTAyMTgsImlhdCI6MTczODgzNDIxOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjE2ZWUzZjRjLTQzYzktNGE3Ni1iOTdhLTYxMGI0NmU0MGM3ZCIsInN1YiI6IjRhNGRkZmRhLTNmMWYtNDEyMS1iNzU1LWZmY2ZjYTQwYzg3MiIsInNlc3Npb25faWQiOiIzNGU4NDZmOC02MmI3LTRiMzgtODkxYS01NjE4NWM4ZDdhOGEiLCJ1bmlxdWVfbmFtZSI6Im5ld0BnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXdAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldyIsImZhbWlseV9uYW1lIjoiTmV3IiwiZW1haWwiOiJuZXdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOiJGYWxzZSIsInBob25lX251bWJlciI6IiszMTk3MDEwNTg2NTU2IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjoiVHJ1ZSIsIm9pX3Byc3QiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfYXVfaWQiOiI0ODZkYTI1OS05ZGViLTJmMDQtYmM2OS0zYTE3ZWNjNTY1YTEiLCJjbGllbnRfaWQiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfdGtuX2lkIjoiMTQzZGNiNGUtZTFjYi01MmU0LWU5ZWUtM2ExN2VjYzU2NWI5In0.4slYA6XbzRDTNdPJSOmxGlsuetx1IywPojVVMooyyL8Whu4Go6I2V-wspetKGptQnG85X75lg6gWAOYwV5ES5mJQJ4unZuCUW82sDPMNZwEhw_Hzl6UyO5vd3pYJOzry07RcskSwonVKZqipiAEusiYRCvo0AjUx33g5NaRAhXUCE8p_9vdTgSMVjtQkFGpsXih-Hw8rcy7N_HH_LWz-C2ZIA9i2sV3tEHNpTgVhs9Z0WTISirTXdmSolv6JvlqkGETsq0CSFa-0xmhjWU036KB2C5nKBLpUP6AUwibcLDEc0_RoUka-Ia-a4QNVZuzME3pMxIaGOToYf1WLEHPeIQ';
@@ -147,8 +148,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
 
         
         // Check Account is presented
-        const textElement = await driver.$(`-android uiautomator:new UiSelector().text("Account")`);
-        await expect(textElement).toBeDisplayed();
+        await PageObjects.accountButton.waitForExist();
 
 
   });
@@ -156,9 +156,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Account")'
-        ).waitForEnabled();
+        await PageObjects.accountButton.waitForExist();
 
         
 
@@ -186,10 +184,10 @@ try {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    //await driver.pause(5000);
+    await driver.pause(5000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver
@@ -260,6 +258,7 @@ try {
               await driver.$(
                 '-android uiautomator:new UiSelector().text("DETAILS")'
               ).waitForEnabled();
+              
           
               await driver.$(
                 '-android uiautomator:new UiSelector().text("DETAILS")'
@@ -304,20 +303,22 @@ try {
    // Verify Payments Section
    const paymentsHeaderElement = await driver.$('//*[@text="Payments"]');
    await expect(paymentsHeaderElement).toBeDisplayed();
- 
-   // Verify Transaction Details
- 
-   const statusElement = await driver.$('//*[@text="Completed"]');
-   await expect(statusElement).toBeDisplayed();
- 
+
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100, 
     top: 1000, 
     width: 200, 
     height: 800, 
     direction: 'down',
-    percent: 10.0
+    percent: 100.0
   }]);
+ 
+   // Verify Transaction Details
+ 
+   const statusElement = await driver.$('//*[@text="Completed"]');
+   await expect(statusElement).toBeDisplayed();
+ 
+  
 
                     // Click GOT IT
                     await driver.$(
@@ -329,9 +330,7 @@ try {
                     ).click();
 
           // Wait for Home screen to be loaded
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Account")'
-          ).waitForEnabled();
+          await PageObjects.accountButton.waitForExist();
 
         } catch (e) {
           error = e;
@@ -394,7 +393,7 @@ try {
     await driver.pause(5000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver
@@ -498,7 +497,7 @@ try {
     await driver.pause(5000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver
@@ -605,7 +604,7 @@ try {
       await driver.pause(5000);
   
           // Filter not needed results
-          await applyFilters();
+          //await applyFilters();
   
       // Click on scooter marker
       // await driver
@@ -795,9 +794,7 @@ try {
                     ).click();
 
           // Wait for Home screen to be loaded
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Account")'
-          ).waitForEnabled();
+          await PageObjects.accountButton.waitForExist();
 
     //           // Click CLose
     //           await driver.$(

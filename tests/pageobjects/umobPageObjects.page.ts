@@ -12,7 +12,8 @@ class PageObjects extends Page {
     get flash () { return $('#flash'); }
 
     // The main screen with the map
-    get accountButton () { return $('-android uiautomator:new UiSelector().text("Account")'); } 
+    //get accountButton () { return $('-android uiautomator:new UiSelector().text("Account")'); } 
+    get accountButton () { return $('-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)'); } 
 
     // My account screen
     // ....

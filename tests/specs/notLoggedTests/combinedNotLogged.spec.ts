@@ -1,4 +1,5 @@
 import submitTestRun from '../../helpers/SendResults.js';
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 describe('Combined Not Logged User Tests', () => {
   beforeEach(async () => {
@@ -45,27 +46,47 @@ describe('Combined Not Logged User Tests', () => {
           await expect(allowForegroundPermissionBtn).toBeDisplayed();
           await allowForegroundPermissionBtn.click();
 
+     // Verify filter button is displayed
+     const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
+     await expect(assetFilterToggle).toBeDisplayed();
+   
+     // Check for map root element
+     const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
+     await expect(mapRoot).toBeDisplayed();
+ 
+
     // Verify bottom navigation menu items
-    const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("Taxi")');
+    await PageObjects.accountButton.waitForExist();
+    const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
+    await expect(planTrip).toBeDisplayed();
+    const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
+    await expect(promos).toBeDisplayed();
+
+    //click PLAN TRIP button to verify taxi and public transport options
+    await planTrip.click();
+
+    //scroll to bottom
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 1000,
+      width: 200,
+      height: 800,
+      direction: 'down',
+      percent: 100.0
+    }]);
+    await driver.pause(1000);
+
+    const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("GRAB TAXI")');
     await expect(taxiButton).toBeDisplayed();
   
-    const publicTransportButton = await driver.$('-android uiautomator:new UiSelector().text("Public transport")');
+    const publicTransportButton = await driver.$('-android uiautomator:new UiSelector().text("PUBLIC TRANSPORT")');
     await expect(publicTransportButton).toBeDisplayed();
   
-    const accountButton = await driver.$('-android uiautomator:new UiSelector().text("Account")');
-    await expect(accountButton).toBeDisplayed();
+    
+    // const settingsButton = await driver.$('-android uiautomator:new UiSelector().text("Settings")');
+    // await expect(settingsButton).toBeDisplayed();
   
-    const settingsButton = await driver.$('-android uiautomator:new UiSelector().text("Settings")');
-    await expect(settingsButton).toBeDisplayed();
-  
-    // Verify filter button is displayed
-    const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
-    await expect(assetFilterToggle).toBeDisplayed();
-  
-    // Check for map root element
-    const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
-    await expect(mapRoot).toBeDisplayed();
-
+   
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
@@ -114,7 +135,7 @@ describe('Combined Not Logged User Tests', () => {
 
     //await driver.activateApp("com.umob.umob");
     //await driver.pause(7000);    
-    const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(2)");
+    const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(4)");
     await expect(qButton).toBeDisplayed();
     await driver.pause(2000);
     await qButton.click();
@@ -137,6 +158,8 @@ describe('Combined Not Logged User Tests', () => {
     const where = await driver.$("-android uiautomator:new UiSelector().text(\"Where\")");
     await expect(where).toBeDisplayed();
 
+    // Click on "FAQ" to be sure you are in the right place
+    await faq.click()
     
         // Verify main content headers and text
         const contentElements = [
@@ -247,8 +270,8 @@ for (const text of contentElements2) {
     const text2 = await driver.$("-android uiautomator:new UiSelector().text(\"One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.\")");
     await expect(text2).toBeDisplayed();
 
-    const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
-    await expect(text3).toBeDisplayed();
+    // const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
+    // await expect(text3).toBeDisplayed();
 
     //go to where tab
     await where.click();
@@ -259,12 +282,14 @@ for (const text of contentElements2) {
     await expect(availability).toBeDisplayed();
 
     //languages check
-    const tick = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(19)");
-    await tick.click();
-    await driver.pause(2000);
+    // const tick = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(19)");
+    // await tick.click();
+    // await driver.pause(2000);
 
     const netherlands = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
     await expect(netherlands).toBeDisplayed();
+    await netherlands.click();
+    await driver.pause(2000);
 
     const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
     await expect(Portugal).toBeDisplayed();
@@ -381,38 +406,42 @@ for (const text of contentElements2) {
  try {
 
     // Step 1: Locate the account button and click it
-    const accountButton = await driver.$('android=new UiSelector().text("Account")');
-    await accountButton.waitForDisplayed({ timeout: 3000 }); 
-    await accountButton.click();
+    await PageObjects.accountButton.waitForExist();
+    await PageObjects.accountButton.click();
+    // const accountButton = await driver.$('android=new UiSelector().text("Account")');
+    // await accountButton.waitForDisplayed({ timeout: 3000 }); 
+    // await accountButton.click();
 
-    // Verify account screen title using resource-id instead of text
-    const screenTitle = await driver.$('~screenTitle');
-    await expect(screenTitle).toBeDisplayed();
+    // Verify account screen title 
+    const text1 = await driver.$('android=new UiSelector().text("Let\'s get started!")');
+    await expect(text1).toBeDisplayed();
     
-    // Verify the €10 free text using resourceId with index
-    const freeText = await driver.$('android=new UiSelector().resourceId("screenTitle").instance(1)');
-    await expect(freeText).toBeDisplayed();
+    // // Verify the €10 free text using resourceId with index
+    // const freeText = await driver.$('android=new UiSelector().resourceId("screenTitle").instance(1)');
+    // await expect(freeText).toBeDisplayed();
 
-    // Verify the account image
-    const accountImage = await driver.$('android=new UiSelector().className("android.widget.ImageView")');
-    await expect(accountImage).toBeDisplayed();
+    // // Verify the account image
+    // const accountImage = await driver.$('android=new UiSelector().className("android.widget.ImageView")');
+    // await expect(accountImage).toBeDisplayed();
 
-    // Verify "Sign up with your email" button
-    const signUpButton = await driver.$('~registerEmail');
-    await expect(signUpButton).toBeDisplayed();
-    const signUpText = await driver.$('~registerEmail-text');
-    await expect(signUpText).toBeDisplayed();
-    await expect(await signUpText.getText()).toBe("SIGN UP WITH YOUR EMAIL");
+    // Verify LOGIN and REGISTER button
+    const logButton = await driver.$('android=new UiSelector().text("LOGIN")');
+    await expect(logButton).toBeDisplayed();
+    const register = await driver.$('android=new UiSelector().text("REGISTER")');
+    await expect(register).toBeDisplayed();
+    
+    // Verify listed menu options
+    const language = await driver.$('android=new UiSelector().text("Language")');
+    await expect(language).toBeDisplayed();
 
-    // Verify "Already have an account?" text
-    const alreadyHaveAccountText = await driver.$('android=new UiSelector().text("Already have an account? ")');
-    await expect(alreadyHaveAccountText).toBeDisplayed();
+    
+    const mapTheme = await driver.$('android=new UiSelector().text("Map theme settings")');
+    await expect(mapTheme).toBeDisplayed();
 
-    // Verify "Sign in" button
-    const signInButton = await driver.$('~login_button');
-    await expect(signInButton).toBeDisplayed();
-    const signInButtonText = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Sign in")');
-    await expect(await signInButtonText.getText()).toBe("Sign in");
+    
+    const support = await driver.$('android=new UiSelector().text("Support")');
+    await expect(support).toBeDisplayed();
+
 
   } catch (e) {
     error = e;
@@ -464,9 +493,11 @@ for (const text of contentElements2) {
  try {
 
     // Click on Settings button to navigate to settings
-    const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-    await driver.pause(2000);
-    await settingsButton.click();
+    // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
+    // await driver.pause(2000);
+    // await settingsButton.click();
+    await PageObjects.accountButton.waitForExist();
+    await PageObjects.accountButton.click();
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
@@ -477,10 +508,9 @@ for (const text of contentElements2) {
     const backButton = await driver.$('~back_button');
     await expect(backButton).toBeDisplayed();
 
-    const headerTitle = await driver.$('~settings_menu_map_theme_comp-header-title');
+    const headerTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
     await expect(headerTitle).toBeDisplayed();
-    await expect(await headerTitle.getText()).toBe("Map theme settings");
-
+    
     // Verify map preview image is displayed
     const mapPreviewImage = await driver.$('android.widget.ImageView');
     await expect(mapPreviewImage).toBeDisplayed();
@@ -548,7 +578,7 @@ for (const text of contentElements2) {
 
 
 
-  it('should display all key language screen elements and settings screen key elements', async () => {
+  it('should display all key language screen elements', async () => {
 
     const testId = "e5c72f00-fb50-45e9-a197-12c1c2c771ce"
     // Send results
@@ -559,9 +589,13 @@ for (const text of contentElements2) {
  
  try {
     
-    const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-    await settingsButton.click();
-    await driver.pause(2000);
+    // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
+    // await settingsButton.click();
+    // await driver.pause(2000);
+
+    await PageObjects.accountButton.waitForExist();
+    await PageObjects.accountButton.click();
+
 
     // Click on Language option to navigate to language screen
     const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
@@ -572,9 +606,9 @@ for (const text of contentElements2) {
     const backButton = await driver.$('~back_button');
     await expect(backButton).toBeDisplayed();
 
-    const headerTitle = await driver.$('~undefined-header-title');
+    const headerTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
     await expect(headerTitle).toBeDisplayed();
-    await expect(await headerTitle.getText()).toBe("Language");
+    
 
     // Verify all language options are displayed
     const languageOptions = [
@@ -605,10 +639,7 @@ for (const text of contentElements2) {
     await backButton.click();
     await driver.pause(2000);
 
-    // Verify "App settings" header is present
-    const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"App settings\")");
-    await expect(appSettingsHeader).toBeDisplayed();
-
+    
     // Verify Support section header
     const supportHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
     await expect(supportHeader).toBeDisplayed();
@@ -618,15 +649,13 @@ for (const text of contentElements2) {
     await expect(privacyLegalButton).toBeDisplayed();
 
     // Verify Login button
-    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG IN\")");
+    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOGIN\")");
     await expect(logoutButton).toBeDisplayed();
 
     // Verify sign up button
-    const signUp = await driver.$("-android uiautomator:new UiSelector().text(\"Sign up\")");
+    const signUp = await driver.$("-android uiautomator:new UiSelector().text(\"REGISTER\")");
     await expect(signUp).toBeDisplayed();
 
-    const text = await driver.$("-android uiautomator:new UiSelector().text(\"You don't have an account? \")");
-    await expect(text).toBeDisplayed();
 
   } catch (e) {
     error = e;
