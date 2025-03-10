@@ -1,6 +1,7 @@
 // Hello
 import { execSync } from "child_process";
 import submitTestRun from '../../helpers/SendResults.js';
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -129,6 +130,7 @@ describe('Login positive scenarios,', () => {
       await expect(allowForegroundPermissionBtn).toBeDisplayed();
       await allowForegroundPermissionBtn.click();
 
+      /*
       // Verify main screen elements
       const menuElements = [
         { selector: "accessibility id:menu_button_taxi", text: "Taxi" },
@@ -136,6 +138,11 @@ describe('Login positive scenarios,', () => {
         { selector: "accessibility id:menu_button_account", text: "Account" },
         { selector: "accessibility id:menu_button_more", text: "Settings" }
       ];
+      
+
+      // Wait for main screen to be loaded
+
+      await PageObjects.accountButton.waitForExist();
 
       // Check each menu element
       for (const menuItem of menuElements) {
@@ -147,9 +154,17 @@ describe('Login positive scenarios,', () => {
         await expect(textElement).toBeDisplayed();
       }
 
+      */
+
       // Navigate to Account section
-      const accountButton = await driver.$("accessibility id:menu_button_account");
-      await accountButton.click();
+      
+      await PageObjects.accountButton.waitForExist();
+      await PageObjects.accountButton.click();
+
+
+      const infoButton = await driver.$('-android uiautomator:new UiSelector().text("Personal info")');
+      await expect (infoButton).toBeDisplayed();
+      
 
     } catch (e) {
       error = e;

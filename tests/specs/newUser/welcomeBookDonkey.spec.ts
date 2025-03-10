@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 
-describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
+describe('Donkey Bike Booking Test with Welcome voucher for the New User', () => {
 
     before(async () => {
   
@@ -11,7 +11,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
         await logInBtn.isClickable();
         await logInBtn.click();
   
-        await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+        await PageObjects.login({ username:'new15@gmail.com', password: '123Qwerty!' });
   
   
     });
@@ -20,9 +20,9 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     await driver.activateApp("com.umob.umob");
   });
 
-  it('Book Donkey UMOB Bike 20 with multi voucher', async () => {
+  it('Book Donkey UMOB Bike 20 with Welcome voucher for the New User', async () => {
 
-    const testId = "5599063f-c9d2-427c-89eb-bcc23d3c669f"
+    const testId = "594c7a95-242a-48f6-9fbf-6a6d29911fc5"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -54,13 +54,14 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     await umob20Button.click();
 
     //verify that new user voucher is visible
-    const voucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+    const voucher = await driver.$('-android uiautomator:new UiSelector().textContains("New User Donkey")');
     await expect (voucher).toBeDisplayed();
 
     //verify that payment card is displayed
     const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("**** **** 1115")');
     await expect (selectPayment).toBeDisplayed();
 
+    /*
     //click to choose limitless voucher
     await voucher.click();
     await driver.pause(2000);
@@ -80,14 +81,8 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
         await expect (selectPayment).toBeDisplayed();
         await expect (multiVoucher).toBeDisplayed();
 
-    /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
-
+    
+      */
     // Click continue button
     await driver.pause(5000);
     const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
@@ -152,7 +147,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     await expect(usedVoucher).toBeDisplayed();
 
     //verify used voucher is dispayed
-    const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+    const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("New User")');
     await expect(multiVoucher1).toBeDisplayed();
 
     //Scroll to bottom
@@ -170,9 +165,11 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     await expect(gotIt).toBeDisplayed();
     await gotIt.click();
 
-    //verify that main map screen is displayed
+    // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+
+    await driver.pause(2000);
 
     //verify that my account screen is displayed
     const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');

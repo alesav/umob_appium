@@ -88,7 +88,7 @@ let testStatus = "Pass";
       width: 200,
       height: 100,
       direction: 'down',
-      percent: 10
+      percent: 100
     }]); 
 
     /*const screen = await driver.getWindowRect();

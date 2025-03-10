@@ -3,7 +3,7 @@ import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
-const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiJiMzI0ZDRlNy01OGNmLTRkZTMtOWE2Yi04N2YxYzcyYzM0ZjUiLCJ1bmlxdWVfbmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJBbGVrcyIsImZhbWlseV9uYW1lIjoiU2F2IiwiZW1haWwiOiI0YmlnZm9vdCsxOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwicGhvbmVfbnVtYmVyIjoiKzMxOTcwMTA1ODc3MjQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjRkYTQ1MTk2LTA2OTEtYjg4MC04MTM2LTNhMTZlNTk4OWY2NSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiIyYTlhNjMwNS1hMjYxLTgwMjQtOTQ5Yy0zYTE2ZTU5ODlmN2EiLCJhdWQiOiJ1TW9iIiwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyB1TW9iIiwianRpIjoiY2QyM2VlMzktMTE2Mi00ZDhmLTkyMDgtZDgxMDdiZTc2MGYxIiwiaXNzIjoiaHR0cHM6Ly9iYWNrZW5kLXRlc3QudW1vYmFwcC5jb20vIiwiZXhwIjoxNzQyMTk0ODc2LCJpYXQiOjE3MzQ0MTg4NzZ9.u6ndZq46MDie48o9UNmzjTzAmSpyEJcHEmgKWkKB_UT0EC6vQXSIifrrD3KtFy9gD_Y0DFa3k043uRvEp7Cp1Gnu1OEWl6BKjIi0FOZ4yHTHPgTLhSQWSFfxJx_0yjtanvmC5aFg-t6kGvA76S8QMlbNYOKJf9R3mv3fPmnC1jIRMlZeIuikzHBJ1D3czlx1Pk3lFjsWoQcdZbWEpsRY4PEv28uLfh46COq2myEHDA_mk9WG-V7ocPuNRYiHamHcjttHem5Y_yNNUfoXDPwsQSlehtAuZnB6dyIL1C5OrNl5ZfyFiD1p6XWuBAFUmh5wOSWE23Fmm8fruD2UXSPPWg';
+const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDUxNTA0MjgsImlhdCI6MTczNzM3NDQyOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6ImQyM2Y2ZDY1LTQ2ZjEtNDcxZi1hMGRmLTUyOWU3ZmVlYTdiYSIsInN1YiI6IjY1NzAxOWU2LWFiMGItNGNkNS1hNTA0LTgwMjUwNmZiYzc0YyIsInVuaXF1ZV9uYW1lIjoibmV3NUBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc1QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJOZXc1IiwiZmFtaWx5X25hbWUiOiJOZXc1IiwiZW1haWwiOiJuZXc1QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE5NzAxMDU4MDM0MSIsInBob25lX251bWJlcl92ZXJpZmllZCI6IlRydWUiLCJvaV9wcnN0IjoidU1vYl9BcHBfT3BlbklkZGljdCIsIm9pX2F1X2lkIjoiYTIyZWNjMjYtMWE4ZC01NDRkLThiN2ItM2ExNzk1YzJjMzRjIiwiY2xpZW50X2lkIjoidU1vYl9BcHBfT3BlbklkZGljdCIsIm9pX3Rrbl9pZCI6IjAwMjQ4OWYyLTAzODYtZTcxZC0xNjljLTNhMTc5NWMyYzQ2MSJ9.s9l5ytG-9PwwF3CVBMJKSG0pkZ5ZBKJrJ5AzNnbYzzuo88qfg1uqv0jE1B7qriZ4qnqoCVxCHkgRxouEGIvWpOezfvSeYlik-GoJAQa20Qf8KkEpa8JTXUXImDKkrmSa7b_4mlP3m1-D8mormBxHhRh4W0O9WreMh3TD3c2NAUNM7Ecq5-3Ax9DAM4lJf-KZYVH1uEb3kD3hFcx68wFNqU5EAjJHZjC0FcA3REJDIfMRoNilpZcNHz4Y8oejcpO2P9I19g3mr0ZDdIIs-HyzASiQr1Mfj6c6lV72HKMpfmlSMO1Iy9juxAPE_wjhXcpi7F9pn3zZmGNdDcukf_feWg';
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -72,15 +72,15 @@ const getScreenCenter = async () => {
           'Authorization': AUTH_TOKEN,
           'Accept-Language': 'en',
           'X-Requested-With': 'XMLHttpRequest',
-          'App-Version': '1.23316.3.23316',
+          'App-Version': '1.22959.3.22959',
           'App-Platform': 'android'
         },
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.46893572807312,
-          latitude: 51.91743146298927,
-          radius: 116.6137310913994,
+          longitude: 4.47586407,
+          latitude: 51.92502035,
+          radius: 1166.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],
@@ -107,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Reserve Felyx Test', () => {
+describe('Trying to Reserve Check by a New User Without a Card', () => {
   let scooters;
 
   before(async () => {
@@ -117,26 +117,25 @@ describe('Reserve Felyx Test', () => {
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.isClickable();
-      await driver.pause(2000);
       await logInBtn.click();
 
-      await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+      await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
 
 
   });
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
-        // Wait for main screen to be loaded
+        // Wait for screen to be loaded
 
         await PageObjects.accountButton.waitForExist();
 
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Reserve Felyx moped', async () => {
-
-    const testId = "4820ba79-0e15-4d1e-88f7-61e204392233"
+  it('New user is trying to reserve Check moped without a card Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+    
+    const testId = "0fe2a0b7-708f-4a27-98e2-f62dfbf77bed"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -145,19 +144,18 @@ describe('Reserve Felyx Test', () => {
  
  try {
 
-
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
     const targetScooter = scooters.find(
-      scooter => scooter.id.includes('Felyx')
+      scooter => scooter.id.includes('Check')
     );
 
     // Set location to specific scooter coordinates
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    await driver.pause(5000);
+    await driver.pause(3000);
 
         // Filter not needed results
         //await applyFilters();
@@ -189,22 +187,76 @@ describe('Reserve Felyx Test', () => {
     // ).click();
     await driver.pause(2000);
 
+    //verify that new user vaucher is visible
+    const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
+    await expect (vaucher).toBeDisplayed();
+
+    //verify that select payment method is displayed
+    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
+    await expect (selectPayment).toBeDisplayed();
+
     // Click Reserve
     await driver.$(
       '-android uiautomator:new UiSelector().text("RESERVE")'
     ).waitForEnabled();
-    await driver.pause(7000);
 
-    await driver.$(
-      '-android uiautomator:new UiSelector().text("RESERVE")'
-    ).click();
+   // await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
 
+
+    await driver.pause(5000);
+
+    const button = await driver.$('-android uiautomator:new UiSelector().text("RESERVE")');
+    await button.click();
+
+    //verify header and offer for choosing payment method
+    const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+    await expect(paymentHeader).toBeDisplayed();
+
+    const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
+    await expect(cards).toBeDisplayed();
+
+    const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
+    await expect(bancontactCard).toBeDisplayed();
+
+    const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+    await expect(googlePay).toBeDisplayed();
+
+    const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
+    await expect(payPal).toBeDisplayed();
+
+    const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
+await closePopup.click();
+
+//verify start trip button is enabled AND CLICK
+await driver.$(
+  '-android uiautomator:new UiSelector().text("START TRIP")'
+).waitForEnabled();
+
+await driver.$(
+  '-android uiautomator:new UiSelector().text("START TRIP")'
+).click();
+
+//verify header and offer for choosing payment method
+//const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+await expect(paymentHeader).toBeDisplayed();
+
+//const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
+await expect(cards).toBeDisplayed();
+
+//const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
+await expect(bancontactCard).toBeDisplayed();
+
+//const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+await expect(googlePay).toBeDisplayed();
+
+//const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
+await expect(payPal).toBeDisplayed();
+
+/*
                     // Click End Trip
                     await driver.$(
                       '-android uiautomator:new UiSelector().text("CANCEL")'
                     ).waitForEnabled();
-
-                    await driver.pause(7000);
                 
                     await driver.$(
                       '-android uiautomator:new UiSelector().text("CANCEL")'
@@ -221,39 +273,40 @@ describe('Reserve Felyx Test', () => {
           ).isDisplayed();
           await driver.pause(2000);
 
-        } catch (e) {
-          error = e;
-          console.error("Test failed:", error);
-          testStatus = "Fail";
-          testDetails = e.message;
-      
-          console.log("TEST 123")
-      
-          // Capture screenshot on failure
-          screenshotPath = "./screenshots/"+ testId+".png";
-          await driver.saveScreenshot(screenshotPath);
-          // execSync(
-          //   `adb exec-out screencap -p > ${screenshotPath}`
-          // );
-          
-        } finally {
-          // Submit test run result
-          try {
-              console.log("TEST 456")
-      
-            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-            console.log("Test run submitted successfully");
-          } catch (submitError) {
-            console.error("Failed to submit test run:", submitError);
-          }
-      
-          // If there was an error in the main try block, throw it here to fail the test
-          if (error) {
-            throw error;
-          }
-        }
+*/
 
 
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
   });
 
 

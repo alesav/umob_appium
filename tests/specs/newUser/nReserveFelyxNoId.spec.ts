@@ -17,6 +17,8 @@ const getScreenCenter = async () => {
     };
   };
 
+
+  /*
   // Filter mopeds and stations 
   const applyFilters = async () => {
     // Click ? icon
@@ -62,6 +64,8 @@ const getScreenCenter = async () => {
 
   };
 
+*/
+
   const fetchScooterCoordinates = async () => {
     try {
       const response = await fetch(API_URL, {
@@ -72,14 +76,14 @@ const getScreenCenter = async () => {
           'Authorization': AUTH_TOKEN,
           'Accept-Language': 'en',
           'X-Requested-With': 'XMLHttpRequest',
-          'App-Version': '1.22959.3.22959',
+          'App-Version': '1.23316.3.23316',
           'App-Platform': 'android'
         },
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.46893572807312,
+          latitude: 51.91743146298927,
           radius: 1166.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
@@ -107,7 +111,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Check Reservation Tests For The New User Without Card', () => {
+describe('Trying to Reserve Felyx by a New User Without a drivers licence', () => {
   let scooters;
 
   before(async () => {
@@ -119,7 +123,7 @@ describe('Check Reservation Tests For The New User Without Card', () => {
       await logInBtn.isClickable();
       await logInBtn.click();
 
-      await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
+      await PageObjects.login({ username:'new12@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -133,9 +137,10 @@ describe('Check Reservation Tests For The New User Without Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('New user is trying to reserve Check moped without a card Check:b76ce2d0-7fe5-4914-9d1b-580928859efd', async () => {
+  it('Trying to Reserve Felyx Moped Without a Driving licence', async () => {
+   
     
-    const testId = "0fe2a0b7-708f-4a27-98e2-f62dfbf77bed"
+    const testId = "bbc84817-0539-4b40-adf9-d7a9ffcebc24"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -143,22 +148,23 @@ describe('Check Reservation Tests For The New User Without Card', () => {
  let error = null;
  
  try {
-
+   
+   
     // const targetScooter = scooters.find(
     //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
     // );
     const targetScooter = scooters.find(
-      scooter => scooter.id.includes('Check')
+      scooter => scooter.id.includes('Felyx')
     );
 
     // Set location to specific scooter coordinates
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    //await driver.pause(5000);
+    await driver.pause(3000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver
@@ -186,95 +192,47 @@ describe('Check Reservation Tests For The New User Without Card', () => {
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
     await driver.pause(2000);
+    
 
-    //verify that new user vaucher is visible
-    const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
-    await expect (vaucher).toBeDisplayed();
-
-    //verify that select payment method is displayed
-    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-    await expect (selectPayment).toBeDisplayed();
+    //verify that driver's licence is not added
+    await driver.$(
+      '-android uiautomator:new UiSelector().text("Add your driver\'s license")'
+    ).waitForDisplayed();
 
     // Click Reserve
     await driver.$(
       '-android uiautomator:new UiSelector().text("RESERVE")'
     ).waitForEnabled();
 
-   // await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
-
-
     await driver.pause(5000);
 
     const button = await driver.$('-android uiautomator:new UiSelector().text("RESERVE")');
     await button.click();
+    await driver.pause(2000);
 
-    //verify header and offer for choosing payment method
-    const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
-    await expect(paymentHeader).toBeDisplayed();
+    //verify id add screen header
+    const idAdd = await driver.$('-android uiautomator:new UiSelector().text("ID document")');
+    await expect (idAdd).toBeDisplayed;
 
-    const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-    await expect(cards).toBeDisplayed();
+    //verify id document status
+    const idStatus = await driver.$('-android uiautomator:new UiSelector().text("Status")');
+    await expect (idStatus).toBeDisplayed;
 
-    const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-    await expect(bancontactCard).toBeDisplayed();
+    const Status = await driver.$('-android uiautomator:new UiSelector().text("No Submitted")');
+    await expect (Status).toBeDisplayed;
 
-    const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-    await expect(googlePay).toBeDisplayed();
+        //verify home adress section and "add" button
+        const homeAddress = await driver.$('-android uiautomator:new UiSelector().text("Home address")');
+        await expect (homeAddress).toBeDisplayed;
 
-    const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-    await expect(payPal).toBeDisplayed();
+        const addressAdd = await driver.$('-android uiautomator:new UiSelector().text("ADD")');
+        await expect (addressAdd).toBeDisplayed;
 
-    const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
-await closePopup.click();
+    //verify that there is add button for driver's licence
+    const docAdd = await driver.$('-android uiautomator:new UiSelector().text("ADD ID DOCUMENT")');
+    await expect (docAdd).toBeDisplayed;
 
-//verify start trip button is enabled AND CLICK
-await driver.$(
-  '-android uiautomator:new UiSelector().text("START TRIP")'
-).waitForEnabled();
-
-await driver.$(
-  '-android uiautomator:new UiSelector().text("START TRIP")'
-).click();
-
-//verify header and offer for choosing payment method
-//const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
-await expect(paymentHeader).toBeDisplayed();
-
-//const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-await expect(cards).toBeDisplayed();
-
-//const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-await expect(bancontactCard).toBeDisplayed();
-
-//const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-await expect(googlePay).toBeDisplayed();
-
-//const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-await expect(payPal).toBeDisplayed();
-
-/*
-                    // Click End Trip
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).waitForEnabled();
-                
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).click();
-
-                    await driver.pause(4000);
-
-          // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
-          await PageObjects.accountButton.click();
-
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("My Account")'
-          ).isDisplayed();
-          await driver.pause(2000);
-
-*/
-
+    
 
 } catch (e) {
   error = e;
@@ -307,6 +265,8 @@ await expect(payPal).toBeDisplayed();
     throw error;
   }
 }
+
+
   });
 
 

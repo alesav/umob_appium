@@ -17,6 +17,7 @@ const getScreenCenter = async () => {
     };
   };
 
+  /*
   // Filter mopeds and stations 
   const applyFilters = async () => {
     // Click ? icon
@@ -62,6 +63,8 @@ const getScreenCenter = async () => {
 
   };
 
+  */
+
   const fetchScooterCoordinates = async () => {
     try {
       const response = await fetch(API_URL, {
@@ -106,14 +109,16 @@ const getScreenCenter = async () => {
       throw error;
     }
   };
-describe("Check Booking Tests", () => {
+/////////////////////////////////////////////////////////////////////////////////
+
+describe('Check Reservation Tests', () => {
   let scooters;
 
   before(async () => {
     scooters = await fetchScooterCoordinates();
     const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
     await logInBtn.isClickable();
-    await driver.pause(3000);
+    await driver.pause(2000);
     await logInBtn.click();
     await PageObjects.login({ username: "4bigfoot+10@gmail.com", password: "123Qwerty!" });
   });
@@ -124,7 +129,7 @@ describe("Check Booking Tests", () => {
   });
 
   it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
-    const testId = "f8809156-2807-4999-a95e-80245d2caf16";
+    const testId = "a803283c-c3ca-419e-b25c-6eb20254e186";
     let testStatus = "Pass";
     let screenshotPath = "";
     let testDetails = ""
@@ -135,8 +140,8 @@ describe("Check Booking Tests", () => {
       execSync(
         `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
       );
-
-      await applyFilters();
+      await driver.pause(4000);
+      //await applyFilters();
       const { centerX, centerY } = await getScreenCenter();
 
       await driver
@@ -150,7 +155,7 @@ describe("Check Booking Tests", () => {
       const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');
       await expect(prices).toBeDisplayed();
 
-      await driver.$('-android uiautomator:new UiSelector().text("RESERVE1234")').waitForEnabled();
+      await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').waitForEnabled();
       await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
 
       await driver.$('-android uiautomator:new UiSelector().text("CANCEL")').waitForEnabled();
@@ -169,8 +174,6 @@ describe("Check Booking Tests", () => {
       testStatus = "Fail";
       testDetails = e.message;
 
-      console.log("Test 123")
-
       // Capture screenshot on failure
       screenshotPath = "./screenshots/"+ testId+".png";
       await driver.saveScreenshot(screenshotPath);
@@ -181,9 +184,6 @@ describe("Check Booking Tests", () => {
     } finally {
       // Submit test run result
       try {
-
-        console.log("Test 456")
-
         await submitTestRun(testId, testStatus, testDetails, screenshotPath);
         console.log("Test run submitted successfully");
       } catch (submitError) {

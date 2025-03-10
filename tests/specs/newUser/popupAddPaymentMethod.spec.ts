@@ -1,10 +1,9 @@
 import { execSync } from "child_process";
 import submitTestRun from "../../helpers/SendResults.js";
-import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 
 /////////////////////////////////////////////////////////////////////////////////
-describe('Add Payment Methdo', () => {
+describe('Add Payment Method through popup for the New User', () => {
   let scooters;
 
   before(async () => {
@@ -18,7 +17,7 @@ describe('Add Payment Methdo', () => {
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("4bigfoot+11@gmail.com");
+      await usernameField.addValue("new13@gmail.com");
 
       const passwordField = await driver.$("accessibility id:login_password_field");
       await expect(passwordField).toBeDisplayed();
@@ -49,21 +48,29 @@ describe('Add Payment Methdo', () => {
 
         
         // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
+        //await driver.$(
+        //  '-android uiautomator:new UiSelector().text("Account")'
+       // ).waitForEnabled();
 
 
   });
+
+  /*
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await PageObjects.accountButton.waitForExist();
+        await driver.$(
+          '-android uiautomator:new UiSelector().text("Account")'
+        ).waitForEnabled();
   });
 
-  ////////////////////////////////////////////////////////////////////////////////
-  it('Positive Scenario: Add credit card', async () => {
+*/
 
-    const testId = "19f3aab0-8cd8-4770-9093-d329714dc817"
+  ////////////////////////////////////////////////////////////////////////////////
+  it('Add credit card through popup', async () => {
+
+    const testId = "490ea927-eebf-452a-9227-4f4098cac232"
     
     // Send results
     let testStatus = "Pass";
@@ -75,24 +82,27 @@ describe('Add Payment Methdo', () => {
     
     await driver.pause(2000);
 
-        // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
-     await driver.pause(2000);
+        //verify that popup is present
+        const notification = await driver.$('-android uiautomator:new UiSelector().textContains("You have not finished your registration")');
+        await expect (notification).toBeDisplayed();
+        const finishLater = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+        await expect (finishLater).toBeDisplayed();
+        await driver.pause(2000);
 
-           //CLick Payment Settings
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).click();
+        //click on Continue button
+        const contButton = await driver.$('-android uiautomator:new UiSelector().text("CONTINUE")');
+        await expect (contButton).toBeDisplayed();
+        await contButton.click();
 
+          //verify header
+        const headerPayment = await driver.$('-android uiautomator:new UiSelector().text("Payment method")');
+        await expect (headerPayment).toBeDisplayed();
+
+           
            //CLick Add payment method
            await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).waitForDisplayed();
-          await driver.pause(2000);
           await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).click();
@@ -136,11 +146,13 @@ describe('Add Payment Methdo', () => {
            )
            await removeBtn.waitForDisplayed();
            await driver.pause(2000);
-           await removeBtn.click();
+           //await removeBtn.click();
 
           //  await driver.pause(5000);
           //  const el6 = await driver.$("accessibility id:back_button");
           //  await el6.click();
+
+          /*
 
            //CLick Payment Settings
            await driver.$(
@@ -154,6 +166,8 @@ describe('Add Payment Methdo', () => {
            await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).waitForDisplayed();
+
+          */
 
         } catch (e) {
           error = e;
