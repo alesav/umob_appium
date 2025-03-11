@@ -72,14 +72,14 @@ const getScreenCenter = async () => {
           'Authorization': AUTH_TOKEN,
           'Accept-Language': 'en',
           'X-Requested-With': 'XMLHttpRequest',
-          'App-Version': '1.23316.3.23316',
+          'App-Version': '1.24057.3.24057',
           'App-Platform': 'android'
         },
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.46893572807312,
+          latitude: 51.91743146298927,
           radius: 1166.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
@@ -107,7 +107,7 @@ const getScreenCenter = async () => {
     }
   };
 /////////////////////////////////////////////////////////////////////////////////
-describe('Reserve Felyx Test For The New User Without Card', () => {
+describe('Trying to Reserve Felyx by a New User Without a Card', () => {
   let scooters;
 
   before(async () => {
@@ -133,7 +133,7 @@ describe('Reserve Felyx Test For The New User Without Card', () => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Reserve Felyx Moped Without Card', async () => {
+  it('Trying to Reserve Felyx Moped Without a Card', async () => {
    
     
     const testId = "f8c39b91-153c-431c-8c49-8bf1246f7416"
@@ -152,15 +152,15 @@ describe('Reserve Felyx Test For The New User Without Card', () => {
     const targetScooter = scooters.find(
       scooter => scooter.id.includes('Felyx')
     );
-
+    await driver.pause(2000);
     // Set location to specific scooter coordinates
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    //await driver.pause(5000);
+    await driver.pause(4000);
 
         // Filter not needed results
-        await applyFilters();
+        //await applyFilters();
 
     // Click on scooter marker
     // await driver

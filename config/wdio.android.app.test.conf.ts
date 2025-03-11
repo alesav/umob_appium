@@ -5,10 +5,7 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     //specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/*.spec.ts"],
-    //specs: ["c:/dev/umob_appium/tests/specs/account/combinedLoggedTest.spec.ts"],
-    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        "/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/account/combinedLoggedTest.spec.ts"
-    ],
+    specs: ["c:/dev/umob_appium/tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"],
     capabilities: [
         {
             platformName: "Android",

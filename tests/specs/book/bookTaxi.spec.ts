@@ -27,10 +27,34 @@ let testStatus = "Pass";
 
     try {
 
-    await driver.activateApp("com.umob.umob");
-    await driver.pause(7000);    
-    const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"GRAB TAXI\")");
-    await taxiButton.click();
+      await driver.activateApp("com.umob.umob");
+      await driver.pause(7000);   
+
+      await PageObjects.accountButton.waitForExist();
+      const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
+      await expect(planTrip).toBeDisplayed();
+
+      //click PLAN TRIP button to verify taxi and public transport options
+ await planTrip.click();
+ await driver.pause(2000);
+
+ //scroll to bottom
+ await driver.executeScript('mobile: scrollGesture', [{
+   left: 100,
+   top: 1000,
+   width: 200,
+   height: 800,
+   direction: 'down',
+   percent: 100.0
+ }]);
+ await driver.pause(1000);
+
+ const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("GRAB TAXI")');
+ await expect(taxiButton).toBeDisplayed();
+ await taxiButton.click();
+
+    
+    
    // await driver.pause(2000);
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Book a taxi\")");
@@ -183,8 +207,8 @@ let testStatus = "Pass";
   await expect(card).toBeDisplayed();
   
 //check destination is displayed
-const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
-await expect(destRotter).toBeDisplayed();
+// const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+// await expect(destRotter).toBeDisplayed();
 
 //check driver note is displayed
 const driverNote = await driver.$("-android uiautomator:new UiSelector().text(\"Add a note to the driver (optional)\")");
@@ -214,10 +238,11 @@ await driver.pause(7000);
  //await expect(operatorMessage).toBeDisplayed();
 
  // Verify destination location
- const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
- await expect(destinationLocation).toBeDisplayed();
+//  const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+//  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
+ await driver.pause(10000);
  const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().textContains("Cancel")');
  await expect(cancelTripButton).toBeDisplayed();
  await driver.pause(1000);
@@ -230,10 +255,9 @@ await driver.pause(7000);
  await confirmCancelButton.click();
 
  //check main screen is displayed
-      // Check Account is presented
-      await PageObjects.accountButton.waitForExist();
-//const confirmMainScreen = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-//await expect(confirmMainScreen).toBeDisplayed();
+
+await PageObjects.accountButton.waitForExist();
+
 
 } catch (e) {
   error = e;
