@@ -29,7 +29,7 @@ let testStatus = "Pass";
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
-    const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
+    const taxiButton = await driver.$("-android uiautomator:new UiSelector().text(\"GRAB TAXI\")");
     await taxiButton.click();
    // await driver.pause(2000);
     // Verify screen header
@@ -44,7 +44,7 @@ let testStatus = "Pass";
   // click on destination and text Rotterdam Zoo Rotterdam
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.click();
-  await el1.addValue("Rotterdam Zoo");
+  await el1.addValue("Blaak 31");
   await driver.pause(4000); 
 
 // First get the element's location and size
@@ -183,7 +183,7 @@ let testStatus = "Pass";
   await expect(card).toBeDisplayed();
   
 //check destination is displayed
-const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
 await expect(destRotter).toBeDisplayed();
 
 //check driver note is displayed
@@ -214,7 +214,7 @@ await driver.pause(7000);
  //await expect(operatorMessage).toBeDisplayed();
 
  // Verify destination location
- const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+ const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
@@ -230,16 +230,16 @@ await driver.pause(7000);
  await confirmCancelButton.click();
 
  //check main screen is displayed
-const confirmMainScreen = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-await expect(confirmMainScreen).toBeDisplayed();
+      // Check Account is presented
+      await PageObjects.accountButton.waitForExist();
+//const confirmMainScreen = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
+//await expect(confirmMainScreen).toBeDisplayed();
 
 } catch (e) {
   error = e;
   console.error("Test failed:", error);
   testStatus = "Fail";
   testDetails = e.message;
-
-  console.log("TEST 123")
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";

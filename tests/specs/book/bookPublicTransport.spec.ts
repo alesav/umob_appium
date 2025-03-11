@@ -34,7 +34,7 @@ let testStatus = "Pass";
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
-    const publicTransportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
+    const publicTransportButton = await driver.$("-android uiautomator:new UiSelector().text(\"PUBLIC TRANSPORT\")");
     await publicTransportButton.click();
     await driver.pause(2000);
     // Verify screen header
@@ -146,9 +146,9 @@ let testStatus = "Pass";
     try {
 
 
-  // click on destination and text Rotterdam Zoo Rotterdam
+  // click on destination and text
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
-  await el1.addValue("Rotterdam Zoo");
+  await el1.addValue("Blaak 31");
   await driver.pause(4000); 
 
 // First get the element's location and size
@@ -241,7 +241,7 @@ let testStatus = "Pass";
 
     // Verify destination info is displayed
     
-    const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+    const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak\")");
     await expect(toLocation).toBeDisplayed();
 
 
@@ -323,7 +323,7 @@ let testStatus = "Pass";
   }]); 
   await driver.pause(6000);
   //check final destination after scrolling is Rotterdam Zoo Rotterdam
-  const finalDestination = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+  const finalDestination = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak\")");
   await expect(finalDestination).toBeDisplayed();
 
   //check back button is displayed
@@ -490,7 +490,7 @@ await driver.pause(7000);
 
 
   //checking final point of destination after scrolling (Rotterdam Zoo Rotterdam)
-  const zoo = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+  const zoo = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak\")");
   await expect(zoo).toBeDisplayed();
 
   //check text "make sure you download your..."
