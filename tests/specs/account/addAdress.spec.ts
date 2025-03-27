@@ -190,7 +190,7 @@ describe('Add adress for any user', () => {
       
         
           // Capture screenshot on failure
-          screenshotPath = "./screenshots/"+ testId+".png";
+          screenshotPath = "../screenshots/"+ testId+".png";
           await driver.saveScreenshot(screenshotPath);
           // execSync(
           //   `adb exec-out screencap -p > ${screenshotPath}`
