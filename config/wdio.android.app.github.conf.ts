@@ -4,8 +4,8 @@ import { config as baseConfig } from "./wdio.shared.local.appium.conf.js";
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
-    specs: ["./tests/specs/account/*.spec.ts",
-        "./tests/specs/login/*.spec.ts"
+    specs: ["/tests/specs/account/*.spec.ts",
+        "/tests/specs/login/*.spec.ts"
     ],
     //specs: ["c:/dev/umob_appium/tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"],
     capabilities: [
