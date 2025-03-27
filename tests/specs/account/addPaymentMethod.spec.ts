@@ -4,7 +4,7 @@ import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 
 
 /////////////////////////////////////////////////////////////////////////////////
-describe('Add Payment Methdo', () => {
+describe('Add Payment Method', () => {
   let scooters;
 
   before(async () => {
@@ -161,7 +161,6 @@ describe('Add Payment Methdo', () => {
           testStatus = "Fail";
           testDetails = e.message;
         
-          console.log("TEST 123")
         
           // Capture screenshot on failure
           screenshotPath = "./screenshots/"+ testId+".png";

@@ -4,8 +4,10 @@ import { config as baseConfig } from "./wdio.shared.local.appium.conf.js";
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
-    //specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/*.spec.ts"],
-    specs: ["c:/dev/umob_appium/tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"],
+    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/account/*.spec.ts",
+        "/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/login/*.spec.ts"
+    ],
+    //specs: ["c:/dev/umob_appium/tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"],
     capabilities: [
         {
             platformName: "Android",
@@ -14,6 +16,7 @@ export const config: WebdriverIO.Config = {
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 120,
+            //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
           },
     ],

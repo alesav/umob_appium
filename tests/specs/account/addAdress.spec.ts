@@ -9,9 +9,11 @@ describe('Add adress for any user', () => {
 
   before(async () => {
 
+    const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
+
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
+      //await logInBtn.isClickable();
       await driver.pause(2000);
       await logInBtn.click();
 
@@ -32,22 +34,23 @@ describe('Add adress for any user', () => {
       await expect(loginButton).toBeDisplayed();
       await loginButton.click();
 
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Wait for welcome message
-      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
+    // Wait for permissions popup
+     const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
+     await permissionsPopup.isDisplayed();
+     await expect(permissionsPopup).toBeDisplayed();
 
 
-        
+     console.log("deviceInfo "+ deviceCapabilities);
+     if (!deviceCapabilities.includes("bstack:options")) {
+      const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+      await expect(enableNotifications).toBeDisplayed();
+      await enableNotifications.click();
+     }
+
+     const enableLocation = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+     await expect(enableLocation).toBeDisplayed();
+     await enableLocation.click();
+
         // Check Account is presented
         //await driver.$(
         //  '-android uiautomator:new UiSelector().text("Account")'
@@ -74,6 +77,7 @@ describe('Add adress for any user', () => {
     await driver.pause(2000);
           //click account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
@@ -102,6 +106,7 @@ describe('Add adress for any user', () => {
         //click on zip code section and add value 
         const codeSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(2)");
         //await zip code Section.click();
+        await codeSection.clearValue();
         await codeSection.addValue("3014");
 
         // //click on country section 
@@ -111,21 +116,19 @@ describe('Add adress for any user', () => {
         const countryDropdown = await driver.$('//android.widget.TextView[@text="Country"]//parent::android.view.ViewGroup');
         await countryDropdown.click();
         
-        // Scroll down to Netherland
-    await driver.pause(3000);
+    //click on country 
+    const nCountry = await driver.$('-android uiautomator:new UiSelector().text("Argentina")');
+    await nCountry.click();
+
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
-      top: 1500,
+      top: 1000,
       width: 200,
       height: 100,
       direction: 'down',
       percent: 5
     }]);
     await driver.pause(1000);
-
-    //click on country 
-    const nCountry = await driver.$('-android uiautomator:new UiSelector().text("Argentina")');
-    await nCountry.click();
 
     //choosing city
     const city = await driver.$('-android uiautomator:new UiSelector().textContains("City")');
@@ -134,6 +137,7 @@ describe('Add adress for any user', () => {
 
         //click on city section and add value 
         const citySection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(3)");
+        await citySection.clearValue()
         await citySection.addValue("Rotterdam");
 
         //choosing street
@@ -143,6 +147,7 @@ describe('Add adress for any user', () => {
 
     //click on street section and add value 
     const streetSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(0)");
+    await streetSection.clearValue()
     await streetSection.addValue("bloemstraat");
 
 
@@ -153,7 +158,18 @@ describe('Add adress for any user', () => {
  
      //click on building number section and add value 
      const numberSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+     await numberSection.clearValue()
      await numberSection.addValue("80");
+
+     await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 1000,
+      width: 200,
+      height: 100,
+      direction: 'down',
+      percent: 5
+    }]);
+    await driver.pause(1000);
 
         //click on Save button
         const saveButton = await driver.$('-android uiautomator:new UiSelector().text("SAVE")');
@@ -171,8 +187,7 @@ describe('Add adress for any user', () => {
           console.error("Test failed:", error);
           testStatus = "Fail";
           testDetails = e.message;
-        
-          console.log("TEST 123")
+      
         
           // Capture screenshot on failure
           screenshotPath = "./screenshots/"+ testId+".png";
@@ -184,7 +199,6 @@ describe('Add adress for any user', () => {
         } finally {
           // Submit test run result
           try {
-              console.log("TEST 456")
         
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
             console.log("Test run submitted successfully");
