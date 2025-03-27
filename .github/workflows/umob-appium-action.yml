@@ -16,14 +16,14 @@ jobs:
               run: |
                   ls ${{ github.workspace }}
             - run: echo "🍏 This job's status is ${{ job.status }}."
-            - name: Install dependencies
+            - name: Install depende
               run: |
                   npm install
 
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 34
+                  api-level: 29
                   script: |
                       adb devices
                       npm run android.app.test
