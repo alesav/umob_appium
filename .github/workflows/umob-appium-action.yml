@@ -18,7 +18,7 @@ jobs:
             - run: echo "🍏 This job's status is ${{ job.status }}."
             - name: Install Appium
               run: |
-                  npm run install 
+                  npm install 
                   appium -v
 
             - name: run tests
