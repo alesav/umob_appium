@@ -190,8 +190,9 @@ describe('Add adress for any user', () => {
       
         
           // Capture screenshot on failure
-          screenshotPath = "../screenshots/"+ testId+".png";
+          screenshotPath = testId+".png";
           await driver.saveScreenshot(screenshotPath);
+          await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
           // execSync(
           //   `adb exec-out screencap -p > ${screenshotPath}`
           // );
@@ -201,6 +202,7 @@ describe('Add adress for any user', () => {
           try {
         
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+            await submitTestRun(testId, testStatus, testDetails, "/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
             console.log("Test run submitted successfully");
           } catch (submitError) {
             console.error("Failed to submit test run:", submitError);

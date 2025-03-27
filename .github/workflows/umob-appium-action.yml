@@ -28,7 +28,7 @@ jobs:
                       # Verify files are present
                       ls -la
                       ls -la tests/specs/account/
-                      mkdir screenshots
+                      mkdir /Users/runner/work/umob_appium/umob_appium/screenshots
 
                       # Download APK from URL
                       curl -L -o app.apk "http://smspm.com/uMobApp-release.apk"
@@ -42,3 +42,4 @@ jobs:
                       # Run tests
                       npm run android.app.github
                       ls -la screenshots
+                      ls -la
