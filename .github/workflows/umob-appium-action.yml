@@ -10,7 +10,7 @@ jobs:
             - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
             - name: Check out repository code
               uses: actions/checkout@v4
-            - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+            - run: echo "💡 The ${{ github.repository }} ${{ github.workspace }} ${{GITHUB_WORKSPACE }} repository has been cloned to the runner."
             - run: echo "🖥️ The workflow is now ready to test your code on the runner."
             - name: List files in the repository
               run: |
@@ -25,5 +25,18 @@ jobs:
               with:
                   api-level: 26
                   script: |
-                      adb devices
-                      npm run android.app.test
+                      # Verify files are present
+                      ls -la
+                      ls -la tests/specs/account/
+
+                      # Download APK from URL
+                      curl -L -o app.apk "http://smspm.com/uMobApp-release.apk"
+
+                      # Install APK on emulator
+                      adb install app.apk
+
+                      # Verify installation
+                      adb shell pm list packages | grep "com.umob.umob"
+
+                      # Run tests
+                      npm run android.app.github

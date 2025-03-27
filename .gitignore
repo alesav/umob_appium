@@ -19,3 +19,5 @@ chromeDriver
 *.mp4
 
 screenshots/
+
+app/

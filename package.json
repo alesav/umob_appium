@@ -34,6 +34,7 @@
         "android.testingbot.app": "wdio ./config/testingbot/wdio.android.tb.app.conf.ts",
         "android.app": "wdio run config/wdio.android.app.conf.ts",
         "android.app.test": "wdio run config/wdio.android.app.test.conf.ts",
+        "android.app.github": "wdio run config/wdio.android.app.github.conf.ts",
         "android.app.cucumber": "wdio run config/wdio.android.app.cucumber.conf.ts",
         "android.browser": "wdio run config/wdio.android.browser.conf.ts",
         "browser": "wdio run config/wdio.browser.conf.ts",
