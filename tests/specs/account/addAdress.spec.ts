@@ -4,7 +4,7 @@ import submitTestRun from "../../helpers/SendResults.js";
 
 
 /////////////////////////////////////////////////////////////////////////////////
-describe('Add adress for any user', () => {
+describe('Add address for any user', () => {
   let scooters;
 
   before(async () => {
@@ -62,7 +62,7 @@ describe('Add adress for any user', () => {
   
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Add adress for any user', async () => {
+  it('Add address for any user', async () => {
 
     const testId = "ffddb0c7-90db-485d-a2d7-9857c6108e3d"
     
@@ -191,6 +191,7 @@ describe('Add adress for any user', () => {
         
           // Capture screenshot on failure
           screenshotPath = testId+".png";
+          console.log("Screenshot saved to", screenshotPath);
           await driver.saveScreenshot(screenshotPath);
           await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
           // execSync(
