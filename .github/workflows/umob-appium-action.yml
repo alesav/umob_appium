@@ -18,7 +18,13 @@ jobs:
             - run: echo "🍏 This job's status is ${{ job.status }}."
             - name: Install Appium
               run: |
-                  npm install -g appium
+                  npm run install 
                   appium -v
-                  adb devices
-                  npm run android.app.test
+
+            - name: run tests
+              uses: reactivecircus/android-emulator-runner@v2
+              with:
+                  api-level: 29
+                  script: |
+                      adb devices
+                      npm run android.app.test
