@@ -10,13 +10,13 @@ describe('Add address for any user', () => {
   before(async () => {
 
     const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
-/*
+
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       //await logInBtn.isClickable();
       await driver.pause(2000);
       await logInBtn.click();
-
+/*
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
