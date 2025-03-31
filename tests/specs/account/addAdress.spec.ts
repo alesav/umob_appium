@@ -11,6 +11,16 @@ describe('Add address for any user', () => {
 
     const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
 
+    const testId = "ffddb0c7-90db-485d-a2d7-9857c6108e3d"
+    
+    // Send results
+    let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = ""
+        let error = null;
+
+    try {
+
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       //await logInBtn.isClickable();
@@ -41,11 +51,11 @@ describe('Add address for any user', () => {
 
 
      console.log("deviceInfo "+ deviceCapabilities);
-     if (!deviceCapabilities.includes("bstack:options")) {
+     if (!deviceCapabilities.includes("bstack:options") && !deviceCapabilities.includes("github")) {
       const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
       await expect(enableNotifications).toBeDisplayed();
       await enableNotifications.click();
-     }
+    }
 
      const enableLocation = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
      await expect(enableLocation).toBeDisplayed();
@@ -55,6 +65,39 @@ describe('Add address for any user', () => {
         //await driver.$(
         //  '-android uiautomator:new UiSelector().text("Account")'
        // ).waitForEnabled();
+
+      } catch (e) {
+        error = e;
+        console.error("Test failed:", error);
+        testStatus = "Fail";
+        testDetails = e.message;
+    
+      
+        // Capture screenshot on failure
+        screenshotPath = testId+".png";
+        console.log("Screenshot saved to", screenshotPath);
+        await driver.saveScreenshot(screenshotPath);
+        await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
+        // execSync(
+        //   `adb exec-out screencap -p > ${screenshotPath}`
+        // );
+        
+      } finally {
+        // Submit test run result
+        try {
+      
+          await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+          await submitTestRun(testId, testStatus, testDetails, "/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
+          console.log("Test run submitted successfully");
+        } catch (submitError) {
+          console.error("Failed to submit test run:", submitError);
+        }
+      
+        // If there was an error in the main try block, throw it here to fail the test
+        if (error) {
+          throw error;
+        }
+      }
 
 
   });

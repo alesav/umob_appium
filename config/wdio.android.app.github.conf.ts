@@ -23,6 +23,7 @@ export const config: WebdriverIO.Config = {
             "appium:newCommandTimeout": 60,
             //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
+            "runIn": "github actions"
           },
     ],
     maxInstances: 1
