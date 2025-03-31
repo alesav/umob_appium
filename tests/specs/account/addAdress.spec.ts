@@ -73,6 +73,11 @@ describe('Add address for any user', () => {
         let error = null;
     
         try {
+
+          screenshotPath = testId+".png";
+          console.log("Screenshot saved to", screenshotPath);
+          await driver.saveScreenshot(screenshotPath);
+          await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
     
     await driver.pause(2000);
           //click account button

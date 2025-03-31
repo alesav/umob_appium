@@ -5,7 +5,7 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-        "../tests/specs/account/test.spec.ts"
+        "../tests/specs/account/addAdress.spec.ts"
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
@@ -21,7 +21,7 @@ export const config: WebdriverIO.Config = {
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 60,
-            "appium:autoGrantPermissions": true
+            //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
           },
     ],
