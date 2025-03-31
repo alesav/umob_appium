@@ -57,13 +57,16 @@ describe('Combined Not Logged User Tests', () => {
 
     // Verify bottom navigation menu items
     await PageObjects.accountButton.waitForExist();
-    const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-    await expect(planTrip).toBeDisplayed();
-    const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-    await expect(promos).toBeDisplayed();
+    // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
+    // await expect(planTrip).toBeDisplayed();
+    await PageObjects.planTripBtn.waitForExist();
+    // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
+    // await expect(promos).toBeDisplayed();
+    await PageObjects.promosBtn.waitForExist();
 
     //click PLAN TRIP button to verify taxi and public transport options
-    await planTrip.click();
+    //await planTrip.click();
+    await PageObjects.planTripBtn.click();
 
     //scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{

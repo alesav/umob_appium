@@ -18,7 +18,7 @@ describe('Add adress for any user', () => {
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("new12@gmail.com");
+      await usernameField.addValue("new20@gmail.com");
 
       const passwordField = await driver.$("accessibility id:login_password_field");
       await expect(passwordField).toBeDisplayed();
@@ -90,7 +90,7 @@ describe('Add adress for any user', () => {
       width: 200,
       height: 100,
       direction: 'down',
-      percent: 100
+      percent: 100.0
     }]);
     await driver.pause(2000);
 
@@ -102,6 +102,7 @@ describe('Add adress for any user', () => {
         //click on zip code section and add value 
         const codeSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(2)");
         //await zip code Section.click();
+        await codeSection.clearValue();
         await codeSection.addValue("3014");
 
         // //click on country section 
@@ -119,7 +120,7 @@ describe('Add adress for any user', () => {
       width: 200,
       height: 100,
       direction: 'down',
-      percent: 5
+      percent: 10
     }]);
     await driver.pause(1000);
 
@@ -134,6 +135,7 @@ describe('Add adress for any user', () => {
 
         //click on city section and add value 
         const citySection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(3)");
+        await citySection.clearValue();
         await citySection.addValue("Rotterdam");
 
         //choosing street
@@ -143,6 +145,7 @@ describe('Add adress for any user', () => {
 
     //click on street section and add value 
     const streetSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(0)");
+    await streetSection.clearValue();
     await streetSection.addValue("bloemstraat");
 
 
@@ -153,6 +156,7 @@ describe('Add adress for any user', () => {
  
      //click on building number section and add value 
      const numberSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+     await numberSection.clearValue();
      await numberSection.addValue("80");
 
         //click on Save button
