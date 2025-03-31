@@ -272,8 +272,6 @@ await PageObjects.accountButton.waitForExist();
   testStatus = "Fail";
   testDetails = e.message;
 
-  console.log("TEST 123")
-
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
   await driver.saveScreenshot(screenshotPath);

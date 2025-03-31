@@ -166,7 +166,7 @@ let testStatus = "Pass";
     try {
 
 
-  // click on destination and text Rotterdam Zoo Rotterdam
+  // click on destination and text
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.addValue("Blaak 31");
   await driver.pause(4000); 

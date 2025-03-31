@@ -23,6 +23,7 @@ export const config: WebdriverIO.Config = {
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 120,
+            //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
           },
     ],
