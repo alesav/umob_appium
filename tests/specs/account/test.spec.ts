@@ -16,7 +16,7 @@ describe('Add address for any user', () => {
       //await logInBtn.isClickable();
       await driver.pause(2000);
       await logInBtn.click();
-/*
+
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
@@ -55,7 +55,7 @@ describe('Add address for any user', () => {
         //await driver.$(
         //  '-android uiautomator:new UiSelector().text("Account")'
        // ).waitForEnabled();
-*/
+
 
   });
 
