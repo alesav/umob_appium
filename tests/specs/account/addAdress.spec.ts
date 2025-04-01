@@ -90,7 +90,7 @@ describe('Add address for any user', () => {
           await submitTestRun(testId, testStatus, testDetails, "/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
           console.log("Test run submitted successfully");
         } catch (submitError) {
-          console.error("Failed to submit test run:", submitError);
+          console.error("Failed to submit test run: ", submitError);
         }
       
         // If there was an error in the main try block, throw it here to fail the test
