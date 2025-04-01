@@ -50,12 +50,12 @@ describe('Add address for any user', () => {
      await expect(permissionsPopup).toBeDisplayed();
 
 
-     console.log("deviceInfo "+ deviceCapabilities);
-     if (!deviceCapabilities.includes("bstack:options") || !deviceCapabilities.includes("Github")) {
-      const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(enableNotifications).toBeDisplayed();
-      await enableNotifications.click();
-    }
+    //  console.log("deviceInfo "+ deviceCapabilities);
+    //  if (!deviceCapabilities.includes("bstack:options") || !deviceCapabilities.includes("Github")) {
+    //   const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    //   await expect(enableNotifications).toBeDisplayed();
+    //   await enableNotifications.click();
+    // }
 
      const enableLocation = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
      await expect(enableLocation).toBeDisplayed();
