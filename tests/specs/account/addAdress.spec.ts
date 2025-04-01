@@ -68,6 +68,12 @@ describe('Add address for any user', () => {
          await expect(permissionsPopup).toBeDisplayed();
           await permissionsPopup.click();
 
+                   // Wait for permissions popup
+         await driver.pause(3000);
+         await permissionsPopup.isDisplayed();
+         await expect(permissionsPopup).toBeDisplayed();
+          await permissionsPopup.click();
+
         // Check Account is presented
         //await driver.$(
         //  '-android uiautomator:new UiSelector().text("Account")'
