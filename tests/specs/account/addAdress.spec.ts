@@ -51,7 +51,7 @@ describe('Add address for any user', () => {
 
 
      console.log("deviceInfo "+ deviceCapabilities);
-     if (!deviceCapabilities.includes("bstack:options") && !deviceCapabilities.includes("Github")) {
+     if (!deviceCapabilities.includes("bstack:options") || !deviceCapabilities.includes("Github")) {
       const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
       await expect(enableNotifications).toBeDisplayed();
       await enableNotifications.click();
