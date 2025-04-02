@@ -29,9 +29,6 @@ jobs:
               with:
                   api-level: 29
                   script: |
-                      # Verify files are present
-                      ls -la
-                      ls -la tests/specs/account/
                       mkdir screenshots
 
                       # Download APK from URL

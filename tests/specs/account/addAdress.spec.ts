@@ -61,13 +61,6 @@ describe('Add address for any user', () => {
     await permissionsPopup2.isDisplayed();
      await permissionsPopup2.click();
 
-       const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-       await expect(enableNotifications).toBeDisplayed();
-       await enableNotifications.click();
-
-    //  const enableLocation = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-    //  await expect(enableLocation).toBeDisplayed();
-    //  await enableLocation.click();
 
 
 
@@ -87,7 +80,7 @@ describe('Add address for any user', () => {
         screenshotPath = testId+".png";
         console.log("Screenshot saved to", screenshotPath);
         await driver.saveScreenshot(screenshotPath);
-        await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
+        await driver.saveScreenshot("/screenshots/"+ testId+".png");
         // execSync(
         //   `adb exec-out screencap -p > ${screenshotPath}`
         // );
@@ -97,7 +90,6 @@ describe('Add address for any user', () => {
         try {
       
           await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-          await submitTestRun(testId, testStatus, testDetails, "/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
           console.log("Test run submitted successfully");
         } catch (submitError) {
           console.error("Failed to submit test run: ", submitError);
