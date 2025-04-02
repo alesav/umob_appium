@@ -23,6 +23,7 @@ describe('Add address for any user', () => {
       await driver.pause(20000);
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+      await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
       //await logInBtn.isClickable();
       await driver.pause(2000);
       await logInBtn.click();
