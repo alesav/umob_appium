@@ -59,13 +59,14 @@ let testStatus = "Pass";
  await PageObjects.planTripBtn.click();
 
  //scroll to bottom
+ const { width, height } = await driver.getWindowSize();
  await driver.executeScript('mobile: scrollGesture', [{
-   left: 100,
-   top: 1000,
-   width: 200,
-   height: 800,
-   direction: 'down',
-   percent: 100.0
+  left: 100,
+  top: 0,
+  width: 0,
+  height: height/2,
+  direction: 'down',
+  percent: 1
  }]);
  await driver.pause(1000);
 
@@ -166,14 +167,15 @@ let testStatus = "Pass";
     }
 
       //scroll to verify other account options
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100, 
-      top: 1000, 
-      width: 200, 
-      height: 800, 
-      direction: 'down',
-      percent: 100.0
-    }]);
+      const { width, height } = await driver.getWindowSize();
+      await driver.executeScript('mobile: scrollGesture', [{
+       left: 100,
+       top: 0,
+       width: 0,
+       height: height/2,
+       direction: 'down',
+       percent: 1
+      }]);
 
 
 
@@ -494,14 +496,15 @@ let testStatus = "Pass";
 
   
       //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
+      const { width, height } = await driver.getWindowSize();
+      await driver.executeScript('mobile: scrollGesture', [{
+       left: 100,
+       top: 0,
+       width: 0,
+       height: height/2,
+       direction: 'down',
+       percent: 1
+      }]);
   await driver.pause(5000);
 
   
@@ -914,14 +917,15 @@ let testStatus = "Pass";
     await expect(changeDocumentButton).toBeDisplayed();
 
      //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
+     const { width, height } = await driver.getWindowSize();
+     await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 0,
+      width: 0,
+      height: height/2,
+      direction: 'down',
+      percent: 1
+     }]);
   await driver.pause(3000);
 
 
@@ -986,13 +990,14 @@ let testStatus = "Pass";
 
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
+     left: 100,
+     top: 0,
+     width: 0,
+     height: height/2,
+     direction: 'down',
+     percent: 1
     }]);
     await driver.pause(1000);
 
@@ -1094,13 +1099,14 @@ let testStatus = "Pass";
 
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
+     left: 100,
+     top: 0,
+     width: 0,
+     height: height/2,
+     direction: 'down',
+     percent: 1
     }]);
     await driver.pause(2000);
 
@@ -1211,13 +1217,14 @@ let testStatus = "Pass";
 
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
+     left: 100,
+     top: 0,
+     width: 0,
+     height: height/2,
+     direction: 'down',
+     percent: 1
     }]);
     await driver.pause(2000);
 
@@ -1334,13 +1341,14 @@ let testStatus = "Pass";
 
     // Scroll down to make Delete account button visible
     await driver.pause(4000);
+    const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
+     left: 100,
+     top: 0,
+     width: 0,
+     height: height/2,
+     direction: 'down',
+     percent: 1
     }]);
     await driver.pause(2000);
 

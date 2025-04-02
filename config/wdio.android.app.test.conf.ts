@@ -4,7 +4,7 @@ import { config as baseConfig } from "./wdio.shared.local.appium.conf.js";
 export const config: WebdriverIO.Config = {
     ...baseConfig,
 
-    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/*.spec.ts"],
+    specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/account/*.spec.ts"],
 //     specs: [//"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts"
 // "c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",

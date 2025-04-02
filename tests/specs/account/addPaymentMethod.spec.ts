@@ -9,47 +9,7 @@ describe('Add Payment Method', () => {
 
   before(async () => {
 
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
-      await driver.pause(2000);
-      await logInBtn.click();
-
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("4bigfoot+11@gmail.com");
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue("123Qwerty!");
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Wait for welcome message
-      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
-
-
-        
-        // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
+        await PageObjects.login({ username:'4bigfoot+11@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -172,7 +132,6 @@ describe('Add Payment Method', () => {
         } finally {
           // Submit test run result
           try {
-              console.log("TEST 456")
         
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
             console.log("Test run submitted successfully");
