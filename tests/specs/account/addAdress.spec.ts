@@ -57,7 +57,7 @@ describe('Add address for any user', () => {
     //   await enableNotifications.click();
     // }
     await driver.pause(2000);
-    const permissionsPopup2 = await driver.$('-android uiautomator:new UiSelector().textContains("Allow only")');
+    const permissionsPopup2 = await driver.$('-android uiautomator:new UiSelector().textContains("hile using the app")');
     await permissionsPopup2.isDisplayed();
      await permissionsPopup2.click();
 
@@ -133,22 +133,25 @@ describe('Add address for any user', () => {
 
         // Scroll down to zip code section
     await driver.pause(5000);
-    // await driver.executeScript('mobile: scrollGesture', [{
-    //   left: 100,
-    //   top: 1000,
-    //   width: 200,
-    //   height: 100,
+    const { width, height } = await driver.getWindowSize();
+    // await driver.executeScript('mobile: swipeGesture', [{
+    //   left: 10,
+    //   top: 100,
+    //   width,
+    //   height,
     //   direction: 'down',
-    //   percent: 100
+    //   percent: 1.0
     // }]);
 
-    const { width, height } = await driver.getWindowSize();
-    await driver.execute('mobile: scroll', {
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 0,
+      width: 0,
+      height: height/2,
       direction: 'down',
-      width: width,
-      height: height,
-      percent: 1.0
-    });
+      percent: 1
+    }]);
+    
     await driver.pause(2000);
 
 
@@ -175,11 +178,11 @@ describe('Add address for any user', () => {
 
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
-      top: 1000,
-      width: 200,
-      height: 100,
+      top: 0,
+      width: 0,
+      height: height/2,
       direction: 'down',
-      percent: 5
+      percent: 1
     }]);
     await driver.pause(1000);
 
