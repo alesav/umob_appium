@@ -52,6 +52,7 @@ let testStatus = "Pass";
  await PageObjects.planTripBtn.click();
 
  //scroll to bottom
+ await driver.pause(2000);
  const { width, height } = await driver.getWindowSize();
  await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
@@ -59,7 +60,7 @@ let testStatus = "Pass";
   width: 0,
   height: height/2,
   direction: 'down',
-  percent: 1
+  percent: 2
  }]);
  await driver.pause(1000);
 
@@ -160,6 +161,7 @@ let testStatus = "Pass";
     }
 
       //scroll to verify other account options
+      await driver.pause(2000);
       const { width, height } = await driver.getWindowSize();
       await driver.executeScript('mobile: scrollGesture', [{
        left: 100,
@@ -167,7 +169,7 @@ let testStatus = "Pass";
        width: 0,
        height: height/2,
        direction: 'down',
-       percent: 1
+       percent: 2
       }]);
 
 
@@ -489,6 +491,7 @@ let testStatus = "Pass";
 
   
       //Scroll to bottom
+      await driver.pause(2000);
       const { width, height } = await driver.getWindowSize();
       await driver.executeScript('mobile: scrollGesture', [{
        left: 100,
@@ -496,7 +499,7 @@ let testStatus = "Pass";
        width: 0,
        height: height/2,
        direction: 'down',
-       percent: 1
+       percent: 2
       }]);
   await driver.pause(5000);
 
@@ -582,7 +585,7 @@ let testStatus = "Pass";
       width: 0,
       height: height/2,
       direction: 'down',
-      percent: 1
+      percent: 2
      }]);
  await driver.pause(2000);
 
@@ -922,6 +925,7 @@ let testStatus = "Pass";
     await expect(changeDocumentButton).toBeDisplayed();
 
      //Scroll to bottom
+     await driver.pause(2000);
      const { width, height } = await driver.getWindowSize();
      await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -929,7 +933,7 @@ let testStatus = "Pass";
       width: 0,
       height: height/2,
       direction: 'down',
-      percent: 1
+      percent: 2
      }]);
   await driver.pause(3000);
 
@@ -1002,7 +1006,7 @@ let testStatus = "Pass";
      width: 0,
      height: height/2,
      direction: 'down',
-     percent: 1
+     percent: 2
     }]);
     await driver.pause(1000);
 
@@ -1111,7 +1115,7 @@ let testStatus = "Pass";
      width: 0,
      height: height/2,
      direction: 'down',
-     percent: 1
+     percent: 2
     }]);
     await driver.pause(2000);
 
@@ -1229,7 +1233,7 @@ let testStatus = "Pass";
      width: 0,
      height: height/2,
      direction: 'down',
-     percent: 1
+     percent: 2
     }]);
     await driver.pause(2000);
 
@@ -1345,7 +1349,7 @@ let testStatus = "Pass";
     await driver.pause(2000);
 
     // Scroll down to make Delete account button visible
-    await driver.pause(4000);
+    await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
      left: 100,
@@ -1353,7 +1357,7 @@ let testStatus = "Pass";
      width: 0,
      height: height*0.9,
      direction: 'down',
-     percent: 1
+     percent: 2
     }]);
     await driver.pause(2000);
 
