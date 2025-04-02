@@ -12,7 +12,7 @@ export const config: WebdriverIO.Config = {
         {
             platformName: "Android",
             "appium:automationName": "UiAutomator2",
-            "appium:deviceName": "Android",
+            "appium:deviceName": "Android_Local",
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 120,
