@@ -135,7 +135,7 @@ describe('Add address for any user', () => {
     await driver.pause(5000);
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
-      top: 1500,
+      top: 1000,
       width: 200,
       height: 100,
       direction: 'down',
@@ -238,8 +238,7 @@ describe('Add address for any user', () => {
           screenshotPath = testId+".png";
           console.log("Screenshot saved to", screenshotPath);
           await driver.saveScreenshot(screenshotPath);
-          await driver.saveScreenshot("/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
-          // execSync(
+                   // execSync(
           //   `adb exec-out screencap -p > ${screenshotPath}`
           // );
           
@@ -248,7 +247,6 @@ describe('Add address for any user', () => {
           try {
         
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-            await submitTestRun(testId, testStatus, testDetails, "/Users/runner/work/umob_appium/umob_appium/screenshots/"+ testId+".png");
             console.log("Test run submitted successfully");
           } catch (submitError) {
             console.error("Failed to submit test run:", submitError);
