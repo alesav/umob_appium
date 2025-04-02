@@ -152,12 +152,12 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     const targetScooter = scooters.find(
       scooter => scooter.id.includes('Felyx')
     );
-    await driver.pause(2000);
+    await driver.pause(3000);
     // Set location to specific scooter coordinates
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    await driver.pause(4000);
+    await driver.pause(5000);
 
         // Filter not needed results
         //await applyFilters();
@@ -187,7 +187,7 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(2000);
+    await driver.pause(3000);
     
 
     //verify that payment method not set up

@@ -18,7 +18,7 @@ describe('Add voucher for the New User', () => {
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("new12@gmail.com");
+      await usernameField.addValue("new20@gmail.com");
 
       const passwordField = await driver.$("accessibility id:login_password_field");
       await expect(passwordField).toBeDisplayed();
@@ -106,7 +106,7 @@ describe('Add voucher for the New User', () => {
         await submitButton.click();
 
         //check that voucher was added
-        const vControl = await driver.$('-android uiautomator:new UiSelector().textContains("9999")');
+        const vControl = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
         await expect (vControl).toBeDisplayed();
 
           

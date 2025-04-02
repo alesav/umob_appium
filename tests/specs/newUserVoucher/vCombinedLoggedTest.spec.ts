@@ -34,10 +34,13 @@ try {
 
     // Verify bottom navigation menu items
     await PageObjects.accountButton.waitForExist();
-    const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-    await expect(planTrip).toBeDisplayed();
-    const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-    await expect(promos).toBeDisplayed();
+    // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
+    // await expect(planTrip).toBeDisplayed();
+    await PageObjects.planTripBtn.waitForExist();
+    // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
+    // await expect(promos).toBeDisplayed();
+    await PageObjects.promosBtn.waitForExist();
+
 
   // Verify filter button is displayed
   const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
@@ -81,6 +84,92 @@ try {
 
 
 });
+
+it('should display multi voucher on Promos screen', async () => {
+
+  const testId = "c9995301-adec-485e-b64d-c6261b81d31b"
+  // Send results
+let testStatus = "Pass";
+let screenshotPath = "";
+let testDetails = ""
+let error = null;
+
+try {
+
+    // verify promos item is present and click promos
+    await PageObjects.accountButton.waitForExist();
+    // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
+    // await expect(promos).toBeDisplayed();
+    // await promos.click();
+    await PageObjects.promosBtn.waitForExist();
+	await PageObjects.promosBtn.click();
+
+    /*//scroll to bottom
+ await driver.executeScript('mobile: scrollGesture', [{
+  left: 100,
+  top: 1000,
+  width: 200,
+  height: 800,
+  direction: 'down',
+  percent: 100.0
+}]);*/
+await driver.pause(1000);
+
+
+//verify multi voucher is present
+const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+await expect(multiVoucher).toBeDisplayed();
+
+//verify marketing info
+const advertisment = await driver.$('-android uiautomator:new UiSelector().textContains("Earn €10")');
+await expect(advertisment).toBeDisplayed();
+
+//verify "invite friends" button
+const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS NOW!")');
+await expect(friends).toBeDisplayed();
+await friends.click();
+await driver.pause(1000);
+
+//verify share code button
+const shareCodeBtn = await driver.$('-android uiautomator:new UiSelector().textContains("SHARE CODE")');
+await expect(shareCodeBtn).toBeDisplayed();
+
+    
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+
+});
+
 
 
 

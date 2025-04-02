@@ -119,7 +119,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
       await logInBtn.isClickable();
       await logInBtn.click();
 
-      await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
+      await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 
 
   });
@@ -155,7 +155,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    await driver.pause(3000);
+    await driver.pause(5000);
 
         // Filter not needed results
         //await applyFilters();
@@ -185,7 +185,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     //verify that new user vaucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');

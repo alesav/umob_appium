@@ -34,8 +34,11 @@ let testStatus = "Pass";
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
-    const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
-    await planTripButton.click();
+    // const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
+    // await planTripButton.click();
+    await PageObjects.planTripBtn.waitForExist();
+	  await PageObjects.planTripBtn.click();
+
     await driver.pause(2000);
 
   //scroll to bottom
@@ -190,7 +193,8 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     //   `adb shell input tap ${location.x + 100}  ${location.y + size.height + 160}`
     // );
 
-  //const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
+  const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
+  await expect (chooseFromList).toBeDisplayed();
   //await chooseFromList.click();
   //await destinationAdd.click();
   //await destinationAdd.addValue("Rotterdam Zoo Rotterdam");

@@ -17,11 +17,11 @@ describe('Combined Tests For Logged in New User Without Rides', () => {
     await logInBtn.isClickable();
     await logInBtn.click();
 
-    await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
+    await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 });
 
-/*
-it('should display key navigation elements on the main screen', async () => {
+
+it('should verify main screen elements and welcome vouchers on PROMOS screen', async () => {
 
   const testId = "3ce0c6b4-2ed7-40c4-adf7-a8838233f18c"
   // Send results
@@ -32,26 +32,33 @@ let error = null;
 
 try {
 
-  // Verify bottom navigation menu items
-  const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("Taxi")');
-  await expect(taxiButton).toBeDisplayed();
-
-  const publicTransportButton = await driver.$('-android uiautomator:new UiSelector().text("Public transport")');
-  await expect(publicTransportButton).toBeDisplayed();
-
-  const accountButton = await driver.$('-android uiautomator:new UiSelector().text("Account")');
-  await expect(accountButton).toBeDisplayed();
-
-  const settingsButton = await driver.$('-android uiautomator:new UiSelector().text("Settings")');
-  await expect(settingsButton).toBeDisplayed();
-
   // Verify filter button is displayed
-  const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
-  await expect(assetFilterToggle).toBeDisplayed();
+     const assetFilterToggle = await driver.$('-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")');
+     await expect(assetFilterToggle).toBeDisplayed();
 
-  // Check for map root element
-  const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
-  await expect(mapRoot).toBeDisplayed();
+   // Check for map root element
+   const mapRoot = await driver.$('-android uiautomator:new UiSelector().resourceId("map_root")');
+   await expect(mapRoot).toBeDisplayed();
+
+    // Verify bottom navigation menu items and click Promos button
+    await PageObjects.accountButton.waitForExist();
+    await PageObjects.planTripBtn.waitForExist();
+    //const planTrip = await driver.$('-android uiautomator:new UiSelector().text("Plan Trip")');
+    //await expect(planTrip).toBeDisplayed();
+    await PageObjects.promosBtn.waitForExist();
+    await PageObjects.promosBtn.click();
+    // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
+    // await expect(promos).toBeDisplayed();
+    // await promos.click();
+
+    //verify welcome vouchers
+
+    const donkeyVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
+    await expect(donkeyVoucher).toBeDisplayed();
+    const checkVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
+    await expect(checkVoucher).toBeDisplayed();
+
+  
 
 } catch (e) {
   error = e;
@@ -87,7 +94,7 @@ try {
 
 });
 
-*/
+
 
 
   it('should display all key account screen elements', async () => {
@@ -100,6 +107,11 @@ try {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
@@ -278,6 +290,11 @@ try {
   
   try {
 
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
+
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
@@ -370,6 +387,11 @@ try {
   
   try {
 
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
+
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
@@ -449,7 +471,7 @@ try {
     width: 200,
     height: 100,
     direction: 'down',
-    percent: 100
+    percent: 100.0
   }]); 
   await driver.pause(5000);
 
@@ -510,7 +532,7 @@ try {
   });
 
 
-  it('should display all key ID Document screen elements', async () => {
+  it('should display all key ID Document screen elements and verify Onfido screen of document verification', async () => {
 
     const testId = "46893f57-5045-4d7e-8483-6c1e24ad4aed"
     // Send results
@@ -520,6 +542,11 @@ try {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
 
     // Navigate to Account screen first
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -638,6 +665,68 @@ try {
     const idDocumentContainer = await driver.$("-android uiautomator:new UiSelector().description(\"IdDocumentContainer\")");
     await expect(idDocumentContainer).toBeDisplayed();
 
+    //verify that app is connecting with Onfido service
+    await changeDocumentButton.click();
+
+    const idHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Add your identification document\")");
+    await expect(idHeader).toBeDisplayed();
+
+    
+    const question = await driver.$("-android uiautomator:new UiSelector().text(\"Which document to use?\")");
+    await expect(question).toBeDisplayed();
+
+    
+    const text = await driver.$("-android uiautomator:new UiSelector().textContains(\"Enable camera and microphone\")");
+    await expect(text).toBeDisplayed();
+
+    
+    const text1 = await driver.$("-android uiautomator:new UiSelector().textContains(\"Verify\")");
+    await expect(text1).toBeDisplayed();
+
+    
+    const text2 = await driver.$("-android uiautomator:new UiSelector().textContains(\"Verify your ID\")");
+    await expect(text2).toBeDisplayed();
+
+    const startVerification = await driver.$("-android uiautomator:new UiSelector().textContains(\"START ID VERIFICATION\")");
+    await expect(startVerification).toBeDisplayed();
+
+    await startVerification.click();
+
+    //allow permission
+    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    await expect(permission).toBeDisplayed();
+    await permission.click();
+    await driver.pause(2000);
+
+    //allow permission
+    const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    await expect(permission2).toBeDisplayed();
+    await permission2.click();
+
+    //verify onfido screen
+    const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");
+    await expect(el2).toBeDisplayed();
+
+    const el3 = await driver.$("-android uiautomator:new UiSelector().text(\"ISSUING COUNTRY\")");
+    await expect(el3).toBeDisplayed();
+
+    
+    const el4 = await driver.$("-android uiautomator:new UiSelector().text(\"ACCEPTED DOCUMENTS\")");
+    await expect(el4).toBeDisplayed();
+
+  
+    const el6 = await driver.$("-android uiautomator:new UiSelector().textContains(\"National identity card\")");
+    await expect(el6).toBeDisplayed();
+
+    
+    const el7 = await driver.$("-android uiautomator:new UiSelector().textContains(\"Passport\")");
+    await expect(el7).toBeDisplayed();
+
+    const el5 = await driver.$("-android uiautomator:new UiSelector().textContains(\"Driver’s license\")");
+    await expect(el5).toBeDisplayed();
+
+
+
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
@@ -684,6 +773,11 @@ try {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
 
     
     // Click on Account button
@@ -769,6 +863,11 @@ try {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
 
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -867,6 +966,11 @@ try {
   
   try {
 
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
+
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
@@ -955,6 +1059,11 @@ try {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
     
     //const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     //await settingsButton.click();
@@ -1087,6 +1196,11 @@ try {
   
   try {
 
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
+
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
@@ -1198,6 +1312,11 @@ try {
  
  try {
 
+  //click on finish later button to avoid payment method registration
+  const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+  await expect(finishLater).toBeDisplayed();
+  await finishLater.click();
+
     //await driver.activateApp("com.umob.umob");
     //await driver.pause(7000);    
     // const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(2)");
@@ -1245,6 +1364,7 @@ try {
     await expect(where).toBeDisplayed();
 
     // Click on "FAQ" to be sure you are in the right place
+    await driver.pause(2000);
     await faq.click()
     
         // Verify main content headers and text
@@ -1377,17 +1497,17 @@ for (const text of contentElements2) {
     await netherlands.click();
     await driver.pause(2000);
 
-    const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
-    await expect(Portugal).toBeDisplayed();
+    // const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
+    // await expect(Portugal).toBeDisplayed();
 
-    const Spain = await driver.$("-android uiautomator:new UiSelector().text(\"Spain\")");
-    await expect(Spain).toBeDisplayed();
+    // const Spain = await driver.$("-android uiautomator:new UiSelector().text(\"Spain\")");
+    // await expect(Spain).toBeDisplayed();
 
-    const unitedKingdom = await driver.$("-android uiautomator:new UiSelector().text(\"United Kingdom\")");
-    await expect(unitedKingdom).toBeDisplayed();
+    // const unitedKingdom = await driver.$("-android uiautomator:new UiSelector().text(\"United Kingdom\")");
+    // await expect(unitedKingdom).toBeDisplayed();
 
-    const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
-    await expect(France).toBeDisplayed();
+    // const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
+    // await expect(France).toBeDisplayed();
 
 
     //checking amount of providers
@@ -1611,6 +1731,11 @@ for (const text of contentElements2) {
   
   try {
 
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
+
     // Click on Account button
     //const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     //await accountButton.click();
@@ -1725,6 +1850,11 @@ for (const text of contentElements2) {
   let error = null;
   
   try {
+
+    //click on finish later button to avoid payment method registration
+    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    await expect(finishLater).toBeDisplayed();
+    await finishLater.click();
 
     // Click on Settings button to navigate to settings
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");

@@ -16,6 +16,8 @@ class PageObjects extends Page {
     get accountButton () { return $('-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)'); } 
 
     // My account screen
+    get planTripBtn () {return $('-android uiautomator:new UiSelector().text("Plan Trip")');}
+    get promosBtn () {return $('-android uiautomator:new UiSelector().text("Promos")');}
     // ....
     // my rides and tickets button
 

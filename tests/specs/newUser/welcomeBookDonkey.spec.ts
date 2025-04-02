@@ -11,7 +11,7 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
         await logInBtn.isClickable();
         await logInBtn.click();
   
-        await PageObjects.login({ username:'new15@gmail.com', password: '123Qwerty!' });
+        await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
   
   
     });
@@ -138,13 +138,15 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
     const header = await driver.$('-android uiautomator:new UiSelector().text("Ride")');
     await expect(header).toBeDisplayed();
 
+     //verify used voucher is dispayed
+     const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
+     await expect(usedVoucher).toBeDisplayed();
+
     //verify that there is 0euro price
     const zeroEuro = await driver.$('-android uiautomator:new UiSelector().textContains("€0.")');
     await expect(zeroEuro).toBeDisplayed();
 
-    //verify used voucher is dispayed
-    const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
-    await expect(usedVoucher).toBeDisplayed();
+   
 
     //verify used voucher is dispayed
     const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("New User")');

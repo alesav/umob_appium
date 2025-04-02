@@ -31,11 +31,14 @@ let testStatus = "Pass";
       await driver.pause(7000);   
 
       await PageObjects.accountButton.waitForExist();
-      const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-      await expect(planTrip).toBeDisplayed();
+      // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
+      // await expect(planTrip).toBeDisplayed();
+      await PageObjects.planTripBtn.waitForExist();
+	    
 
       //click PLAN TRIP button to verify taxi and public transport options
- await planTrip.click();
+ //await planTrip.click();
+ await PageObjects.planTripBtn.click();
  await driver.pause(2000);
 
  //scroll to bottom
@@ -87,6 +90,10 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     .perform();
 
     await driver.hideKeyboard();
+
+    //Verify that location is the same that was added
+     const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
+     await expect(toLocation).toBeDisplayed();
   
 
   // click the continue button after adding destination
