@@ -158,6 +158,7 @@ describe('Trying to Reserve Felyx by a New User Without a drivers licence', () =
     );
 
     // Set location to specific scooter coordinates
+    console.log("Long: "+ targetScooter.coordinates.longitude + " Lat: " + targetScooter.coordinates.latitude)
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );

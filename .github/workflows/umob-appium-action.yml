@@ -1,17 +1,18 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is trying to run Appium test 🚀
-on: [push]
+on:
+    push:
+    schedule:
+        - cron: "0 * * * *"
 jobs:
     Explore-GitHub-Actions:
-        runs-on: macos-13
+        runs-on: ubuntu-latest
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
             - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
             - name: Check out repository code
               uses: actions/checkout@v4
-            - run: echo "💡 The ${{ github.repository }} ${{ github.workspace }} repository has been cloned to the runner."
-            - run: echo "🖥️ The workflow is now ready to test your code on the runner."
             - name: List files in the repository
               run: |
                   ls ${{ github.workspace }}
@@ -20,15 +21,18 @@ jobs:
               run: |
                   npm install
 
+            - name: Enable KVM group perms
+              run: |
+                  echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                  sudo udevadm control --reload-rules
+                  sudo udevadm trigger --name-match=kvm
+
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 27
+                  api-level: 29
                   script: |
-                      # Verify files are present
-                      ls -la
-                      ls -la tests/specs/account/
-                      mkdir /Users/runner/work/umob_appium/umob_appium/screenshots
+                      mkdir screenshots
 
                       # Download APK from URL
                       curl -L -o app.apk "http://smspm.com/uMobApp-release.apk"
