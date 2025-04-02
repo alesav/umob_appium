@@ -574,6 +574,18 @@ let testStatus = "Pass";
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
     
+    const { width, height } = await driver.getWindowSize();
+    await driver.pause(2000);
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: 100,
+      top: 0,
+      width: 0,
+      height: height/2,
+      direction: 'down',
+      percent: 1
+     }]);
+ await driver.pause(2000);
+
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
     await rideCreditButton.click();
@@ -1339,7 +1351,7 @@ let testStatus = "Pass";
      left: 100,
      top: 0,
      width: 0,
-     height: height/2,
+     height: height*0.9,
      direction: 'down',
      percent: 1
     }]);
