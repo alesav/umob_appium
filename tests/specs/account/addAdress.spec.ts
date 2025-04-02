@@ -58,22 +58,15 @@ describe('Add address for any user', () => {
     //   await enableNotifications.click();
     // }
 
+       const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+       await expect(enableNotifications).toBeDisplayed();
+       await enableNotifications.click();
 
     //  const enableLocation = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
     //  await expect(enableLocation).toBeDisplayed();
     //  await enableLocation.click();
 
-         // Wait for permissions popup
-         await driver.pause(3000);
-         await permissionsPopup.isDisplayed();
-         await expect(permissionsPopup).toBeDisplayed();
-          await permissionsPopup.click();
 
-                   // Wait for permissions popup
-         await driver.pause(3000);
-         await permissionsPopup.isDisplayed();
-         await expect(permissionsPopup).toBeDisplayed();
-          await permissionsPopup.click();
 
         // Check Account is presented
         //await driver.$(

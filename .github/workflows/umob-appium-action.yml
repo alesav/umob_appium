@@ -10,8 +10,6 @@ jobs:
             - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
             - name: Check out repository code
               uses: actions/checkout@v4
-            - run: echo "💡 The ${{ github.repository }} ${{ github.workspace }} repository has been cloned to the runner."
-            - run: echo "🖥️ The workflow is now ready to test your code on the runner."
             - name: List files in the repository
               run: |
                   ls ${{ github.workspace }}
@@ -29,7 +27,7 @@ jobs:
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 29
+                  api-level: 31
                   script: |
                       # Verify files are present
                       ls -la
