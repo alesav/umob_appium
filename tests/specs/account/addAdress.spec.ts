@@ -9,6 +9,15 @@ describe('Add address for any user', () => {
 
   before(async () => {
 
+
+
+
+  });
+
+  
+
+  ////////////////////////////////////////////////////////////////////////////////
+  it('Add address for any user', async () => {
     const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
 
     const testId = "ffddb0c7-90db-485d-a2d7-9857c6108e3d"
@@ -18,9 +27,10 @@ describe('Add address for any user', () => {
         let screenshotPath = "";
         let testDetails = ""
         let error = null;
+    
+        try {
 
-    try {
-      // Find and click LOG IN button
+           // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
       //await logInBtn.isClickable();
@@ -179,41 +189,42 @@ await driver.pause(1000);
    const idDocument = await driver.$('-android uiautomator:new UiSelector().textContains("ID Document")');
    await expect (idDocument).toBeDisplayed();
 
+            
 
-      } catch (e) {
-        error = e;
-        console.error("Test failed:", error);
-        testStatus = "Fail";
-        testDetails = e.message;
-    
+        } catch (e) {
+          error = e;
+          console.error("Test failed:", error);
+          testStatus = "Fail";
+          testDetails = e.message;
       
-        // Capture screenshot on failure
-        screenshotPath = testId+".png";
-        console.log("Screenshot saved to", screenshotPath);
-        await driver.saveScreenshot(screenshotPath);
-        await driver.saveScreenshot("/screenshots/"+ testId+".png");
-        // execSync(
-        //   `adb exec-out screencap -p > ${screenshotPath}`
-        // );
         
-      } finally {
-        // Submit test run result
-        try {
-      
-          await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-          console.log("Test run submitted successfully");
-        } catch (submitError) {
-          console.error("Failed to submit test run: ", submitError);
+          // Capture screenshot on failure
+          screenshotPath = testId+".png";
+          console.log("Screenshot saved to", screenshotPath);
+          await driver.saveScreenshot(screenshotPath);
+                   // execSync(
+          //   `adb exec-out screencap -p > ${screenshotPath}`
+          // );
+          
+        } finally {
+          // Submit test run result
+          try {
+        
+            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+            console.log("Test run submitted successfully");
+          } catch (submitError) {
+            console.error("Failed to submit test run:", submitError);
+          }
+        
+          // If there was an error in the main try block, throw it here to fail the test
+          if (error) {
+            throw error;
+          }
         }
-      
-        // If there was an error in the main try block, throw it here to fail the test
-        if (error) {
-          throw error;
-        }
-      }
 
-
+        
   });
+
 
 
   afterEach(async () => {
