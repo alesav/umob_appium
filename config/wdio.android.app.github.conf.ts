@@ -20,7 +20,7 @@ export const config: WebdriverIO.Config = {
             "appium:deviceName": "Android_GithubActions",
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
-            "appium:newCommandTimeout": 60,
+            "appium:newCommandTimeout": 120,
             //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
           },
