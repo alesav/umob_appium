@@ -133,14 +133,22 @@ describe('Add address for any user', () => {
 
         // Scroll down to zip code section
     await driver.pause(5000);
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 100,
+    // await driver.executeScript('mobile: scrollGesture', [{
+    //   left: 100,
+    //   top: 1000,
+    //   width: 200,
+    //   height: 100,
+    //   direction: 'down',
+    //   percent: 100
+    // }]);
+
+    const { width, height } = await driver.getWindowSize();
+    await driver.execute('mobile: scroll', {
       direction: 'down',
-      percent: 100
-    }]);
+      width: width,
+      height: height,
+      percent: 1.0
+    });
     await driver.pause(2000);
 
 
