@@ -20,7 +20,6 @@ describe('Add address for any user', () => {
         let error = null;
 
     try {
-      await driver.pause(20000);
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
@@ -57,6 +56,10 @@ describe('Add address for any user', () => {
     //   await expect(enableNotifications).toBeDisplayed();
     //   await enableNotifications.click();
     // }
+    await driver.pause(2000);
+    const permissionsPopup2 = await driver.$('-android uiautomator:new UiSelector().textContains("Allow only")');
+    await permissionsPopup2.isDisplayed();
+     await permissionsPopup2.click();
 
        const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
        await expect(enableNotifications).toBeDisplayed();
