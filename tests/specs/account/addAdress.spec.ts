@@ -20,7 +20,7 @@ describe('Add address for any user', () => {
         let error = null;
 
     try {
-
+      await driver.pause(10000);
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
       //await logInBtn.isClickable();
