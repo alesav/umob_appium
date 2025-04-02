@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is trying to run Appium test 🚀
-on: |
+on: 
     push
     schedule:
       - cron: "0 * * * *"
