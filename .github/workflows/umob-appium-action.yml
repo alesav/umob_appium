@@ -23,12 +23,12 @@ jobs:
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 27
+                  api-level: 29
                   script: |
                       # Verify files are present
                       ls -la
                       ls -la tests/specs/account/
-                      mkdir /Users/runner/work/umob_appium/umob_appium/screenshots
+                      mkdir screenshots
 
                       # Download APK from URL
                       curl -L -o app.apk "http://smspm.com/uMobApp-release.apk"
