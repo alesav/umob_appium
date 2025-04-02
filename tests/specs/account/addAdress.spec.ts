@@ -174,6 +174,7 @@ describe('Add address for any user', () => {
         
     //click on country 
     const nCountry = await driver.$('-android uiautomator:new UiSelector().text("Argentina")');
+    await driver.pause(1000);
     await nCountry.click();
 
     await driver.executeScript('mobile: scrollGesture', [{
