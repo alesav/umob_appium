@@ -219,11 +219,11 @@ describe('Add address for any user', () => {
 
      await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
-      top: 1000,
-      width: 200,
-      height: 100,
+      top: 0,
+      width: 0,
+      height: height/2,
       direction: 'down',
-      percent: 5
+      percent: 1
     }]);
     await driver.pause(1000);
 
