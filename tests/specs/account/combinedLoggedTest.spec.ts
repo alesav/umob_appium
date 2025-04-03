@@ -149,9 +149,7 @@ let testStatus = "Pass";
       "Personal info",
       "Payment settings",
       "ID Document",
-      "My Rides & Tickets",
-      "Ride credit",
-      "My payments"
+      "My Rides & Tickets"
     ];
      
 
@@ -259,7 +257,6 @@ let testStatus = "Pass";
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
     await expect(screenHeader).toBeDisplayed();
-    await driver.pause(3000);
 
     // Verify back button is present
     const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
@@ -339,6 +336,18 @@ let testStatus = "Pass";
     // Click on Account button
      await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+
+    await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -479,6 +488,17 @@ let testStatus = "Pass";
     const streetLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Bloemstraat\")");
     await expect(streetLabel).toBeDisplayed();
 
+    await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
 
     // Verify Number field
     const numberLabel = await driver.$("-android uiautomator:new UiSelector().text(\"80\")");
@@ -491,17 +511,17 @@ let testStatus = "Pass";
 
   
       //Scroll to bottom
-      await driver.pause(2000);
-      const { width, height } = await driver.getWindowSize();
-      await driver.executeScript('mobile: scrollGesture', [{
-       left: width/2,
-       top: 0,
-       width: 0,
-       height: height*0.8,
-       direction: 'down',
-       percent: 2
-      }]);
-  await driver.pause(5000);
+  //     await driver.pause(2000);
+  //     const { width, height } = await driver.getWindowSize();
+  //     await driver.executeScript('mobile: scrollGesture', [{
+  //      left: width/2,
+  //      top: 0,
+  //      width: 0,
+  //      height: height*0.8,
+  //      direction: 'down',
+  //      percent: 2
+  //     }]);
+  // await driver.pause(5000);
 
   
    // Verify Zip Code field
@@ -583,9 +603,9 @@ let testStatus = "Pass";
       left: width/2,
       top: 0,
       width: 0,
-      height: height*0.8,
+      height: height*0.5,
       direction: 'down',
-      percent: 2
+      percent: 1
      }]);
  await driver.pause(2000);
 
@@ -922,6 +942,18 @@ let testStatus = "Pass";
     const categoryAM = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentAM\")");
     await expect(categoryAM).toBeDisplayed();
 
+    await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(2000);
+
     // Verify Home Address section
     const homeAddressStreet = await driver.$("-android uiautomator:new UiSelector().textContains(\"Bloemstraat 80\")");
     await expect(homeAddressStreet).toBeDisplayed();
@@ -937,17 +969,16 @@ let testStatus = "Pass";
     await expect(changeDocumentButton).toBeDisplayed();
 
      //Scroll to bottom
-     await driver.pause(2000);
-     const { width, height } = await driver.getWindowSize();
-     await driver.executeScript('mobile: scrollGesture', [{
-      left: width/2,
-      top: 0,
-      width: 0,
-      height: height*0.8,
-      direction: 'down',
-      percent: 2
-     }]);
-  await driver.pause(3000);
+  //    await driver.pause(2000);
+  //    await driver.executeScript('mobile: scrollGesture', [{
+  //     left: width/2,
+  //     top: 0,
+  //     width: 0,
+  //     height: height*0.8,
+  //     direction: 'down',
+  //     percent: 2
+  //    }]);
+  // await driver.pause(3000);
 
 
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
