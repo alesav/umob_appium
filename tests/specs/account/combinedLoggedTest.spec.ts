@@ -55,10 +55,10 @@ let testStatus = "Pass";
  await driver.pause(2000);
  const { width, height } = await driver.getWindowSize();
  await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
+  left: width/2,
   top: 0,
   width: 0,
-  height: height/2,
+  height: height*0.8,
   direction: 'down',
   percent: 2
  }]);
@@ -164,10 +164,10 @@ let testStatus = "Pass";
       await driver.pause(2000);
       const { width, height } = await driver.getWindowSize();
       await driver.executeScript('mobile: scrollGesture', [{
-       left: 100,
+       left: width/2,
        top: 0,
        width: 0,
-       height: height/2,
+       height: height*0.8,
        direction: 'down',
        percent: 2
       }]);
@@ -494,10 +494,10 @@ let testStatus = "Pass";
       await driver.pause(2000);
       const { width, height } = await driver.getWindowSize();
       await driver.executeScript('mobile: scrollGesture', [{
-       left: 100,
+       left: width/2,
        top: 0,
        width: 0,
-       height: height/2,
+       height: height*0.8,
        direction: 'down',
        percent: 2
       }]);
@@ -580,10 +580,10 @@ let testStatus = "Pass";
     const { width, height } = await driver.getWindowSize();
     await driver.pause(2000);
     await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
+      left: width/2,
       top: 0,
       width: 0,
-      height: height/2,
+      height: height*0.8,
       direction: 'down',
       percent: 2
      }]);
@@ -703,6 +703,18 @@ let testStatus = "Pass";
     // Verify usage count
     const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
     await expect(usageCount).toBeDisplayed();
+
+    await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(2000);
 
     // Verify Share Code button
     const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
@@ -928,10 +940,10 @@ let testStatus = "Pass";
      await driver.pause(2000);
      const { width, height } = await driver.getWindowSize();
      await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
+      left: width/2,
       top: 0,
       width: 0,
-      height: height/2,
+      height: height*0.8,
       direction: 'down',
       percent: 2
      }]);
@@ -1001,10 +1013,10 @@ let testStatus = "Pass";
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-     left: 100,
+     left: width/2,
      top: 0,
      width: 0,
-     height: height/2,
+     height: height*0.8,
      direction: 'down',
      percent: 2
     }]);
@@ -1110,10 +1122,10 @@ let testStatus = "Pass";
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-     left: 100,
+     left: width/2,
      top: 0,
      width: 0,
-     height: height/2,
+     height: height*0.8,
      direction: 'down',
      percent: 2
     }]);
@@ -1228,10 +1240,10 @@ let testStatus = "Pass";
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-     left: 100,
+     left: width/2,
      top: 0,
      width: 0,
-     height: height/2,
+     height: height*0.8,
      direction: 'down',
      percent: 2
     }]);
@@ -1352,10 +1364,10 @@ let testStatus = "Pass";
     await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
-     left: 100,
+     left: width/2,
      top: 0,
      width: 0,
-     height: height*0.9,
+     height: height*0.8,
      direction: 'down',
      percent: 2
     }]);
