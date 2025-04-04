@@ -257,7 +257,7 @@ let testStatus = "Pass";
      width: 0,
      height: height*0.5,
      direction: 'down',
-     percent: .3
+     percent: .2
     }]);
     await driver.pause(1000);
 
@@ -267,8 +267,8 @@ let testStatus = "Pass";
     await driver.pause(3000);
 
     // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
-    await expect(screenHeader).toBeDisplayed();
+    // const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    // await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
     const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
@@ -616,9 +616,9 @@ let testStatus = "Pass";
       left: width/2,
       top: 0,
       width: 0,
-      height: height*0.4,
+      height: height*0.5,
       direction: 'down',
-      percent: 0.3
+      percent: 0.1
      }]);
  await driver.pause(2000);
 

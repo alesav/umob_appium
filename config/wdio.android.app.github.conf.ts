@@ -5,7 +5,9 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-        "../tests/specs/account/*.spec.ts"
+        "../tests/specs/account/*.spec.ts",
+        "../tests/specs/login/*.spec.ts",
+        "../tests/specs/notLoggedTests/*.spec.ts"
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
