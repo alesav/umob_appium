@@ -257,7 +257,7 @@ let testStatus = "Pass";
      width: 0,
      height: height*0.5,
      direction: 'down',
-     percent: .1
+     percent: .3
     }]);
     await driver.pause(1000);
 
@@ -357,7 +357,7 @@ let testStatus = "Pass";
      width: 0,
      height: height*0.8,
      direction: 'down',
-     percent: 0.2
+     percent: 0.5
     }]);
     await driver.pause(1000);
     
@@ -618,7 +618,7 @@ let testStatus = "Pass";
       width: 0,
       height: height*0.4,
       direction: 'down',
-      percent: 0.5
+      percent: 0.3
      }]);
  await driver.pause(2000);
 
@@ -643,6 +643,17 @@ let testStatus = "Pass";
     // Verify promotional code description
     const promotionalCodeDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Received a promotional code?\")");
     await expect(promotionalCodeDescription).toBeDisplayed();
+
+    await driver.pause(1000);
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: width/2,
+      top: 0,
+      width: 0,
+      height: height*0.4,
+      direction: 'down',
+      percent: 0.5
+     }]);
+ await driver.pause(1000);
 
     // Verify promotional code input field
     const promotionalCodeInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\")");
@@ -733,10 +744,6 @@ let testStatus = "Pass";
     const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
     await expect(referralCode).toBeDisplayed(); */
 
-    // Verify usage count
-    const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-    await expect(usageCount).toBeDisplayed();
-
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
@@ -748,6 +755,10 @@ let testStatus = "Pass";
      percent: 2
     }]);
     await driver.pause(2000);
+
+    // Verify usage count
+    const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
+    await expect(usageCount).toBeDisplayed();
 
     // Verify Share Code button
     const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
