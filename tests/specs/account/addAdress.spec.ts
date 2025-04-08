@@ -17,7 +17,7 @@ describe('Add address for any user', () => {
   
 
   ////////////////////////////////////////////////////////////////////////////////
-  it('Add address for any user', async () => {
+  it('Add address for any user.', async () => {
 
     const testId = "ffddb0c7-90db-485d-a2d7-9857c6108e3d"
     
