@@ -17,7 +17,7 @@ describe('Combined Tests For Logged in New User Without Rides', () => {
     await logInBtn.isClickable();
     await logInBtn.click();
 
-    await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
+    await PageObjects.login({ username:'new25@gmail.com', password: '123Qwerty!' });
 });
 
 
