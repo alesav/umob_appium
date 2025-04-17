@@ -1,5 +1,8 @@
 # Appium Boilerplate
 
+To run some specific spec:
+npm run android.app.test -- --spec=/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/login/login.positive.spec.ts
+
 **NOTE:** This boilerplate is for Webdriver V8 where the tests are written with `async`/`await` and TypeScript. If you need a boilerplate for older versions, check the following:
 
 - V7 (JavaScript) please click [here](https://github.com/webdriverio/appium-boilerplate/tree/v7)

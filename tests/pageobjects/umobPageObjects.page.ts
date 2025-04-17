@@ -27,33 +27,48 @@ class PageObjects extends Page {
      * e.g. to login using username and password
      */
     async login ({ username, password }: {username:string; password: string;}) {
+            const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
 
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue(username);
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue(password);
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
+           // Find and click LOG IN button
+           const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
+           await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
+           //await logInBtn.isClickable();
+           await driver.pause(2000);
+           await logInBtn.click();
+     
+           // Login form elements
+           const usernameField = await driver.$("accessibility id:login_username_field");
+           await expect(usernameField).toBeDisplayed();
+           await usernameField.addValue(username);
+     
+           const passwordField = await driver.$("accessibility id:login_password_field");
+           await expect(passwordField).toBeDisplayed();
+           await passwordField.addValue(password);
+     
+           const loginButtonText = await driver.$("accessibility id:login_button-text");
+           await expect(loginButtonText).toBeDisplayed();
+           await loginButtonText.click();
+     
+           const loginButton = await driver.$("accessibility id:login_button");
+           await expect(loginButton).toBeDisplayed();
+           await loginButton.click();
+     
+         // Wait for permissions popup
+          const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
+          await permissionsPopup.isDisplayed();
+          await expect(permissionsPopup).toBeDisplayed();
+           await permissionsPopup.click();
+     
+          console.log("deviceInfo "+ deviceCapabilities);
+          if (deviceCapabilities.includes("Local")) {
+           const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+           await expect(enableNotifications).toBeDisplayed();
+           await enableNotifications.click();
+         }
+         await driver.pause(2000);
+         const permissionsPopup2 = await driver.$('-android uiautomator:new UiSelector().textContains("hile using the app")');
+         await permissionsPopup2.isDisplayed();
+          await permissionsPopup2.click();
 
 
         

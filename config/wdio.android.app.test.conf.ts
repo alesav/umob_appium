@@ -8,7 +8,7 @@ export const config: WebdriverIO.Config = {
     specs: [//"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts"
 
 
- "c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+ "c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts",
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts",
@@ -21,7 +21,7 @@ export const config: WebdriverIO.Config = {
         {
             platformName: "Android",
             "appium:automationName": "UiAutomator2",
-            "appium:deviceName": "Android",
+            "appium:deviceName": "Android_Local",
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 120,

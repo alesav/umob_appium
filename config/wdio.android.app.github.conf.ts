@@ -5,7 +5,14 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-        "../tests/specs/account/addAdress.spec.ts"
+        "../tests/specs/account/*.spec.ts",
+        "../tests/specs/login/*.spec.ts",
+        "../tests/specs/notLoggedTests/*.spec.ts",
+        "../tests/specs/book/failedPaymentNoBooking.spec.ts",
+        // "../tests/specs/book/bookDonkeyMocked.spec.ts",
+        // "../tests/specs/book/bookUmobBike.spec.ts",
+        // "../tests/specs/book/bookUmobMoped.spec.ts",
+        // "../tests/specs/book/bookUmobScooter.spec.ts"
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
@@ -20,7 +27,7 @@ export const config: WebdriverIO.Config = {
             "appium:deviceName": "Android_GithubActions",
             "appium:appPackage": "com.umob.umob",
             "appium:appActivity": "com.umob.umob.MainActivity",
-            "appium:newCommandTimeout": 60,
+            "appium:newCommandTimeout": 100,
             //"appium:autoGrantPermissions": true
             //"appium:noReset": true,
           },
