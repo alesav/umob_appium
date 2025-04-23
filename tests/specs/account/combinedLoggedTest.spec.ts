@@ -1,5 +1,51 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new';
+
+/////////////////////////////////////////////////////////////////////////////////
 
 describe('Combined test for the logged in old user with rides history', () => {
 
@@ -11,7 +57,13 @@ describe('Combined test for the logged in old user with rides history', () => {
 
   before(async () => {
 
-    await PageObjects.login({ username:'new@gmail.com', password: '123Qwerty!' });
+    const credentials = getCredentials(ENV, USER);
+
+    // await PageObjects.login(credentials);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+
+
+    //await PageObjects.login({ username:'new@gmail.com', password: '123Qwerty!' });
 });
 
 
@@ -142,51 +194,68 @@ let testStatus = "Pass";
     // Check last ride amount (flexible verification)
     // const lastRideAmount = await driver.$("-android uiautomator:new UiSelector().textContains(\"€\")");
     // await expect(lastRideAmount).toBeDisplayed();
+// Verify account menu items
+const accountMenuItems = [
+  "Invite friends",
+  "Personal info",
+  "Payment settings",
+  "ID Document",
+  "My Rides & Tickets"
+];
 
-    // Verify account menu items
-    const accountMenuItems = [
-      "Invite friends",
-      "Personal info",
-      "Payment settings",
-      "ID Document",
-      "My Rides & Tickets"
-    ];
-     
+for (const menuItem of accountMenuItems) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();
+}
 
-    for (const menuItem of accountMenuItems) {
-      const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
-      await expect(menuElement).toBeDisplayed();
-    }
+// Get window size once at начало
+const { width, height } = await driver.getWindowSize();
 
-      //scroll to verify other account options
-      await driver.pause(2000);
-      const { width, height } = await driver.getWindowSize();
-      await driver.executeScript('mobile: scrollGesture', [{
-       left: width/2,
-       top: 0,
-       width: 0,
-       height: height*0.8,
-       direction: 'down',
-       percent: 2
-      }]);
+// First scroll
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.5, // Начинать с середины экрана
+  width: width * 0.8,
+  height: height * 0.3,
+  direction: 'down',
+  percent: 0.5
+}]);
 
+// Verify account menu items after first scrolling
+const accountMenuItems2 = [
+  "Ride credit",
+  "My payments",
+  "Language",
+  "Map theme settings",
+];
 
+for (const menuItem of accountMenuItems2) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();
+}
 
-    // Verify account menu items after scrolling
-    const accountMenuItems2 = [
-      "Ride credit",
-      "My payments",
-      "Language",
-      "Map theme settings",
-      "Support",
-      "Delete account"     
-      
-    ];
+// Second scroll using same width/height variables
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.5,
+  width: width * 0.8,
+  height: height * 0.3,
+  direction: 'down',
+  percent: 0.8
+}]);
 
-    for (const menuItem of accountMenuItems2) {
-      const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
-      await expect(menuElement).toBeDisplayed();
-    }
+// Verify account menu items after second scrolling
+const accountMenuItems3 = [
+  "Support",
+  "Delete account"
+];
+
+for (const menuItem of accountMenuItems3) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();
+}
 
     // Verify Log Out button
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
