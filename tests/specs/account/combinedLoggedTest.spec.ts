@@ -215,7 +215,7 @@ const { width, height } = await driver.getWindowSize();
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.5, // Начинать с середины экрана
+  top: height * 0.5, // to begin with the middle of the screens
   width: width * 0.8,
   height: height * 0.3,
   direction: 'down',
