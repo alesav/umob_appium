@@ -208,7 +208,7 @@ for (const menuItem of accountMenuItems) {
   await expect(menuElement).toBeDisplayed();
 }
 
-// Get window size once at начало
+// Get window size 
 const { width, height } = await driver.getWindowSize();
 
 // First scroll
@@ -219,7 +219,7 @@ await driver.executeScript('mobile: scrollGesture', [{
   width: width * 0.8,
   height: height * 0.3,
   direction: 'down',
-  percent: 0.7
+  percent: 0.9
 }]);
 
 // Verify account menu items after first scrolling
