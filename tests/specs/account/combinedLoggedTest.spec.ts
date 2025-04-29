@@ -243,11 +243,11 @@ await driver.pause(2000);
 for (let i = 0; i < 2; i++) {
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.3,
+  top: height * 0.1,
   width: width * 0.8,
   height: height * 0.9,
   direction: 'down',
-  percent: 1
+  percent: 100
 }]);
 await driver.pause(1000);
 };
