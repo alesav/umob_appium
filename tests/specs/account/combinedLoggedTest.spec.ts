@@ -219,7 +219,7 @@ await driver.executeScript('mobile: scrollGesture', [{
   width: width * 0.8,
   height: height * 0.3,
   direction: 'down',
-  percent: 0.5
+  percent: 0.7
 }]);
 
 // Verify account menu items after first scrolling
