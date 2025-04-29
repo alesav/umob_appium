@@ -240,6 +240,7 @@ for (const menuItem of accountMenuItems2) {
 
 // Second scroll using same width/height variables
 await driver.pause(2000);
+for (let i = 0; i < 2; i++) {
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
   top: height * 0.3,
@@ -248,6 +249,8 @@ await driver.executeScript('mobile: scrollGesture', [{
   direction: 'down',
   percent: 1
 }]);
+await driver.pause(1000);
+};
 
 // Verify account menu items after second scrolling
 const accountMenuItems3 = [
