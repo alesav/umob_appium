@@ -212,15 +212,18 @@ for (const menuItem of accountMenuItems) {
 const { width, height } = await driver.getWindowSize();
 
 // First scroll
+for (let i = 0; i < 2; i++) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.2, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
+  top: height * 0.5, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
   width: width * 0.8,
-  height: height * 1.8,
+  height: height * 0.3,
   direction: 'down',
   percent: 0.9
 }]);
+await driver.pause(2000);
+};
 
 // Verify account menu items after first scrolling
 const accountMenuItems2 = [
