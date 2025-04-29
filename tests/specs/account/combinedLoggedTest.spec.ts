@@ -242,11 +242,11 @@ for (const menuItem of accountMenuItems2) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.5,
+  top: height * 0.3,
   width: width * 0.8,
-  height: height * 0.3,
+  height: height * 0.9,
   direction: 'down',
-  percent: 0.8
+  percent: 1
 }]);
 
 // Verify account menu items after second scrolling
