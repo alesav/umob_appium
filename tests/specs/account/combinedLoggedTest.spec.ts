@@ -242,7 +242,7 @@ for (const menuItem of accountMenuItems2) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.2,
+  top: height * 0.7,
   width: width * 0.85,
   height: height * 0.99,
   direction: 'down',
