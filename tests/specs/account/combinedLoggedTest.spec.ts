@@ -216,7 +216,7 @@ for (let i = 0; i < 2; i++) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.3, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
+  top: height * 0.7, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
   width: width * 0.8,
   height: height * 0.4,
   direction: 'down',
