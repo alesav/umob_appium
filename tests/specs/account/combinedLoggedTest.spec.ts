@@ -250,16 +250,16 @@ await driver.executeScript('mobile: scrollGesture', [{
 }]);
 await driver.pause(1000);
 
+// Scroll fully down to Log Out option
 await driver.executeScript('mobile: scrollGesture', [{
-  left: width/2,
-  top: height * 0.1,
-  width: width * 0.8,
-  height: height * 0.9,
+  left: 100,
+  top: 1000,
+  width: 200,
+  height: 800,
   direction: 'down',
-  percent: 100
+  percent: 100.0
 }]);
 await driver.pause(1000);
-
 
 // Verify account menu items after second scrolling
 const accountMenuItems3 = [
