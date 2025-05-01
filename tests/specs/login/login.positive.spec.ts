@@ -116,6 +116,11 @@ describe('Login positive scenarios,', () => {
       await expect(loginButton).toBeDisplayed();
       await loginButton.click();
 
+      // Handle location permissions
+      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+      await expect(allowForegroundPermissionBtn).toBeDisplayed();
+      await allowForegroundPermissionBtn.click();
+
       // Handle permissions
       const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
       await expect(allowPermissionBtn).toBeDisplayed();
@@ -125,10 +130,7 @@ describe('Login positive scenarios,', () => {
       //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
       //await welcomeMessage.waitForEnabled({ timeout: 10000 });
 
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
+      
 
       /*
       // Verify main screen elements

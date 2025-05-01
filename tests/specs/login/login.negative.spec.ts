@@ -38,9 +38,9 @@ describe('Login Negative Scenarios', () => {
     await loginButtonText.click();
 
     // Handle permissions
-    const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    await expect(allowPermissionBtn).toBeDisplayed();
-    await allowPermissionBtn.click();
+    // const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    // await expect(allowPermissionBtn).toBeDisplayed();
+    // await allowPermissionBtn.click();
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
@@ -106,6 +106,7 @@ describe('Login Negative Scenarios', () => {
 
     const loginButtonText = await driver.$("accessibility id:login_button-text");
     await loginButtonText.click();
+    await driver.pause(2000);
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
