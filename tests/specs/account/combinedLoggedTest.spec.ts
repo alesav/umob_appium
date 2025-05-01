@@ -242,7 +242,7 @@ for (const menuItem of accountMenuItems2) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.7,
+  top: height * 0.1,
   width: width * 0.85,
   height: height * 0.99,
   direction: 'down',
@@ -253,9 +253,9 @@ await driver.pause(1000);
 // Scroll fully down to Log Out option
 await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
-  top: 1000,
+  top: 100,
   width: 200,
-  height: 800,
+  height: 600,
   direction: 'down',
   percent: 100.0
 }]);
