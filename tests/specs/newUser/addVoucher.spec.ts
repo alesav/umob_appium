@@ -117,7 +117,6 @@ describe('Add voucher for the New User', () => {
           testStatus = "Fail";
           testDetails = e.message;
         
-          console.log("TEST 123")
         
           // Capture screenshot on failure
           screenshotPath = "./screenshots/"+ testId+".png";
@@ -129,7 +128,7 @@ describe('Add voucher for the New User', () => {
         } finally {
           // Submit test run result
           try {
-              console.log("TEST 456")
+       
         
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
             console.log("Test run submitted successfully");
