@@ -250,7 +250,7 @@ await driver.executeScript('mobile: scrollGesture', [{
 }]);
 await driver.pause(1000);
 
-// Scroll fully down to Log Out option
+// Scroll fully down to make visible Log Out option
 
 await driver.pause(3000);
 
