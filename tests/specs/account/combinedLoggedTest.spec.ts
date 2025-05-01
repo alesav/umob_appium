@@ -251,15 +251,31 @@ await driver.executeScript('mobile: scrollGesture', [{
 await driver.pause(1000);
 
 // Scroll fully down to Log Out option
+
+await driver.pause(3000);
+
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
+
+    /*
 await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
   top: 100,
   width: 200,
-  height: 600,
+  height: 540,
   direction: 'down',
   percent: 100.0
 }]);
 await driver.pause(1000);
+
+*/
 
 // Verify account menu items after second scrolling
 const accountMenuItems3 = [
@@ -694,16 +710,22 @@ for (const menuItem of accountMenuItems3) {
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
     
-    const { width, height } = await driver.getWindowSize();
-    await driver.pause(2000);
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: width/2,
-      top: 0,
-      width: 0,
-      height: height*0.5,
-      direction: 'down',
-      percent: 0.1
-     }]);
+   // Get window size 
+const { width, height } = await driver.getWindowSize();
+
+// scroll
+for (let i = 0; i < 2; i++) {
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.8, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
+  width: width * 0.8,
+  height: height * 0.4, //width of the scrolling area
+  direction: 'down',
+  percent: 0.9
+}]);
+await driver.pause(2000);
+};
  await driver.pause(2000);
 
     // Navigate to Ride Credit
@@ -735,7 +757,7 @@ for (const menuItem of accountMenuItems3) {
       width: 0,
       height: height*0.4,
       direction: 'down',
-      percent: 0.5
+      percent: 0.9
      }]);
  await driver.pause(1000);
 
@@ -813,11 +835,18 @@ for (const menuItem of accountMenuItems3) {
     await expect(backButton).toBeDisplayed();
 
     // Verify screen title
-    const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
+    //const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
+    const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite your friends\")");
     await expect(screenTitle).toBeDisplayed();
 
+    
+        const descriptionHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Give €10, Get €10\")");
+    await expect(descriptionHeader).toBeDisplayed();
+
+
     // Verify screen description
-    const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
+    //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
+    const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Invite a friend to join umob, and you'll\")");
     await expect(screenDescription).toBeDisplayed();
 
     // Verify Your Code section
@@ -841,14 +870,18 @@ for (const menuItem of accountMenuItems3) {
     await driver.pause(2000);
 
     // Verify usage count
-    const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-    await expect(usageCount).toBeDisplayed();
+    //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
+    //await expect(usageCount).toBeDisplayed();
 
     // Verify Share Code button
-    const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
+    //const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
+    const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"INVITE FRIENDS\")");
     await expect(shareCodeButton).toBeDisplayed();
 
+    const viewStats = await driver.$("-android uiautomator:new UiSelector().text(\"VIEW YOUR STATS\")");
+    await expect(viewStats).toBeDisplayed();
 
+/*
     await driver.executeScript('mobile: scrollGesture', [{
       left: width/2,
       top: 0,
@@ -858,6 +891,7 @@ for (const menuItem of accountMenuItems3) {
       percent: 2
      }]);
      await driver.pause(2000);
+*/
 
     // click back button to main acount menu
     await backButton.click();
