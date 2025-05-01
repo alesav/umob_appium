@@ -34,7 +34,7 @@ describe('Login Negative Scenarios', () => {
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("123Qwerty!");
 
-    const loginButtonText = await driver.$("accessibility id:login_button-text");
+    const loginButtonText = await driver.$("SIGN IN");
     await loginButtonText.click();
 
     // Handle permissions
@@ -104,7 +104,7 @@ describe('Login Negative Scenarios', () => {
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("WrongPassword123!");
 
-    const loginButtonText = await driver.$("accessibility id:login_button-text");
+    const loginButtonText = await driver.$("SIGN IN");
     await loginButtonText.click();
     await driver.pause(2000);
 
