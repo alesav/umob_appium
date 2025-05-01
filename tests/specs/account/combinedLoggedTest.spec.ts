@@ -216,7 +216,7 @@ for (let i = 0; i < 2; i++) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.8, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
+  top: height * 0.3, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. Than More close to 0 more scroll you get 
   width: width * 0.8,
   height: height * 0.4, //width of the scrolling area
   direction: 'down',
@@ -253,7 +253,7 @@ await driver.pause(1000);
 // Scroll fully down to make visible Log Out option
 
 await driver.pause(3000);
-
+    
     await driver.executeScript('mobile: scrollGesture', [{
      left: width/2,
      top: 0,
@@ -263,6 +263,18 @@ await driver.pause(3000);
      percent: 2
     }]);
     await driver.pause(1000);
+
+/*
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
+    */
 
     /*
 await driver.executeScript('mobile: scrollGesture', [{
@@ -709,6 +721,7 @@ for (const menuItem of accountMenuItems3) {
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+    await driver.pause(2000);
     
    // Get window size 
 const { width, height } = await driver.getWindowSize();
@@ -718,7 +731,7 @@ for (let i = 0; i < 2; i++) {
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.8, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen 
+  top: height * 0.2, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. then more close to 0 then more scroll you get 
   width: width * 0.8,
   height: height * 0.4, //width of the scrolling area
   direction: 'down',
@@ -846,7 +859,7 @@ await driver.pause(2000);
 
     // Verify screen description
     //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
-    const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Invite a friend to join umob, and you'll\")");
+    const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Invite a friend to join umob, and\")");
     await expect(screenDescription).toBeDisplayed();
 
     // Verify Your Code section
