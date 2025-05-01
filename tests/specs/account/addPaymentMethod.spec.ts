@@ -106,6 +106,17 @@ describe('Add Payment Method', () => {
             '-android uiautomator:new UiSelector().text("Payment settings")'
           ).click();
 
+          //CLick Remove payment method
+           
+           await driver.$(
+            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
+          ).waitForDisplayed();
+          await driver.$(
+            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
+          ).click();          
+          await driver.pause(4000);
+          
+
            //CLick Add payment method
            await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
