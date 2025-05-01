@@ -36,14 +36,8 @@ jobs:
                   script: |
                       mkdir screenshots
 
-                      # Download APK from URL
-                      curl -L -o app.apk "http://smspm.com/uMobApp-release.apk"
-
-                      # Install APK on emulator
-                      adb install app.apk
-
-                      # Verify installation
-                      adb shell pm list packages | grep "com.umob.umob"
+                      # Download and install APK
+                      sh ./scripts/download_apk.sh
 
                       # Run tests
                       npm run android.app.github
