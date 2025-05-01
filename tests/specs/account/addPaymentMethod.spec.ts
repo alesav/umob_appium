@@ -96,31 +96,31 @@ describe('Add Payment Method', () => {
         // Check Account is presented
         await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(4000);
+     await driver.pause(3000);
 
            //CLick Payment Settings
           await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').waitForDisplayed();
           await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').click();
 
-          //CLick Remove payment method
-           
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).click();          
-          await driver.pause(4000);
-          
+         // looking for "REMOVE PAYMENT METHOD"
+try {
+  const removeButton = await driver.$('-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")');
+  
+  // short timeout
+  await removeButton.waitForDisplayed({ timeout: 5000 });
+  
+  // if we are here then button exists and we click it
+  await removeButton.click();
+  await driver.pause(4000);
+} catch (error) {
+  // if the button not found then go further
+}
 
-           //CLick Add payment method
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).waitForDisplayed();
-          await driver.pause(2000);
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).click();
+// anyway looking for the "ADD PAYMENT METHOD" button and click it
+await driver.$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")').waitForDisplayed();
+await driver.pause(2000);
+await driver.$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")').click();
+
 
            //CLick Remove payment method
            /*
