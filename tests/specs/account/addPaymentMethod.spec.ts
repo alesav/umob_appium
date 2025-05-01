@@ -96,15 +96,11 @@ describe('Add Payment Method', () => {
         // Check Account is presented
         await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(4000);
 
            //CLick Payment Settings
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).click();
+          await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').waitForDisplayed();
+          await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').click();
 
           //CLick Remove payment method
            
