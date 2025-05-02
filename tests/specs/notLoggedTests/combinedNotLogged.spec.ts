@@ -206,11 +206,11 @@ const { width, height } = await driver.getWindowSize();
   await driver.pause(2000);
   await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
-  top: height * 0.1,
+  top: height * 0.2,
   width: width * 0.85,
-  height: height * 0.99,
+  height: height * 0.4,
   direction: 'down',
-  percent: 100
+  percent: 0.9
 }]);
 await driver.pause(3000);
 };
