@@ -255,7 +255,7 @@ await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
   top: 0,
   width: 0,
-  height: height*0.9,
+  height: height*0.9, //height of scrolling area
   direction: 'down',
   percent: 2
  }]);
