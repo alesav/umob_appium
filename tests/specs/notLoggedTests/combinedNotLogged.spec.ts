@@ -22,6 +22,7 @@ describe('Combined Not Logged User Tests', () => {
       const exploreMapButton = await driver.$('android=new UiSelector().text("EXPLORE MAP")');
       await expect(exploreMapButton).toBeDisplayed();
       await exploreMapButton.click();
+      await driver.pause(2000);
       
     } catch (error) {
       console.log('Popup not found or already handled:', error);
@@ -234,6 +235,33 @@ for (const text of contentElements2) {
     const element2 = await driver.$(`-android uiautomator:new UiSelector().text("${text}")`);
     await expect(element2).toBeDisplayed();
 }
+
+
+for (let i = 0; i < 2; i++) {
+  await driver.pause(2000);
+  await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.2,
+  width: width * 0.85,
+  height: height * 0.4,
+  direction: 'down',
+  percent: 0.9
+}]);
+await driver.pause(3000);
+};
+
+
+  const contentElements4 = [
+    "Follow the rules",
+    "Always respect local traffic rules and ensure a safe and responsible ride."
+    
+];
+
+for (const text of contentElements4) {
+    const element4 = await driver.$(`-android uiautomator:new UiSelector().text("${text}")`);
+    await expect(element4).toBeDisplayed();
+}
+
   // go to chat tab
   await chat.click();
   await driver.pause(2000);
