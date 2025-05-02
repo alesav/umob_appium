@@ -173,8 +173,10 @@ describe('Combined Not Logged User Tests', () => {
           "Find your e-bike and press 'Start' in the app to begin your ride.",
           "Pause",
           "Do you want to take a break while on the go? Switch the e-bike to 'parking mode' at a small fee per minute. The e-bike will be turned off, but remains reserved for you.",
-          "Flexible travel",
-          "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely."
+          "Flexible travel"
+         // "Do you want to take a break while on the go? Switch the e-bike to 'parking mode' at a small fee per minute. The e-bike will be turned off, but remains reserved for you.",
+         // "Flexible travel",
+         // "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely."
       ];
 
       for (const text of contentElements) {
@@ -183,6 +185,8 @@ describe('Combined Not Logged User Tests', () => {
       }
 
       //Scroll to bottom
+
+      /*
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
     top: 1500,
@@ -193,7 +197,26 @@ describe('Combined Not Logged User Tests', () => {
   }]); 
   await driver.pause(6000);
 
+  */
+
+  // Get window size 
+const { width, height } = await driver.getWindowSize();
+
+  await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.1,
+  width: width * 0.85,
+  height: height * 0.99,
+  direction: 'down',
+  percent: 100
+}]);
+await driver.pause(4000);
+
+
   const contentElements2 = [
+    
+    "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely.",
     "End ride",
     "End your ride only within the service area, indicated by green in the app.",
     "Park neatly",
@@ -499,8 +522,10 @@ for (const text of contentElements2) {
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     // await driver.pause(2000);
     // await settingsButton.click();
+    await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+    await driver.pause(2000);
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
