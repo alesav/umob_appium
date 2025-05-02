@@ -250,6 +250,17 @@ for (let i = 0; i < 2; i++) {
 await driver.pause(3000);
 };
 
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: 0,
+  width: 0,
+  height: height*0.8,
+  direction: 'down',
+  percent: 2
+ }]);
+ await driver.pause(1000);
+
 
   const contentElements4 = [
     "Follow the rules",
