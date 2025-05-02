@@ -202,8 +202,9 @@ describe('Combined Not Logged User Tests', () => {
   // Get window size 
 const { width, height } = await driver.getWindowSize();
 
+ for (let i = 0; i < 2; i++) {
   await driver.pause(2000);
-await driver.executeScript('mobile: scrollGesture', [{
+  await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
   top: height * 0.1,
   width: width * 0.85,
@@ -211,7 +212,8 @@ await driver.executeScript('mobile: scrollGesture', [{
   direction: 'down',
   percent: 100
 }]);
-await driver.pause(4000);
+await driver.pause(3000);
+};
 
 
   const contentElements2 = [
