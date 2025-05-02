@@ -243,7 +243,7 @@ for (let i = 0; i < 2; i++) {
   left: width/2,
   top: height * 0.2,
   width: width * 0.8,
-  height: height * 0.6,
+  height: height * 0.7,
   direction: 'down',
   percent: 0.9
 }]);
@@ -255,7 +255,7 @@ await driver.executeScript('mobile: scrollGesture', [{
   left: width/2,
   top: 0,
   width: 0,
-  height: height*0.8,
+  height: height*0.9,
   direction: 'down',
   percent: 2
  }]);
