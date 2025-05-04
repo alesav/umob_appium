@@ -5,8 +5,11 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-        //"../tests/specs/account/*.spec.ts",
-       // "../tests/specs/login/*.spec.ts",
+        "../tests/specs/account/*.spec.ts",
+        "../tests/specs/login/*.spec.ts",
+        "../tests/specs/book/*.spec.ts",
+        "../tests/specs/newUserVoucher/*.spec.ts",
+        "../tests/specs/newUser/*.spec.ts",
         "../tests/specs/notLoggedTests/*.spec.ts",
        // "../tests/specs/book/failedPaymentNoBooking.spec.ts",
        // "../tests/specs/book/reserveCheck.spec.ts",
