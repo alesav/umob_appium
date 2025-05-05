@@ -355,7 +355,7 @@ for (const text of contentElements4) {
     // await tick.click();
     // await driver.pause(2000);
 
-    /*
+    
 
     const netherlands = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
     await expect(netherlands).toBeDisplayed();
@@ -374,7 +374,7 @@ for (const text of contentElements4) {
     const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
     await expect(France).toBeDisplayed();
 
-    */
+    
 
 
     //checking amount of providers
