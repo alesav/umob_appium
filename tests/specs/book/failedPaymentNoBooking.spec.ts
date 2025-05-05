@@ -87,6 +87,8 @@ let testStatus = "Pass";
 
     try {
 
+      await driver.pause(7000);
+
     // Set initial location
     execSync(
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
