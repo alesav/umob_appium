@@ -319,14 +319,17 @@ for (const text of contentElements4) {
   }
 
     //Scroll to bottom
+    await driver.pause(3000);
+    
     await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-    }]); 
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    
     await driver.pause(6000);
 
     //test the text after scrolling
@@ -336,8 +339,8 @@ for (const text of contentElements4) {
     const text2 = await driver.$("-android uiautomator:new UiSelector().text(\"One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.\")");
     await expect(text2).toBeDisplayed();
 
-    // const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
-    // await expect(text3).toBeDisplayed();
+     const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
+     await expect(text3).toBeDisplayed();
 
     //go to where tab
     await where.click();
