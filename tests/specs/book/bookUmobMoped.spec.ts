@@ -203,9 +203,9 @@ describe('Mocked Umob Mopeds (with constant errors) trying Booking Tests', () =>
       //await welcomeMessage.waitForEnabled({ timeout: 10000 });
 
       // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
+      // const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+      // await expect(allowForegroundPermissionBtn).toBeDisplayed();
+      // await allowForegroundPermissionBtn.click();
 
 
         

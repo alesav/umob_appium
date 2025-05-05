@@ -117,6 +117,10 @@ let testStatus = "Pass";
     // Verify departure and destination input section
     const departureDestinationLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Enter pickup & destination points\")");
     await expect(departureDestinationLabel).toBeDisplayed();
+
+    // allow permissions for github actions
+    const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+    await permission2.click();
         
 
   // click on destination and text Rotterdam Zoo Rotterdam
@@ -256,6 +260,11 @@ let testStatus = "Pass";
 
     try {
 
+      //allow permissions for github actions
+      const permission1 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+  await expect(permission1).toBeDisplayed();
+  await permission1.click();
+
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
   await expect(travelDetails).toBeDisplayed();
@@ -271,6 +280,10 @@ let testStatus = "Pass";
 //check driver note is displayed
 const driverNote = await driver.$("-android uiautomator:new UiSelector().text(\"Add a note to the driver (optional)\")");
 await expect(driverNote).toBeDisplayed();
+
+//permission for github actions
+const permission3 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW)\")");
+await permission3.click();
 
 // check if price in euro
 const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
