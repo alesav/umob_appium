@@ -225,9 +225,8 @@ await driver.pause(3000);
     "Park neatly",
     "Make sure the e-bike is parked correctly before you end the ride in the app.",
     "Driving in the city",
-    "With e-bikes, you can ride and park almost anywhere in the city within designated zones to keep the public roads accessible.",
-    "Follow the rules",
-    "Always respect local traffic rules and ensure a safe and responsible ride."
+    "With e-bikes, you can ride and park almost anywhere in the city within designated zones to keep the public roads accessible."
+    
     
 ];
 

@@ -35,6 +35,7 @@ describe('Login Negative Scenarios', () => {
     await passwordField.addValue("123Qwerty!");
 
     const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
+    await driver.pause(2000);
     await loginButtonText.click();
 
     // Handle permissions
@@ -105,8 +106,9 @@ describe('Login Negative Scenarios', () => {
     await passwordField.addValue("WrongPassword123!");
 
     const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
-    await loginButtonText.click();
     await driver.pause(2000);
+    await loginButtonText.click();
+    
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
