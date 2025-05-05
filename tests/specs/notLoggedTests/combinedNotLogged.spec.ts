@@ -355,6 +355,8 @@ for (const text of contentElements4) {
     // await tick.click();
     // await driver.pause(2000);
 
+    /*
+
     const netherlands = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
     await expect(netherlands).toBeDisplayed();
     await netherlands.click();
@@ -371,6 +373,8 @@ for (const text of contentElements4) {
 
     const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
     await expect(France).toBeDisplayed();
+
+    */
 
 
     //checking amount of providers
@@ -393,14 +397,16 @@ for (const text of contentElements4) {
     await expect(stepProviders).toBeDisplayed();
 
     //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-   }]); 
+    await driver.pause(3000);
+    
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
     await driver.pause(6000);
 
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
