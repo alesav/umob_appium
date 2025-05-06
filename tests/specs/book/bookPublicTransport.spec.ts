@@ -1,6 +1,6 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
-import { execSync } from "child_process";
+import { exec, execSync } from "child_process";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -54,10 +54,11 @@ describe('Book Public Transport', () => {
       const credentials = getCredentials(ENV, USER);
 
     // await PageObjects.login(credentials);
-    execSync("adb shell pm grant YOUR_APP_PACKAGE android.permission.ACCESS_FINE_LOCATION")
-    execSync("adb shell pm grant YOUR_APP_PACKAGE android.permission.ACCESS_COARSE_LOCATION")
+    execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
+    execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
 
     await PageObjects.login({ username: credentials.username, password: credentials.password });
+    execSync("adb shell pm list packages | grep io.appium.settings")
     execSync("adb shell geo fix 4.467446 51.9242868")
 
       /*
