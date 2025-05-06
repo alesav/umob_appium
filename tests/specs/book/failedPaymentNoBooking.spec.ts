@@ -65,6 +65,10 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
         */
         const credentials = getCredentials(ENV, USER);
 
+        execSync(
+          `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
+        );
+
         // await PageObjects.login(credentials);
         await PageObjects.login({ username: credentials.username, password: credentials.password });
     
@@ -94,6 +98,8 @@ let testStatus = "Pass";
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
     );
     await driver.pause(5000);
+
+
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
