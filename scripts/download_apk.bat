@@ -34,20 +34,41 @@ if %ERRORLEVEL% NEQ 0 (
     goto :cleanup_and_exit
 )
 
-REM Get 10 latest build IDs
+REM Get 10 latest build IDs - save JSON response to a file first to avoid pipe issues
 echo Fetching 10 latest build IDs...
-for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:10] | map(.id) | .[]"') do (
-    set BUILD_IDS=!BUILD_IDS! %%a
+curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9&api-version=7.1-preview.7" > "%TEMP_DIR%\builds.json"
+
+REM Check if we got a valid JSON response
+if not exist "%TEMP_DIR%\builds.json" (
+    echo Failed to get build data from Azure DevOps.
+    goto :cleanup_and_exit
 )
 
-REM Process each build ID until we find one with an android-Test artifact
-for %%b in (%BUILD_IDS%) do (
-    set BUILD_ID=%%b
+REM Process the JSON to get build IDs
+jq -r ".value | sort_by(.startTime) | reverse | .[0:10] | map(.id) | .[]" "%TEMP_DIR%\builds.json" > "%TEMP_DIR%\build_ids.txt"
+
+REM Check if we got any build IDs
+if not exist "%TEMP_DIR%\build_ids.txt" (
+    echo Failed to parse build IDs.
+    goto :cleanup_and_exit
+)
+
+REM Read build IDs from file
+for /f "tokens=*" %%a in (%TEMP_DIR%\build_ids.txt) do (
+    REM Process each build ID
+    set BUILD_ID=%%a
     echo Checking build !BUILD_ID! for android-Test artifact...
     
-    REM Try to get the download URL for android-Test artifact
-    for /f "tokens=*" %%c in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds/!BUILD_ID!/artifacts?api-version=7.1-preview.5" ^| jq -r ".value[] | select(.name==\"android-Test\") | .resource.downloadUrl"') do (
-        set DOWNLOAD_URL=%%c
+    REM Get artifact info for this build
+    curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds/!BUILD_ID!/artifacts?api-version=7.1-preview.5" > "%TEMP_DIR%\artifacts.json"
+    
+    REM Extract download URL if android-Test artifact exists
+    jq -r ".value[] | select(.name==\"android-Test\") | .resource.downloadUrl" "%TEMP_DIR%\artifacts.json" > "%TEMP_DIR%\download_url.txt"
+    
+    REM Check if download URL file has content
+    set "DOWNLOAD_URL="
+    for /f "usebackq tokens=*" %%u in ("%TEMP_DIR%\download_url.txt") do (
+        set "DOWNLOAD_URL=%%u"
     )
     
     REM If download URL exists (not empty), download the artifact
