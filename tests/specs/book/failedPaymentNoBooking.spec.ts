@@ -74,7 +74,7 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
         execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
         execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
     
-
+        execSync("adb -P 5555 -s emulator-5554 emu geo fix 4.4744301 51.9155956")
     });
 
   beforeEach(async () => {
@@ -99,7 +99,7 @@ let testStatus = "Pass";
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
     );
 
-    execSync("adb -P 5555 -s emulator-5554 emu geo fix 56.37827115375647 21.789664775133134")
+    //execSync("adb -P 5555 -s emulator-5554 emu geo fix 56.37827115375647 21.789664775133134")
     await driver.pause(5000);
 
 
