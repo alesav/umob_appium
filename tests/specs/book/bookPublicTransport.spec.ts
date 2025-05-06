@@ -54,8 +54,11 @@ describe('Book Public Transport', () => {
       const credentials = getCredentials(ENV, USER);
 
     // await PageObjects.login(credentials);
-    await PageObjects.login({ username: credentials.username, password: credentials.password });
+    execSync("adb shell pm grant YOUR_APP_PACKAGE android.permission.ACCESS_FINE_LOCATION")
+    execSync("adb shell pm grant YOUR_APP_PACKAGE android.permission.ACCESS_COARSE_LOCATION")
 
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+    execSync("adb shell geo fix 4.467446 51.9242868")
 
       /*
   
