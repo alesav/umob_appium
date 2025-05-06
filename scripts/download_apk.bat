@@ -36,27 +36,13 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Get 10 latest build IDs - save JSON response to a file first to avoid pipe issues
 echo Fetching 10 latest build IDs...
-curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9&api-version=7.1-preview.7" > "%TEMP_DIR%\builds.json"
-
-REM Check if we got a valid JSON response
-if not exist "%TEMP_DIR%\builds.json" (
-    echo Failed to get build data from Azure DevOps.
-    goto :cleanup_and_exit
+for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:20] | map(.id) | .[]"') do (
+    set BUILD_IDS=!BUILD_IDS! %%a
 )
 
-REM Process the JSON to get build IDs
-jq -r ".value | sort_by(.startTime) | reverse | .[0:10] | map(.id) | .[]" "%TEMP_DIR%\builds.json" > "%TEMP_DIR%\build_ids.txt"
-
-REM Check if we got any build IDs
-if not exist "%TEMP_DIR%\build_ids.txt" (
-    echo Failed to parse build IDs.
-    goto :cleanup_and_exit
-)
-
-REM Read build IDs from file
-for /f "tokens=*" %%a in (%TEMP_DIR%\build_ids.txt) do (
-    REM Process each build ID
-    set BUILD_ID=%%a
+REM Process each build ID until we find one with an android-Test artifact
+for %%b in (%BUILD_IDS%) do (
+    set BUILD_ID=%%b
     echo Checking build !BUILD_ID! for android-Test artifact...
     
     REM Get artifact info for this build

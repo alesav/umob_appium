@@ -1,6 +1,52 @@
 import { execSync } from "child_process";
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || '4bigfoot+11';
+
+/////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -8,11 +54,23 @@ describe('Add Payment Method', () => {
   let scooters;
 
   before(async () => {
+    const credentials = getCredentials(ENV, USER);
+
+    // await PageObjects.login(credentials);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+
+
+  });
+
+  /*
+  before(async () => {
 
         await PageObjects.login({ username:'4bigfoot+11@gmail.com', password: '123Qwerty!' });
 
 
   });
+
+  */
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
@@ -38,24 +96,31 @@ describe('Add Payment Method', () => {
         // Check Account is presented
         await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
            //CLick Payment Settings
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).click();
+          await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').waitForDisplayed();
+          await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').click();
 
-           //CLick Add payment method
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).waitForDisplayed();
-          await driver.pause(2000);
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).click();
+         // looking for "REMOVE PAYMENT METHOD"
+try {
+  const removeButton = await driver.$('-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")');
+  
+  // short timeout
+  await removeButton.waitForDisplayed({ timeout: 5000 });
+  
+  // if we are here then button exists and we click it
+  await removeButton.click();
+  await driver.pause(4000);
+} catch (error) {
+  // if the button not found then go further
+}
+
+// anyway looking for the "ADD PAYMENT METHOD" button and click it
+await driver.$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")').waitForDisplayed();
+await driver.pause(2000);
+await driver.$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")').click();
+
 
            //CLick Remove payment method
            /*
