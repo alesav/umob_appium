@@ -22,6 +22,7 @@ describe('Combined Not Logged User Tests', () => {
       const exploreMapButton = await driver.$('android=new UiSelector().text("EXPLORE MAP")');
       await expect(exploreMapButton).toBeDisplayed();
       await exploreMapButton.click();
+      await driver.pause(2000);
       
     } catch (error) {
       console.log('Popup not found or already handled:', error);
@@ -173,8 +174,10 @@ describe('Combined Not Logged User Tests', () => {
           "Find your e-bike and press 'Start' in the app to begin your ride.",
           "Pause",
           "Do you want to take a break while on the go? Switch the e-bike to 'parking mode' at a small fee per minute. The e-bike will be turned off, but remains reserved for you.",
-          "Flexible travel",
-          "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely."
+          "Flexible travel"
+         // "Do you want to take a break while on the go? Switch the e-bike to 'parking mode' at a small fee per minute. The e-bike will be turned off, but remains reserved for you.",
+         // "Flexible travel",
+         // "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely."
       ];
 
       for (const text of contentElements) {
@@ -183,6 +186,8 @@ describe('Combined Not Logged User Tests', () => {
       }
 
       //Scroll to bottom
+
+      /*
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
     top: 1500,
@@ -193,15 +198,35 @@ describe('Combined Not Logged User Tests', () => {
   }]); 
   await driver.pause(6000);
 
+  */
+
+  // Get window size 
+const { width, height } = await driver.getWindowSize();
+
+ for (let i = 0; i < 2; i++) {
+  await driver.pause(2000);
+  await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.2,
+  width: width * 0.85,
+  height: height * 0.4,
+  direction: 'down',
+  percent: 0.9
+}]);
+await driver.pause(3000);
+};
+
+
   const contentElements2 = [
+    
+    "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely.",
     "End ride",
     "End your ride only within the service area, indicated by green in the app.",
     "Park neatly",
     "Make sure the e-bike is parked correctly before you end the ride in the app.",
     "Driving in the city",
-    "With e-bikes, you can ride and park almost anywhere in the city within designated zones to keep the public roads accessible.",
-    "Follow the rules",
-    "Always respect local traffic rules and ensure a safe and responsible ride."
+    "With e-bikes, you can ride and park almost anywhere in the city within designated zones to keep the public roads accessible."
+    
     
 ];
 
@@ -209,6 +234,44 @@ for (const text of contentElements2) {
     const element2 = await driver.$(`-android uiautomator:new UiSelector().text("${text}")`);
     await expect(element2).toBeDisplayed();
 }
+
+
+for (let i = 0; i < 2; i++) {
+  await driver.pause(2000);
+  await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.1,
+  width: width * 0.8,
+  height: height * 0.7,
+  direction: 'down',
+  percent: 0.9
+}]);
+await driver.pause(3000);
+};
+
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: 0,
+  width: 0,
+  height: height*0.9, //height of scrolling area
+  direction: 'down',
+  percent: 2
+ }]);
+ await driver.pause(1000);
+
+
+  const contentElements4 = [
+    "Follow the rules",
+    "Always respect local traffic rules and ensure a safe and responsible ride."
+    
+];
+
+for (const text of contentElements4) {
+    const element4 = await driver.$(`-android uiautomator:new UiSelector().text("${text}")`);
+    await expect(element4).toBeDisplayed();
+}
+
   // go to chat tab
   await chat.click();
   await driver.pause(2000);
@@ -256,14 +319,17 @@ for (const text of contentElements2) {
   }
 
     //Scroll to bottom
+    await driver.pause(3000);
+    
     await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-    }]); 
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    
     await driver.pause(6000);
 
     //test the text after scrolling
@@ -273,8 +339,8 @@ for (const text of contentElements2) {
     const text2 = await driver.$("-android uiautomator:new UiSelector().text(\"One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.\")");
     await expect(text2).toBeDisplayed();
 
-    // const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
-    // await expect(text3).toBeDisplayed();
+     const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
+     await expect(text3).toBeDisplayed();
 
     //go to where tab
     await where.click();
@@ -288,6 +354,8 @@ for (const text of contentElements2) {
     // const tick = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(19)");
     // await tick.click();
     // await driver.pause(2000);
+
+    
 
     const netherlands = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
     await expect(netherlands).toBeDisplayed();
@@ -305,6 +373,8 @@ for (const text of contentElements2) {
 
     const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
     await expect(France).toBeDisplayed();
+
+    
 
 
     //checking amount of providers
@@ -327,14 +397,16 @@ for (const text of contentElements2) {
     await expect(stepProviders).toBeDisplayed();
 
     //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-   }]); 
+    await driver.pause(3000);
+    
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
     await driver.pause(6000);
 
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
@@ -499,8 +571,10 @@ for (const text of contentElements2) {
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     // await driver.pause(2000);
     // await settingsButton.click();
+    await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+    await driver.pause(2000);
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");

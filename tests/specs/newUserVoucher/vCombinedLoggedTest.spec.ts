@@ -748,42 +748,77 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
     
-    // Navigate to Invite Friends
-    const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
-    await inviteFriendsButton.click();
-    await driver.pause(3000);
+   // Navigate to Invite Friends
+   const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
+   await inviteFriendsButton.click();
+   await driver.pause(3000);
 
-    // Verify back button is present
-    const backButton = await driver.$("-android uiautomator:new UiSelector().description(\"back_button\")");
-    await expect(backButton).toBeDisplayed();
+   // Verify back button is present
+   const backButton = await driver.$("-android uiautomator:new UiSelector().description(\"back_button\")");
+   await expect(backButton).toBeDisplayed();
 
-    // Verify screen title
-    const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
-    await expect(screenTitle).toBeDisplayed();
+   // Verify screen title
+   //const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
+   const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite your friends\")");
+   await expect(screenTitle).toBeDisplayed();
 
-    // Verify screen description
-    const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit\")");
-    await expect(screenDescription).toBeDisplayed();
+   
+       const descriptionHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Give €10, Get €10\")");
+   await expect(descriptionHeader).toBeDisplayed();
 
-    // Verify Your Code section
-    const yourCodeLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Your code\")");
-    await expect(yourCodeLabel).toBeDisplayed();
 
-    /* Verify the actual referral code
-    const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-    await expect(referralCode).toBeDisplayed(); */
+   // Verify screen description
+   //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
+   const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Invite a friend to join umob, and\")");
+   await expect(screenDescription).toBeDisplayed();
 
-    // Verify usage count
-    const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-    await expect(usageCount).toBeDisplayed();
+   // Verify Your Code section
+   const yourCodeLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Your code\")");
+   await expect(yourCodeLabel).toBeDisplayed();
 
-    // Verify Share Code button
-    const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
-    await expect(shareCodeButton).toBeDisplayed();
+   /* Verify the actual referral code
+   const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
+   await expect(referralCode).toBeDisplayed(); */
 
-    // click back button to main acount menu
-    await backButton.click();
+   await driver.pause(3000);
+   const { width, height } = await driver.getWindowSize();
+   await driver.executeScript('mobile: scrollGesture', [{
+    left: width/2,
+    top: 0,
+    width: 0,
+    height: height*0.8,
+    direction: 'down',
+    percent: 2
+   }]);
+   await driver.pause(2000);
+
+   // Verify usage count
+   //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
+   //await expect(usageCount).toBeDisplayed();
+
+   // Verify Share Code button
+   //const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
+   const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"INVITE FRIENDS\")");
+   await expect(shareCodeButton).toBeDisplayed();
+
+   const viewStats = await driver.$("-android uiautomator:new UiSelector().text(\"VIEW YOUR STATS\")");
+   await expect(viewStats).toBeDisplayed();
+
+/*
+   await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'up',
+     percent: 2
+    }]);
     await driver.pause(2000);
+*/
+
+   // click back button to main acount menu
+   await backButton.click();
+   await driver.pause(2000);
 
   } catch (e) {
     error = e;

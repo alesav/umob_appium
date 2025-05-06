@@ -1,10 +1,61 @@
 import { AfterAll } from "@wdio/cucumber-framework";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || '4bigfoot+10';
 
 describe('Book a Taxi', () => {
      before(async () => {
+
+      const credentials = getCredentials(ENV, USER);
+
+    // await PageObjects.login(credentials);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
    
+
+    /*
          // Find and click LOG IN button
          const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
          await logInBtn.isClickable();
@@ -12,7 +63,7 @@ describe('Book a Taxi', () => {
    
          await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
    
-   
+   */
      });
 
   it('test key elements for book a taxi, add destination', async () => {
@@ -66,6 +117,10 @@ let testStatus = "Pass";
     // Verify departure and destination input section
     const departureDestinationLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Enter pickup & destination points\")");
     await expect(departureDestinationLabel).toBeDisplayed();
+
+    // allow permissions for github actions
+    const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+    await permission2.click();
         
 
   // click on destination and text Rotterdam Zoo Rotterdam
@@ -205,6 +260,11 @@ let testStatus = "Pass";
 
     try {
 
+      //allow permissions for github actions
+      const permission1 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+  await expect(permission1).toBeDisplayed();
+  await permission1.click();
+
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
   await expect(travelDetails).toBeDisplayed();
@@ -220,6 +280,10 @@ let testStatus = "Pass";
 //check driver note is displayed
 const driverNote = await driver.$("-android uiautomator:new UiSelector().text(\"Add a note to the driver (optional)\")");
 await expect(driverNote).toBeDisplayed();
+
+//permission for github actions
+const permission3 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW)\")");
+await permission3.click();
 
 // check if price in euro
 const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");

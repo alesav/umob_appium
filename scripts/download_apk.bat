@@ -36,7 +36,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 REM Get 10 latest build IDs
 echo Fetching 10 latest build IDs...
-for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:10] | map(.id) | .[]"') do (
+for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:20] | map(.id) | .[]"') do (
     set BUILD_IDS=!BUILD_IDS! %%a
 )
 

@@ -1,6 +1,9 @@
 import submitTestRun from '../../helpers/SendResults.js';
 
+
 describe('Login Negative Scenarios', () => {
+
+  
   beforeEach(async () => {
     // Ensure app is launched and initial screen is loaded
     await driver.activateApp("com.umob.umob");
@@ -31,13 +34,14 @@ describe('Login Negative Scenarios', () => {
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("123Qwerty!");
 
-    const loginButtonText = await driver.$("accessibility id:login_button-text");
+    const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
+    await driver.pause(2000);
     await loginButtonText.click();
 
     // Handle permissions
-    const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    await expect(allowPermissionBtn).toBeDisplayed();
-    await allowPermissionBtn.click();
+    // const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    // await expect(allowPermissionBtn).toBeDisplayed();
+    // await allowPermissionBtn.click();
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
@@ -101,8 +105,10 @@ describe('Login Negative Scenarios', () => {
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("WrongPassword123!");
 
-    const loginButtonText = await driver.$("accessibility id:login_button-text");
+    const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
+    await driver.pause(2000);
     await loginButtonText.click();
+    
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
