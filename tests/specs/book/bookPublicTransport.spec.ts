@@ -391,8 +391,8 @@ let testStatus = "Pass";
   await driver.pause(2000);
   //Scroll to bottom
   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
+    left: 5,
+    top: 1200,
     width: 200,
     height: 100,
     direction: 'down',
@@ -406,6 +406,7 @@ let testStatus = "Pass";
   //check back button is displayed
   const backButton = await driver.$("accessibility id:back_button");
 await expect(backButton).toBeDisplayed();
+await driver.pause(2000);
 
   //check "buy e-tickets" button is enabled and click it
   const buyButton = await driver.$("-android uiautomator:new UiSelector().text(\"BUY E-TICKETS\")");
