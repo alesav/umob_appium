@@ -22,6 +22,7 @@ jobs:
             - name: Install depende
               run: |
                   npm install
+                  appium driver install uiautomator2
 
             - name: Enable KVM group perms
               run: |
