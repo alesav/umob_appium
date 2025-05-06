@@ -98,6 +98,8 @@ let testStatus = "Pass";
     execSync(
       `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
     );
+
+    execSync("adb -P 5555 -s emulator-5554 emu geo fix 56.37827115375647 21.789664775133134")
     await driver.pause(5000);
 
 
