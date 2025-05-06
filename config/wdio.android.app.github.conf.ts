@@ -15,7 +15,7 @@ export const config: WebdriverIO.Config = {
         //  "../tests/specs/notLoggedTests/*.spec.ts"
 
         // Try one test
-         "../tests/specs/book/bookPublicTransport.spec.ts",
+         "../tests/specs/book/failedPaymentNoBooking.spec.ts",
 
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
        // "../tests/specs/book/reserveCheck.spec.ts",

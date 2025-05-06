@@ -59,19 +59,6 @@ describe('Book Public Transport', () => {
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
 
-    execSync("adb shell pm list packages | grep io.appium.settings")
-    //execSync("adb shell geo fix 4.467446 51.9242868")
-
-      /*
-  
-        // Find and click LOG IN button
-        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-        await logInBtn.isClickable();
-        await logInBtn.click();
-  
-        await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
-
-        */
 
             // Set location to specific scooter coordinates
             execSync(
