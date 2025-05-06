@@ -52,29 +52,29 @@ const USER = process.env.TEST_USER || 'new16';
 describe('verify that it is not possible to book a bike if you didnt pay for the previous ride', () => {
 
     before(async () => {
-  
-      /*
-        // Find and click LOG IN button
-        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-        await logInBtn.isClickable();    
-        await driver.pause(5000);
-        await logInBtn.click();
-  
-        await PageObjects.login({ username:'new16@gmail.com', password: '123Qwerty!' });
-    
-        */
+
         const credentials = getCredentials(ENV, USER);
 
-        execSync(
-          `adb shell am startservice -e longitude 4.4744301 -e latitude 52.9155956 io.appium.settings/.LocationService`
-        );
+        const latitude = 51.9155956;
+        const longitude = 4.4744301;
 
         // await PageObjects.login(credentials);
         await PageObjects.login({ username: credentials.username, password: credentials.password });
-        execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
-        execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
-    
-        execSync("adb emu geo fix 4.4744301 51.9155956")
+        //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
+        //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
+  
+        execSync(
+          `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+        );
+
+        try {
+          execSync("adb emu geo fix "+ longitude+" "+ latitude);
+        } catch (error) {
+          console.error("Failed to set location:", error);
+          // Optionally, decide how to handle the error.  
+          // For example, you might want to skip the test or re-throw the error.
+          // For now, let's continue the test.
+        }
     });
 
   beforeEach(async () => {
