@@ -251,17 +251,19 @@ const size = await el1.getSize();
 //     .down()
 //     .up()
 //     .perform();
-const { width, height } = await driver.getWindowSize();
-await browser.action('pointer', { parameters: { pointerType: 'touch' }})
-    .move({ 
-        x: 10,
-        y: height/2 - 10
-    })
-    .down()
-    .up()
-    .perform();
 
-    await driver.hideKeyboard();
+// Remp disabled swipe to check if it is aproblem reason.
+// const { width, height } = await driver.getWindowSize();
+// await browser.action('pointer', { parameters: { pointerType: 'touch' }})
+//     .move({ 
+//         x: 10,
+//         y: height/2 - 10
+//     })
+//     .down()
+//     .up()
+//     .perform();
+
+//     await driver.hideKeyboard();
 
     // Set location to specific scooter coordinates
     // execSync(

@@ -57,25 +57,25 @@ describe('Donkey Bike Booking Test', () => {
     // await PageObjects.login(credentials);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-});
+    const latitude = 51.9155956;
+    const longitude = 4.4744301;
+    
+    execSync(
+      `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+    );
 
-
-  /*
-
-    before(async () => {
-  
-        // Find and click LOG IN button
-        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-        await logInBtn.isClickable();    
-        await driver.pause(5000);
-        await logInBtn.click();
-  
-        await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+    try {
+      execSync("adb emu geo fix "+ longitude+" "+ latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
   
   
     });
 
-    */
+});
+
+
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
@@ -92,10 +92,6 @@ let testStatus = "Pass";
 
     try {
 
-    // Set initial location
-    execSync(
-      `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
-    );
     await driver.pause(5000);
 
     // Get screen dimensions for click positioning

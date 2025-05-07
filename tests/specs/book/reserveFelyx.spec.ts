@@ -157,14 +157,25 @@ describe('Reserve Felyx Test', () => {
   let scooters;
 
   before(async () => {
-    // Fetch scooter coordinates before running tests
-    scooters = await fetchScooterCoordinates();
+scooters = await fetchScooterCoordinates();
 
     const credentials = getCredentials(ENV, USER);
 
     // await PageObjects.login(credentials);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
+    const targetScooter = scooters.find((scooter) => scooter.id.includes("Felyx"));
+
+    
+    execSync(
+      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+    );
+
+    try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
     /*
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');

@@ -162,11 +162,25 @@ describe('Check Reservation Tests', () => {
 
   before(async () => {
 
+scooters = await fetchScooterCoordinates();
+
     const credentials = getCredentials(ENV, USER);
 
     // await PageObjects.login(credentials);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
+    const targetScooter = scooters.find((scooter) => scooter.id.includes("Check"));
+
+    
+    execSync(
+      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+    );
+
+    try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
 
     /*
     scooters = await fetchScooterCoordinates();
