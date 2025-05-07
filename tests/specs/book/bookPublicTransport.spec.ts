@@ -97,15 +97,26 @@ let testStatus = "Pass";
     await driver.pause(2000);
 
   //scroll to bottom
- await driver.executeScript('mobile: scrollGesture', [{
-  left: 10,
-  top: 1000,
-  width: 200,
-  height: 800,
-  direction: 'down',
-  percent: 100.0
+//  await driver.executeScript('mobile: scrollGesture', [{
+//   left: 10,
+//   top: 1000,
+//   width: 200,
+//   height: 800,
+//   direction: 'down',
+//   percent: 100.0
+// }]);
+// await driver.pause(1000);
+
+const { width, height } = await driver.getWindowSize();
+await driver.executeScript('mobile: scrollGesture', [{
+ left: width/2,
+ top: 0,
+ width: 0,
+ height: height-100,
+ direction: 'down',
+ percent: .2
 }]);
-await driver.pause(1000);
+await driver.pause(2000);
 
   //click to choose public transport
     const ptButton = await driver.$("-android uiautomator:new UiSelector().text(\"PUBLIC TRANSPORT\")");

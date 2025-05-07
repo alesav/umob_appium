@@ -121,6 +121,20 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
 
       await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 
+      const targetScooter = scooters.find(
+        scooter => scooter.id.includes('Check')
+      );
+      
+      execSync(
+        `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+      );
+  
+      try {
+        execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+      } catch (error) {
+        console.error("Failed to set location:", error);
+      }
+
 
   });
 
@@ -143,19 +157,6 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
  let error = null;
  
  try {
-
-    // const targetScooter = scooters.find(
-    //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
-    // );
-    const targetScooter = scooters.find(
-      scooter => scooter.id.includes('Check')
-    );
-
-    // Set location to specific scooter coordinates
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
-    );
-    await driver.pause(5000);
 
         // Filter not needed results
         //await applyFilters();
