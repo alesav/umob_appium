@@ -19,6 +19,7 @@ describe('Login Negative Scenarios', () => {
  let error = null;
  
  try {
+  const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
 
     // Find and click LOG IN button
     const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -29,19 +30,31 @@ describe('Login Negative Scenarios', () => {
     // Enter invalid username
     const usernameField = await driver.$("accessibility id:login_username_field");
     await expect(usernameField).toBeDisplayed();
-    await usernameField.addValue("invalid.email@example.com");
+    await usernameField.addValue("invalid.email1@example.com");
 
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("123Qwerty!");
 
-    const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
+    const loginButtonText = await driver.$("accessibility id:login_button-text");;
     await driver.pause(2000);
     await loginButtonText.click();
 
-    // Handle permissions
-    // const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    // await expect(allowPermissionBtn).toBeDisplayed();
-    // await allowPermissionBtn.click();
+    const loginButton = await driver.$("accessibility id:login_button");
+    await expect(loginButton).toBeDisplayed();
+    await loginButton.click();
+
+                // Wait for permissions popup
+                const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
+                await permissionsPopup.isDisplayed();
+                await expect(permissionsPopup).toBeDisplayed();
+                await permissionsPopup.click();
+
+                console.log("deviceInfo "+ deviceCapabilities);
+                if (deviceCapabilities.includes("Local")) {
+                    const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+                    await expect(enableNotifications).toBeDisplayed();
+                    await enableNotifications.click();
+                }
 
     // Verify error message
     const errorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Invalid username or password")');
@@ -105,9 +118,13 @@ describe('Login Negative Scenarios', () => {
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("WrongPassword123!");
 
-    const loginButtonText = await driver.$('-android uiautomator:new UiSelector().textContains("SIGN IN")');
+    const loginButtonText = await driver.$("accessibility id:login_button-text");;
     await driver.pause(2000);
     await loginButtonText.click();
+
+    const loginButton = await driver.$("accessibility id:login_button");
+    await expect(loginButton).toBeDisplayed();
+    await loginButton.click();
     
 
     // Verify error message

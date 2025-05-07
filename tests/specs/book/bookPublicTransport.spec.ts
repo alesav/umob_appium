@@ -227,7 +227,7 @@ const size = await el1.getSize();
 // Create a touch action to tap 50 pixels below the element
 await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     .move({ 
-        x: location.x +100,
+        x: location.x +5,
         y: location.y + size.height + 160
     })
     .down()
@@ -619,7 +619,7 @@ let testStatus = "Pass";
     let error = null;
 
     try {
-
+exit
 
 
 // Check header is displayed

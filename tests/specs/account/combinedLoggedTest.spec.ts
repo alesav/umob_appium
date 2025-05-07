@@ -374,7 +374,7 @@ for (const menuItem of accountMenuItems3) {
     await driver.pause(2000);
 
     // Navigate to My Rides & Tickets
-    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets111\")");
     await myRidesAndTicketsButton.click();
     await driver.pause(1000);
 
