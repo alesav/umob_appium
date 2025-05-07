@@ -110,11 +110,11 @@ let testStatus = "Pass";
 const { width, height } = await driver.getWindowSize();
 await driver.executeScript('mobile: scrollGesture', [{
  left: width/2,
- top: 0,
- width: 0,
+ top: 100,
+ width: 100,
  height: height-100,
  direction: 'down',
- percent: .2
+ percent: 1
 }]);
 await driver.pause(2000);
 
