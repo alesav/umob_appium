@@ -59,11 +59,18 @@ describe('Book Public Transport', () => {
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
 
+    const latitude = 51.9155956;
+    const longitude = 4.4744301;
+    
+    execSync(
+      `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+    );
 
-            // Set location to specific scooter coordinates
-            execSync(
-              `adb shell am startservice -e longitude 4.467446 -e latitude 51.9242868 io.appium.settings/.LocationService`
-            );
+    try {
+      execSync("adb emu geo fix "+ longitude+" "+ latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
   
   
     });

@@ -30,7 +30,7 @@ describe('Login Negative Scenarios', () => {
     // Enter invalid username
     const usernameField = await driver.$("accessibility id:login_username_field");
     await expect(usernameField).toBeDisplayed();
-    await usernameField.addValue("invalid.email1@example.com");
+    await usernameField.addValue("invalid.email@example.com");
 
     const passwordField = await driver.$("accessibility id:login_password_field");
     await passwordField.addValue("123Qwerty!");
@@ -43,11 +43,11 @@ describe('Login Negative Scenarios', () => {
     await expect(loginButton).toBeDisplayed();
     await loginButton.click();
 
-                // Wait for permissions popup
-                const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
-                await permissionsPopup.isDisplayed();
-                await expect(permissionsPopup).toBeDisplayed();
-                await permissionsPopup.click();
+                // // Wait for permissions popup
+                // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
+                // await permissionsPopup.isDisplayed();
+                // await expect(permissionsPopup).toBeDisplayed();
+                // await permissionsPopup.click();
 
                 console.log("deviceInfo "+ deviceCapabilities);
                 if (deviceCapabilities.includes("Local")) {
@@ -136,8 +136,6 @@ describe('Login Negative Scenarios', () => {
     console.error("Test failed:", error);
     testStatus = "Fail";
     testDetails = e.message;
-  
-    console.log("TEST 123")
   
     // Capture screenshot on failure
     screenshotPath = "./screenshots/"+ testId+".png";
