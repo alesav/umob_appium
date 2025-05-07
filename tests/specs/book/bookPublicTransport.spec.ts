@@ -225,10 +225,19 @@ const size = await el1.getSize();
 
 
 // Create a touch action to tap 50 pixels below the element
+// await browser.action('pointer', { parameters: { pointerType: 'touch' }})
+//     .move({ 
+//         x: location.x +5,
+//         y: location.y + size.height + 160
+//     })
+//     .down()
+//     .up()
+//     .perform();
+const { width, height } = await driver.getWindowSize();
 await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     .move({ 
-        x: location.x +5,
-        y: location.y + size.height + 160
+        x: 10,
+        y: height/2 - 10
     })
     .down()
     .up()

@@ -374,7 +374,7 @@ for (const menuItem of accountMenuItems3) {
     await driver.pause(2000);
 
     // Navigate to My Rides & Tickets
-    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets111\")");
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
     await myRidesAndTicketsButton.click();
     await driver.pause(1000);
 
@@ -383,7 +383,7 @@ for (const menuItem of accountMenuItems3) {
     // await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
-    const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
+    const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button111\")");
     await expect(backButton).toBeDisplayed();
 
     // Verify last ride section
