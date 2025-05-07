@@ -55,7 +55,7 @@ class PageObjects extends Page {
             const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
             await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
             //await logInBtn.isClickable();
-            await driver.pause(2000);
+            await driver.pause(3000);
             await logInBtn.click();
      
             // Login form elements

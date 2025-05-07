@@ -71,9 +71,6 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
           execSync("adb emu geo fix "+ longitude+" "+ latitude);
         } catch (error) {
           console.error("Failed to set location:", error);
-          // Optionally, decide how to handle the error.  
-          // For example, you might want to skip the test or re-throw the error.
-          // For now, let's continue the test.
         }
     });
 

@@ -369,14 +369,14 @@ for (const menuItem of accountMenuItems3) {
      width: 0,
      height: height*0.5,
      direction: 'down',
-     percent: .2
+     percent: .25
     }]);
-    await driver.pause(1000);
+    await driver.pause(2000);
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
     await myRidesAndTicketsButton.click();
-    await driver.pause(3000);
+    await driver.pause(1000);
 
     // Verify screen header
     // const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");

@@ -91,7 +91,7 @@ let testStatus = "Pass";
 
   //scroll to bottom
  await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
+  left: 10,
   top: 1000,
   width: 200,
   height: 800,
@@ -123,7 +123,7 @@ await driver.pause(1000);
 
 //Scroll to bottom
 await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
+  left: 10,
   top: 1500,
   width: 200,
   height: 100,
@@ -385,7 +385,7 @@ let testStatus = "Pass";
   await driver.executeScript('mobile: scrollGesture', [{
     left: 5,
     top: 1200,
-    width: 200,
+    width: 10,
     height: 100,
     direction: 'down',
     percent: 100
@@ -484,7 +484,7 @@ const agreementText = await driver.$("~I agree to the sharing of personal data r
   await expect(agreementText).toBeDisplayed();
 
 //click to the checking box
-const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(21)');
+const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(27)');
 await expect(checkbox).toBeDisplayed();
 await checkbox.click();
 
@@ -637,6 +637,14 @@ const ticketHeader = await driver.$("-android uiautomator:new UiSelector().text(
 const validBetweenSection = await driver.$('android=new UiSelector().className("android.widget.TextView").text("Valid between")');
 await expect(validBetweenSection).toBeDisplayed();
 
+await driver.executeScript('mobile: scrollGesture', [{
+  left: 5,
+  top: 1200,
+  width: 10,
+  height: 100,
+  direction: 'down',
+  percent: 100
+}]); 
 
 // Check vehicle section is displayed
   const vehicleHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Vehicle\")");
