@@ -145,21 +145,43 @@ await driver.performActions([
     const departureDestinationLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Enter pickup & destination points\")");
     await expect(departureDestinationLabel).toBeDisplayed();
 
-    // allow permissions for github actions
-     const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
-     await permission2.click();
-        
+           
 
-  // click on destination and text Rotterdam Zoo Rotterdam
+  // function for check of existing allow button and click it
+async function clickAllowIfExists() {
+  try {
+    // trying to find permission element
+    const permission = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+    const exists = await permission.isExisting();
+    
+    if (exists) {
+      await permission.click();
+      console.log("permission provided");
+    } else {
+      console.log("permission not found");
+    }
+  } catch (e) {
+    console.log("permission not found");
+  }
+}
+
+
+async function runTest() {
+  // checking if permission exist and click it
+  await clickAllowIfExists(driver);
+  
+  // continue test with filling destination adress
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.click();
   await el1.addValue("Blaak 31");
-  await driver.pause(4000); 
+  await driver.pause(4000);
+  
+  
 
 // First get the element's location and size
 const location = await el1.getLocation();
 const size = await el1.getSize();
-
+}
 
 // Create a touch action to tap 50 pixels below the element
 await browser.action('pointer', { parameters: { pointerType: 'touch' }})
