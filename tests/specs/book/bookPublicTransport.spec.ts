@@ -98,16 +98,16 @@ let testStatus = "Pass";
 
     await driver.pause(2000);
 
-  //scroll to bottom
-//  await driver.executeScript('mobile: scrollGesture', [{
-//   left: 10,
-//   top: 1000,
-//   width: 200,
-//   height: 800,
-//   direction: 'down',
-//   percent: 100.0
-// }]);
-// await driver.pause(1000);
+ // scroll to bottom
+ await driver.executeScript('mobile: scrollGesture', [{
+  left: 10,
+  top: 10,
+  width: 10,
+  height: 600,
+  direction: 'down',
+  percent: 100.0
+}]);
+await driver.pause(1000);
 
 // const { width, height } = await driver.getWindowSize();
 // await driver.executeScript('mobile: scrollGesture', [{
@@ -128,10 +128,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: 100, y: 1000 },
+          { type: 'pointerMove', duration: 0, x: 100, y: 300 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: 100, y: 100 },
+          { type: 'pointerMove', duration: 1000, x: 100, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
