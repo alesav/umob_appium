@@ -107,16 +107,38 @@ let testStatus = "Pass";
 // }]);
 // await driver.pause(1000);
 
+// const { width, height } = await driver.getWindowSize();
+// await driver.executeScript('mobile: scrollGesture', [{
+//  left: width/2,
+//  top: 100,
+//  width: 100,
+//  height: height-100,
+//  direction: 'down',
+//  percent: 1
+// }]);
+// await driver.pause(2000);
+
 const { width, height } = await driver.getWindowSize();
+const scrollStartX = width / 2;
+const scrollStartY = height * 0.8; // Start swipe near the bottom
+const scrollEndY = height * 0.2;   // End swipe near the top
+
+// To scroll content UP (finger moves from bottom to top)
 await driver.executeScript('mobile: scrollGesture', [{
- left: width/2,
- top: 100,
- width: 100,
- height: height-100,
- direction: 'down',
- percent: 1
+  // Option 1: Using explicit start/end (more like a swipe, often more reliable for simple scrolls)
+  // left: scrollStartX, top: scrollStartY, width: 0, height: scrollStartY - scrollEndY, // height here is the swipe distance
+  // direction: 'up', // Finger moves up
+  // percent: 1.0 // Percent of the defined height to swipe
+
+  // Option 2: Using the gesture area and percent of scrollable view
+  left: width / 2,   // Center of the screen horizontally
+  top: height * 0.8, // Start scroll gesture area from 20% top
+  width: 0,        // A small width for the gesture area is fine for vertical scroll
+  height: height * 0.1, // Gesture area height (60% of screen height)
+  direction: 'down',   // Finger moves UP, so content scrolls UP
+  percent: 0.75       // Scroll 75% of the scrollable view. Adjust as needed.
 }]);
-await driver.pause(2000);
+await driver.pause(1000); // Reduced pause for observation
 
   //click to choose public transport
     const ptButton = await driver.$("-android uiautomator:new UiSelector().text(\"PUBLIC TRANSPORT\")");
@@ -265,10 +287,10 @@ const size = await el1.getSize();
 
 //     await driver.hideKeyboard();
 
-    // Set location to specific scooter coordinates
-    // execSync(
-    //   `adb shell input tap ${location.x + 100}  ${location.y + size.height + 160}`
-    // );
+   // Set location to specific scooter coordinates
+    execSync(
+      `adb shell input tap ${location.x + 100}  ${location.y + size.height + 160}`
+    );
 
   const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
   await expect (chooseFromList).toBeDisplayed();

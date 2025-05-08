@@ -55,14 +55,14 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
 
         const credentials = getCredentials(ENV, USER);
 
-        const latitude = 51.9155956;
-        const longitude = 4.4744301;
-
         // await PageObjects.login(credentials);
         await PageObjects.login({ username: credentials.username, password: credentials.password });
         //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
         //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
   
+        const latitude = 51.9155956;
+        const longitude = 4.4744301;
+        
         execSync(
           `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
         );
