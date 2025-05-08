@@ -99,15 +99,15 @@ let testStatus = "Pass";
     await driver.pause(2000);
 
  // scroll to bottom
- await driver.executeScript('mobile: scrollGesture', [{
-  left: 10,
-  top: 10,
-  width: 10,
-  height: 600,
-  direction: 'down',
-  percent: 100.0
-}]);
-await driver.pause(1000);
+//  await driver.executeScript('mobile: scrollGesture', [{
+//   left: 10,
+//   top: 10,
+//   width: 10,
+//   height: 600,
+//   direction: 'down',
+//   percent: 100.0
+// }]);
+// await driver.pause(1000);
 
 // const { width, height } = await driver.getWindowSize();
 // await driver.executeScript('mobile: scrollGesture', [{
@@ -174,17 +174,6 @@ await driver.pause(1000); // Reduced pause for observation
     await expect(destinationInput).toBeDisplayed();
 
 
-//Scroll to bottom
-await driver.executeScript('mobile: scrollGesture', [{
-  left: 10,
-  top: 1500,
-  width: 200,
-  height: 100,
-  direction: 'down',
-  percent: 100
-}]); 
-
-
     // Verify time switch buttons
     const departAtButton = await driver.$("-android uiautomator:new UiSelector().text(\"Depart at\")");
     const arriveByButton = await driver.$("-android uiautomator:new UiSelector().text(\"Arrive by\")");
@@ -203,6 +192,21 @@ await driver.executeScript('mobile: scrollGesture', [{
     const selectClassLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Select class (for trains)\")");
     await expect(selectClassLabel).toBeDisplayed();
     //await expect(selectClassLabel.getText()).toBe("Select class (for trains)");
+
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: 100, y: 300 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: 100, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
     // Verify train class switch buttons
     const secondClassButton = await driver.$("-android uiautomator:new UiSelector().text(\"2nd class\")");
@@ -265,6 +269,20 @@ let testStatus = "Pass";
     let error = null;
 
     try {
+
+      await driver.performActions([
+        {
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x: 100, y: 100 },
+                { type: 'pointerDown', button: 0 },
+                { type: 'pause', duration: 100 },
+                { type: 'pointerMove', duration: 1000, x: 100, y: 300 },
+                { type: 'pointerUp', button: 0 },
+            ],
+        },]);
 
 
   // click on destination and text
