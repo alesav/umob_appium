@@ -89,9 +89,6 @@ let testStatus = "Pass";
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
-     //const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
-     //await planTripButton.click();
-    
     
     await PageObjects.planTripBtn.waitForExist();
 	  await PageObjects.planTripBtn.click();
@@ -121,17 +118,16 @@ let testStatus = "Pass";
 // await driver.pause(2000);
 
 const { width, height } = await driver.getWindowSize();
-
 await driver.performActions([
   {
       type: 'pointer',
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: 100, y: 300 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: 300 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: 100, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -193,17 +189,16 @@ await driver.pause(1000); // Reduced pause for observation
     await expect(selectClassLabel).toBeDisplayed();
     //await expect(selectClassLabel.getText()).toBe("Select class (for trains)");
 
-
     await driver.performActions([
       {
           type: 'pointer',
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: 100, y: 300 },
+              { type: 'pointerMove', duration: 0, x: 160, y: 400 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: 100, y: 10 },
+              { type: 'pointerMove', duration: 1000, x: 160, y: 10 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -320,7 +315,7 @@ const size = await el1.getSize();
 
    // Set location to specific scooter coordinates
     execSync(
-      `adb shell input tap ${location.x + 100}  ${location.y + size.height + 160}`
+      `adb shell input tap ${location.x + 100}  ${location.y + size.height + 70}`
     );
 
   const chooseFromList = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
