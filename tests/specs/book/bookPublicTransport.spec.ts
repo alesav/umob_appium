@@ -91,8 +91,10 @@ let testStatus = "Pass";
     await driver.pause(7000);    
     // const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
     // await planTripButton.click();
-    await PageObjects.planTripBtn.waitForExist();
-	  await PageObjects.planTripBtn.click();
+    
+    
+    //await PageObjects.planTripBtn.waitForExist();
+	  //await PageObjects.planTripBtn.click();
 
     await driver.pause(2000);
 
@@ -119,9 +121,6 @@ let testStatus = "Pass";
 // await driver.pause(2000);
 
 const { width, height } = await driver.getWindowSize();
-const scrollStartX = width / 2;
-const scrollStartY = height * 0.8; // Start swipe near the bottom
-const scrollEndY = height * 0.2;   // End swipe near the top
 
 // To scroll content UP (finger moves from bottom to top)
 await driver.executeScript('mobile: scrollGesture', [{

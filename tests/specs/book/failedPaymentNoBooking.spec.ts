@@ -128,6 +128,19 @@ let testStatus = "Pass";
       .up()
       .perform(); */
 
+      const { width, height } = await driver.getWindowSize();
+
+// To scroll content UP (finger moves from bottom to top)
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width / 2,   // Center of the screen horizontally
+  top: height * 0.8, // Start scroll gesture area from 20% top
+  width: 0,        // A small width for the gesture area is fine for vertical scroll
+  height: height * 0.1, // Gesture area height (60% of screen height)
+  direction: 'down',   // Finger moves UP, so content scrolls UP
+  percent: 0.75       // Scroll 75% of the scrollable view. Adjust as needed.
+}]);
+await driver.pause(1000); 
+
       //verify that there is notification about unpaid ride
       const failNotification = await driver.$('android=new UiSelector().textContains("You have a failed ride payment.")');
       await expect (failNotification).toBeDisplayed();
