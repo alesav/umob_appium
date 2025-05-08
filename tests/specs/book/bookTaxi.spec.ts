@@ -1,6 +1,7 @@
 import { AfterAll } from "@wdio/cucumber-framework";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import { exec, execSync } from "child_process";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -50,6 +51,20 @@ describe('Book a Taxi', () => {
      before(async () => {
 
       const credentials = getCredentials(ENV, USER);
+
+          const latitude = 51.9155956;
+          const longitude = 4.4744301;
+          
+          execSync(
+            `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+          );
+      
+          try {
+            execSync("adb emu geo fix "+ longitude+" "+ latitude);
+          } catch (error) {
+            console.error("Failed to set location:", error);
+          }
+
 
     // await PageObjects.login(credentials);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
