@@ -192,6 +192,21 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
     await expect (selectPayment).toBeDisplayed();
 
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: 100, y: 400 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: 100, y: 100 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+
     // Click Reserve
     await driver.$(
       '-android uiautomator:new UiSelector().text("RESERVE")'
