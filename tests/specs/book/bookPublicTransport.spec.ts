@@ -696,7 +696,6 @@ let testStatus = "Pass";
     let error = null;
 
     try {
-exit
 
 
 // Check header is displayed

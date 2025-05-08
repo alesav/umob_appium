@@ -114,10 +114,6 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     // Fetch scooter coordinates before running tests
     scooters = await fetchScooterCoordinates();
 
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
-      await logInBtn.click();
 
       await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 

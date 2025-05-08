@@ -6,10 +6,6 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
 
     before(async () => {
   
-        // Find and click LOG IN button
-        const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-        await logInBtn.isClickable();
-        await logInBtn.click();
   
         await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
   

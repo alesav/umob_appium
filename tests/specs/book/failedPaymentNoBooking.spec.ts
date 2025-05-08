@@ -134,7 +134,7 @@ let testStatus = "Pass";
             id: 'finger1',
             parameters: { pointerType: 'touch' },
             actions: [
-                { type: 'pointerMove', duration: 0, x: width/2, y: 300 },
+                { type: 'pointerMove', duration: 0, x: width/2, y: 400 },
                 { type: 'pointerDown', button: 0 },
                 { type: 'pause', duration: 100 },
                 { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },

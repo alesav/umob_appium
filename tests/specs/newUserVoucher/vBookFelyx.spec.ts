@@ -114,10 +114,6 @@ describe('Felyx Booking Test with unlimited multi voucher', () => {
     // Fetch scooter coordinates before running tests
     scooters = await fetchScooterCoordinates();
 
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
-      await logInBtn.click();
 
       await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
