@@ -146,8 +146,8 @@ await driver.performActions([
     await expect(departureDestinationLabel).toBeDisplayed();
 
     // allow permissions for github actions
-    // const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
-    // await permission2.click();
+     const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+     await permission2.click();
         
 
   // click on destination and text Rotterdam Zoo Rotterdam
