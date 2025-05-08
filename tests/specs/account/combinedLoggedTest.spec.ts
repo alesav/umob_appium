@@ -60,10 +60,10 @@ describe('Combined test for the logged in old user with rides history', () => {
     const credentials = getCredentials(ENV, USER);
 
     // await PageObjects.login(credentials);
-    await PageObjects.login({ username: credentials.username, password: credentials.password });
+    //await PageObjects.login({ username: credentials.username, password: credentials.password });
 
 
-    //await PageObjects.login({ username:'new@gmail.com', password: '123Qwerty!' });
+    await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
 });
 
 
