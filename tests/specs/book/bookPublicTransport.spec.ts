@@ -89,12 +89,12 @@ let testStatus = "Pass";
 
     await driver.activateApp("com.umob.umob");
     await driver.pause(7000);    
-    // const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
-    // await planTripButton.click();
+     //const planTripButton = await driver.$("-android uiautomator:new UiSelector().text(\"PLAN TRIP\")");
+     //await planTripButton.click();
     
     
-    //await PageObjects.planTripBtn.waitForExist();
-	  //await PageObjects.planTripBtn.click();
+    await PageObjects.planTripBtn.waitForExist();
+	  await PageObjects.planTripBtn.click();
 
     await driver.pause(2000);
 
@@ -122,21 +122,35 @@ let testStatus = "Pass";
 
 const { width, height } = await driver.getWindowSize();
 
-// To scroll content UP (finger moves from bottom to top)
-await driver.executeScript('mobile: scrollGesture', [{
-  // Option 1: Using explicit start/end (more like a swipe, often more reliable for simple scrolls)
-  // left: scrollStartX, top: scrollStartY, width: 0, height: scrollStartY - scrollEndY, // height here is the swipe distance
-  // direction: 'up', // Finger moves up
-  // percent: 1.0 // Percent of the defined height to swipe
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: 100, y: 1000 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: 100, y: 100 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
 
-  // Option 2: Using the gesture area and percent of scrollable view
-  left: width / 2,   // Center of the screen horizontally
-  top: height * 0.8, // Start scroll gesture area from 20% top
-  width: 0,        // A small width for the gesture area is fine for vertical scroll
-  height: height * 0.1, // Gesture area height (60% of screen height)
-  direction: 'down',   // Finger moves UP, so content scrolls UP
-  percent: 0.75       // Scroll 75% of the scrollable view. Adjust as needed.
-}]);
+// To scroll content UP (finger moves from bottom to top)
+// await driver.executeScript('mobile: scrollGesture', [{
+//   // Option 1: Using explicit start/end (more like a swipe, often more reliable for simple scrolls)
+//   // left: scrollStartX, top: scrollStartY, width: 0, height: scrollStartY - scrollEndY, // height here is the swipe distance
+//   // direction: 'up', // Finger moves up
+//   // percent: 1.0 // Percent of the defined height to swipe
+
+//   // Option 2: Using the gesture area and percent of scrollable view
+//   left: width / 2,   // Center of the screen horizontally
+//   top: height * 0.8, // Start scroll gesture area from 20% top
+//   width: 0,        // A small width for the gesture area is fine for vertical scroll
+//   height: height * 0.1, // Gesture area height (60% of screen height)
+//   direction: 'down',   // Finger moves UP, so content scrolls UP
+//   percent: 0.75       // Scroll 75% of the scrollable view. Adjust as needed.
+// }]);
 await driver.pause(1000); // Reduced pause for observation
 
   //click to choose public transport

@@ -56,6 +56,7 @@ class PageObjects extends Page {
             await logInBtn.waitForDisplayed({ timeout: 200000 }); // wait for 200 seconds
             //await logInBtn.isClickable();
             await driver.pause(3000);
+            
             await logInBtn.click();
      
             // Login form elements
