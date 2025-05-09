@@ -172,7 +172,7 @@ await driver.performActions([
         ],
     },
 ]);
-
+await driver.pause(3000);
 
       //verify that there is notification about unpaid ride
       const failNotification = await driver.$('android=new UiSelector().textContains("You have a failed ride payment.")');

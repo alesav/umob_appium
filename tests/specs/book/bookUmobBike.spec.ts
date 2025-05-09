@@ -453,6 +453,12 @@ try {
               );
               await driver.pause(7000);
 
+              try {
+                execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+              } catch (error) {
+                console.error("Failed to set location:", error);
+              }
+
         } catch (e) {
           error = e;
           console.error("Test failed:", error);
