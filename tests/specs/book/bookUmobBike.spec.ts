@@ -431,6 +431,7 @@ try {
            //check main screen is displayed
 
             await PageObjects.accountButton.waitForExist();
+            await driver.pause(2000);
 
             scooters = await fetchScooterCoordinates();
 
@@ -448,7 +449,8 @@ try {
                 execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
               } catch (error) {
                 console.error("Failed to set location:", error);
-              }
+              };
+              await driver.pause(3000);
 
         } catch (e) {
           error = e;
