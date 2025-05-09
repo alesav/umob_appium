@@ -191,10 +191,10 @@ await driver.performActions([
 await driver.performActions([
   {
       type: 'pointer',
-      id: 'finger1',
+      id: 'finger2',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: startX, y: startY },
+          { type: 'pointerMove', duration: 0, x: startX, y: 100 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: endX, y: endY },

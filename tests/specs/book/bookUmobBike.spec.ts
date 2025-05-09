@@ -331,6 +331,21 @@ try {
 
                     await driver.pause(10000);
 
+                    const { width, height } = await driver.getWindowSize();
+   await driver.performActions([
+     {
+         type: 'pointer',
+         id: 'finger1',
+         parameters: { pointerType: 'touch' },
+         actions: [
+             { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+             { type: 'pointerDown', button: 0 },
+             { type: 'pause', duration: 100 },
+             { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+             { type: 'pointerUp', button: 0 },
+         ],
+     },]);
+
               // Click Details
               await driver.$(
                 '-android uiautomator:new UiSelector().text("DETAILS")'
@@ -377,7 +392,7 @@ try {
    const totalAmountValueElement = await driver.$('//*[@text="€1.25"]');
    await expect(totalAmountValueElement).toBeDisplayed();
  
-   const { width, height } = await driver.getWindowSize();
+   
    await driver.performActions([
      {
          type: 'pointer',
