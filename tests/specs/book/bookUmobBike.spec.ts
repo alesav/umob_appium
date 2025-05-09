@@ -441,6 +441,18 @@ try {
 
             await PageObjects.accountButton.waitForExist();
 
+            try {
+
+              const targetScooter = scooters.find(
+                scooter => scooter.id === 'UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE'
+              );
+            
+            // Set location to specific scooter coordinates
+              execSync(
+                `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+              );
+              await driver.pause(7000);
+
         } catch (e) {
           error = e;
           console.error("Test failed:", error);
