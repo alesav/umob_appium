@@ -261,16 +261,7 @@ let error = null;
 
 try {
 
-  const targetScooter = scooters.find(
-    scooter => scooter.id === 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE'
-  );
-
-// Set location to specific scooter coordinates
-  execSync(
-    `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
-  );
-  await driver.pause(5000);
- 
+   
     
         // Filter not needed results
         //await applyFilters();
@@ -441,7 +432,7 @@ try {
 
             await PageObjects.accountButton.waitForExist();
 
-            try {
+            scooters = await fetchScooterCoordinates();
 
               const targetScooter = scooters.find(
                 scooter => scooter.id === 'UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE'
