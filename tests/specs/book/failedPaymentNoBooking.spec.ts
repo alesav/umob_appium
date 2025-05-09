@@ -181,9 +181,10 @@ await driver.pause(3000);
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
+    const continueButton = await driver.$('android=new UiSelector().textContains("CONTINUE")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
+    await driver.pause(2000);
 
     await continueButton.click();
     await driver.pause(3000);
