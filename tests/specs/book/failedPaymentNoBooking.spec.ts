@@ -186,15 +186,16 @@ await driver.performActions([
     await expect (continueButton).toBeEnabled();
 
     await continueButton.click();
+    await driver.pause(3000);
 
     // scroll
 await driver.performActions([
   {
       type: 'pointer',
-      id: 'finger2',
+      id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: startX, y: 100 },
+          { type: 'pointerMove', duration: 0, x: startX*0.3, y: startY*0.7 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: endX, y: endY },
