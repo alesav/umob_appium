@@ -151,7 +151,7 @@ const screenHeight = windowSize.height;
 // calculate points for scroll
 // starting point: a little bit more down from the screen center
 const startX = Math.round(screenWidth / 2);
-const startY = Math.round(screenHeight * 0.6);
+const startY = Math.round(screenHeight * 0.75);
 
 // end point: upper side of the screen
 const endX = startX; // save the same position for X for vertical scroll
