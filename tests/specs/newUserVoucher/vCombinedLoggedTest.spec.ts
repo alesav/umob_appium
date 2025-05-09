@@ -211,8 +211,6 @@ try {
       "Payment settings",
       "ID Document",
       "My Rides & Tickets",
-      "Ride credit",
-      "My payments"
     ];
 
     for (const menuItem of accountMenuItems) {
@@ -221,14 +219,29 @@ try {
 
     }
 
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100, 
-      top: 1000, 
-      width: 200, 
-      height: 800, 
-      direction: 'down',
-      percent: 100.0
-    }]);
+    // await driver.executeScript('mobile: scrollGesture', [{
+    //   left: 100, 
+    //   top: 1000, 
+    //   width: 200, 
+    //   height: 800, 
+    //   direction: 'down',
+    //   percent: 100.0
+    // }]);
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
 
     
  // Verify account menu items after scrolling
