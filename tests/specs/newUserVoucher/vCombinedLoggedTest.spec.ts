@@ -315,7 +315,7 @@ const accountMenuItems2 = [
 
 for (const menuItem of accountMenuItems2) {
   const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
-  await expect(menuElement).toBeDisplayed();
+  await expect(menuElement).toBeDisplayed();}
 
   // Second scroll using same width/height variables
 await driver.pause(2000);
