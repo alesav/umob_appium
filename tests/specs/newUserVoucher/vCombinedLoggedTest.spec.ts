@@ -163,6 +163,8 @@ await driver.pause(1000);
 const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
 await expect(multiVoucher).toBeDisplayed();
 
+/*
+
 //scroll to bottom for github actions
 await driver.pause(2000);
 const { width, height } = await driver.getWindowSize();
@@ -175,6 +177,24 @@ await driver.executeScript('mobile: scrollGesture', [{
  percent: 2
 }]);
 await driver.pause(1000);
+
+*/
+
+const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
 //verify marketing info
 const advertisment = await driver.$('-android uiautomator:new UiSelector().textContains("Earn €10")');
@@ -317,6 +337,8 @@ for (const menuItem of accountMenuItems2) {
   const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
   await expect(menuElement).toBeDisplayed();}
 
+  /*
+
   // Second scroll using same width/height variables
 await driver.pause(2000);
 await driver.executeScript('mobile: scrollGesture', [{
@@ -342,6 +364,24 @@ await driver.pause(3000);
      percent: 2
     }]);
     await driver.pause(1000);
+
+    */
+
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger2',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
 
     // Verify account menu items after second scrolling
 const accountMenuItems3 = [
@@ -417,6 +457,8 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
    await driver.pause(2000);
 
+   /*
+
    await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
@@ -428,6 +470,24 @@ await expect(backButton).toBeDisplayed();
      percent: .25
     }]);
     await driver.pause(2000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
@@ -519,6 +579,8 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
 
+    
+    /*
     //scroll
     await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
@@ -531,6 +593,24 @@ await expect(backButton).toBeDisplayed();
      percent: 0.5
     }]);
     await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -686,7 +766,23 @@ await expect(backButton).toBeDisplayed();
 
     */
 
-  
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
+  /*
       //Scroll to bottom
    
       await driver.pause(2000);
@@ -700,6 +796,8 @@ await expect(backButton).toBeDisplayed();
        percent: 2
       }]);
       await driver.pause(1000);
+*/
+
   /*
    // Verify Zip Code field
    const zipCode = await driver.$("-android uiautomator:new UiSelector().text(\"3014\")");
@@ -777,6 +875,8 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
 
+    /*
+
      // Get window size 
 const { width, height } = await driver.getWindowSize();
 
@@ -794,6 +894,24 @@ await driver.executeScript('mobile: scrollGesture', [{
 await driver.pause(2000);
 };
  await driver.pause(2000);
+
+ */
+
+ const { width, height } = await driver.getWindowSize();
+ await driver.performActions([
+   {
+       type: 'pointer',
+       id: 'finger1',
+       parameters: { pointerType: 'touch' },
+       actions: [
+           { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+           { type: 'pointerDown', button: 0 },
+           { type: 'pause', duration: 100 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+           { type: 'pointerUp', button: 0 },
+       ],
+   },]);
+ 
 
     
     // Navigate to Ride Credit
