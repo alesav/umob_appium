@@ -59,8 +59,8 @@ describe('Combined tests for logged in user with unlimited multi voucher', () =>
 
     const credentials = getCredentials(ENV, USER);
 
-    await PageObjects.login({ username: credentials.username, password: credentials.password });
-   // await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+    //await PageObjects.login({ username: credentials.username, password: credentials.password });
+    await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 });
 
 
