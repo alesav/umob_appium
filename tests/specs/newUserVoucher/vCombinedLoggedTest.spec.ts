@@ -1642,6 +1642,7 @@ await driver.pause(2000);
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to support option
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1652,8 +1653,9 @@ await driver.pause(2000);
       percent: 100.0
     }]);
     await driver.pause(1000);
+    */
     
-/*
+
     const { width, height } = await driver.getWindowSize();
 await driver.performActions([
   {
@@ -1669,7 +1671,7 @@ await driver.performActions([
       ],
   },
 ]);
-*/
+
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
     await supportButton.click();
