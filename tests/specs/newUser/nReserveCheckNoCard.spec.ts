@@ -234,7 +234,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     await driver.performActions([
       {
           type: 'pointer',
-          id: 'finger1',
+          id: 'finger2',
           parameters: { pointerType: 'touch' },
           actions: [
               { type: 'pointerMove', duration: 0, x: 100, y: 100 },
