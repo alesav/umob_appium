@@ -237,7 +237,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
           id: 'finger2',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: 100, y: 100 },
+              { type: 'pointerMove', duration: 0, x: 100, y: height*0.7 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: 100, y: 600 },
@@ -272,6 +272,21 @@ await expect(cards).toBeDisplayed();
 
 //const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
 await expect(bancontactCard).toBeDisplayed();
+
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger3',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: 100, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: 100, y: 480 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
 //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
 await expect(googlePay).toBeDisplayed();
