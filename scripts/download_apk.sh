@@ -8,6 +8,26 @@ BASE_URL="https://dev.azure.com/umob/umob"
 TEMP_DIR=$(mktemp -d)
 echo "Created temporary directory: $TEMP_DIR"
 
+# Debugging: capture full API response
+FULL_RESPONSE=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&$top=20&api-version=7.1-preview.7")
+
+# Debug: print full response to see what's happening
+echo "Full API Response:"
+echo "$FULL_RESPONSE"
+
+# Debug: check response with jq
+echo "Checking response structure:"
+echo "$FULL_RESPONSE" | jq '.'
+
+# Get 20 latest build IDs with more robust jq parsing
+echo "Fetching 20 latest build IDs..."
+BUILD_IDS=$(echo "$FULL_RESPONSE" | jq -r '.value[]?.id // empty')
+
+# Count the number of build IDs fetched
+NUM_BUILD_IDS=$(echo "$BUILD_IDS" | wc -l)
+echo "Found $NUM_BUILD_IDS build IDs to check."
+
+
 # Get 20 latest build IDs
 echo "Fetching 20 latest build IDs..."
 BUILD_IDS=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&$top=20&api-version=7.1-preview.7" | \
