@@ -59,8 +59,8 @@ describe('Combined tests for logged in user with unlimited multi voucher', () =>
 
     const credentials = getCredentials(ENV, USER);
 
-    //await PageObjects.login({ username: credentials.username, password: credentials.password });
-    await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+    //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 });
 
 
@@ -936,6 +936,7 @@ await driver.pause(2000);
     const promotionalCodeDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Received a promotional code?\")");
     await expect(promotionalCodeDescription).toBeDisplayed();
 
+    /*
     await driver.pause(1000);
     await driver.executeScript('mobile: scrollGesture', [{
       left: width/2,
@@ -946,6 +947,24 @@ await driver.pause(2000);
       percent: 0.9
      }]);
  await driver.pause(1000);
+
+ */
+
+
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     // Verify promotional code input field
     const promotionalCodeInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\")");
@@ -1054,9 +1073,11 @@ await driver.pause(2000);
    const yourCodeLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Your code\")");
    await expect(yourCodeLabel).toBeDisplayed();
 
-   /* Verify the actual referral code
-   const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-   await expect(referralCode).toBeDisplayed(); */
+  //  Verify the actual referral code
+  //  const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
+  //  await expect(referralCode).toBeDisplayed(); 
+
+  /*
 
    await driver.pause(3000);
    const { width, height } = await driver.getWindowSize();
@@ -1069,6 +1090,24 @@ await driver.pause(2000);
     percent: 2
    }]);
    await driver.pause(2000);
+
+   */
+
+   const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
    // Verify usage count
    //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
@@ -1298,6 +1337,8 @@ await driver.pause(2000);
     const categoryAM = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentAM\")");
     await expect(categoryAM).toBeDisplayed();
 
+    /*
+
     await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
@@ -1309,6 +1350,24 @@ await driver.pause(2000);
      percent: 2
     }]);
     await driver.pause(2000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     /*
 
@@ -1328,6 +1387,7 @@ await driver.pause(2000);
     const changeDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"CHANGE DOCUMENT\")");
     await expect(changeDocumentButton).toBeDisplayed();
 
+    /*
      //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1338,6 +1398,24 @@ await driver.pause(2000);
     percent: 100
   }]); 
   await driver.pause(3000);
+
+  */
+
+  
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger2',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
 
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
@@ -1399,6 +1477,8 @@ await driver.pause(2000);
     await PageObjects.accountButton.click();
     await driver.pause(2000);
 
+    /*
+
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
@@ -1411,6 +1491,24 @@ await driver.pause(2000);
      percent: 2
     }]);
     await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     /*
     // Scroll down to make Delete account button visible
@@ -1522,6 +1620,8 @@ await driver.pause(2000);
   await PageObjects.accountButton.click();
    await driver.pause(2000);
 
+   /*
+
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
@@ -1534,6 +1634,24 @@ await driver.pause(2000);
      percent: 2
     }]);
     await driver.pause(2000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
@@ -1631,6 +1749,7 @@ await driver.pause(2000);
   await PageObjects.accountButton.click();
    await driver.pause(2000);
 
+   /*
   // Scroll down to make Language button visible
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1641,6 +1760,24 @@ await driver.pause(2000);
     percent: 100.0
   }]);
   await driver.pause(1000);
+
+  */
+
+  const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
   // Click on Language option to navigate to language screen
   const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
@@ -1834,6 +1971,8 @@ await driver.performActions([
           await expect(element).toBeDisplayed();
       }
 
+
+      /*
       //Scroll to bottom
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1844,6 +1983,24 @@ await driver.performActions([
     percent: 100
   }]); 
   await driver.pause(6000);
+
+  */
+
+  
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger2',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
   const contentElements2 = [
     "End ride",
@@ -1907,6 +2064,7 @@ for (const text of contentElements2) {
       await expect(element3).toBeDisplayed();
   }
 
+  /*
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1917,6 +2075,24 @@ for (const text of contentElements2) {
     percent: 100
     }]); 
     await driver.pause(6000);
+
+    */
+
+    
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger3',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     //test the text after scrolling
     const text1 = await driver.$("-android uiautomator:new UiSelector().text(\"The solution\")");
@@ -1978,6 +2154,7 @@ for (const text of contentElements2) {
     const stepProviders = await driver.$("-android uiautomator:new UiSelector().text(\"3 providers\")");
     await expect(stepProviders).toBeDisplayed();
 
+    /*
     //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1988,6 +2165,23 @@ for (const text of contentElements2) {
     percent: 100
    }]); 
     await driver.pause(6000);
+
+    */
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
 
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
@@ -2063,6 +2257,7 @@ await PageObjects.accountButton.waitForExist();
 await PageObjects.accountButton.click();
  await driver.pause(2000);
 
+ /*
  // Scroll down to Log Out option
 await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
@@ -2073,6 +2268,24 @@ await driver.executeScript('mobile: scrollGesture', [{
   percent: 100.0
 }]);
 await driver.pause(1000);
+
+*/
+
+const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
 // Click on LogOut option 
 const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
