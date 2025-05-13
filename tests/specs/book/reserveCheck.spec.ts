@@ -222,7 +222,7 @@ scooters = await fetchScooterCoordinates();
         .up()
         .perform();
 
-      await driver.pause(2000);
+      await driver.pause(4000);
       const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');
       await expect(prices).toBeDisplayed();
 
@@ -254,10 +254,11 @@ await driver.performActions([
 
       await PageObjects.accountButton.waitForExist();
       await PageObjects.accountButton.click();
+      await driver.pause(2000);
 
       await driver.$('-android uiautomator:new UiSelector().text("Personal info")').isDisplayed();
       await driver.pause(2000);
-      
+
     } catch (e) {
       error = e;
       console.error("Test failed:", error);

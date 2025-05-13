@@ -8,7 +8,8 @@ export const config: WebdriverIO.Config = {
         
         //first 6 lines for night running scope of tests
 
-          "../tests/specs/book/reserveCheck.spec.ts"
+          "../tests/specs/book/reserveCheck.spec.ts",
+          "../tests/specs/book/reserveFelyx.spec.ts"
          //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
          //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //  "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
