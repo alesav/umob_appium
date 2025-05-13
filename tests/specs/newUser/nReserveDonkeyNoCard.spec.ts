@@ -129,6 +129,21 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
       .up()
       .perform(); */
 
+      
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 350 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
     // Click continue button
     await driver.pause(5000);
     const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
