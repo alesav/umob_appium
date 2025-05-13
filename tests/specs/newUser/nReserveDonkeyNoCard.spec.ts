@@ -109,6 +109,8 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
       .up()
       .perform();
 
+      await driver.pause(2000);
+
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
     await umob20Button.click();
