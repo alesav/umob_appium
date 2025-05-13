@@ -237,7 +237,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
           id: 'finger2',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: 100, y: height*0.7 },
+              { type: 'pointerMove', duration: 0, x: 100, y: height*0.71 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: 100, y: 600 },
