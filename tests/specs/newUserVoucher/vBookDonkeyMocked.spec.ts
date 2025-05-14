@@ -119,6 +119,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     //verify that payment card is displayed
     const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("**** **** 1115")');
     await expect (selectPayment).toBeDisplayed();
+    
 
     //click to choose limitless voucher
     await voucher.click();
@@ -131,7 +132,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect (multiVoucher).toBeDisplayed();
     await multiVoucher.click();
-    await driver.pause();
+    await driver.pause(2000);
 
 
 
@@ -146,6 +147,23 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       .down()
       .up()
       .perform(); */
+
+      
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(2000);
 
     // Click continue button
     await driver.pause(5000);

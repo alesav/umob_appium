@@ -1,6 +1,52 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new6';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDUyMzc4ODUsImlhdCI6MTczNzQ2MTg4NSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjI0ZGM1OTVlLWQwM2UtNDU3Ny04MGVmLWQ4MDI0NGM0NzFhZCIsInN1YiI6IjA1Nzg4NjE2LTc3NDUtNDJiZC05MjgyLTI2ZGM3MmU2OWJhNiIsInVuaXF1ZV9uYW1lIjoibmV3NkBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc2QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW1pdGxlc3MgIiwiZmFtaWx5X25hbWUiOiJOZXc2IiwiZW1haWwiOiJuZXc2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE2MTY1NjE5MDkiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjM1MTY5ZDdmLTI4NDEtYTJlMi02OWQzLTNhMTc5YWY5NDI3NiIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiI5MDJiM2E4Ny1hMDVkLWI2MmQtY2UwNi0zYTE3OWFmOTQyOTUifQ.1A3cHFkl9yVIdO9eG4dFLDCu3JnfY3_nl59P8P2i038NAkiR1wlFZBfq2nNUuikKXnwFiqsDQwSzWjkdvb5zeyxKtcRTmD_f6-VZRDuYiSAa16Hr-panm65tQWsyqaWdEIjG9qFHhKxNj0f69f03V6sKOcOtTsJ03PJBKyrAzrg2R_Nb7Eeyer1XSlabfOpnHVcjdnT2wd9Ykun85KkBfRsKTxC4aRzqxVu84MwOr-RNwHr8JOvUI45n407IwAXKwo2MYNfHKDEm3JiUgVTm6FSWU3F5TP0ln9XvogcNnc54qmV3f09VrUk3XW3yO18GEbZeR0mLufUS4pjje-1Sww';
@@ -114,8 +160,25 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     // Fetch scooter coordinates before running tests
     scooters = await fetchScooterCoordinates();
 
+    const credentials = getCredentials(ENV, USER);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-      await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+    //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+
+
+    const longitude = 4.47586407;
+  const latitude = 51.92502035;
+
+  execSync(
+    `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+  );
+
+  try {
+    execSync("adb emu geo fix "+ longitude+" "+ latitude);
+  } catch (error) {
+    console.error("Failed to set location:", error);
+  }
+  await driver.pause(3000);
 
 
   });
