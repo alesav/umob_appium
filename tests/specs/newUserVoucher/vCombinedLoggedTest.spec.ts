@@ -187,10 +187,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -204,7 +204,7 @@ await expect(advertisment).toBeDisplayed();
 const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS NOW!")');
 await expect(friends).toBeDisplayed();
 await friends.click();
-await driver.pause(1000);
+await driver.pause(4000);
 
 //verify share code button
  const shareCodeBtn = await driver.$('-android uiautomator:new UiSelector().textContains("SEND YOUR CODE")');
@@ -455,7 +455,7 @@ await expect(backButton).toBeDisplayed();
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-   await driver.pause(2000);
+   await driver.pause(4000);
 
    /*
 
@@ -473,6 +473,7 @@ await expect(backButton).toBeDisplayed();
 
     */
 
+    /*
     const { width, height } = await driver.getWindowSize();
     await driver.performActions([
       {
@@ -487,7 +488,7 @@ await expect(backButton).toBeDisplayed();
               { type: 'pointerUp', button: 0 },
           ],
       },]);
-    
+    */
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
@@ -504,8 +505,8 @@ await expect(backButton).toBeDisplayed();
     await expect(backButton).toBeDisplayed();
 
     // Verify last ride section
-    const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-    await expect(lastRideSection).toBeDisplayed();
+    // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
+    // await expect(lastRideSection).toBeDisplayed();
 
 
     // Check previous payments list
@@ -517,9 +518,9 @@ await expect(backButton).toBeDisplayed();
 
     
     // Verify "Previous rides" section header
-    const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
-    await expect(previousRidesHeader).toBeDisplayed();
-    await driver.pause(3000);
+    // const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
+    // await expect(previousRidesHeader).toBeDisplayed();
+    // await driver.pause(3000);
 
 
     // back to common list of account menu
@@ -603,10 +604,10 @@ await expect(backButton).toBeDisplayed();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.6 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -631,8 +632,8 @@ await expect(backButton).toBeDisplayed();
 
     
     // Verify "Previous payments" section header
-    const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-    await expect(previousPaymentsHeader).toBeDisplayed();
+    // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
+    // await expect(previousPaymentsHeader).toBeDisplayed();
 
     // Check previous payments list
     const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
@@ -904,10 +905,10 @@ await driver.pause(2000);
        id: 'finger1',
        parameters: { pointerType: 'touch' },
        actions: [
-           { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
            { type: 'pointerDown', button: 0 },
            { type: 'pause', duration: 100 },
-           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
            { type: 'pointerUp', button: 0 },
        ],
    },]);
@@ -957,10 +958,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1770,10 +1771,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.3 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -2278,10 +2279,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);

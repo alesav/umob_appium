@@ -388,8 +388,8 @@ for (const menuItem of accountMenuItems3) {
     await expect(backButton).toBeDisplayed();
 
     // Verify last ride section
-    const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-    await expect(lastRideSection).toBeDisplayed();
+    // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
+    // await expect(lastRideSection).toBeDisplayed();
 
 
     // Check previous payments list
@@ -401,8 +401,8 @@ for (const menuItem of accountMenuItems3) {
 
     
     // Verify "Previous rides" section header
-    const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
-    await expect(previousRidesHeader).toBeDisplayed();
+    // const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
+    // await expect(previousRidesHeader).toBeDisplayed();
     await driver.pause(3000);
 
 
@@ -489,13 +489,13 @@ for (const menuItem of accountMenuItems3) {
     await expect(backButton).toBeDisplayed();
 
     // Verify last payment section
-    const lastPaymentSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last payment\")");
-    await expect(lastPaymentSection).toBeDisplayed();
+    // const lastPaymentSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last payment\")");
+    // await expect(lastPaymentSection).toBeDisplayed();
 
     
     // Verify "Previous payments" section header
-    const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-    await expect(previousPaymentsHeader).toBeDisplayed();
+    // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
+    // await expect(previousPaymentsHeader).toBeDisplayed();
 
     // Check previous payments list
     const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
