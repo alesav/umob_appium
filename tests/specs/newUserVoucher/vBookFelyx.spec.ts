@@ -429,6 +429,7 @@ await expect(usedVoucher).toBeDisplayed();
 const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
 await expect(multiVoucher1).toBeDisplayed();
 
+/*
 //Scroll to bottom
 await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
@@ -438,6 +439,24 @@ await driver.executeScript('mobile: scrollGesture', [{
   direction: 'down',
   percent: 100
 }]); 
+*/
+
+const { width, height } = await driver.getWindowSize();
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(2000);
 
 //click got it button
 const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');
