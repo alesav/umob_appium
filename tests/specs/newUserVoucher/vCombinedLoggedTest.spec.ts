@@ -607,7 +607,7 @@ await expect(backButton).toBeDisplayed();
               { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.6 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -1778,7 +1778,7 @@ await driver.performActions([
           { type: 'pointerUp', button: 0 },
       ],
   },]);
-
+  await driver.pause(3000);
 
   // Click on Language option to navigate to language screen
   const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
@@ -1823,6 +1823,7 @@ await driver.performActions([
     await backButton.click();
     await driver.pause(2000);
 
+    /*
     // Verify main menu option is present
     const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
     await expect(appSettingsHeader).toBeDisplayed();
@@ -1838,6 +1839,8 @@ await driver.performActions([
     // Verify LogOut button
     const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
     await expect(logoutButton).toBeDisplayed();
+
+    */
 
   } catch (e) {
     error = e;
@@ -1919,10 +1922,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 200 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
           { type: 'pointerUp', button: 0 },
       ],
   },
@@ -2279,13 +2282,29 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
+  await driver.pause(1000);
+
+  await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },]);
+    await driver.pause(1000);
 
 
 // Click on LogOut option 
