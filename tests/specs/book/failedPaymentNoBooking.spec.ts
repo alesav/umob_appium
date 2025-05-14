@@ -118,6 +118,7 @@ let testStatus = "Pass";
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
     await umob20Button.click();
+    await driver.pause(7000);
 
     //const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("SELECT UMOB BIKE 2 0")');
     //await selectUmob.click();
@@ -174,7 +175,7 @@ await driver.performActions([
         ],
     },
 ]);
-await driver.pause(3000);
+await driver.pause(5000);
 
       //verify that there is notification about unpaid ride
       const failNotification = await driver.$('android=new UiSelector().textContains("You have a failed ride payment.")');
@@ -224,7 +225,7 @@ await driver.performActions([
     await expect (status).toBeDisplayed();
 
 
-
+/*
     await driver.pause(2000);
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
@@ -235,6 +236,23 @@ await driver.performActions([
       direction: 'down',
       percent: 100
     }]); 
+    */
+
+    // scroll
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: startX, y: startY*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: endX, y: endY },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },
+]);
 
     //verify pay now button
     const payNow = await driver.$('android=new UiSelector().textContains("PAY NOW")');
