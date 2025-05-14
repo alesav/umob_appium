@@ -210,7 +210,7 @@ await driver.performActions([
           { type: 'pointerUp', button: 0 },
       ],
   },]);
-  await driver.pause(2000);
+  await driver.pause(7000);
 
     
 
