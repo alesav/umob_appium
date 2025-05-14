@@ -71,6 +71,7 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
         } catch (error) {
           console.error("Failed to set location:", error);
         }
+        await driver.pause(3000);
 
     });
 

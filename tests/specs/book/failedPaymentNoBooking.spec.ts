@@ -72,6 +72,7 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
         } catch (error) {
           console.error("Failed to set location:", error);
         }
+        await driver.pause(5000);
     });
 
   beforeEach(async () => {
@@ -112,6 +113,7 @@ let testStatus = "Pass";
       .down()
       .up()
       .perform();
+      await driver.pause(3000);
 
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
@@ -196,7 +198,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: startX*0.3, y: startY*0.7 },
+          { type: 'pointerMove', duration: 0, x: startX, y: startY*0.7 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: endX, y: endY },

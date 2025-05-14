@@ -176,6 +176,7 @@ scooters = await fetchScooterCoordinates();
     } catch (error) {
       console.error("Failed to set location:", error);
     }
+    await driver.pause(3000);
     /*
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -233,6 +234,7 @@ scooters = await fetchScooterCoordinates();
     //   .click();
 
     const { centerX, centerY } = await getScreenCenter();
+    await driver.pause(2000);
 
     // Click exactly in the center
     await driver
