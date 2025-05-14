@@ -156,7 +156,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
@@ -176,11 +176,12 @@ await driver.performActions([
 
     await driver.pause(2000);
 
+    //there is no permission in github actions
     //allow permission 
-    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    await expect(permission).toBeDisplayed();
-    await permission.click();
-    await driver.pause(3000);
+    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    // await expect(permission).toBeDisplayed();
+    // await permission.click();
+    // await driver.pause(3000);
 
     //Scroll to bottom
     /*
