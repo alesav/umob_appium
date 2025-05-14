@@ -1,6 +1,52 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new6';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDU5MTE1MDksImlhdCI6MTczODEzNTUwOSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjgwODcyNmQ4LWRhNzEtNDI5Zi1iYTE2LWU4MjA4Y2IwMzkwNiIsInN1YiI6IjA1Nzg4NjE2LTc3NDUtNDJiZC05MjgyLTI2ZGM3MmU2OWJhNiIsInVuaXF1ZV9uYW1lIjoibmV3NkBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc2QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW1pdGxlc3MgIiwiZmFtaWx5X25hbWUiOiJOZXc2IiwiZW1haWwiOiJuZXc2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE2MTY1NjE5MDkiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImFiNWRhNTYwLWQ4YWQtMjdjNy00YzMxLTNhMTdjMzFmZjI2MSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiOTE1YzQ5OS0yNmY3LTliOTktYzM3Zi0zYTE3YzMxZmYyYTUifQ.ByPVz_kFwrxDY57_zqqJQZ7VLz76aZcEvSqLpNlIx2xzyjF3Azdnut6oq1P95Ij2E4Wjhsv1N5efciATjzEcOIGyRdGNxsfCV_F1Ci5DRrQaDOK362hVhpiVbdbGQWeR8S4qFYUHum-wFWgYBZB5bBiz91Vr_odMtVAzyk277W1gXF0DsbPHXVX7gC8zzN-sRvCad5ixbQHGOQ0uOEgHZXX15vAJZOA6PmqgLlP_d_8_2YbYn2kT8ha1brRv00T5MFplyVOjAV8eoKkZ32KYiQ456VAGxYBt9wdD-BC1vz1d2GOnUbyHJdZMEDRzT0Ylt5_TcF3bqf-wnpAhGJeu6A';
@@ -114,8 +160,26 @@ describe('Felyx Booking Test with unlimited multi voucher', () => {
     // Fetch scooter coordinates before running tests
     scooters = await fetchScooterCoordinates();
 
+    const credentials = getCredentials(ENV, USER);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-      await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+
+      //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+
+      const longitude = 4.470424;
+      const latitude = 51.922954;
+
+      execSync(
+        `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+      );
+
+      try {
+        execSync("adb emu geo fix "+ longitude+" "+ latitude);
+      } catch (error) {
+        console.error("Failed to set location:", error);
+      }
+      await driver.pause(3000);
+
 
 
   });
@@ -199,10 +263,10 @@ await expect (selectPayment).toBeDisplayed();
 const startTrip = await driver.$('-android uiautomator:new UiSelector().text("START TRIP")');
 await startTrip.waitForDisplayed();
 await startTrip.waitForEnabled();
-await driver.pause(5000);
+await driver.pause(8000);
 await startTrip.click();
 
-await driver.pause(30000);
+await driver.pause(27000);
 
 //verify that ride unlocked
 const unlockHeader = await driver.$('-android uiautomator:new UiSelector().text("Ride unlocked")');
