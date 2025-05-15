@@ -30,7 +30,9 @@ export const config: WebdriverIO.Config = {
        // "../tests/specs/account/combinedLoggedTest.spec.ts",         
         // "../tests/specs/book/reserveCheck.spec.ts",
         //  "../tests/specs/book/reserveFelyx.spec.ts",
-          "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
+          "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+          "../tests/specs/account/*.spec.ts"
+
         //  "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //    "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
         //    "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
