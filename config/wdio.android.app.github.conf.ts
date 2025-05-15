@@ -7,7 +7,7 @@ export const config: WebdriverIO.Config = {
     specs: [
         
         //first lines for night running scope of tests
-/*
+
         
           "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
@@ -24,10 +24,10 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           "../tests/specs/newUser/addVoucher.spec.ts"
 
-          */
+          
 /////////////////////////////////////////////////////////////////////////////////////////          
 
-            "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+        //    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
        // "../tests/specs/account/combinedLoggedTest.spec.ts",         
         // "../tests/specs/book/reserveCheck.spec.ts",
         //  "../tests/specs/book/reserveFelyx.spec.ts",

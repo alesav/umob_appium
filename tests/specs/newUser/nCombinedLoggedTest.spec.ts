@@ -1894,7 +1894,7 @@ for (const text of contentElements2) {
               { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -1909,6 +1909,21 @@ for (const text of contentElements2) {
     await expect(any).toBeDisplayed();
 
     const anyProviders = await driver.$("-android uiautomator:new UiSelector().text(\"1 provider\")");
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+
     await expect(anyProviders).toBeDisplayed();
 
     const publicTransport = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
