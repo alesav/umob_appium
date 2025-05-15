@@ -40,7 +40,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
        // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-      // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+       "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
      //   "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
      //   "../tests/specs/newUserVoucher/vBookCheck.spec.ts"
             //       "../tests/specs/book/bookUmobScooters.spec.ts",
