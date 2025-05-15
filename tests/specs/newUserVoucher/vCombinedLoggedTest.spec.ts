@@ -202,10 +202,27 @@ await expect(advertisment).toBeDisplayed();
 await driver.pause(4000);
 
 //verify "invite friends" button
-const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS NOW!")');
+const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")');
 await expect(friends).toBeDisplayed();
 await friends.click();
-await driver.pause(4000);
+await driver.pause(2000);
+
+//verify second marketing info
+const advertisment2 = await driver.$('-android uiautomator:new UiSelector().textContains("Give €10, Get €10")');
+await expect(advertisment2).toBeDisplayed();
+
+//verify 3rd marketing info
+const advertisment3 = await driver.$('-android uiautomator:new UiSelector().textContains("Invite a friend to join umob")');
+await expect(advertisment3).toBeDisplayed();
+
+//verify 4rd marketing info
+const advertisment4 = await driver.$('-android uiautomator:new UiSelector().textContains("Here is how it works")');
+await expect(advertisment4).toBeDisplayed();
+
+//click invite friends button
+const friends2 = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")');
+await expect(friends2).toBeDisplayed();
+await friends2.click();
 
 //verify share code button
  const shareCodeBtn = await driver.$('-android uiautomator:new UiSelector().textContains("SEND YOUR CODE")');

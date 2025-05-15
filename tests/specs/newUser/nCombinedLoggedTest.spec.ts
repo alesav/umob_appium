@@ -1,5 +1,51 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new13';
+
+/////////////////////////////////////////////////////////////////////////////////
 
 describe('Combined Tests For Logged in New User Without Rides', () => {
 
@@ -10,8 +56,13 @@ describe('Combined Tests For Logged in New User Without Rides', () => {
   });
 
   before(async () => {
+
+    const credentials = getCredentials(ENV, USER);
+
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+
     
-    await PageObjects.login({ username:'new25@gmail.com', password: '123Qwerty!' });
+    //await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
 });
 
 
@@ -103,9 +154,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
@@ -175,16 +226,22 @@ try {
     //await expect(backButton2).toBeDisplayed();
     //await backButton2.click();
 
+    
     // Verify account menu items
     const accountMenuItems = [
       "Invite friends",
-      "Personal info",
-      "Payment settings",
-      "ID Document",
-      "My Rides & Tickets",
-      "Ride credit",
-      "My payments"
-    ];
+       "Personal info",
+       "Payment settings",
+       "ID Document",
+       "My Rides & Tickets",
+     ];
+ 
+     for (const menuItem of accountMenuItems) {
+       const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+       await expect(menuElement).toBeDisplayed();
+ 
+     }
+ 
       /*
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100, 
@@ -196,11 +253,7 @@ try {
     }]);
     */
 
-    for (const menuItem of accountMenuItems) {
-      const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
-      await expect(menuElement).toBeDisplayed();
-    }
-
+/*
       //scroll to verify other account options
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100, 
@@ -210,24 +263,62 @@ try {
       direction: 'down',
       percent: 100.0
     }]);
+*/
+const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
 
 
+       
+ // Verify account menu items after first scrolling
+const accountMenuItems2 = [
+  "Ride credit",
+  "My payments",
+  "Language",
+  "Map theme settings",
+];
 
-    // Verify account menu items after scrolling
-    const accountMenuItems2 = [
-      "Ride credit",
-      "My payments",
-      "Language",
-      "Map theme settings",
-      "Support",
-      "Delete account"     
-      
-    ];
+for (const menuItem of accountMenuItems2) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();}
 
-    for (const menuItem of accountMenuItems2) {
-      const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
-      await expect(menuElement).toBeDisplayed();
-    }
+  await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger2',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },]);
+    await driver.pause(2000);
+  
+
+  // Verify account menu items after second scrolling
+const accountMenuItems3 = [
+"Support",
+"Delete account"
+];
+
+for (const menuItem of accountMenuItems3) {
+const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+await expect(menuElement).toBeDisplayed();
+}
 
     // Verify Log Out button
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
@@ -285,9 +376,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -329,6 +420,7 @@ try {
     const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
     await expect(referralCode).toBeDisplayed(); */
 
+    /*
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
@@ -340,6 +432,22 @@ try {
      percent: 2
     }]);
     await driver.pause(2000);
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
 
     // Verify usage count
     //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
@@ -417,9 +525,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -478,6 +586,22 @@ try {
     const addressQuestion = await driver.$("-android uiautomator:new UiSelector().text(\"What is your address?\")");
     await expect(addressQuestion).toBeDisplayed();
 
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 200 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
     // // Verify Street field
     const streetLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Street\")");
     await expect(streetLabel).toBeDisplayed();
@@ -492,6 +616,7 @@ try {
     const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Country\")");
     await expect(countryLabel).toBeDisplayed();
 
+    /*
   
       //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
@@ -503,6 +628,23 @@ try {
     percent: 100.0
   }]); 
   await driver.pause(5000);
+  */
+
+  
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
 
   
    // Verify Zip Code field
@@ -573,9 +715,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Navigate to Account screen first
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -661,6 +803,21 @@ try {
 
     */
 
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
     // Verify bottom buttons
     const changeDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD ID DOCUMENT\")");
     await expect(changeDocumentButton).toBeDisplayed();
@@ -743,6 +900,22 @@ try {
     const el4 = await driver.$("-android uiautomator:new UiSelector().text(\"ACCEPTED DOCUMENTS\")");
     await expect(el4).toBeDisplayed();
 
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
   
     const el6 = await driver.$("-android uiautomator:new UiSelector().textContains(\"National identity card\")");
     await expect(el6).toBeDisplayed();
@@ -804,9 +977,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     
     // Click on Account button
@@ -894,9 +1067,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -905,6 +1078,21 @@ try {
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
      await driver.pause(2000);
+
+     const { width, height } = await driver.getWindowSize();
+ await driver.performActions([
+   {
+       type: 'pointer',
+       id: 'finger1',
+       parameters: { pointerType: 'touch' },
+       actions: [
+           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+           { type: 'pointerDown', button: 0 },
+           { type: 'pause', duration: 100 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
+           { type: 'pointerUp', button: 0 },
+       ],
+   },]);
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
@@ -927,6 +1115,22 @@ try {
     // Verify promotional code description
     const promotionalCodeDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Received a promotional code?\")");
     await expect(promotionalCodeDescription).toBeDisplayed();
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+    
 
     // Verify promotional code input field
     const promotionalCodeInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\")");
@@ -996,9 +1200,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -1007,6 +1211,21 @@ try {
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
      await driver.pause(2000);
+
+     const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -1090,9 +1309,9 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
     
     //const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     //await settingsButton.click();
@@ -1102,6 +1321,7 @@ try {
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
     // Scroll down to make Language button visible
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1112,6 +1332,24 @@ try {
       percent: 100.0
     }]);
     await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.3 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(3000);
 
     // Click on Language option to navigate to language screen
     const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
@@ -1226,15 +1464,16 @@ try {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to map theme settings
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1245,6 +1484,24 @@ try {
       percent: 100.0
     }]);
     await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     // Click on Settings button to navigate to settings
     //const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
@@ -1342,9 +1599,9 @@ try {
  try {
 
   //click on finish later button to avoid payment method registration
-  const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-  await expect(finishLater).toBeDisplayed();
-  await finishLater.click();
+  // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+  // await expect(finishLater).toBeDisplayed();
+  // await finishLater.click();
 
     //await driver.activateApp("com.umob.umob");
     //await driver.pause(7000);    
@@ -1358,6 +1615,7 @@ try {
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to support option
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1368,6 +1626,24 @@ try {
       percent: 100.0
     }]);
     await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },
+]);
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
@@ -1414,6 +1690,7 @@ try {
           await expect(element).toBeDisplayed();
       }
 
+      /*
       //Scroll to bottom
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1424,6 +1701,22 @@ try {
     percent: 100
   }]); 
   await driver.pause(6000);
+
+  */
+
+  await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger2',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },]);
 
   const contentElements2 = [
     "End ride",
@@ -1487,6 +1780,7 @@ for (const text of contentElements2) {
       await expect(element3).toBeDisplayed();
   }
 
+  /*
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1497,6 +1791,22 @@ for (const text of contentElements2) {
     percent: 100
     }]); 
     await driver.pause(6000);
+    */
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger3',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
 
     //test the text after scrolling
     const text1 = await driver.$("-android uiautomator:new UiSelector().text(\"The solution\")");
@@ -1558,6 +1868,7 @@ for (const text of contentElements2) {
     const stepProviders = await driver.$("-android uiautomator:new UiSelector().text(\"3 providers\")");
     await expect(stepProviders).toBeDisplayed();
 
+    /*
     //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1568,6 +1879,21 @@ for (const text of contentElements2) {
     percent: 100
    }]); 
     await driver.pause(6000);
+    */
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
@@ -1761,9 +2087,9 @@ for (const text of contentElements2) {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Account button
     //const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
@@ -1775,6 +2101,7 @@ for (const text of contentElements2) {
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to delete account option
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1786,6 +2113,22 @@ for (const text of contentElements2) {
     }]);
     await driver.pause(1000);
 
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
     
 
     // Click on Delete account button
@@ -1881,9 +2224,9 @@ for (const text of contentElements2) {
   try {
 
     //click on finish later button to avoid payment method registration
-    const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-    await expect(finishLater).toBeDisplayed();
-    await finishLater.click();
+    // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+    // await expect(finishLater).toBeDisplayed();
+    // await finishLater.click();
 
     // Click on Settings button to navigate to settings
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
@@ -1895,6 +2238,7 @@ for (const text of contentElements2) {
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to Log Out option
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1906,6 +2250,40 @@ for (const text of contentElements2) {
     }]);
     await driver.pause(1000);
 
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(1000);
+
+  await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },]);
+    await driver.pause(1000);
+
+    
     // Click on LogOut option 
     const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
     await expect(logoutButton).toBeDisplayed();
