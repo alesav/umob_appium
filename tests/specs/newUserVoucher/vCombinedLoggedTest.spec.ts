@@ -199,6 +199,7 @@ await driver.performActions([
 //verify marketing info
 const advertisment = await driver.$('-android uiautomator:new UiSelector().textContains("Earn €10")');
 await expect(advertisment).toBeDisplayed();
+await driver.pause(4000);
 
 //verify "invite friends" button
 const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS NOW!")');
