@@ -44,7 +44,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new20';
+const USER = process.env.TEST_USER || 'new13';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -253,7 +253,7 @@ describe('Trying to Reserve Felyx by a New User Without a drivers licence', () =
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(2000);
+    await driver.pause(3000);
     
 
     //verify that driver's licence is not added
