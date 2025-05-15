@@ -136,7 +136,7 @@ await driver.performActions([
 
     
     
-   // await driver.pause(2000);
+    await driver.pause(2000);
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Book a taxi\")");
     await expect(screenHeader).toBeDisplayed();
@@ -144,7 +144,7 @@ await driver.performActions([
     // Verify departure and destination input section
     const departureDestinationLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Enter pickup & destination points\")");
     await expect(departureDestinationLabel).toBeDisplayed();
-
+    await driver.pause(2000);
            
 
   
