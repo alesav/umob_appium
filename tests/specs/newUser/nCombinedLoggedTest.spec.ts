@@ -878,16 +878,20 @@ await driver.performActions([
 
     await startVerification.click();
 
-    //allow permission
-    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-    await expect(permission).toBeDisplayed();
-    await permission.click();
-    await driver.pause(2000);
+    //allow permission for mobile
+    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    // await expect(permission).toBeDisplayed();
+    // await permission.click();
+    // await driver.pause(2000);
 
-    //allow permission
-    const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-    await expect(permission2).toBeDisplayed();
-    await permission2.click();
+    //allow permission for mobile
+    // const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    // await expect(permission2).toBeDisplayed();
+    // await permission2.click();
+
+    const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"ALLOW\")");
+    await expect(allowBut).toBeDisplayed();
+    await allowBut.click();
 
     //verify onfido screen
     const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");
@@ -2283,7 +2287,7 @@ await driver.performActions([
     },]);
     await driver.pause(1000);
 
-    
+
     // Click on LogOut option 
     const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
     await expect(logoutButton).toBeDisplayed();
