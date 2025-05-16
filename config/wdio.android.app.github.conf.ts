@@ -8,6 +8,7 @@ export const config: WebdriverIO.Config = {
         
         //first lines for night running scope of tests
 
+        /*
         
           "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
@@ -24,19 +25,19 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           "../tests/specs/newUser/addVoucher.spec.ts"
 
-          
+          */
 /////////////////////////////////////////////////////////////////////////////////////////          
 
         //    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
        // "../tests/specs/account/combinedLoggedTest.spec.ts",         
         // "../tests/specs/book/reserveCheck.spec.ts",
-        //  "../tests/specs/book/reserveFelyx.spec.ts",
+          "../tests/specs/book/bookDonkeyMocked.spec.ts",
          // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
          // "../tests/specs/account/*.spec.ts"
 
         //  "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //    "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
-        //    "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+            "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
          //  "../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
 
 
@@ -46,7 +47,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUserVoucher/vBookCheck.spec.ts",        
       // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
         // "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
-        // "../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
+         "../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
             //       "../tests/specs/book/bookUmobScooters.spec.ts",
         //  "../tests/specs/account/combinedLoggedTest.spec.ts",
         //  "../tests/specs/login/login.negative.spec.ts",
