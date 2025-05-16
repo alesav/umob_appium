@@ -1902,7 +1902,7 @@ for (const text of contentElements2) {
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
 
-    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"2 providers\")");
+    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"4 providers\")");
     await expect(taxiProviders).toBeDisplayed();
 
     const any = await driver.$("-android uiautomator:new UiSelector().text(\"Any\")");
