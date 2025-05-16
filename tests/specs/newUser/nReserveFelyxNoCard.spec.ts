@@ -279,8 +279,9 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
     await expect(bancontactCard).toBeDisplayed();
 
-    const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-    await expect(googlePay).toBeDisplayed();
+    //there is no google pay in github actions
+    // const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+    // await expect(googlePay).toBeDisplayed();
 
     const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
     await expect(payPal).toBeDisplayed();
