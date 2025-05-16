@@ -159,14 +159,15 @@ describe('Add Payment Method through popup for the New User', () => {
            await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).waitForDisplayed();
-          await driver.pause(4000);
+          await driver.pause(6000);
           await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).click();
-          await driver.pause(4000);
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).click();
+          await driver.pause(6000);
+          //second click on button because it looks like it is required
+          // await driver.$(
+          //   '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
+          // ).click();
 
            //CLick Remove payment method
            /*

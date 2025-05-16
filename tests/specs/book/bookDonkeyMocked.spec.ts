@@ -92,7 +92,7 @@ let testStatus = "Pass";
 
     try {
 
-    await driver.pause(5000);
+    await driver.pause(4000);
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
