@@ -148,7 +148,7 @@ await driver.performActions([
            
 
   
-  
+  /*
   // continue test with filling destination adress
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.click();
@@ -173,6 +173,22 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     .perform();
 
     await driver.hideKeyboard();
+    */
+
+    // Click on destination and text
+    const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+    await el1.addValue("Blaak 31");
+    await driver.pause(4000); 
+
+    // First get the element's location and size
+    const location = await el1.getLocation();
+    const size = await el1.getSize();
+
+    // Set location to specific scooter coordinates
+    execSync(
+      `adb shell input tap ${location.x + 100}  ${location.y + size.height + 70}`
+    );
+
 
     //Verify that location is the same that was added
      const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
