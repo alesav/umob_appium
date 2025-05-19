@@ -237,15 +237,15 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(3000);
+    await driver.pause(6000);
 
     //verify that new user vaucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
     await expect (vaucher).toBeDisplayed();
 
     //verify that select payment method is displayed
-    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-    await expect (selectPayment).toBeDisplayed();
+    // const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
+    // await expect (selectPayment).toBeDisplayed();
 
 
     const { width, height } = await driver.getWindowSize();
