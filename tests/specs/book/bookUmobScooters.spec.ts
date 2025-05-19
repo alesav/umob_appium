@@ -625,8 +625,7 @@ try {
   } finally {
     // Submit test run result
     try {
-     
-      
+
       await submitTestRun(testId, testStatus, testDetails, screenshotPath);
       console.log("Test run submitted successfully");
     } catch (submitError) {
