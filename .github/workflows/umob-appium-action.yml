@@ -1,12 +1,12 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is trying to run Appium test 🚀
 on:
-    push:
+    :
         branches:
             - main
     schedule:
-        - cron: "0 21 * * *"
-jobs:
+        - cron: "0 4 * * *"
+jobs:push
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
         steps:
