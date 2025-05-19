@@ -103,7 +103,7 @@ let testStatus = "Pass";
  await PageObjects.planTripBtn.click();
  await driver.pause(2000);
 
- //scroll to bottom
+ /*//scroll to bottom for mobile
  await driver.executeScript('mobile: scrollGesture', [{
    left: 100,
    top: 1000,
@@ -112,7 +112,23 @@ let testStatus = "Pass";
    direction: 'down',
    percent: 100.0
  }]);
- await driver.pause(1000);
+ await driver.pause(1000);*/
+
+ const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 400 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
  const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("GRAB TAXI")');
  await expect(taxiButton).toBeDisplayed();
@@ -120,7 +136,7 @@ let testStatus = "Pass";
 
     
     
-   // await driver.pause(2000);
+    await driver.pause(2000);
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Book a taxi\")");
     await expect(screenHeader).toBeDisplayed();
@@ -128,17 +144,18 @@ let testStatus = "Pass";
     // Verify departure and destination input section
     const departureDestinationLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Enter pickup & destination points\")");
     await expect(departureDestinationLabel).toBeDisplayed();
+    await driver.pause(2000);
+           
 
-    // allow permissions for github actions
-    const permission2 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
-    await permission2.click();
-        
-
-  // click on destination and text Rotterdam Zoo Rotterdam
+  
+  
+  // continue test with filling destination adress
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.click();
   await el1.addValue("Blaak 31");
-  await driver.pause(4000); 
+  await driver.pause(4000);
+  
+  
 
 // First get the element's location and size
 const location = await el1.getLocation();
@@ -272,9 +289,9 @@ let testStatus = "Pass";
     try {
 
       //allow permissions for github actions
-      const permission1 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
-  await expect(permission1).toBeDisplayed();
-  await permission1.click();
+  //     const permission1 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
+  // await expect(permission1).toBeDisplayed();
+  // await permission1.click();
 
   //check header is displayed
   const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
@@ -293,8 +310,8 @@ const driverNote = await driver.$("-android uiautomator:new UiSelector().text(\"
 await expect(driverNote).toBeDisplayed();
 
 //permission for github actions
-const permission3 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW)\")");
-await permission3.click();
+// const permission3 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW)\")");
+// await permission3.click();
 
 // check if price in euro
 const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");

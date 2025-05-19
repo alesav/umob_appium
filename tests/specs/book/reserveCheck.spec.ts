@@ -222,13 +222,31 @@ scooters = await fetchScooterCoordinates();
         .up()
         .perform();
 
-      await driver.pause(2000);
+      await driver.pause(4000);
       const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');
       await expect(prices).toBeDisplayed();
+
+      const { width, height } = await driver.getWindowSize();
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(2000);
 
       await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').waitForEnabled();
       await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
 
+      await driver.pause(2000);
       await driver.$('-android uiautomator:new UiSelector().text("CANCEL")').waitForEnabled();
       await driver.$('-android uiautomator:new UiSelector().text("CANCEL")').click();
 
@@ -236,9 +254,11 @@ scooters = await fetchScooterCoordinates();
 
       await PageObjects.accountButton.waitForExist();
       await PageObjects.accountButton.click();
-
-      await driver.$('-android uiautomator:new UiSelector().text("My Account")').isDisplayed();
       await driver.pause(2000);
+
+      await driver.$('-android uiautomator:new UiSelector().text("Personal info")').isDisplayed();
+      await driver.pause(2000);
+
     } catch (e) {
       error = e;
       console.error("Test failed:", error);

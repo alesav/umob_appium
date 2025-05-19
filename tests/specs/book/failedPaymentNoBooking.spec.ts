@@ -72,6 +72,7 @@ describe('verify that it is not possible to book a bike if you didnt pay for the
         } catch (error) {
           console.error("Failed to set location:", error);
         }
+        await driver.pause(5000);
     });
 
   beforeEach(async () => {
@@ -112,10 +113,12 @@ let testStatus = "Pass";
       .down()
       .up()
       .perform();
+      await driver.pause(3000);
 
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
     await umob20Button.click();
+    await driver.pause(7000);
 
     //const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("SELECT UMOB BIKE 2 0")');
     //await selectUmob.click();
@@ -127,7 +130,7 @@ let testStatus = "Pass";
       .down()
       .up()
       .perform(); */
-
+/*
       await driver.performActions([
         {
             type: 'pointer',
@@ -141,6 +144,38 @@ let testStatus = "Pass";
                 { type: 'pointerUp', button: 0 },
             ],
         },]);
+*/
+
+// get window size 
+const windowSize = await driver.getWindowSize();
+const screenWidth = windowSize.width;
+const screenHeight = windowSize.height;
+
+// calculate points for scroll
+// starting point: a little bit more down from the screen center
+const startX = Math.round(screenWidth / 2);
+const startY = Math.round(screenHeight * 0.75);
+
+// end point: upper side of the screen
+const endX = startX; // save the same position for X for vertical scroll
+const endY = Math.round(screenHeight * 0.2); // about 20% from upper side of the screen
+
+// scroll
+await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: startX, y: startY },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: endX, y: endY },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },
+]);
+await driver.pause(5000);
 
       //verify that there is notification about unpaid ride
       const failNotification = await driver.$('android=new UiSelector().textContains("You have a failed ride payment.")');
@@ -149,11 +184,31 @@ let testStatus = "Pass";
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
+    const continueButton = await driver.$('android=new UiSelector().textContains("CONTINUE")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
+    await driver.pause(2000);
 
     await continueButton.click();
+    await driver.pause(3000);
+
+    // scroll
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: startX, y: startY*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: endX, y: endY },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },
+]);
+
+
 
           // // Handle permissions
           // const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
@@ -170,7 +225,7 @@ let testStatus = "Pass";
     await expect (status).toBeDisplayed();
 
 
-
+/*
     await driver.pause(2000);
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
@@ -181,6 +236,23 @@ let testStatus = "Pass";
       direction: 'down',
       percent: 100
     }]); 
+    */
+
+    // scroll
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: startX, y: startY*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: endX, y: endY },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },
+]);
 
     //verify pay now button
     const payNow = await driver.$('android=new UiSelector().textContains("PAY NOW")');

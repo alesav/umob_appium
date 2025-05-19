@@ -1,6 +1,52 @@
 import { execSync } from "child_process";
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new13';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -8,6 +54,13 @@ describe('Add Payment Method through popup for the New User', () => {
   let scooters;
 
   before(async () => {
+
+    const credentials = getCredentials(ENV, USER);
+
+    // await PageObjects.login(credentials);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+
+    /*
 
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -50,6 +103,8 @@ describe('Add Payment Method through popup for the New User', () => {
         
         // Check Account is presented
         //await PageObjects.accountButton.waitForExist();
+
+        */
 
 
   });
@@ -104,14 +159,15 @@ describe('Add Payment Method through popup for the New User', () => {
            await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).waitForDisplayed();
-          await driver.pause(4000);
+          await driver.pause(6000);
           await driver.$(
             '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
           ).click();
-          await driver.pause(4000);
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).click();
+          await driver.pause(6000);
+          //second click on button because it looks like it is required
+          // await driver.$(
+          //   '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
+          // ).click();
 
            //CLick Remove payment method
            /*

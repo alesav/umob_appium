@@ -73,7 +73,7 @@ describe('Donkey Bike Booking Test', () => {
   
     });
 
-});
+
 
 
 
@@ -92,7 +92,7 @@ let testStatus = "Pass";
 
     try {
 
-    await driver.pause(5000);
+    await driver.pause(4000);
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
@@ -134,7 +134,7 @@ let testStatus = "Pass";
           await expect(allowPermissionBtn).toBeDisplayed();
           await allowPermissionBtn.click();
 
-
+/*
     await driver.pause(5000);
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
@@ -145,6 +145,22 @@ let testStatus = "Pass";
       direction: 'down',
       percent: 100
     }]); 
+    */
+
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
     /*const screen = await driver.getWindowRect();
     const screenWidth = screen.width;
