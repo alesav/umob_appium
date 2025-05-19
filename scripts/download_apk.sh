@@ -1,18 +1,22 @@
 #!/bin/bash
+
 # Define API token and base URL
 TOKEN="BGbTPWeB5gpD6uKXkuZ6z6YB5okLwrb4nONrBU5Rr1rcjlKi2LJqJQQJ99BDACAAAAAN5uH1AAASAZDO1l3e"
 BASE_URL="https://dev.azure.com/umob/umob"
+
 # Create temp directory for downloads
 TEMP_DIR=$(mktemp -d)
 echo "Created temporary directory: $TEMP_DIR"
+
+# First, get the total number of build IDs
+TOTAL_BUILD_COUNT=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&api-version=7.1-preview.7" | \
+  jq -r '.count')
+echo "Total number of BUILD_IDS available: $TOTAL_BUILD_COUNT"
+
 # Get 20 latest build IDs
 echo "Fetching 20 latest build IDs..."
-BUILD_IDS=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&top=20&api-version=7.1-preview.7" | \
-  jq -r '.value | sort_by(.startTime) | reverse | map(.id) | .[]')
-
-# Count amount of BUILD_IDS
-NUM_BUILD_IDS=$(echo "$BUILD_IDS" | wc -l)
-echo "Number of build IDs: $NUM_BUILD_IDS"
+BUILD_IDS=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&api-version=7.1-preview.7" | \
+  jq -r '.value | sort_by(.startTime) | reverse | .[0:20] | map(.id) | .[]')
 
 # Process each build ID until we find one with an android-Test artifact
 for BUILD_ID in $BUILD_IDS; do
@@ -76,7 +80,7 @@ for BUILD_ID in $BUILD_IDS; do
   echo "------------------------"
 done
 
-echo "No android-Test artifacts were found in the latest 10 builds."
+echo "No android-Test artifacts were found in the latest 20 builds."
 # Clean up if we didn't find any build
 rm -rf "$TEMP_DIR"
 exit 1

@@ -55,6 +55,9 @@ describe('Book Public Transport', () => {
 
     // await PageObjects.login(credentials);
 
+    const { width, height } = await driver.getWindowSize();
+    console.log("Width: " + width + ", Height: " + height);
+    
     await PageObjects.login({ username: credentials.username, password: credentials.password });
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
@@ -124,7 +127,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 300 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height/2 + 100 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -195,7 +198,7 @@ await driver.pause(1000); // Reduced pause for observation
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: 160, y: 400 },
+              { type: 'pointerMove', duration: 0, x: 160, y: height/2 + 100 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: 160, y: 10 },
@@ -561,7 +564,7 @@ const agreementText = await driver.$("~I agree to the sharing of personal data r
   await expect(agreementText).toBeDisplayed();
 
 //click to the checking box
-const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(27)');
+const checkbox = await driver.$("accessibility id:terms-and-conditions-checkbox");
 await expect(checkbox).toBeDisplayed();
 await checkbox.click();
 
