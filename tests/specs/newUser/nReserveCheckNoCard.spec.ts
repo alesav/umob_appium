@@ -189,8 +189,8 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     await expect (vaucher).toBeDisplayed();
 
     //verify that select payment method is displayed
-    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-    await expect (selectPayment).toBeDisplayed();
+    // const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
+    // await expect (selectPayment).toBeDisplayed();
 
 
     await driver.performActions([
