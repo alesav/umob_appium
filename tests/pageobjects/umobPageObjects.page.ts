@@ -50,6 +50,7 @@ class PageObjects extends Page {
 
         try {
             const deviceCapabilities = await JSON.stringify(driver.capabilities).toString();
+            console.log("Login with: " + username + " and password: " + password);
 
             // Find and click LOG IN button
             const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');

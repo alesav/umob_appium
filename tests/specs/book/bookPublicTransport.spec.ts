@@ -55,6 +55,8 @@ describe('Book Public Transport', () => {
 
     // await PageObjects.login(credentials);
 
+    const { width, height } = await driver.getWindowSize();
+    console.log("Width: " + width + ", Height: " + height);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
     execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
