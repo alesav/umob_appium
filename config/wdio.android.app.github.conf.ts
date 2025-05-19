@@ -14,7 +14,7 @@ export const config: WebdriverIO.Config = {
         //  "../tests/specs/newUser/*.spec.ts",
         //  "../tests/specs/notLoggedTests/*.spec.ts"
 
-          "..//Users/alesav/Dev/umob/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+          "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
           "../tests/specs/book/bookPublicTransport.spec.ts",
     //    "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
     //       "../tests/specs/book/bookUmobScooters.spec.ts",
