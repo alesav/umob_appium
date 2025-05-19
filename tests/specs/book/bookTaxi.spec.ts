@@ -250,6 +250,21 @@ let testStatus = "Pass";
     // check if at least one option exists with euro price
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
     await expect(firstRoutePrice).toBeDisplayed();
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
     
     
     const selectButton = await driver.$('-android uiautomator:new UiSelector().textContains("SELECT")');
