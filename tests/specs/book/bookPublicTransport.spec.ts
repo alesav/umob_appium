@@ -561,7 +561,7 @@ const agreementText = await driver.$("~I agree to the sharing of personal data r
   await expect(agreementText).toBeDisplayed();
 
 //click to the checking box
-const checkbox = await driver.$('-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(27)');
+const checkbox = await driver.$("accessibility id:terms-and-conditions-checkbox");
 await expect(checkbox).toBeDisplayed();
 await checkbox.click();
 

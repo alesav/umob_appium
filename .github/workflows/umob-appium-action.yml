@@ -5,7 +5,7 @@ on:
         branches:
             - main
     schedule:
-        - cron: "0 21 * * *"
+        - cron: "0 23 * * *"
 jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
@@ -33,6 +33,7 @@ jobs:
               uses: reactivecircus/android-emulator-runner@v2
               with:
                   api-level: 29
+                  emulator-options: -skin 480x800
                   script: |
                       mkdir screenshots
 

@@ -8,10 +8,15 @@ BASE_URL="https://dev.azure.com/umob/umob"
 TEMP_DIR=$(mktemp -d)
 echo "Created temporary directory: $TEMP_DIR"
 
-# Get 10 latest build IDs
-echo "Fetching 10 latest build IDs..."
+# First, get the total number of build IDs
+TOTAL_BUILD_COUNT=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&api-version=7.1-preview.7" | \
+  jq -r '.count')
+echo "Total number of BUILD_IDS available: $TOTAL_BUILD_COUNT"
+
+# Get 20 latest build IDs
+echo "Fetching 20 latest build IDs..."
 BUILD_IDS=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&api-version=7.1-preview.7" | \
-  jq -r '.value | sort_by(.startTime) | reverse | .[0:10] | map(.id) | .[]')
+  jq -r '.value | sort_by(.startTime) | reverse | .[0:20] | map(.id) | .[]')
 
 # Process each build ID until we find one with an android-Test artifact
 for BUILD_ID in $BUILD_IDS; do
@@ -75,7 +80,7 @@ for BUILD_ID in $BUILD_IDS; do
   echo "------------------------"
 done
 
-echo "No android-Test artifacts were found in the latest 10 builds."
+echo "No android-Test artifacts were found in the latest 20 builds."
 # Clean up if we didn't find any build
 rm -rf "$TEMP_DIR"
 exit 1
