@@ -29,11 +29,15 @@ jobs:
                   sudo udevadm control --reload-rules
                   sudo udevadm trigger --name-match=kvm
 
+            - name: Check available profiles
+              run: avdmanager list device
+
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
                   api-level: 29
-                  emulator-options: -skin 480x800
+                  profile: pixel
+                  disable-animations: true
                   script: |
                       mkdir screenshots
 
