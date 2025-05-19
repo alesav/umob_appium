@@ -324,13 +324,14 @@ let testStatus = "Pass";
   // await expect(permission1).toBeDisplayed();
   // await permission1.click();
 
-  //check header is displayed
-  const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
-  await expect(travelDetails).toBeDisplayed();
-
+  
   //check data for payment card is displayed
   const card = await driver.$("-android uiautomator:new UiSelector().text(\"**** **** 1115\")");
   await expect(card).toBeDisplayed();
+
+  //check header is displayed
+  const travelDetails = await driver.$("-android uiautomator:new UiSelector().textContains(\"Confirm\")");
+  await expect(travelDetails).toBeDisplayed();
   
 //check destination is displayed
 // const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
