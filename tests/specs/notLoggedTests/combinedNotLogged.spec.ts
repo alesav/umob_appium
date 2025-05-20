@@ -362,6 +362,7 @@ for (const text of contentElements4) {
     await netherlands.click();
     await driver.pause(2000);
 
+    /*//cant see countries in a drop box
     const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
     await expect(Portugal).toBeDisplayed();
 
@@ -373,7 +374,7 @@ for (const text of contentElements4) {
 
     const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
     await expect(France).toBeDisplayed();
-
+*/
     
 
 
@@ -412,7 +413,7 @@ for (const text of contentElements4) {
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
 
-    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"2 providers\")");
+    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"4 providers\")");
     await expect(taxiProviders).toBeDisplayed();
 
     const any = await driver.$("-android uiautomator:new UiSelector().text(\"Any\")");

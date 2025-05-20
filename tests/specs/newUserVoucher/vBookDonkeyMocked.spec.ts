@@ -1,13 +1,76 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new6';
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
 
     before(async () => {
   
+        const credentials = getCredentials(ENV, USER);
+        await PageObjects.login({ username: credentials.username, password: credentials.password });
+
+        //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+
+
+        const longitude = 4.4744301;
+      const latitude = 51.9155956;
+
+        execSync(
+          `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+        );
   
-        await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+        try {
+          execSync("adb emu geo fix "+ longitude+" "+ latitude);
+        } catch (error) {
+          console.error("Failed to set location:", error);
+        }
+        await driver.pause(3000);
   
   
     });
@@ -56,6 +119,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     //verify that payment card is displayed
     const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("**** **** 1115")');
     await expect (selectPayment).toBeDisplayed();
+    
 
     //click to choose limitless voucher
     await voucher.click();
@@ -68,7 +132,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect (multiVoucher).toBeDisplayed();
     await multiVoucher.click();
-    await driver.pause();
+    await driver.pause(2000);
 
 
 
@@ -84,6 +148,23 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       .up()
       .perform(); */
 
+      
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(2000);
+
     // Click continue button
     await driver.pause(5000);
     const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
@@ -95,13 +176,15 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
 
     await driver.pause(2000);
 
+    //there is no permission in github actions
     //allow permission 
-    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    await expect(permission).toBeDisplayed();
-    await permission.click();
-    await driver.pause(3000);
+    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    // await expect(permission).toBeDisplayed();
+    // await permission.click();
+    // await driver.pause(3000);
 
     //Scroll to bottom
+    /*
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
       top: 1500,
@@ -110,6 +193,24 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       direction: 'down',
       percent: 100
     }]); 
+    */
+
+    
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(7000);
 
     
 
@@ -151,6 +252,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect(multiVoucher1).toBeDisplayed();
 
+    /*
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -160,6 +262,24 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       direction: 'down',
       percent: 100
     }]); 
+    */
+
+    
+      await driver.pause(2000);
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(2000);
 
     //click got it button
     const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');

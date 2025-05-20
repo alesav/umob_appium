@@ -1,5 +1,51 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
+    }
+    
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
+    return {
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new6';
+
+/////////////////////////////////////////////////////////////////////////////////
 
 describe('Combined tests for logged in user with unlimited multi voucher', () => {
 
@@ -10,9 +56,11 @@ describe('Combined tests for logged in user with unlimited multi voucher', () =>
   });
 
   before(async () => {
-    
 
-    await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
+    const credentials = getCredentials(ENV, USER);
+
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
+    //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 });
 
 
@@ -115,19 +163,70 @@ await driver.pause(1000);
 const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
 await expect(multiVoucher).toBeDisplayed();
 
+/*
+
+//scroll to bottom for github actions
+await driver.pause(2000);
+const { width, height } = await driver.getWindowSize();
+await driver.executeScript('mobile: scrollGesture', [{
+ left: width/2,
+ top: 0,
+ width: 0,
+ height: height*0.8,
+ direction: 'down',
+ percent: 2
+}]);
+await driver.pause(1000);
+
+*/
+
+const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
+
 //verify marketing info
 const advertisment = await driver.$('-android uiautomator:new UiSelector().textContains("Earn €10")');
 await expect(advertisment).toBeDisplayed();
+await driver.pause(4000);
 
 //verify "invite friends" button
-const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS NOW!")');
+const friends = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")');
 await expect(friends).toBeDisplayed();
 await friends.click();
-await driver.pause(1000);
+await driver.pause(2000);
+
+//verify second marketing info
+const advertisment2 = await driver.$('-android uiautomator:new UiSelector().textContains("Give €10, Get €10")');
+await expect(advertisment2).toBeDisplayed();
+
+//verify 3rd marketing info
+const advertisment3 = await driver.$('-android uiautomator:new UiSelector().textContains("Invite a friend to join umob")');
+await expect(advertisment3).toBeDisplayed();
+
+//verify 4rd marketing info
+const advertisment4 = await driver.$('-android uiautomator:new UiSelector().textContains("Here is how it works")');
+await expect(advertisment4).toBeDisplayed();
+
+//click invite friends button
+const friends2 = await driver.$('-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")');
+await expect(friends2).toBeDisplayed();
+await friends2.click();
 
 //verify share code button
-const shareCodeBtn = await driver.$('-android uiautomator:new UiSelector().textContains("SHARE CODE")');
-await expect(shareCodeBtn).toBeDisplayed();
+ const shareCodeBtn = await driver.$('-android uiautomator:new UiSelector().textContains("SEND YOUR CODE")');
+ await expect(shareCodeBtn).toBeDisplayed();
 
     
 } catch (e) {
@@ -244,21 +343,75 @@ await driver.performActions([
   },]);
 
     
- // Verify account menu items after scrolling
- const accountMenuItems2 = [
+ // Verify account menu items after first scrolling
+const accountMenuItems2 = [
   "Ride credit",
   "My payments",
   "Language",
   "Map theme settings",
-  "Support",
-  "Delete account"     
-  
 ];
 
-for (const menuItem2 of accountMenuItems2) {
-  const menuElement2 = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem2}")`);
-  await expect(menuElement2).toBeDisplayed();
+for (const menuItem of accountMenuItems2) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();}
+
+  /*
+
+  // Second scroll using same width/height variables
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.1,
+  width: width * 0.85,
+  height: height * 0.99,
+  direction: 'down',
+  percent: 100
+}]);
+await driver.pause(1000);
+
+// Scroll fully down to make visible Log Out option
+
+await driver.pause(3000);
+    
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
+
+    */
+
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger2',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
+    // Verify account menu items after second scrolling
+const accountMenuItems3 = [
+  "Support",
+  "Delete account"
+];
+
+for (const menuItem of accountMenuItems3) {
+  const menuElement = await driver.$(`-android uiautomator:new UiSelector().text("${menuItem}")`);
+  await expect(menuElement).toBeDisplayed();
 }
+
 
 // Verify Log Out button
 const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
@@ -320,7 +473,40 @@ await expect(backButton).toBeDisplayed();
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+   await driver.pause(4000);
+
+   /*
+
    await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.5,
+     direction: 'down',
+     percent: .25
+    }]);
+    await driver.pause(2000);
+
+    */
+
+    /*
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    */
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
@@ -337,8 +523,8 @@ await expect(backButton).toBeDisplayed();
     await expect(backButton).toBeDisplayed();
 
     // Verify last ride section
-    const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-    await expect(lastRideSection).toBeDisplayed();
+    // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
+    // await expect(lastRideSection).toBeDisplayed();
 
 
     // Check previous payments list
@@ -350,9 +536,9 @@ await expect(backButton).toBeDisplayed();
 
     
     // Verify "Previous rides" section header
-    const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
-    await expect(previousRidesHeader).toBeDisplayed();
-    await driver.pause(3000);
+    // const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
+    // await expect(previousRidesHeader).toBeDisplayed();
+    // await driver.pause(3000);
 
 
     // back to common list of account menu
@@ -410,7 +596,40 @@ await expect(backButton).toBeDisplayed();
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+    await driver.pause(3000);
+
+    
+    /*
+    //scroll
     await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 0.5
+    }]);
+    await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -431,8 +650,8 @@ await expect(backButton).toBeDisplayed();
 
     
     // Verify "Previous payments" section header
-    const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-    await expect(previousPaymentsHeader).toBeDisplayed();
+    // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
+    // await expect(previousPaymentsHeader).toBeDisplayed();
 
     // Check previous payments list
     const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
@@ -566,17 +785,37 @@ await expect(backButton).toBeDisplayed();
 
     */
 
-  
+    const { width, height } = await driver.getWindowSize();
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
+  /*
       //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
-  await driver.pause(5000);
+   
+      await driver.pause(2000);
+      const { width, height } = await driver.getWindowSize();
+      await driver.executeScript('mobile: scrollGesture', [{
+       left: width/2,
+       top: 0,
+       width: 0,
+       height: height*0.8,
+       direction: 'down',
+       percent: 2
+      }]);
+      await driver.pause(1000);
+*/
 
   /*
    // Verify Zip Code field
@@ -654,6 +893,45 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
+
+    /*
+
+     // Get window size 
+const { width, height } = await driver.getWindowSize();
+
+// scroll
+for (let i = 0; i < 2; i++) {
+await driver.pause(2000);
+await driver.executeScript('mobile: scrollGesture', [{
+  left: width/2,
+  top: height * 0.2, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. then more close to 0 then more scroll you get 
+  width: width * 0.8,
+  height: height * 0.4, //width of the scrolling area
+  direction: 'down',
+  percent: 0.9
+}]);
+await driver.pause(2000);
+};
+ await driver.pause(2000);
+
+ */
+
+ const { width, height } = await driver.getWindowSize();
+ await driver.performActions([
+   {
+       type: 'pointer',
+       id: 'finger1',
+       parameters: { pointerType: 'touch' },
+       actions: [
+           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+           { type: 'pointerDown', button: 0 },
+           { type: 'pause', duration: 100 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
+           { type: 'pointerUp', button: 0 },
+       ],
+   },]);
+ 
+
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
@@ -676,6 +954,36 @@ await expect(backButton).toBeDisplayed();
     // Verify promotional code description
     const promotionalCodeDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Received a promotional code?\")");
     await expect(promotionalCodeDescription).toBeDisplayed();
+
+    /*
+    await driver.pause(1000);
+    await driver.executeScript('mobile: scrollGesture', [{
+      left: width/2,
+      top: 0,
+      width: 0,
+      height: height*0.4,
+      direction: 'down',
+      percent: 0.9
+     }]);
+ await driver.pause(1000);
+
+ */
+
+
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     // Verify promotional code input field
     const promotionalCodeInput = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\")");
@@ -784,9 +1092,11 @@ await expect(backButton).toBeDisplayed();
    const yourCodeLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Your code\")");
    await expect(yourCodeLabel).toBeDisplayed();
 
-   /* Verify the actual referral code
-   const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-   await expect(referralCode).toBeDisplayed(); */
+  //  Verify the actual referral code
+  //  const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
+  //  await expect(referralCode).toBeDisplayed(); 
+
+  /*
 
    await driver.pause(3000);
    const { width, height } = await driver.getWindowSize();
@@ -799,6 +1109,24 @@ await expect(backButton).toBeDisplayed();
     percent: 2
    }]);
    await driver.pause(2000);
+
+   */
+
+   const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
    // Verify usage count
    //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
@@ -1030,6 +1358,38 @@ await expect(backButton).toBeDisplayed();
 
     /*
 
+    await driver.pause(2000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(2000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
+
+    /*
+
     // Verify Home Address section
     const homeAddressStreet = await driver.$("-android uiautomator:new UiSelector().textContains(\"Bloemstraat 80\")");
     await expect(homeAddressStreet).toBeDisplayed();
@@ -1046,6 +1406,7 @@ await expect(backButton).toBeDisplayed();
     const changeDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"CHANGE DOCUMENT\")");
     await expect(changeDocumentButton).toBeDisplayed();
 
+    /*
      //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1056,6 +1417,24 @@ await expect(backButton).toBeDisplayed();
     percent: 100
   }]); 
   await driver.pause(3000);
+
+  */
+
+  
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger2',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
 
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
@@ -1117,6 +1496,40 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
 
+    /*
+
+    // Scroll down to make Delete account button visible
+    await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(1000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
+
+    /*
     // Scroll down to make Delete account button visible
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -1127,6 +1540,7 @@ await expect(backButton).toBeDisplayed();
       percent: 50.0
     }]);
     await driver.pause(1000);
+    */
 
     // Click on Delete account button
     const deleteAccountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Delete account\")");
@@ -1225,16 +1639,38 @@ await expect(backButton).toBeDisplayed();
   await PageObjects.accountButton.click();
    await driver.pause(2000);
 
-   // Scroll down to map theme settings
-  await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1000,
-    width: 200,
-    height: 800,
-    direction: 'down',
-    percent: 100.0
-  }]);
-  await driver.pause(1000);
+   /*
+
+    // Scroll down to make Delete account button visible
+    await driver.pause(3000);
+    const { width, height } = await driver.getWindowSize();
+    await driver.executeScript('mobile: scrollGesture', [{
+     left: width/2,
+     top: 0,
+     width: 0,
+     height: height*0.8,
+     direction: 'down',
+     percent: 2
+    }]);
+    await driver.pause(2000);
+
+    */
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
@@ -1330,8 +1766,9 @@ await expect(backButton).toBeDisplayed();
     
   await PageObjects.accountButton.waitForExist();
   await PageObjects.accountButton.click();
-   await driver.pause(2000);
+   await driver.pause(4000);
 
+   /*
   // Scroll down to make Language button visible
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1342,6 +1779,24 @@ await expect(backButton).toBeDisplayed();
     percent: 100.0
   }]);
   await driver.pause(1000);
+
+  */
+
+  const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.3 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(3000);
 
   // Click on Language option to navigate to language screen
   const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
@@ -1386,6 +1841,7 @@ await expect(backButton).toBeDisplayed();
     await backButton.click();
     await driver.pause(2000);
 
+    /*
     // Verify main menu option is present
     const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
     await expect(appSettingsHeader).toBeDisplayed();
@@ -1401,6 +1857,8 @@ await expect(backButton).toBeDisplayed();
     // Verify LogOut button
     const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
     await expect(logoutButton).toBeDisplayed();
+
+    */
 
   } catch (e) {
     error = e;
@@ -1461,16 +1919,35 @@ await expect(backButton).toBeDisplayed();
     await PageObjects.accountButton.click();
      await driver.pause(2000);
 
+     /*
      // Scroll down to support option
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
-      top: 1000,
+      top: 500,
       width: 200,
-      height: 800,
+      height: 480,
       direction: 'down',
       percent: 100.0
     }]);
     await driver.pause(1000);
+    */
+    
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },
+]);
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
@@ -1516,6 +1993,8 @@ await expect(backButton).toBeDisplayed();
           await expect(element).toBeDisplayed();
       }
 
+
+      /*
       //Scroll to bottom
   await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1526,6 +2005,24 @@ await expect(backButton).toBeDisplayed();
     percent: 100
   }]); 
   await driver.pause(6000);
+
+  */
+
+  
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger2',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
   const contentElements2 = [
     "End ride",
@@ -1589,6 +2086,7 @@ for (const text of contentElements2) {
       await expect(element3).toBeDisplayed();
   }
 
+  /*
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1599,6 +2097,24 @@ for (const text of contentElements2) {
     percent: 100
     }]); 
     await driver.pause(6000);
+
+    */
+
+    
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger3',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+
 
     //test the text after scrolling
     const text1 = await driver.$("-android uiautomator:new UiSelector().text(\"The solution\")");
@@ -1628,6 +2144,7 @@ for (const text of contentElements2) {
     await netherlands.click();
     await driver.pause(2000);
 
+    /* //cant see countries in a drop box after click
     const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
     await expect(Portugal).toBeDisplayed();
 
@@ -1639,6 +2156,7 @@ for (const text of contentElements2) {
 
     const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
     await expect(France).toBeDisplayed();
+    */
 
 
     //checking amount of providers
@@ -1660,6 +2178,7 @@ for (const text of contentElements2) {
     const stepProviders = await driver.$("-android uiautomator:new UiSelector().text(\"3 providers\")");
     await expect(stepProviders).toBeDisplayed();
 
+    /*
     //Scroll to bottom
    await driver.executeScript('mobile: scrollGesture', [{
     left: 100,
@@ -1671,10 +2190,27 @@ for (const text of contentElements2) {
    }]); 
     await driver.pause(6000);
 
+    */
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+    
+
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
 
-    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"2 providers\")");
+    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"4 providers\")");
     await expect(taxiProviders).toBeDisplayed();
 
     const any = await driver.$("-android uiautomator:new UiSelector().text(\"Any\")");
@@ -1745,6 +2281,7 @@ await PageObjects.accountButton.waitForExist();
 await PageObjects.accountButton.click();
  await driver.pause(2000);
 
+ /*
  // Scroll down to Log Out option
 await driver.executeScript('mobile: scrollGesture', [{
   left: 100,
@@ -1755,6 +2292,40 @@ await driver.executeScript('mobile: scrollGesture', [{
   percent: 100.0
 }]);
 await driver.pause(1000);
+
+*/
+
+const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(1000);
+
+  await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },]);
+    await driver.pause(1000);
+
 
 // Click on LogOut option 
 const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");

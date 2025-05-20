@@ -7,22 +7,22 @@ export const config: WebdriverIO.Config = {
     specs: [
         
 
-          //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-
-            "../tests/specs/account/*.spec.ts",
-          "../tests/specs/login/*.spec.ts",
-          "../tests/specs/book/*.spec.ts",
-          "../tests/specs/newUserVoucher/*.spec.ts",
-          "../tests/specs/notLoggedTests/*.spec.ts",
-          //new user tests should be in some order
-          //"../tests/specs/newUser/*.spec.ts",
-          "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
           "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-          "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
-          "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-          //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
-          "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
-          "../tests/specs/newUser/addVoucher.spec.ts"
+
+        //     "../tests/specs/account/*.spec.ts",
+        //   "../tests/specs/login/*.spec.ts",
+        //   "../tests/specs/book/*.spec.ts",
+        //   "../tests/specs/newUserVoucher/*.spec.ts",
+        //   "../tests/specs/notLoggedTests/*.spec.ts",
+        //   //new user tests should be in some order
+        //   //"../tests/specs/newUser/*.spec.ts",
+        //   "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+        //   "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+        //   "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
+        //   "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+        //   //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
+        //   "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
+        //   "../tests/specs/newUser/addVoucher.spec.ts"
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",

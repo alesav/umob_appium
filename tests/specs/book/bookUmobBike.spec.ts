@@ -260,9 +260,9 @@ let testDetails = ""
 let error = null;
 
 try {
- 
-    await driver.pause(4000);
 
+   
+    
         // Filter not needed results
         //await applyFilters();
 
@@ -331,6 +331,21 @@ try {
 
                     await driver.pause(10000);
 
+                    const { width, height } = await driver.getWindowSize();
+   await driver.performActions([
+     {
+         type: 'pointer',
+         id: 'finger1',
+         parameters: { pointerType: 'touch' },
+         actions: [
+             { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+             { type: 'pointerDown', button: 0 },
+             { type: 'pause', duration: 100 },
+             { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+             { type: 'pointerUp', button: 0 },
+         ],
+     },]);
+
               // Click Details
               await driver.$(
                 '-android uiautomator:new UiSelector().text("DETAILS")'
@@ -377,7 +392,7 @@ try {
    const totalAmountValueElement = await driver.$('//*[@text="€1.25"]');
    await expect(totalAmountValueElement).toBeDisplayed();
  
-   const { width, height } = await driver.getWindowSize();
+   
    await driver.performActions([
      {
          type: 'pointer',
@@ -416,6 +431,26 @@ try {
            //check main screen is displayed
 
             await PageObjects.accountButton.waitForExist();
+            await driver.pause(2000);
+
+            scooters = await fetchScooterCoordinates();
+
+              const targetScooter = scooters.find(
+                scooter => scooter.id === 'UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE'
+              );
+            
+            // Set location to specific scooter coordinates
+              execSync(
+                `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+              );
+              await driver.pause(7000);
+
+              try {
+                execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+              } catch (error) {
+                console.error("Failed to set location:", error);
+              };
+              await driver.pause(3000);
 
         } catch (e) {
           error = e;

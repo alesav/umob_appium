@@ -34,9 +34,10 @@ if %ERRORLEVEL% NEQ 0 (
     goto :cleanup_and_exit
 )
 
-REM Get 10 latest build IDs - save JSON response to a file first to avoid pipe issues
-echo Fetching 10 latest build IDs...
-for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:20] | map(.id) | .[]"') do (
+REM Get 20 latest build IDs - save JSON response to a file first to avoid pipe issues
+echo Fetching 20 latest build IDs...
+
+for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9&$top=20^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | map(.id) | .[]"') do (    
     set BUILD_IDS=!BUILD_IDS! %%a
 )
 

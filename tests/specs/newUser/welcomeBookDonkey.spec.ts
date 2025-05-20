@@ -8,6 +8,20 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
   
   
         await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
+
+        const longitude = 4.4744300;
+        const latitude = 51.9155956;
+
+        execSync(
+          `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+        );
+
+        try {
+          execSync("adb emu geo fix "+ longitude+" "+ latitude);
+        } catch (error) {
+          console.error("Failed to set location:", error);
+        }
+        await driver.pause(3000);
   
   
     });
@@ -79,6 +93,23 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
 
     
       */
+
+        
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
+  await driver.pause(1000);
+
     // Click continue button
     await driver.pause(5000);
     const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
