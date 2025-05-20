@@ -8,42 +8,27 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to load credentials based on environment and user
-function getCredentials(environment = 'test', userKey = null) {
+// Function to get fixed credentials for the new12 user from credentials file
+function getCredentials() {
   try {
     const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
     const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
     
-    // Check if environment exists
-    if (!credentials[environment]) {
-      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
-      environment = 'test';
+    // Always use the new12 user from test environment
+    if (!credentials.test || !credentials.test.new12) {
+      throw new Error('new12 user not found in test environment');
     }
     
-    const envUsers = credentials[environment];
-    
-    // If no specific user is requested, use the first user in the environment
-    if (!userKey) {
-      userKey = Object.keys(envUsers)[0];
-    } else if (!envUsers[userKey]) {
-      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
-      userKey = Object.keys(envUsers)[0];
-    }
-    
-    // Return the user credentials
+    // Return the new12 user credentials
     return {
-      username: envUsers[userKey].username,
-      password: envUsers[userKey].password
+      username: credentials.test.new12.username,
+      password: credentials.test.new12.password
     };
   } catch (error) {
     console.error('Error loading credentials:', error);
     throw new Error('Failed to load credentials configuration');
   }
 }
-
-// Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new';
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -56,12 +41,10 @@ describe('Combined test for the logged in old user with rides history', () => {
   });
 
   before(async () => {
-
-    const credentials = getCredentials(ENV, USER);
+    const credentials = getCredentials();
 
     // await PageObjects.login(credentials);
     await PageObjects.login({ username: credentials.username, password: credentials.password });
-
 
    // await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
 });
@@ -172,8 +155,8 @@ let testStatus = "Pass";
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
-
     await driver.pause(2000);
 
     // Verify screen header
@@ -559,6 +542,7 @@ for (const menuItem of accountMenuItems3) {
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
 
     //navigate to personal info
