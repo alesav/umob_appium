@@ -5,7 +5,7 @@ on:
         branches:
             - main
     schedule:
-        - cron: "0 23 * * *"
+        - cron: "0 2 * * *"
 jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
