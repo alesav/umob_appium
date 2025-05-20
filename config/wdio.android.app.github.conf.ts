@@ -7,8 +7,8 @@ export const config: WebdriverIO.Config = {
     specs: [
         
 
-         // "../tests/specs/book/bookTaxi.spec.ts",
-
+          "../tests/specs/book/bookTaxi.spec.ts"
+/*
             "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
           "../tests/specs/book/*.spec.ts",
@@ -23,6 +23,7 @@ export const config: WebdriverIO.Config = {
           //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           "../tests/specs/newUser/addVoucher.spec.ts" //not possible to add voucher to the same user
+          */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
