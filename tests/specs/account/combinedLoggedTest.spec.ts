@@ -155,8 +155,8 @@ let testStatus = "Pass";
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
-
     await driver.pause(2000);
 
     // Verify screen header
@@ -542,6 +542,7 @@ for (const menuItem of accountMenuItems3) {
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
 
     //navigate to personal info
