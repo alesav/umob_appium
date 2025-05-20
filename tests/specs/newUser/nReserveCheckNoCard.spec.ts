@@ -126,7 +126,7 @@ const getScreenCenter = async () => {
           stationId: "",
           longitude: 4.47586407,
           latitude: 51.92502035,
-          radius: 1166.6137310913994,
+          radius: 2000,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],
@@ -162,11 +162,11 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
 
     const credentials = getCredentials(ENV, USER);
 
-    // await PageObjects.login(credentials);
-    await PageObjects.login({ username: credentials.username, password: credentials.password });
-
     // Fetch scooter coordinates before running tests
     scooters = await fetchScooterCoordinates();
+
+    // await PageObjects.login(credentials);
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
 
 
 
@@ -186,7 +186,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
         console.error("Failed to set location:", error);
       }
 
-
+    await driver.terminateApp("com.umob.umob");
   });
 
   beforeEach(async () => {
