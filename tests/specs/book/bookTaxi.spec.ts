@@ -148,7 +148,7 @@ await driver.performActions([
            
 
   
-  
+  /*
   // continue test with filling destination adress
   const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
   await el1.click();
@@ -173,6 +173,22 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
     .perform();
 
     await driver.hideKeyboard();
+    */
+
+    // Click on destination and text
+    const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
+    await el1.addValue("Blaak 31");
+    await driver.pause(4000); 
+
+    // First get the element's location and size
+    const location = await el1.getLocation();
+    const size = await el1.getSize();
+
+    // Set location to specific scooter coordinates
+    execSync(
+      `adb shell input tap ${location.x + 100}  ${location.y + size.height + 70}`
+    );
+
 
     //Verify that location is the same that was added
      const toLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Blaak 31\")");
@@ -231,9 +247,25 @@ let testStatus = "Pass";
 
     try {
   
+      await driver.pause(5000);
     // check if at least one option exists with euro price
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
     await expect(firstRoutePrice).toBeDisplayed();
+
+    const { width, height } = await driver.getWindowSize();
+await driver.performActions([
+  {
+      type: 'pointer',
+      id: 'finger1',
+      parameters: { pointerType: 'touch' },
+      actions: [
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerDown', button: 0 },
+          { type: 'pause', duration: 100 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerUp', button: 0 },
+      ],
+  },]);
     
     
     const selectButton = await driver.$('-android uiautomator:new UiSelector().textContains("SELECT")');
@@ -293,13 +325,15 @@ let testStatus = "Pass";
   // await expect(permission1).toBeDisplayed();
   // await permission1.click();
 
-  //check header is displayed
-  const travelDetails = await driver.$("-android uiautomator:new UiSelector().text(\"Confirm your ride\")");
-  await expect(travelDetails).toBeDisplayed();
-
+  
   //check data for payment card is displayed
+  await driver.pause(5000);
   const card = await driver.$("-android uiautomator:new UiSelector().text(\"**** **** 1115\")");
   await expect(card).toBeDisplayed();
+
+  //check header is displayed
+  const travelDetails = await driver.$("-android uiautomator:new UiSelector().textContains(\"Confirm\")");
+  await expect(travelDetails).toBeDisplayed();
   
 //check destination is displayed
 // const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
@@ -341,7 +375,7 @@ await driver.pause(7000);
 //  await expect(destinationLocation).toBeDisplayed();
 
  // Verify and click Cancel trip button
- await driver.pause(10000);
+ await driver.pause(7000);
  const cancelTripButton = await driver.$('-android uiautomator:new UiSelector().textContains("Cancel")');
  await expect(cancelTripButton).toBeDisplayed();
  await driver.pause(1000);
