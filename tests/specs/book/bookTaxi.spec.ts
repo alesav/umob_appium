@@ -247,6 +247,7 @@ let testStatus = "Pass";
 
     try {
   
+      await driver.pause(5000);
     // check if at least one option exists with euro price
     const firstRoutePrice = await driver.$("(//android.widget.TextView[contains(@text, '€')])[1]");
     await expect(firstRoutePrice).toBeDisplayed();
@@ -326,6 +327,7 @@ let testStatus = "Pass";
 
   
   //check data for payment card is displayed
+  await driver.pause(5000);
   const card = await driver.$("-android uiautomator:new UiSelector().text(\"**** **** 1115\")");
   await expect(card).toBeDisplayed();
 
