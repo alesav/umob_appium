@@ -130,6 +130,9 @@ let testStatus = "Pass";
 
       await driver.pause(7000);
 
+       const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+       await laterButton.click();
+
     // Set initial location
     execSync(
       `adb shell am startservice -e longitude 4.4744301 -e latitude 52.9155956 io.appium.settings/.LocationService`
