@@ -392,7 +392,7 @@ await driver.pause(3000);
           id: 'finger2',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -2015,7 +2015,7 @@ await driver.performActions([
       id: 'finger2',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
