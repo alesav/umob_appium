@@ -596,7 +596,7 @@ await driver.performActions([
               { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 200 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 20 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
