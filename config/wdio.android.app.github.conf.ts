@@ -14,8 +14,10 @@ export const config: WebdriverIO.Config = {
             "../tests/specs/book/bookUmobScooters.spec.ts",
             "../tests/specs/book/bookTaxi.spec.ts"
             */
+           "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+           "../tests/specs/account/CombinedLoggedTest.spec.ts"
           
-
+/*
             "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
           "../tests/specs/book/*.spec.ts",
@@ -30,6 +32,7 @@ export const config: WebdriverIO.Config = {
           //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           "../tests/specs/newUser/addVoucher.spec.ts"
+          */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",

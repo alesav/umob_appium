@@ -616,7 +616,7 @@ for (const menuItem of accountMenuItems3) {
 
     
     // Verify Country field
-    const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
+    const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Argentina\")");
     await expect(countryLabel).toBeDisplayed();
 
   
