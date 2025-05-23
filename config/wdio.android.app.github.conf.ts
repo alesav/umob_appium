@@ -7,7 +7,7 @@ export const config: WebdriverIO.Config = {
     specs: [
         
 
-            "../tests/specs/book/failedPayentNoBooking.spec.ts",
+            "../tests/specs/book/failedPaymentNoBooking.spec.ts",
              "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
              "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts"
             // "../tests/specs/book/failedPaymentNoBooking.spec.ts",
