@@ -1346,10 +1346,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.85 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.35 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.35 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
