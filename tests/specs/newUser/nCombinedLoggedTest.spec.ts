@@ -271,10 +271,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.3 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -386,7 +386,7 @@ await expect(menuElement).toBeDisplayed();
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
      
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
@@ -535,7 +535,7 @@ await driver.performActions([
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
     //navigate to personal info
 
@@ -596,7 +596,7 @@ await driver.performActions([
               { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 200 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 20 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -637,7 +637,7 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -1081,7 +1081,7 @@ await driver.performActions([
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      const { width, height } = await driver.getWindowSize();
  await driver.performActions([
@@ -1090,10 +1090,10 @@ await driver.performActions([
        id: 'finger1',
        parameters: { pointerType: 'touch' },
        actions: [
-           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
            { type: 'pointerDown', button: 0 },
            { type: 'pause', duration: 100 },
-           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
            { type: 'pointerUp', button: 0 },
        ],
    },]);
@@ -1214,7 +1214,7 @@ await driver.performActions([
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      const { width, height } = await driver.getWindowSize();
     await driver.performActions([
@@ -1223,10 +1223,10 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerMove', duration: 0, x: width/4, y: height*0.7 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.4 },
+              { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.3 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -1323,7 +1323,7 @@ await driver.performActions([
 
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      /*
     // Scroll down to make Language button visible
@@ -1346,10 +1346,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.3 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.35 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1475,7 +1475,7 @@ await driver.performActions([
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      /*
      // Scroll down to map theme settings
@@ -1498,10 +1498,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1617,7 +1617,7 @@ await driver.performActions([
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      /*
      // Scroll down to support option
@@ -1640,10 +1640,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.85 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.15 },
           { type: 'pointerUp', button: 0 },
       ],
   },
@@ -1714,7 +1714,7 @@ await driver.performActions([
         id: 'finger2',
         parameters: { pointerType: 'touch' },
         actions: [
-            { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+            { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
             { type: 'pointerDown', button: 0 },
             { type: 'pause', duration: 100 },
             { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -2118,7 +2118,7 @@ for (const text of contentElements2) {
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      /*
      // Scroll down to delete account option
@@ -2141,10 +2141,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
