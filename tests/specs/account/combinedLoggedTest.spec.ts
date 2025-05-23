@@ -445,7 +445,7 @@ for (const menuItem of accountMenuItems3) {
      await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
 
-    await driver.pause(2000);
+    await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
     await driver.performActions([
       {
@@ -453,7 +453,7 @@ for (const menuItem of accountMenuItems3) {
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: 600 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 20 },

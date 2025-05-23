@@ -892,7 +892,7 @@ await expect(backButton).toBeDisplayed();
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     /*
 
@@ -923,10 +923,10 @@ await driver.pause(2000);
        id: 'finger1',
        parameters: { pointerType: 'touch' },
        actions: [
-           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+           { type: 'pointerMove', duration: 0, x: width/4, y: height*0.7 },
            { type: 'pointerDown', button: 0 },
            { type: 'pause', duration: 100 },
-           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
+           { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.4 },
            { type: 'pointerUp', button: 0 },
        ],
    },]);
