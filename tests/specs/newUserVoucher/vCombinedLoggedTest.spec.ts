@@ -1520,10 +1520,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1940,10 +1940,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.9 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.15 },
           { type: 'pointerUp', button: 0 },
       ],
   },
