@@ -792,7 +792,7 @@ await expect(backButton).toBeDisplayed();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: 1000 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -1639,6 +1639,7 @@ await driver.performActions([
 
   //go to account
   await PageObjects.accountButton.waitForExist();
+  await driver.pause(3000);
   await PageObjects.accountButton.click();
    await driver.pause(3000);
 
