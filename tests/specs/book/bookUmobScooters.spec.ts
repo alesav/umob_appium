@@ -444,10 +444,12 @@ await driver.execute('mobile: pinchOpenGesture', {
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
+try {
   await driver.saveScreenshot(screenshotPath);
-  // execSync(
-  //   `adb exec-out screencap -p > ${screenshotPath}`
-  // );
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
   
 } finally {
   // Submit test run result
@@ -576,10 +578,12 @@ await driver.execute('mobile: pinchOpenGesture', {
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
+try {
   await driver.saveScreenshot(screenshotPath);
-  // execSync(
-  //   `adb exec-out screencap -p > ${screenshotPath}`
-  // );
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
   
 } finally {
   // Submit test run result
@@ -706,10 +710,12 @@ await driver.execute('mobile: pinchOpenGesture', {
 
     // Capture screenshot on failure
     screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
+try {
+  await driver.saveScreenshot(screenshotPath);
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
     
   } finally {
     // Submit test run result
@@ -974,11 +980,12 @@ try {
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
+try {
   await driver.saveScreenshot(screenshotPath);
-  // execSync(
-  //   `adb exec-out screencap -p > ${screenshotPath}`
-  // );
-  
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
 } finally {
   // Submit test run result
   try {
