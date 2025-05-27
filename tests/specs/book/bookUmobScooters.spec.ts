@@ -433,40 +433,42 @@ await driver.execute('mobile: pinchOpenGesture', {
           // Wait for Home screen to be loaded
           await PageObjects.accountButton.waitForExist();
 
-        } catch (e) {
-          error = e;
-          console.error("Test failed:", error);
-          testStatus = "Fail";
-          testDetails = e.message;
-      
-          console.log("TEST 123")
-      
-          // Capture screenshot on failure
-          screenshotPath = "./screenshots/"+ testId+".png";
-          await driver.saveScreenshot(screenshotPath);
-          // execSync(
-          //   `adb exec-out screencap -p > ${screenshotPath}`
-          // );
-          
-        } finally {
-          // Submit test run result
-          try {
-              console.log("TEST 456")
-      
-            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-            console.log("Test run submitted successfully");
-          } catch (submitError) {
-            console.error("Failed to submit test run:", submitError);
-          }
-      
-          // If there was an error in the main try block, throw it here to fail the test
-          if (error) {
-            throw error;
-          }
-        }
-   
 
-  });
+  } catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+  
 
   
 
@@ -564,39 +566,41 @@ await driver.execute('mobile: pinchOpenGesture', {
       '-android uiautomator:new UiSelector().text("VEHICLE_NOT_OPERATIONAL (60000)")'
     ).waitForDisplayed();
 
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
 
-    console.log("TEST 123")
+  console.log("TEST 123")
 
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
 
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
   }
 
-  });
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Negative Scenario: Trying to Book Scooter with User Blocked Error', async () => {
@@ -960,39 +964,42 @@ try {
     //             '-android uiautomator:new UiSelector().text("CLOSE")'
     //           ).click();
 
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
 
-    console.log("TEST 123")
+  console.log("TEST 123")
 
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
-
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
-  }
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+  await driver.saveScreenshot(screenshotPath);
+  // execSync(
+  //   `adb exec-out screencap -p > ${screenshotPath}`
+  // );
   
-    });
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+
+    
 
 
   afterEach(async () => {
