@@ -334,7 +334,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -392,7 +392,7 @@ await driver.pause(3000);
           id: 'finger2',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -792,7 +792,7 @@ await expect(backButton).toBeDisplayed();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: 1000 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -891,8 +891,9 @@ await expect(backButton).toBeDisplayed();
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     /*
 
@@ -923,10 +924,10 @@ await driver.pause(2000);
        id: 'finger1',
        parameters: { pointerType: 'touch' },
        actions: [
-           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+           { type: 'pointerMove', duration: 0, x: width/4, y: height*0.7 },
            { type: 'pointerDown', button: 0 },
            { type: 'pause', duration: 100 },
-           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.5 },
+           { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.4 },
            { type: 'pointerUp', button: 0 },
        ],
    },]);
@@ -1300,6 +1301,7 @@ await driver.performActions([
     // Navigate to Account screen first
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
+    await driver.pause(2000);
 
     // Navigate to ID Document screen
     const idDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"ID Document\")");
@@ -1493,8 +1495,9 @@ await driver.performActions([
 
     // Click on Account button
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     /*
 
@@ -1520,10 +1523,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1636,8 +1639,9 @@ await driver.performActions([
 
   //go to account
   await PageObjects.accountButton.waitForExist();
+  await driver.pause(3000);
   await PageObjects.accountButton.click();
-   await driver.pause(2000);
+   await driver.pause(3000);
 
    /*
 
@@ -1663,7 +1667,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -1917,7 +1921,7 @@ await driver.performActions([
     //go to account
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
      /*
      // Scroll down to support option
@@ -1940,10 +1944,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.9 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.15 },
           { type: 'pointerUp', button: 0 },
       ],
   },
@@ -2015,7 +2019,7 @@ await driver.performActions([
       id: 'finger2',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },

@@ -157,7 +157,7 @@ await expect (street).toBeDisplayed();
 //click on street section and add value 
 const streetSection = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(0)");
 await streetSection.clearValue()
-await streetSection.addValue("bloemstraat");
+await streetSection.addValue("Bloemstraat");
 
 
 //choosing number of building

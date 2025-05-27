@@ -221,6 +221,9 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     // ).click();
     await driver.pause(6000);
 
+    const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+       await laterButton.click();
+
     //verify that new user vaucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
     await expect (vaucher).toBeDisplayed();
