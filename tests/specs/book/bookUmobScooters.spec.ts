@@ -252,6 +252,11 @@ try {
 const startDistance = 50; // Initial distance between fingers
 const endDistance = 200;  // Final distance (larger = more zoom)
 
+await driver.execute('mobile: doubleClickGesture', {
+    x: centerX,
+    y: centerY
+});
+
 await driver.execute('mobile: pinchOpenGesture', {
     left: centerX - 100,
     top: centerY - 100,
@@ -522,6 +527,10 @@ try {
 
     const { centerX, centerY } = await getScreenCenter();
 
+    await driver.execute('mobile: doubleClickGesture', {
+    x: centerX,
+    y: centerY
+});
 
 await driver.execute('mobile: pinchOpenGesture', {
     left: centerX - 100,
@@ -651,6 +660,10 @@ try {
 
         const { centerX, centerY } = await getScreenCenter();
 
+        await driver.execute('mobile: doubleClickGesture', {
+    x: centerX,
+    y: centerY
+});
 
 await driver.execute('mobile: pinchOpenGesture', {
     left: centerX - 100,
