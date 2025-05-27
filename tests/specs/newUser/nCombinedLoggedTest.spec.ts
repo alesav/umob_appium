@@ -299,7 +299,7 @@ for (const menuItem of accountMenuItems2) {
         id: 'finger2',
         parameters: { pointerType: 'touch' },
         actions: [
-            { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+            { type: 'pointerMove', duration: 0, x: width/2, y: height*0.9 },
             { type: 'pointerDown', button: 0 },
             { type: 'pause', duration: 100 },
             { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -637,7 +637,7 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: 950 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
@@ -1080,6 +1080,7 @@ await driver.performActions([
     // await accountButton.click();
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
      await driver.pause(3000);
 
@@ -1126,7 +1127,7 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.81 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
@@ -1213,6 +1214,7 @@ await driver.performActions([
     // await accountButton.click();
     // await driver.pause(2000);
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
      await driver.pause(3000);
 
@@ -1322,6 +1324,7 @@ await driver.performActions([
     //await driver.pause(2000);
 
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
      await driver.pause(3000);
 
@@ -1346,10 +1349,10 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.85 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.35 },
+          { type: 'pointerMove', duration: 1000, x: width/4, y: height*0.35 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
@@ -1474,6 +1477,7 @@ await driver.performActions([
 
     //go to account
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
      await driver.pause(3000);
 
@@ -1616,8 +1620,9 @@ await driver.performActions([
 
     //go to account
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
-     await driver.pause(3000);
+     await driver.pause(2000);
 
      /*
      // Scroll down to support option
@@ -2117,6 +2122,7 @@ for (const text of contentElements2) {
 
     //go to account
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(3000);
     await PageObjects.accountButton.click();
      await driver.pause(3000);
 
