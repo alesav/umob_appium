@@ -244,6 +244,40 @@ try {
 
     const { centerX, centerY } = await getScreenCenter();
 
+
+// Define zoom parameters
+const startDistance = 50; // Initial distance between fingers
+const endDistance = 200;  // Final distance (larger = more zoom)
+
+await driver.performActions([
+    {
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: centerX - startDistance, y: centerY },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: centerX - endDistance, y: centerY },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },
+    {
+        type: 'pointer',
+        id: 'finger2',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, x: centerX + startDistance, y: centerY },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 100 },
+            { type: 'pointerMove', duration: 1000, x: centerX + endDistance, y: centerY },
+            { type: 'pointerUp', button: 0 },
+        ],
+    },
+]);
+
+
+
     // Click exactly in the center
      await driver
       .action("pointer")
