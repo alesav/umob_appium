@@ -160,6 +160,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
       console.error("Failed to set location:", error);
     }
 
+     await driver.pause(5000);
     /*
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -203,6 +204,8 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
         // Check Account is presented
         await PageObjects.accountButton.waitForExist();
 
+         await driver.terminateApp("com.umob.umob");
+
 
   });
 
@@ -229,7 +232,7 @@ let testDetails = ""
 let error = null;
 
 try {
-
+        await PageObjects.accountButton.waitForExist();
     await driver.pause(5000);
 
         // Filter not needed results
@@ -249,32 +252,15 @@ try {
 const startDistance = 50; // Initial distance between fingers
 const endDistance = 200;  // Final distance (larger = more zoom)
 
-await driver.performActions([
-    {
-        type: 'pointer',
-        id: 'finger1',
-        parameters: { pointerType: 'touch' },
-        actions: [
-            { type: 'pointerMove', duration: 0, x: centerX - startDistance, y: centerY },
-            { type: 'pointerDown', button: 0 },
-            { type: 'pause', duration: 100 },
-            { type: 'pointerMove', duration: 1000, x: centerX - endDistance, y: centerY },
-            { type: 'pointerUp', button: 0 },
-        ],
-    },
-    {
-        type: 'pointer',
-        id: 'finger2',
-        parameters: { pointerType: 'touch' },
-        actions: [
-            { type: 'pointerMove', duration: 0, x: centerX + startDistance, y: centerY },
-            { type: 'pointerDown', button: 0 },
-            { type: 'pause', duration: 100 },
-            { type: 'pointerMove', duration: 1000, x: centerX + endDistance, y: centerY },
-            { type: 'pointerUp', button: 0 },
-        ],
-    },
-]);
+await driver.execute('mobile: pinchOpenGesture', {
+    left: centerX - 100,
+    top: centerY - 100,
+    width: 200,
+    height: 200,
+    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+    speed: 1000
+});
+
 
 
 
@@ -334,15 +320,50 @@ await driver.performActions([
 
                     await driver.pause(10000);
 
-              // Click Details
+              // Click Got it!
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).waitForEnabled();
               
           
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).click();
+
+                            await driver.$(
+                '-android uiautomator:new UiSelector().text("INVITE FRIENDS NOW!")'
+              ).waitForEnabled();
+              
+          
+              await driver.$(
+                '-android uiautomator:new UiSelector().text("INVITE FRIENDS NOW!")'
+              ).click();
+
+              await driver.$(
+                '-android uiautomator:new UiSelector().text("Invite your friends")'
+              ).waitForEnabled();
+
+                  // Verify back button is present
+    const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
+    await expect(backButton).toBeDisplayed();
+
+                  // Verify back button is present
+  await backButton.click();
+
+          // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+                    // Wait for Home screen to be loaded
+          await PageObjects.accountButton.click();
+
+
+    // Navigate to My Rides & Tickets
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    await driver.pause(1000);
+    await myRidesAndTicketsButton.click();
+
+    await driver.pause(5000);
+
+// Todo: Click on last booking
     
    // Verify Screen Header
    const headerTitle = await driver.$('//*[@resource-id="undefined-header-title"]');
@@ -470,6 +491,19 @@ try {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
+
+        try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+     await driver.pause(5000);
+    await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+
+
     await driver.pause(5000);
 
         // Filter not needed results
@@ -483,6 +517,16 @@ try {
     //   .click();
 
     const { centerX, centerY } = await getScreenCenter();
+
+
+await driver.execute('mobile: pinchOpenGesture', {
+    left: centerX - 100,
+    top: centerY - 100,
+    width: 200,
+    height: 200,
+    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+    speed: 1000
+});
 
     // Click exactly in the center
     await driver
@@ -574,7 +618,18 @@ try {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    await driver.pause(5000);
+
+        try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+         await driver.pause(5000);
+
+       await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
 
         // Filter not needed results
         //await applyFilters();
@@ -586,7 +641,18 @@ try {
     //   )
     //   .click();
 
-    const { centerX, centerY } = await getScreenCenter();
+        const { centerX, centerY } = await getScreenCenter();
+
+
+await driver.execute('mobile: pinchOpenGesture', {
+    left: centerX - 100,
+    top: centerY - 100,
+    width: 200,
+    height: 200,
+    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+    speed: 1000
+});
+
 
     // Click exactly in the center
     await driver
@@ -680,7 +746,17 @@ try {
       execSync(
         `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
       );
-      await driver.pause(5000);
+              try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+         await driver.pause(5000);
+
+       await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
   
           // Filter not needed results
           //await applyFilters();
@@ -801,11 +877,11 @@ try {
 
               // Click Details
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).waitForEnabled();
           
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).click();
     
    // Verify Screen Header
