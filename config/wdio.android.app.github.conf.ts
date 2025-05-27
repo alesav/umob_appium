@@ -12,6 +12,7 @@ export const config: WebdriverIO.Config = {
             "../tests/specs/account/combinedLoggedTest.spec.ts",
             "../tests/specs/book/bookUmobScooters.spec.ts",
           
+            
 
         //     "../tests/specs/account/*.spec.ts",
         //   "../tests/specs/login/*.spec.ts",

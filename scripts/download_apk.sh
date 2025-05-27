@@ -16,7 +16,7 @@ echo "Total number of BUILD_IDS available: $TOTAL_BUILD_COUNT"
 # Get 20 latest build IDs
 echo "Fetching 20 latest build IDs..."
 BUILD_IDS=$(curl -s -u :$TOKEN "$BASE_URL/_apis/build/builds?definitions=9&api-version=7.1-preview.7" | \
-  jq -r '.value | sort_by(.startTime) | reverse | .[0:30] | map(.id) | .[]')
+  jq -r '.value | sort_by(.startTime) | reverse | .[0:50] | map(.id) | .[]')
 
 # Process each build ID until we find one with an android-Test artifact
 for BUILD_ID in $BUILD_IDS; do
