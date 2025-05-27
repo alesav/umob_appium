@@ -146,7 +146,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
     const targetScooter = scooters.find(
-      scooter => scooter.id === 'UmobMock:QZGKL2BP2CI14_ROTTERDAM_SCOOTER'
+      scooter => scooter.id === 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE'
     );
 
     
