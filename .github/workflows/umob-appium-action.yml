@@ -32,17 +32,21 @@ jobs:
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 29
-                  profile: pixel
-                  disable-animations: true
-                  script: |
-                      mkdir screenshots
-
-                      # Download and install APK
-                      sh ./scripts/download_apk.sh
-
-                      # Run tests
-                      npm run android.app.github
+                api-level: 29
+                profile: pixel
+                disable-animations: true
+                emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+                # Add these options for better touch support
+                arch: x86_64
+                target: google_apis  # Use Google APIs instead of default
+                script: |
+                  # Enable hardware features
+                  adb shell settings put system pointer_location 0
+                  adb shell settings put system show_touches 1
+          
+                  mkdir screenshots
+                  sh ./scripts/download_apk.sh
+                  npm run android.app.github
 
             - name: Last actions
               run: |

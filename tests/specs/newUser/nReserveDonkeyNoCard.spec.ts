@@ -92,9 +92,9 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
 
 
 
-    // Set initial location
+    // Set initial location 51.91564074928743, 4.4744318279297906
     execSync(
-      `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
+      `adb shell am startservice -e longitude 4.474431 -e latitude 51.91564 io.appium.settings/.LocationService`
     );
     await driver.pause(5000);
 
@@ -113,7 +113,7 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
       await driver.pause(2000);
 
     // Click UMOB Bike 20 button
-    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
+    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
     await umob20Button.click();
 
     //verify that new user vaucher is visible

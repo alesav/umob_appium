@@ -146,7 +146,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
     const targetScooter = scooters.find(
-      scooter => scooter.id === 'UmobMock:QZGKL2BP2CI14_ROTTERDAM_SCOOTER'
+      scooter => scooter.id === 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE'
     );
 
     
@@ -160,6 +160,7 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
       console.error("Failed to set location:", error);
     }
 
+     await driver.pause(5000);
     /*
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -203,6 +204,8 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
         // Check Account is presented
         await PageObjects.accountButton.waitForExist();
 
+         await driver.terminateApp("com.umob.umob");
+
 
   });
 
@@ -229,7 +232,7 @@ let testDetails = ""
 let error = null;
 
 try {
-
+        await PageObjects.accountButton.waitForExist();
     await driver.pause(5000);
 
         // Filter not needed results
@@ -244,6 +247,68 @@ try {
 
     const { centerX, centerY } = await getScreenCenter();
 
+
+// Define zoom parameters
+const startDistance = 50; // Initial distance between fingers
+const endDistance = 200;  // Final distance (larger = more zoom)
+
+
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+
+        // Alternative fallback using performActions (W3C standard)
+        
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        
+      }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
+
+
+
+
+
+
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
+
+    await driver.pause(4000);
+  
+
+await driver.execute('mobile: clickGesture', {
+    x: centerX,
+    y: centerY
+});
+
+    await driver.pause(4000);
+
     // Click exactly in the center
      await driver
       .action("pointer")
@@ -251,6 +316,10 @@ try {
       .down()
       .up()
       .perform();
+
+            execSync(
+        `adb shell input tap ${centerX}  ${centerY}`
+      );
 
      // Click Understood
      //  await driver.$(
@@ -300,15 +369,50 @@ try {
 
                     await driver.pause(10000);
 
-              // Click Details
+              // Click Got it!
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).waitForEnabled();
               
           
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).click();
+
+                            await driver.$(
+                '-android uiautomator:new UiSelector().text("INVITE FRIENDS NOW!")'
+              ).waitForEnabled();
+              
+          
+              await driver.$(
+                '-android uiautomator:new UiSelector().text("INVITE FRIENDS NOW!")'
+              ).click();
+
+              await driver.$(
+                '-android uiautomator:new UiSelector().text("Invite your friends")'
+              ).waitForEnabled();
+
+                  // Verify back button is present
+    const backButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
+    await expect(backButton).toBeDisplayed();
+
+                  // Verify back button is present
+  await backButton.click();
+
+          // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+                    // Wait for Home screen to be loaded
+          await PageObjects.accountButton.click();
+
+
+    // Navigate to My Rides & Tickets
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    await driver.pause(1000);
+    await myRidesAndTicketsButton.click();
+
+    await driver.pause(5000);
+
+// Todo: Click on last booking
     
    // Verify Screen Header
    const headerTitle = await driver.$('//*[@resource-id="undefined-header-title"]');
@@ -378,40 +482,44 @@ try {
           // Wait for Home screen to be loaded
           await PageObjects.accountButton.waitForExist();
 
-        } catch (e) {
-          error = e;
-          console.error("Test failed:", error);
-          testStatus = "Fail";
-          testDetails = e.message;
-      
-          console.log("TEST 123")
-      
-          // Capture screenshot on failure
-          screenshotPath = "./screenshots/"+ testId+".png";
-          await driver.saveScreenshot(screenshotPath);
-          // execSync(
-          //   `adb exec-out screencap -p > ${screenshotPath}`
-          // );
-          
-        } finally {
-          // Submit test run result
-          try {
-              console.log("TEST 456")
-      
-            await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-            console.log("Test run submitted successfully");
-          } catch (submitError) {
-            console.error("Failed to submit test run:", submitError);
-          }
-      
-          // If there was an error in the main try block, throw it here to fail the test
-          if (error) {
-            throw error;
-          }
-        }
-   
 
-  });
+  } catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
+
+  console.log("TEST 123")
+
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+try {
+  await driver.saveScreenshot(screenshotPath);
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
+
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
+  }
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+  
 
   
 
@@ -436,6 +544,19 @@ try {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
+
+        try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+     await driver.pause(5000);
+    await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+
+
     await driver.pause(5000);
 
         // Filter not needed results
@@ -449,6 +570,46 @@ try {
     //   .click();
 
     const { centerX, centerY } = await getScreenCenter();
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+      
+        
+        // Alternative fallback using performActions (W3C standard)
+        
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
+
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
 
     // Click exactly in the center
     await driver
@@ -486,39 +647,43 @@ try {
       '-android uiautomator:new UiSelector().text("VEHICLE_NOT_OPERATIONAL (60000)")'
     ).waitForDisplayed();
 
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
 
-    console.log("TEST 123")
+  console.log("TEST 123")
 
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+try {
+  await driver.saveScreenshot(screenshotPath);
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
+  
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
 
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
   }
 
-  });
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Negative Scenario: Trying to Book Scooter with User Blocked Error', async () => {
@@ -540,8 +705,19 @@ try {
     execSync(
       `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
     );
-    await driver.pause(5000);
 
+        try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+         await driver.pause(5000);
+
+       await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+    await driver.pause(5000);
         // Filter not needed results
         //await applyFilters();
 
@@ -552,7 +728,52 @@ try {
     //   )
     //   .click();
 
-    const { centerX, centerY } = await getScreenCenter();
+        const { centerX, centerY } = await getScreenCenter();
+
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        
+        // Alternative fallback using performActions (W3C standard)
+        
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
+
+
+
+
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
+
 
     // Click exactly in the center
     await driver
@@ -602,10 +823,12 @@ try {
 
     // Capture screenshot on failure
     screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
+try {
+  await driver.saveScreenshot(screenshotPath);
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
     
   } finally {
     // Submit test run result
@@ -646,8 +869,18 @@ try {
       execSync(
         `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
       );
-      await driver.pause(5000);
-  
+              try {
+      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
+    } catch (error) {
+      console.error("Failed to set location:", error);
+    }
+         await driver.pause(5000);
+
+       await driver.terminateApp("com.umob.umob");
+    await driver.activateApp("com.umob.umob");
+              // Wait for Home screen to be loaded
+          await PageObjects.accountButton.waitForExist();
+         await driver.pause(5000); 
           // Filter not needed results
           //await applyFilters();
   
@@ -659,6 +892,37 @@ try {
       //   .click();
   
       const { centerX, centerY } = await getScreenCenter();
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        
+        // Alternative fallback using performActions (W3C standard)
+        
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
   
       // Click exactly in the center
       await driver
@@ -767,11 +1031,11 @@ try {
 
               // Click Details
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).waitForEnabled();
           
               await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
+                '-android uiautomator:new UiSelector().text("GOT IT!")'
               ).click();
     
    // Verify Screen Header
@@ -850,39 +1114,43 @@ try {
     //             '-android uiautomator:new UiSelector().text("CLOSE")'
     //           ).click();
 
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
+} catch (e) {
+  error = e;
+  console.error("Test failed:", error);
+  testStatus = "Fail";
+  testDetails = e.message;
 
-    console.log("TEST 123")
+  console.log("TEST 123")
 
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-        console.log("TEST 456")
+  // Capture screenshot on failure
+  screenshotPath = "./screenshots/"+ testId+".png";
+try {
+  await driver.saveScreenshot(screenshotPath);
+} catch (error) {
+  console.warn("Driver screenshot failed, using adb fallback");
+  execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+}
+} finally {
+  // Submit test run result
+  try {
+      console.log("TEST 456")
 
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
+    await submitTestRun(testId, testStatus, testDetails, screenshotPath);
+    console.log("Test run submitted successfully");
+  } catch (submitError) {
+    console.error("Failed to submit test run:", submitError);
   }
-  
-    });
+
+  // If there was an error in the main try block, throw it here to fail the test
+  if (error) {
+    throw error;
+  }
+}
+
+});
+
+
+    
 
 
   afterEach(async () => {
