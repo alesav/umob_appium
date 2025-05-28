@@ -262,14 +262,9 @@ async function performDoubleClick(driver, x, y) {
         console.log('Mobile double click failed, using fallback method');
         
         // Fallback: Perform two quick taps
-        await driver.touchAction([
-            { action: 'tap', x, y },
-            { action: 'wait', ms: 50 },
-            { action: 'tap', x, y }
-        ]);
-        
+
         // Alternative fallback using performActions (W3C standard)
-        /* 
+        
         await driver.performActions([{
             type: 'pointer',
             id: 'finger1',
@@ -284,8 +279,8 @@ async function performDoubleClick(driver, x, y) {
             ]
         }]);
         await driver.releaseActions();
-        */
-    }
+        
+      }
 }
 
 // Usage in your tests
@@ -584,15 +579,10 @@ async function performDoubleClick(driver, x, y) {
     } catch (error) {
         console.log('Mobile double click failed, using fallback method');
         
-        // Fallback: Perform two quick taps
-        await driver.touchAction([
-            { action: 'tap', x, y },
-            { action: 'wait', ms: 50 },
-            { action: 'tap', x, y }
-        ]);
+
         
         // Alternative fallback using performActions (W3C standard)
-        /* 
+        
         await driver.performActions([{
             type: 'pointer',
             id: 'finger1',
@@ -607,8 +597,7 @@ async function performDoubleClick(driver, x, y) {
             ]
         }]);
         await driver.releaseActions();
-        */
-    }
+      
 }
 
 // Usage in your tests
@@ -750,15 +739,8 @@ async function performDoubleClick(driver, x, y) {
     } catch (error) {
         console.log('Mobile double click failed, using fallback method');
         
-        // Fallback: Perform two quick taps
-        await driver.touchAction([
-            { action: 'tap', x, y },
-            { action: 'wait', ms: 50 },
-            { action: 'tap', x, y }
-        ]);
-        
         // Alternative fallback using performActions (W3C standard)
-        /* 
+        
         await driver.performActions([{
             type: 'pointer',
             id: 'finger1',
@@ -773,7 +755,7 @@ async function performDoubleClick(driver, x, y) {
             ]
         }]);
         await driver.releaseActions();
-        */
+      
     }
 }
 
@@ -918,15 +900,10 @@ async function performDoubleClick(driver, x, y) {
     } catch (error) {
         console.log('Mobile double click failed, using fallback method');
         
-        // Fallback: Perform two quick taps
-        await driver.touchAction([
-            { action: 'tap', x, y },
-            { action: 'wait', ms: 50 },
-            { action: 'tap', x, y }
-        ]);
+
         
         // Alternative fallback using performActions (W3C standard)
-        /* 
+        
         await driver.performActions([{
             type: 'pointer',
             id: 'finger1',
@@ -941,7 +918,7 @@ async function performDoubleClick(driver, x, y) {
             ]
         }]);
         await driver.releaseActions();
-        */
+      
     }
 }
 
