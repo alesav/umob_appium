@@ -289,13 +289,6 @@ describe('Umob Scooter Booking Tests', () => {
     const credentials = TestHelpers.getCredentials();
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE');
-
-    await TestHelpers.setLocationAndRestartApp(
-      targetScooter.coordinates.longitude,
-      targetScooter.coordinates.latitude
-    );
-
     await PageObjects.accountButton.waitForExist();
     await driver.terminateApp("com.umob.umob");
   });
@@ -313,8 +306,11 @@ describe('Umob Scooter Booking Tests', () => {
     const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE');
     
     await TestRunner.runTest("d9a5953f-e2ab-42f4-9193-ed2fece1bd08", async () => {
-      await PageObjects.accountButton.waitForExist();
-      await driver.pause(5000);
+      await TestHelpers.setLocationAndRestartApp(
+        targetScooter.coordinates.longitude,
+        targetScooter.coordinates.latitude
+      );
+
 
       await ScooterBookingActions.clickScooterOnMap();
       await ScooterBookingActions.selectPaymentMethod();
