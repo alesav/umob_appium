@@ -139,6 +139,14 @@ class TestHelpers {
       throw error;
     }
   }
+
+  static findScooterById(scooters, scooterId) {
+    const scooter = scooters.find(s => s.id === scooterId);
+    if (!scooter) {
+      throw new Error(`Scooter with ID ${scooterId} not found`);
+    }
+    return scooter;
+  }
 }
 
 /**
@@ -236,7 +244,7 @@ class ScooterBookingActions {
  * Test Runner with proper error handling
  */
 class TestRunner {
-  static async runTest(testId, testFunction) {
+  static async runTest(testId, testFunction, targetScooter = null) {
     let testStatus = "Pass";
     let screenshotPath = "";
     let testDetails = "";
@@ -248,7 +256,12 @@ class TestRunner {
       error = e;
       console.error("Test failed:", error);
       testStatus = "Fail";
-      testDetails = e.message;
+      
+      // Include scooter information in test details
+      const scooterInfo = targetScooter ? 
+        `Scooter: ${targetScooter.id} (${targetScooter.coordinates.longitude}, ${targetScooter.coordinates.latitude}) | ` : '';
+      testDetails = `${scooterInfo}Error: ${e.message}`;
+      
       screenshotPath = await TestHelpers.captureScreenshot(testId);
     } finally {
       try {
@@ -276,9 +289,7 @@ describe('Umob Scooter Booking Tests', () => {
     const credentials = TestHelpers.getCredentials();
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-    const targetScooter = scooters.find(
-      scooter => scooter.id === 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE'
-    );
+    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE');
 
     await TestHelpers.setLocationAndRestartApp(
       targetScooter.coordinates.longitude,
@@ -299,6 +310,8 @@ describe('Umob Scooter Booking Tests', () => {
   });
 
   it('Positive Scenario: Book Mocked Umob Scooter Successfully', async () => {
+    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE');
+    
     await TestRunner.runTest("d9a5953f-e2ab-42f4-9193-ed2fece1bd08", async () => {
       await PageObjects.accountButton.waitForExist();
       await driver.pause(5000);
@@ -314,15 +327,13 @@ describe('Umob Scooter Booking Tests', () => {
       await ScooterBookingActions.handleTripCompletion();
       await ScooterBookingActions.navigateToMyRides();
       await ScooterBookingActions.verifyRideDetails();
-    });
+    }, targetScooter);
   });
 
   it('Negative Scenario: Vehicle Not Operational Error', async () => {
+    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:SCOOTER_UNLOCK_ERROR_VEHICLE_NOT_OPERATIONAL');
+    
     await TestRunner.runTest("ed09a7fa-5dd5-40df-b9d2-8624f46ba77b", async () => {
-      const targetScooter = scooters.find(
-        scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_VEHICLE_NOT_OPERATIONAL'
-      );
-
       await TestHelpers.setLocationAndRestartApp(
         targetScooter.coordinates.longitude,
         targetScooter.coordinates.latitude
@@ -333,15 +344,13 @@ describe('Umob Scooter Booking Tests', () => {
       await ScooterBookingActions.startTrip();
 
       await PageObjects.waitForErrorMessage("VEHICLE_NOT_OPERATIONAL (60000)");
-    });
+    }, targetScooter);
   });
 
   it('Negative Scenario: User Blocked Error', async () => {
+    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:SCOOTER_UNLOCK_ERROR_USER_BLOCKED');
+    
     await TestRunner.runTest("6a795f12-ef0e-441b-8922-24b3cf1c35cb", async () => {
-      const targetScooter = scooters.find(
-        scooter => scooter.id === 'UmobMock:SCOOTER_UNLOCK_ERROR_USER_BLOCKED'
-      );
-
       await TestHelpers.setLocationAndRestartApp(
         targetScooter.coordinates.longitude,
         targetScooter.coordinates.latitude
@@ -352,15 +361,13 @@ describe('Umob Scooter Booking Tests', () => {
       await ScooterBookingActions.startTrip();
 
       await PageObjects.waitForErrorMessage("USER_BLOCKED (60000)");
-    });
+    }, targetScooter);
   });
 
   it('Negative Scenario: Trip Geo Error', async () => {
+    const targetScooter = TestHelpers.findScooterById(scooters, 'UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR');
+    
     await TestRunner.runTest("0936a98c-92e6-45da-a673-22d127c1a7d5", async () => {
-      const targetScooter = scooters.find(
-        scooter => scooter.id === 'UmobMock:SCOOTER_LOCK_ERROR_TRIP_GEO_ERROR'
-      );
-
       await TestHelpers.setLocationAndRestartApp(
         targetScooter.coordinates.longitude,
         targetScooter.coordinates.latitude
@@ -389,6 +396,6 @@ describe('Umob Scooter Booking Tests', () => {
       await PageObjects.gotItButton.click();
 
       await ScooterBookingActions.verifyRideDetails();
-    });
+    }, targetScooter);
   });
 });
