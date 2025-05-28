@@ -257,17 +257,25 @@ await driver.execute('mobile: doubleClickGesture', {
     y: centerY
 });
 
-await driver.execute('mobile: pinchOpenGesture', {
-    left: centerX - 100,
-    top: centerY - 100,
-    width: 200,
-    height: 200,
-    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
-    speed: 1000
+
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
+
+    await driver.pause(4000);
+  
+
+await driver.execute('mobile: clickGesture', {
+    x: centerX,
+    y: centerY
 });
 
-
-
+    await driver.pause(4000);
 
     // Click exactly in the center
      await driver
@@ -276,6 +284,10 @@ await driver.execute('mobile: pinchOpenGesture', {
       .down()
       .up()
       .perform();
+
+            execSync(
+        `adb shell input tap ${centerX}  ${centerY}`
+      );
 
      // Click Understood
      //  await driver.$(
@@ -532,14 +544,14 @@ try {
     y: centerY
 });
 
-await driver.execute('mobile: pinchOpenGesture', {
-    left: centerX - 100,
-    top: centerY - 100,
-    width: 200,
-    height: 200,
-    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
-    speed: 1000
-});
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
 
     // Click exactly in the center
     await driver
@@ -647,7 +659,7 @@ try {
     await driver.activateApp("com.umob.umob");
               // Wait for Home screen to be loaded
           await PageObjects.accountButton.waitForExist();
-
+    await driver.pause(5000);
         // Filter not needed results
         //await applyFilters();
 
@@ -665,14 +677,14 @@ try {
     y: centerY
 });
 
-await driver.execute('mobile: pinchOpenGesture', {
-    left: centerX - 100,
-    top: centerY - 100,
-    width: 200,
-    height: 200,
-    percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
-    speed: 1000
-});
+// await driver.execute('mobile: pinchOpenGesture', {
+//     left: centerX - 100,
+//     top: centerY - 100,
+//     width: 200,
+//     height: 200,
+//     percent: 0.8,          // 0.8 = 80% zoom in (use values like 0.1 to 1.0)
+//     speed: 1000
+// });
 
 
     // Click exactly in the center
@@ -780,7 +792,7 @@ try {
     await driver.activateApp("com.umob.umob");
               // Wait for Home screen to be loaded
           await PageObjects.accountButton.waitForExist();
-  
+         await driver.pause(5000); 
           // Filter not needed results
           //await applyFilters();
   
@@ -792,6 +804,11 @@ try {
       //   .click();
   
       const { centerX, centerY } = await getScreenCenter();
+
+        await driver.execute('mobile: doubleClickGesture', {
+    x: centerX,
+    y: centerY
+});
   
       // Click exactly in the center
       await driver
