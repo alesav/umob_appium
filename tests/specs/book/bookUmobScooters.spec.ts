@@ -252,10 +252,48 @@ try {
 const startDistance = 50; // Initial distance between fingers
 const endDistance = 200;  // Final distance (larger = more zoom)
 
-await driver.execute('mobile: doubleClickGesture', {
-    x: centerX,
-    y: centerY
-});
+
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        // Fallback: Perform two quick taps
+        await driver.touchAction([
+            { action: 'tap', x, y },
+            { action: 'wait', ms: 50 },
+            { action: 'tap', x, y }
+        ]);
+        
+        // Alternative fallback using performActions (W3C standard)
+        /* 
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        */
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
+
+
+
+
 
 
 // await driver.execute('mobile: pinchOpenGesture', {
@@ -539,10 +577,42 @@ try {
 
     const { centerX, centerY } = await getScreenCenter();
 
-    await driver.execute('mobile: doubleClickGesture', {
-    x: centerX,
-    y: centerY
-});
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        // Fallback: Perform two quick taps
+        await driver.touchAction([
+            { action: 'tap', x, y },
+            { action: 'wait', ms: 50 },
+            { action: 'tap', x, y }
+        ]);
+        
+        // Alternative fallback using performActions (W3C standard)
+        /* 
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        */
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
 
 // await driver.execute('mobile: pinchOpenGesture', {
 //     left: centerX - 100,
@@ -672,10 +742,46 @@ try {
 
         const { centerX, centerY } = await getScreenCenter();
 
-        await driver.execute('mobile: doubleClickGesture', {
-    x: centerX,
-    y: centerY
-});
+
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        // Fallback: Perform two quick taps
+        await driver.touchAction([
+            { action: 'tap', x, y },
+            { action: 'wait', ms: 50 },
+            { action: 'tap', x, y }
+        ]);
+        
+        // Alternative fallback using performActions (W3C standard)
+        /* 
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        */
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
+
+
+
 
 // await driver.execute('mobile: pinchOpenGesture', {
 //     left: centerX - 100,
@@ -805,10 +911,42 @@ try {
   
       const { centerX, centerY } = await getScreenCenter();
 
-        await driver.execute('mobile: doubleClickGesture', {
-    x: centerX,
-    y: centerY
-});
+async function performDoubleClick(driver, x, y) {
+    try {
+        // Try the mobile command first (works on real devices)
+        await driver.execute('mobile: doubleClickGesture', { x, y });
+    } catch (error) {
+        console.log('Mobile double click failed, using fallback method');
+        
+        // Fallback: Perform two quick taps
+        await driver.touchAction([
+            { action: 'tap', x, y },
+            { action: 'wait', ms: 50 },
+            { action: 'tap', x, y }
+        ]);
+        
+        // Alternative fallback using performActions (W3C standard)
+        /* 
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x, y },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' },
+                { type: 'pause', duration: 50 },
+                { type: 'pointerDown' },
+                { type: 'pointerUp' }
+            ]
+        }]);
+        await driver.releaseActions();
+        */
+    }
+}
+
+// Usage in your tests
+await performDoubleClick(driver, centerX, centerY);
   
       // Click exactly in the center
       await driver
