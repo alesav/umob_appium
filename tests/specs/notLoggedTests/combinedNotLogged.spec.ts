@@ -576,7 +576,7 @@ for (const text of contentElements4) {
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     // await driver.pause(2000);
     // await settingsButton.click();
-    await driver.pause(2000);
+    await driver.pause(2500);
     await PageObjects.accountButton.waitForExist();
     await PageObjects.accountButton.click();
     await driver.pause(2000);
