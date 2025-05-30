@@ -276,6 +276,10 @@ for (const text of contentElements4) {
   await chat.click();
   await driver.pause(2000);
 
+  const clickForChat = await driver.$(`-android uiautomator:new UiSelector().text("OPEN CHAT")`);
+  await expect(clickForChat).toBeDisplayed();
+  await clickForChat.click();
+
   //send test message to chat
   //const textField = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").instance(58)");
   const welcomeMessage = await driver.$(`-android uiautomator:new UiSelector().text("Start typing here")`);
@@ -672,7 +676,9 @@ for (const text of contentElements4) {
     // await driver.pause(2000);
 
     await PageObjects.accountButton.waitForExist();
+    await driver.pause(2000);
     await PageObjects.accountButton.click();
+    await driver.pause(2000);
 
 
     // Click on Language option to navigate to language screen
