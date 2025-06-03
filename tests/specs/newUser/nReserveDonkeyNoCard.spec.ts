@@ -62,15 +62,10 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
         const longitude = 4.4744301;
         const latitude = 51.9155956;
 
-        execSync(
-          `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+        await AppiumHelpers.setLocationAndRestartApp(
+          longitude, 
+          latitude
         );
-
-        try {
-          execSync("adb emu geo fix "+ longitude+" "+ latitude);
-        } catch (error) {
-          console.error("Failed to set location:", error);
-        }
         await driver.pause(3000);
 
     });
@@ -93,8 +88,9 @@ describe('Trying to Book Donkey bike by a New User Without a Card', () => {
 
 
     // Set initial location 51.91564074928743, 4.4744318279297906
-    execSync(
-      `adb shell am startservice -e longitude 4.474431 -e latitude 51.91564 io.appium.settings/.LocationService`
+    await AppiumHelpers.setLocationAndRestartApp(
+      4.474431, 
+      51.91564
     );
     await driver.pause(5000);
 

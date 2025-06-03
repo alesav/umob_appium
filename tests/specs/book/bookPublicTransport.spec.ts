@@ -1,5 +1,6 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import { exec, execSync } from "child_process";
 import fs from 'fs';
 import path from 'path';
@@ -58,15 +59,10 @@ describe('Book Public Transport', () => {
       const latitude = 51.9155956;
       const longitude = 4.4744301;
       
-      execSync(
-        `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+      await AppiumHelpers.setLocationAndRestartApp(
+        longitude, 
+        latitude
       );
-
-      try {
-        execSync("adb emu geo fix "+ longitude+" "+ latitude);
-      } catch (error) {
-        console.error("Failed to set location:", error);
-      }
     });
 
   it('should display all key elements on Plan Your Trip screen for Public Transport', async () => {

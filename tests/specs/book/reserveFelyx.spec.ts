@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -167,15 +168,10 @@ scooters = await fetchScooterCoordinates();
     const targetScooter = scooters.find((scooter) => scooter.id.includes("Felyx"));
 
     
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+    await AppiumHelpers.setLocationAndRestartApp(
+      targetScooter.coordinates.longitude, 
+      targetScooter.coordinates.latitude
     );
-
-    try {
-      execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
-    } catch (error) {
-      console.error("Failed to set location:", error);
-    }
     await driver.pause(3000);
     /*
       // Find and click LOG IN button
@@ -217,8 +213,9 @@ scooters = await fetchScooterCoordinates();
     );
 
     // Set location to specific scooter coordinates
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+    await AppiumHelpers.setLocationAndRestartApp(
+      targetScooter.coordinates.longitude, 
+      targetScooter.coordinates.latitude
     );
     await driver.pause(5000);
 

@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -82,6 +83,7 @@ const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQ
 
 /////////////////////////////////////////////////////////////////////////////////
 
+let targetScooter
 
 describe('verify that it is not possible to book a bike if you didnt pay for the previous ride', () => {
 let scooters;
@@ -92,23 +94,19 @@ let scooters;
         scooters = await fetchScooterCoordinates();
 
         // await PageObjects.login(credentials);
-        await PageObjects.login({ username: credentials.username, password: credentials.password });
+
         //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
         //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
   
-      const targetScooter = scooters.find(
+      targetScooter = scooters.find(
         scooter => scooter.id.includes('UmobMock')
       );
       
-      execSync(
-        `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+      await AppiumHelpers.setLocationAndRestartApp(
+        targetScooter.coordinates.longitude, 
+        targetScooter.coordinates.latitude
       );
-  
-      try {
-        execSync("adb emu geo fix "+ targetScooter.coordinates.longitude+" "+ targetScooter.coordinates.latitude);
-      } catch (error) {
-        console.error("Failed to set location:", error);
-      }
+              await PageObjects.login({ username: credentials.username, password: credentials.password });
 
     await driver.terminateApp("com.umob.umob");
     });
@@ -133,16 +131,10 @@ let testStatus = "Pass";
        const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
        await laterButton.click();
 
-    // Set initial location
-    execSync(
-      `adb shell am startservice -e longitude 4.4744301 -e latitude 52.9155956 io.appium.settings/.LocationService`
-    );
-
-          try {
-        execSync("adb emu geo fix 4.4744301 52.9155956")
-      } catch (error) {
-        console.error("Failed to set location:", error);
-      }
+      await AppiumHelpers.setLocationAndRestartApp(
+        targetScooter.coordinates.longitude, 
+        targetScooter.coordinates.latitude
+      );
 
     //execSync("adb -P 5555 -s emulator-5554 emu geo fix 56.37827115375647 21.789664775133134")
     await driver.pause(5000);
