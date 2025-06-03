@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -43,31 +44,11 @@ class TestHelpers {
   }
 
   static async getScreenCenter() {
-    const { width, height } = await driver.getWindowSize();
-    return {
-      centerX: Math.round(width / 2),
-      centerY: Math.round(height / 2),
-      screenWidth: width,
-      screenHeight: height,
-    };
+    return await AppiumHelpers.getScreenCenter();
   }
 
   static async setLocationAndRestartApp(longitude, latitude) {
-    execSync(
-      `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
-    );
-
-    try {
-      execSync(`adb emu geo fix ${longitude} ${latitude}`);
-    } catch (error) {
-      console.error("Failed to set location:", error);
-    }
-
-    await driver.pause(5000);
-    await driver.terminateApp("com.umob.umob");
-    await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(5000);
+    return await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
   }
 
   static async captureScreenshot(testId) {
@@ -80,41 +61,7 @@ class TestHelpers {
     }
     return screenshotPath;
   }
-  static async performSwipeUp() {
-    const { centerX, screenWidth, screenHeight } = await this.getScreenCenter();
-    
-    await driver.performActions([{
-      type: 'pointer',
-      id: 'finger1',
-      parameters: { pointerType: 'touch' },
-      actions: [
-        { type: 'pointerMove', duration: 0, x: centerX, y: screenHeight * 0.7 },
-        { type: 'pointerDown', button: 0 },
-        { type: 'pause', duration: 100 },
-        { type: 'pointerMove', duration: 1000, x: centerX, y: screenHeight * 0.2 },
-        { type: 'pointerUp', button: 0 },
-      ],
-    }]);
-    await driver.pause(2000);
-  }
 
-  static async performSwipeDown() {
-    const { centerX, screenWidth, screenHeight } = await this.getScreenCenter();
-    
-    await driver.performActions([{
-      type: 'pointer',
-      id: 'finger2',
-      parameters: { pointerType: 'touch' },
-      actions: [
-        { type: 'pointerMove', duration: 0, x: centerX, y: 356 },
-        { type: 'pointerDown', button: 0 },
-        { type: 'pause', duration: 100 },
-        { type: 'pointerMove', duration: 1000, x: centerX, y: 10 },
-        { type: 'pointerUp', button: 0 },
-      ],
-    }]);
-    await driver.pause(2000);
-  }
 }
 
 /**
@@ -132,6 +79,14 @@ class DonkeyBikeActions {
       .perform();
     
     await driver.pause(2000);
+  }
+
+  static async clickFinishLater() {
+      const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
+      await finishLater.isDisplayed()
+      await driver.pause(2000);
+      await finishLater.click();
+      await finishLater.click();
   }
 
   static async selectBike(bikeText) {
@@ -248,6 +203,8 @@ describe('Donkey Bike Booking - New User Without Card', () => {
     await TestRunner.runTest("a66df007-2bfa-4531-af52-87e3eec81280", async () => {
       // Set specific location for the bike
       await TestHelpers.setLocationAndRestartApp(4.474431, 51.91564);
+
+      await DonkeyBikeActions.clickFinishLater();
       
       // Click on center of screen to interact with map  
       await DonkeyBikeActions.clickCenterOfScreen();
@@ -262,7 +219,7 @@ describe('Donkey Bike Booking - New User Without Card', () => {
       await DonkeyBikeActions.verifySelectPaymentMethod();
 
       // Swipe up to reveal more options
-      await TestHelpers.performSwipeUp();
+      await AppiumHelpers.performSwipeUp();
 
       // Click continue button
       await DonkeyBikeActions.clickContinueButton();
@@ -272,7 +229,7 @@ describe('Donkey Bike Booking - New User Without Card', () => {
 
       // Swipe down to see more payment options
       await driver.pause(2000);
-      await TestHelpers.performSwipeDown();
+      await AppiumHelpers.performSwipeDown();
 
       // Verify available payment options
       await DonkeyBikeActions.verifyPaymentOptions();

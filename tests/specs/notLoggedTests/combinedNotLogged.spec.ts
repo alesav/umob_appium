@@ -57,7 +57,6 @@ describe('Combined Not Logged User Tests', () => {
  
 
     // Verify bottom navigation menu items
-    await PageObjects.accountButton.waitForExist();
     // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
     // await expect(planTrip).toBeDisplayed();
     await PageObjects.planTripBtn.waitForExist();
@@ -486,8 +485,7 @@ for (const text of contentElements4) {
  try {
 
     // Step 1: Locate the account button and click it
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     // const accountButton = await driver.$('android=new UiSelector().text("Account")');
     // await accountButton.waitForDisplayed({ timeout: 3000 }); 
     // await accountButton.click();
@@ -576,9 +574,8 @@ for (const text of contentElements4) {
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     // await driver.pause(2000);
     // await settingsButton.click();
-    await driver.pause(2500);
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await driver.pause(2000);
+    await PageObjects.clickAccountButton();
     await driver.pause(2000);
 
     // Click on Map theme settings option
@@ -675,10 +672,7 @@ for (const text of contentElements4) {
     // await settingsButton.click();
     // await driver.pause(2000);
 
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(2000);
-    await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await PageObjects.clickAccountButton();
 
 
     // Click on Language option to navigate to language screen

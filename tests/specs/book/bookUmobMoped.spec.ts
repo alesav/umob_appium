@@ -224,7 +224,6 @@ describe('Mocked Umob Mopeds (with constant errors) trying Booking Tests', () =>
 
         
         // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
 
 
   });
@@ -232,7 +231,6 @@ describe('Mocked Umob Mopeds (with constant errors) trying Booking Tests', () =>
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await PageObjects.accountButton.waitForExist();
 
         
 
@@ -456,7 +454,6 @@ await expect (closeB).toBeDisplayed();
                     ).click();
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
 
         } catch (e) {
           error = e;
@@ -719,7 +716,6 @@ await expect (closeB).toBeDisplayed();
                     ).click();
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
 
         } catch (e) {
           error = e;

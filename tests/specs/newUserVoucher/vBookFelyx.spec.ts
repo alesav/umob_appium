@@ -188,7 +188,6 @@ describe('Felyx Booking Test with unlimited multi voucher', () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
 
-        await PageObjects.accountButton.waitForExist();
 
   });
 
@@ -464,8 +463,7 @@ await expect(gotIt).toBeDisplayed();
 await gotIt.click();
 
 //verify that main map screen is displayed
-await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
 //verify that my account screen is displayed
 const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');
@@ -498,8 +496,7 @@ await expect(lastRide1).toBeDisplayed();
                     await driver.pause(4000);
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
-          await PageObjects.accountButton.click();
+          await PageObjects.clickAccountButton();
 
           await driver.$(
             '-android uiautomator:new UiSelector().text("My Account")'

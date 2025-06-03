@@ -192,7 +192,6 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
 
-        await PageObjects.accountButton.waitForExist();
 
   });
 
@@ -330,8 +329,7 @@ await expect(payPal).toBeDisplayed();
                     await driver.pause(4000);
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
-          await PageObjects.accountButton.click();
+          await PageObjects.clickAccountButton();
 
           await driver.$(
             '-android uiautomator:new UiSelector().text("My Account")'

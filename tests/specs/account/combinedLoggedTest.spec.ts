@@ -73,7 +73,6 @@ let testStatus = "Pass";
 
 
  // Verify bottom navigation menu items
- await PageObjects.accountButton.waitForExist();
  await PageObjects.planTripBtn.waitForExist();
  await PageObjects.promosBtn.waitForExist();
 	
@@ -154,10 +153,7 @@ let testStatus = "Pass";
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(2000);
-    await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await PageObjects.clickAccountButton();
 
     // Verify screen header
     // const screenHeader = await driver.$("-android uiautomator:new UiSelector().resourceId(\"MyAccountContainer-header-title\")");
@@ -341,8 +337,7 @@ for (const menuItem of accountMenuItems3) {
         try {
     
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
     await driver.pause(2000);
     const { width, height } = await driver.getWindowSize();
@@ -442,8 +437,7 @@ for (const menuItem of accountMenuItems3) {
         try {
 
     // Click on Account button
-     await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+     await PageObjects.clickAccountButton();
 
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
@@ -545,13 +539,10 @@ for (const menuItem of accountMenuItems3) {
     
         try {
 
-    // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(2000);
-    await PageObjects.accountButton.click();
+    // Click on Account button with robust retry mechanism
+    await PageObjects.clickAccountButton(5, 3000);
 
-    //navigate to personal info
-
+    // Navigate to personal info
     const personalInfo = await driver.$("-android uiautomator:new UiSelector().text(\"Personal info\")");
     await personalInfo.click();
 
@@ -709,8 +700,7 @@ for (const menuItem of accountMenuItems3) {
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     await driver.pause(2000);
     
    // Get window size 
@@ -825,8 +815,7 @@ await driver.pause(2000);
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
@@ -949,8 +938,7 @@ await driver.pause(2000);
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     
     // Navigate to Payment Settings screen
     const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment settings\")");
@@ -1040,9 +1028,7 @@ await driver.pause(2000);
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(2000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
     // Navigate to ID Document screen
     const idDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"ID Document\")");
@@ -1193,13 +1179,13 @@ await driver.pause(2000);
         try {
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
-    await driver.pause(2000);
+    await PageObjects.clickAccountButton();
 
     // Scroll down to make Delete account button visible
     await driver.pause(3000);
     const { width, height } = await driver.getWindowSize();
+
+    // Looks like this methood is working on Emulator
     await driver.executeScript('mobile: scrollGesture', [{
      left: width/2,
      top: 0,
@@ -1302,8 +1288,7 @@ await driver.pause(2000);
         try {
 
           // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     await driver.pause(2000);
 
     // Scroll down to make Delete account button visible
@@ -1420,8 +1405,7 @@ await driver.pause(2000);
         try {
 
           // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     await driver.pause(2000);
 
     // Scroll down to make Delete account button visible
@@ -1544,8 +1528,7 @@ await driver.pause(2000);
     
     
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
     await driver.pause(2000);
 
     // Scroll down to make Delete account button visible

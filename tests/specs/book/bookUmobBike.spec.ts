@@ -233,7 +233,6 @@ describe('Mocked Umob Bikes (with constant errors) trying Booking Tests', () => 
       */
         
         // Check Account button is present
-    await PageObjects.accountButton.waitForExist();
     
 
 
@@ -243,7 +242,6 @@ describe('Mocked Umob Bikes (with constant errors) trying Booking Tests', () => 
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
        
-    await PageObjects.accountButton.waitForExist();
     
   });
 
@@ -430,7 +428,6 @@ try {
 
            //check main screen is displayed
 
-            await PageObjects.accountButton.waitForExist();
             await driver.pause(2000);
 
             scooters = await fetchScooterCoordinates();
@@ -542,7 +539,6 @@ try {
       ).click();
 
      // Check Account button is present
-    await PageObjects.accountButton.waitForExist();
     
 
         } catch (e) {

@@ -193,7 +193,6 @@ describe('Trying to Reserve Felyx by a New User Without a drivers licence', () =
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
 
-        await PageObjects.accountButton.waitForExist();
 
   });
 

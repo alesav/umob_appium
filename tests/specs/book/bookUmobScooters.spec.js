@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import submitTestRun from '../../helpers/SendResults.js';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -36,53 +37,15 @@ class TestHelpers {
   }
 
   static async getScreenCenter() {
-    const { width, height } = await driver.getWindowSize();
-    return {
-      centerX: Math.round(width / 2),
-      centerY: Math.round(height / 2),
-      screenWidth: width,
-      screenHeight: height,
-    };
+    return await AppiumHelpers.getScreenCenter();
   }
 
   static async performDoubleClick(x, y) {
-    try {
-      await driver.execute('mobile: doubleClickGesture', { x, y });
-    } catch (error) {
-      console.log('Mobile double click failed, using fallback method');
-      await driver.performActions([{
-        type: 'pointer',
-        id: 'finger1',
-        parameters: { pointerType: 'touch' },
-        actions: [
-          { type: 'pointerMove', duration: 0, x, y },
-          { type: 'pointerDown' },
-          { type: 'pointerUp' },
-          { type: 'pause', duration: 50 },
-          { type: 'pointerDown' },
-          { type: 'pointerUp' }
-        ]
-      }]);
-      await driver.releaseActions();
-    }
+    return await AppiumHelpers.performDoubleClick(x, y);
   }
 
   static async setLocationAndRestartApp(longitude, latitude) {
-    execSync(
-      `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
-    );
-
-    try {
-      execSync(`adb emu geo fix ${longitude} ${latitude}`);
-    } catch (error) {
-      console.error("Failed to set location:", error);
-    }
-
-    await driver.pause(5000);
-    await driver.terminateApp("com.umob.umob");
-    await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(5000);
+    return await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
   }
   static async captureScreenshot(testId) {
     const screenshotPath = `./screenshots/${testId}.png`;
@@ -232,7 +195,6 @@ class ScooterBookingActions {
       '-android uiautomator:new UiSelector().text("GOT IT")'
     ).click();
 
-    await PageObjects.accountButton.waitForExist();
   }
 
   static async navigateToMyRides() {
@@ -289,13 +251,11 @@ describe('Umob Scooter Booking Tests', () => {
     const credentials = TestHelpers.getCredentials();
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-    await PageObjects.accountButton.waitForExist();
     await driver.terminateApp("com.umob.umob");
   });
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
   });
 
   afterEach(async () => {

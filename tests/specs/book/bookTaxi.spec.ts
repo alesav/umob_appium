@@ -92,7 +92,6 @@ let testStatus = "Pass";
       await driver.activateApp("com.umob.umob");
       await driver.pause(7000);   
 
-      await PageObjects.accountButton.waitForExist();
       // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
       // await expect(planTrip).toBeDisplayed();
       await PageObjects.planTripBtn.waitForExist();
@@ -389,7 +388,6 @@ await driver.pause(7000);
 
  //check main screen is displayed
 
-await PageObjects.accountButton.waitForExist();
 
 
 } catch (e) {
