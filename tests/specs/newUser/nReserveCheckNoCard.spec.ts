@@ -167,7 +167,8 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
       } catch (error) {
         console.error("Failed to set location:", error);
       }
-
+    await driver.pause(3000);
+    
     await driver.terminateApp("com.umob.umob");
   });
 
@@ -175,7 +176,6 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
 
-        await PageObjects.accountButton.waitForExist();
 
   });
 
@@ -367,8 +367,7 @@ await driver.performActions([
                     await driver.pause(4000);
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
-          await PageObjects.accountButton.click();
+          await PageObjects.clickAccountButton();
 
           await driver.$(
             '-android uiautomator:new UiSelector().text("My Account")'

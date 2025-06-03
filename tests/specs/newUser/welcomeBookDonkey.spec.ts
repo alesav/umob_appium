@@ -195,8 +195,7 @@ await driver.performActions([
     await gotIt.click();
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
     await driver.pause(2000);
 

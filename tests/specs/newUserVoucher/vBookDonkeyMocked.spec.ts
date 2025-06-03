@@ -287,8 +287,7 @@ await driver.performActions([
     await gotIt.click();
 
     //verify that main map screen is displayed
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
     //verify that my account screen is displayed
     const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');

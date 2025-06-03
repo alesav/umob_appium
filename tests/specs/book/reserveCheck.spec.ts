@@ -196,7 +196,6 @@ scooters = await fetchScooterCoordinates();
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
   });
 
   it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
@@ -252,8 +251,7 @@ await driver.performActions([
 
       await driver.pause(4000);
 
-      await PageObjects.accountButton.waitForExist();
-      await PageObjects.accountButton.click();
+      await PageObjects.clickAccountButton();
       await driver.pause(2000);
 
       await driver.$('-android uiautomator:new UiSelector().text("Personal info")').isDisplayed();

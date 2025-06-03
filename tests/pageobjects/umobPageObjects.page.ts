@@ -122,8 +122,69 @@ class PageObjects extends Page {
         await this.endTripButton.click();
     }
 
+    /**
+     * Clicks the account button and ensures the account screen actually loads
+     * Retries if spinner overlay prevents the actual click
+     * @param {number} maxRetries - Maximum number of retry attempts (default: 5)
+     * @param {number} checkDelay - Delay before checking if account screen loaded (default: 3000ms)
+     * @returns {Promise<void>}
+     */
+    async clickAccountButton(maxRetries: number = 5, checkDelay: number = 3000): Promise<void> {
+        // Elements that should be visible on the account screen to confirm navigation worked
+        const accountScreenIndicators = [
+            "Personal info",
+            "Payment settings", 
+            "Invite friends",
+            "My Rides & Tickets"
+        ];
+
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                console.log(`Attempt ${attempt}: Clicking account button`);
+                
+                // Wait for account button to exist and click it
+                await this.accountButton.waitForExist();
+                await driver.pause(1000);
+                await this.accountButton.click();
+                
+                // Wait to see if the account screen actually loads
+                await driver.pause(checkDelay);
+                
+                // Check if any of the account screen indicators are visible
+                let accountScreenLoaded = false;
+                for (const indicatorText of accountScreenIndicators) {
+                    try {
+                        const indicator = await driver.$(`-android uiautomator:new UiSelector().text("${indicatorText}")`);
+                        if (await indicator.isExisting() && await indicator.isDisplayed()) {
+                            console.log(`Success: Account screen loaded on attempt ${attempt} (found: ${indicatorText})`);
+                            accountScreenLoaded = true;
+                            break;
+                        }
+                    } catch (error) {
+                        // Continue checking other indicators
+                    }
+                }
+                
+                if (accountScreenLoaded) {
+                    return; // Success - exit the retry loop
+                } else {
+                    console.log(`Attempt ${attempt}: Account screen not loaded, will retry...`);
+                    if (attempt === maxRetries) {
+                        throw new Error(`Failed to load account screen after ${maxRetries} attempts`);
+                    }
+                }
+                
+            } catch (error) {
+                console.log(`Attempt ${attempt}: Error clicking account button:`, error.message);
+                if (attempt === maxRetries) {
+                    throw new Error(`Failed to click account button after ${maxRetries} attempts. Last error: ${error.message}`);
+                }
+            }
+        }
+    }
+
     async navigateToMyRides() {
-        await this.accountButton.click();
+        await this.clickAccountButton();
         await driver.pause(1000);
         await this.myRidesButton.click();
         await driver.pause(5000);

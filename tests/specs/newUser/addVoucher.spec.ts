@@ -83,8 +83,7 @@ describe('Add voucher for the New User', () => {
     
     await driver.pause(2000);
           //click account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(2000);
 
         //go to ride credit

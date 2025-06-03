@@ -93,8 +93,7 @@ describe('Login positive scenarios', () => {
             await expect(allowForegroundPermissionBtn).toBeDisplayed();
             await allowForegroundPermissionBtn.click();
 
-            await PageObjects.accountButton.waitForExist();
-            await PageObjects.accountButton.click();
+            await PageObjects.clickAccountButton();
 
             const infoButton = await driver.$('-android uiautomator:new UiSelector().text("Personal info")');
             await expect(infoButton).toBeDisplayed();

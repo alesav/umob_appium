@@ -202,7 +202,6 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
 
         
         // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
 
          await driver.terminateApp("com.umob.umob");
 
@@ -212,7 +211,6 @@ describe('Mocked Umob Scooters (with constant errors) trying Booking Tests', () 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await PageObjects.accountButton.waitForExist();
 
         
 
@@ -232,7 +230,6 @@ let testDetails = ""
 let error = null;
 
 try {
-        await PageObjects.accountButton.waitForExist();
     await driver.pause(5000);
 
         // Filter not needed results
@@ -400,9 +397,8 @@ await driver.execute('mobile: clickGesture', {
   await backButton.click();
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
                     // Wait for Home screen to be loaded
-          await PageObjects.accountButton.click();
+          await PageObjects.clickAccountButton();
 
 
     // Navigate to My Rides & Tickets
@@ -480,7 +476,6 @@ await driver.execute('mobile: clickGesture', {
                     ).click();
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
 
 
   } catch (e) {
@@ -554,7 +549,6 @@ try {
     await driver.terminateApp("com.umob.umob");
     await driver.activateApp("com.umob.umob");
               // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
 
 
     await driver.pause(5000);
@@ -716,7 +710,6 @@ try {
        await driver.terminateApp("com.umob.umob");
     await driver.activateApp("com.umob.umob");
               // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
     await driver.pause(5000);
         // Filter not needed results
         //await applyFilters();
@@ -879,7 +872,6 @@ try {
        await driver.terminateApp("com.umob.umob");
     await driver.activateApp("com.umob.umob");
               // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
          await driver.pause(5000); 
           // Filter not needed results
           //await applyFilters();
@@ -1103,7 +1095,6 @@ await performDoubleClick(driver, centerX, centerY);
                     ).click();
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
 
     //           // Click CLose
     //           await driver.$(

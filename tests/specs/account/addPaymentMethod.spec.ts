@@ -75,7 +75,6 @@ describe('Add Payment Method', () => {
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
-        await PageObjects.accountButton.waitForExist();
   });
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -94,8 +93,7 @@ describe('Add Payment Method', () => {
     await driver.pause(2000);
 
         // Check Account is presented
-        await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
            //CLick Payment Settings

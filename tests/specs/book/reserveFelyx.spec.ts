@@ -193,7 +193,6 @@ scooters = await fetchScooterCoordinates();
     await driver.activateApp("com.umob.umob");
         // Wait for main screen to be loaded
 
-        await PageObjects.accountButton.waitForExist();
 
   });
 
@@ -295,8 +294,7 @@ await driver.performActions([
                     await driver.pause(4000);
 
           // Wait for Home screen to be loaded
-          await PageObjects.accountButton.waitForExist();
-          await PageObjects.accountButton.click();
+          await PageObjects.clickAccountButton();
           await driver.pause(2000);
 
           await driver.$(

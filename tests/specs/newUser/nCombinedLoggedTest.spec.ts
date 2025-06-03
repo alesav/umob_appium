@@ -86,7 +86,6 @@ try {
    await expect(mapRoot).toBeDisplayed();
 
     // Verify bottom navigation menu items and click Promos button
-    await PageObjects.accountButton.waitForExist();
     await PageObjects.planTripBtn.waitForExist();
     //const planTrip = await driver.$('-android uiautomator:new UiSelector().text("Plan Trip")');
     //await expect(planTrip).toBeDisplayed();
@@ -159,8 +158,7 @@ try {
     // await finishLater.click();
 
     // Click on Account button
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
 
     await driver.pause(2000);
 
@@ -384,8 +382,7 @@ await expect(menuElement).toBeDisplayed();
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
     // await driver.pause(2000);
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
      
     // Navigate to Invite Friends
@@ -533,8 +530,7 @@ await driver.performActions([
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
     // await driver.pause(2000);
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
     //navigate to personal info
@@ -722,8 +718,7 @@ await driver.performActions([
     // Navigate to Account screen first
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(2000);
 
     // Navigate to ID Document screen
@@ -989,8 +984,7 @@ await driver.performActions([
     // Click on Account button
   //  const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
   //  await accountButton.click();
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(2000);
 
     // Navigate to My Rides & Tickets
@@ -1079,9 +1073,8 @@ await driver.performActions([
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
     // await driver.pause(2000);
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
      const { width, height } = await driver.getWindowSize();
@@ -1213,9 +1206,8 @@ await driver.performActions([
     // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
     // await accountButton.click();
     // await driver.pause(2000);
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
      const { width, height } = await driver.getWindowSize();
@@ -1323,9 +1315,8 @@ await driver.performActions([
     //await settingsButton.click();
     //await driver.pause(2000);
 
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
      /*
@@ -1476,9 +1467,8 @@ await driver.performActions([
     // await finishLater.click();
 
     //go to account
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
      /*
@@ -1619,9 +1609,8 @@ await driver.performActions([
     // await qButton.click();
 
     //go to account
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(2000);
 
      /*
@@ -2121,9 +2110,8 @@ for (const text of contentElements2) {
     //await driver.pause(2000);
 
     //go to account
-    await PageObjects.accountButton.waitForExist();
     await driver.pause(3000);
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
      /*
@@ -2259,8 +2247,7 @@ await driver.performActions([
     // await driver.pause(2000);
 
     //go to account
-    await PageObjects.accountButton.waitForExist();
-    await PageObjects.accountButton.click();
+    await PageObjects.clickAccountButton();
      await driver.pause(2000);
 
      /*

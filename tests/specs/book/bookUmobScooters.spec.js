@@ -195,7 +195,6 @@ class ScooterBookingActions {
       '-android uiautomator:new UiSelector().text("GOT IT")'
     ).click();
 
-    await PageObjects.accountButton.waitForExist();
   }
 
   static async navigateToMyRides() {
@@ -252,13 +251,11 @@ describe('Umob Scooter Booking Tests', () => {
     const credentials = TestHelpers.getCredentials();
     await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-    await PageObjects.accountButton.waitForExist();
     await driver.terminateApp("com.umob.umob");
   });
 
   beforeEach(async () => {
     await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
   });
 
   afterEach(async () => {

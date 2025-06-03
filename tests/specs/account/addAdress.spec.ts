@@ -75,7 +75,7 @@ describe('Add address for any user', () => {
         try {
 
 await driver.pause(2000);
-await PageObjects.accountButton.click();
+await PageObjects.clickAccountButton();
 await driver.pause(2000);
 
    //go to personal info

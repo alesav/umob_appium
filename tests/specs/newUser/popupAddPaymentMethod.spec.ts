@@ -102,7 +102,6 @@ describe('Add Payment Method through popup for the New User', () => {
 
         
         // Check Account is presented
-        //await PageObjects.accountButton.waitForExist();
 
         */
 
@@ -116,7 +115,6 @@ describe('Add Payment Method through popup for the New User', () => {
     await driver.terminateApp("com.umob.umob");
     await driver.activateApp("com.umob.umob");
         // Wait for main screen to be loaded
-        await PageObjects.accountButton.waitForExist();
   });
 
 
