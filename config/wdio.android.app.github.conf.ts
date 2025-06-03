@@ -8,6 +8,7 @@ export const config: WebdriverIO.Config = {
         
            // "../tests/specs/*/*.spec.ts",
            // "../tests/specs/*/*.spec.js",
+           "../tests/specs/notLoggedTests/copyCombinedNotLogged.spec.ts"
            
             // "../tests/specs/book/bookUmobScooters.spec.js",
             //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
@@ -25,7 +26,8 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
             //  "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
              //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
-             "../tests/specs/notLoggedTests/*.spec.ts"
+             //"../tests/specs/notLoggedTests/*.spec.ts"
+
           
 /*
             "../tests/specs/account/*.spec.ts",
