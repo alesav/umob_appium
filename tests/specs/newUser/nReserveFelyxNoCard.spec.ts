@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -174,15 +175,10 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
      const longitude = 4.46893572807312;
         const latitude = 51.91743146298927;
         
-     execSync(
-      `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+     await AppiumHelpers.setLocationAndRestartApp(
+      longitude, 
+      latitude
     );
-
-    try {
-      execSync("adb emu geo fix "+ longitude+" "+ latitude);
-    } catch (error) {
-      console.error("Failed to set location:", error);
-    }
     await driver.pause(3000);
 
 
@@ -217,8 +213,9 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     );
     await driver.pause(3000);
     // Set location to specific scooter coordinates
-    execSync(
-      `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+    await AppiumHelpers.setLocationAndRestartApp(
+      targetScooter.coordinates.longitude, 
+      targetScooter.coordinates.latitude
     );
     await driver.pause(5000);
 

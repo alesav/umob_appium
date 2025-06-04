@@ -261,8 +261,9 @@ describe('Felyx Scooter Booking - New User Without Card', () => {
       }
 
       // Set location to specific scooter coordinates
-      execSync(
-        `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`
+      await AppiumHelpers.setLocationAndRestartApp(
+        targetScooter.coordinates.longitude, 
+        targetScooter.coordinates.latitude
       );
       await driver.pause(5000);
 

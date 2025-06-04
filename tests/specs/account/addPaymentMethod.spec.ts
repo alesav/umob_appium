@@ -98,6 +98,7 @@ describe('Add Payment Method', () => {
 
            //CLick Payment Settings
           await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').waitForDisplayed();
+           await driver.pause(1000);
           await driver.$('-android uiautomator:new UiSelector().text("Payment settings")').click();
 
          // looking for "REMOVE PAYMENT METHOD"

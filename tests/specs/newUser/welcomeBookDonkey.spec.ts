@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 
 describe('Donkey Bike Booking Test with Welcome voucher for the New User', () => {
 
@@ -12,15 +13,10 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
         const longitude = 4.4744300;
         const latitude = 51.9155956;
 
-        execSync(
-          `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`
+        await AppiumHelpers.setLocationAndRestartApp(
+          longitude, 
+          latitude
         );
-
-        try {
-          execSync("adb emu geo fix "+ longitude+" "+ latitude);
-        } catch (error) {
-          console.error("Failed to set location:", error);
-        }
         await driver.pause(3000);
   
   
@@ -42,8 +38,9 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
  try {
 
     // Set initial location
-    execSync(
-      `adb shell am startservice -e longitude 4.4744301 -e latitude 51.9155956 io.appium.settings/.LocationService`
+    await AppiumHelpers.setLocationAndRestartApp(
+      4.4744301, 
+      51.9155956
     );
     await driver.pause(5000);
 
