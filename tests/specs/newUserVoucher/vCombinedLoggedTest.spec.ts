@@ -2034,12 +2034,17 @@ for (const text of contentElements2) {
   await chat.click();
   await driver.pause(2000);
 
+  const openChat = await driver.$(`-android uiautomator:new UiSelector().text("OPEN CHAT")`);
+  await expect(openChat).toBeDisplayed();
+  await openChat.click();
+
   //send test message to chat
   //const textField = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").instance(58)");
   const welcomeMessage = await driver.$(`-android uiautomator:new UiSelector().text("Start typing here")`);
   await expect(welcomeMessage).toBeDisplayed();
       //await expect(textField).toBeDisplayed();
       await welcomeMessage.addValue("test");
+      await driver.pause(2000);
 
       //click on send button
 
@@ -2054,7 +2059,8 @@ for (const text of contentElements2) {
       //if the message is sent then after seeing "test" you should see welcome message again: "Start typing here")`);
       await expect(welcomeMessage).toBeDisplayed();
 
-
+      // Press the device back button (this method works on mobile)
+      await driver.back();
 
       //go to about tab
      await about.click();
