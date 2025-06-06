@@ -1922,10 +1922,10 @@ for (const text of contentElements2) {
           id: 'finger4',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);

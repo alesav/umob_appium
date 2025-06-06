@@ -8,14 +8,14 @@ export const config: WebdriverIO.Config = {
         
            // "../tests/specs/*/*.spec.ts",
            // "../tests/specs/*/*.spec.js",
-            // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",            
-            // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+             "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",            
+             "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
             // "../tests/specs/login/login.negative.spec.ts",
-            // "../tests/specs/book/bookPublicTransport.spec.ts",
-            // "../tests/specs/book/bookTaxi.spec.ts"
+             "../tests/specs/book/bookPublicTransport.spec.ts",
+            // "../tests/specs/book/bookTaxi.spec.ts",
            // "../tests/specs/book/reserveFelyx.spec.ts",            
-           // "../tests/specs/book/reserveCheck.spec.ts"
-          //  "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+           // "../tests/specs/book/reserveCheck.spec.ts",
+            "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
            
             // "../tests/specs/book/bookUmobScooters.spec.js",
             //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
@@ -36,7 +36,7 @@ export const config: WebdriverIO.Config = {
              //"../tests/specs/notLoggedTests/*.spec.ts"
 
           
-
+/*
             "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
           "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
@@ -52,7 +52,7 @@ export const config: WebdriverIO.Config = {
           //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           "../tests/specs/newUser/addVoucher.spec.ts"// voucher could be added to different users
-         
+         */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
