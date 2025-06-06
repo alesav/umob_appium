@@ -7,14 +7,14 @@ export const config: WebdriverIO.Config = {
     //specs: ["/Users/alesav/Dev/umob/appium-boilerplate/tests/specs/book/*.spec.ts"],
     specs: [//"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts"
       //  "/Users/alesav/Dev/umob/umob_appium/tests/specs/account/*.spec.ts",
-"c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+//"c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts",
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/addVoucher.spec.ts",
-// "c:/dev/umob_appium/tests/specs/account/addAdress.spec.ts"
+ "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
 
     ],
     capabilities: [
