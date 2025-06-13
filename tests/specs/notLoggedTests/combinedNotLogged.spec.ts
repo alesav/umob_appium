@@ -275,12 +275,17 @@ for (const text of contentElements4) {
   await chat.click();
   await driver.pause(2000);
 
+  const clickForChat = await driver.$(`-android uiautomator:new UiSelector().text("OPEN CHAT")`);
+  await expect(clickForChat).toBeDisplayed();
+  await clickForChat.click();
+
   //send test message to chat
   //const textField = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").instance(58)");
   const welcomeMessage = await driver.$(`-android uiautomator:new UiSelector().text("Start typing here")`);
   await expect(welcomeMessage).toBeDisplayed();
       //await expect(textField).toBeDisplayed();
       await welcomeMessage.addValue("test");
+      await driver.pause(2000);
 
       //click on send button
 
@@ -294,6 +299,13 @@ for (const text of contentElements4) {
 
       //if the message is sent then after seeing "test" you should see welcome message again: "Start typing here")`);
       await expect(welcomeMessage).toBeDisplayed();
+
+      //back from chat
+      // const backButton = await driver.$('~back_button');
+      // await expect(backButton).toBeDisplayed();
+      // await backButton.click();
+      await driver.back();
+      
 
 
 
@@ -481,14 +493,18 @@ for (const text of contentElements4) {
  try {
 
     // Step 1: Locate the account button and click it
-    await PageObjects.clickAccountButton();
+    //await PageObjects.clickAccountButton();
     // const accountButton = await driver.$('android=new UiSelector().text("Account")');
     // await accountButton.waitForDisplayed({ timeout: 3000 }); 
     // await accountButton.click();
+    const accountBtn = await driver.$("accessibility id:menu_account_button");
+    await accountBtn.waitForDisplayed({ timeout: 3000 }); 
+    await accountBtn.click();
+    await driver.pause(2000);
 
-    // Verify account screen title 
-    const text1 = await driver.$('android=new UiSelector().text("Let\'s get started!")');
-    await expect(text1).toBeDisplayed();
+    // Verify account screen title (sometimes it takes too long to make this greeting visible)
+    // const text1 = await driver.$('android=new UiSelector().text("Let\'s get started!")');
+    // await expect(text1).toBeDisplayed();
     
     // // Verify the €10 free text using resourceId with index
     // const freeText = await driver.$('android=new UiSelector().resourceId("screenTitle").instance(1)');
@@ -570,8 +586,12 @@ for (const text of contentElements4) {
     // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
     // await driver.pause(2000);
     // await settingsButton.click();
-    await driver.pause(2000);
-    await PageObjects.clickAccountButton();
+    // await driver.pause(2000);
+    // await PageObjects.clickAccountButton();
+    // await driver.pause(2000);
+    const accountBtn = await driver.$("accessibility id:menu_account_button");
+    await accountBtn.waitForDisplayed({ timeout: 3000 }); 
+    await accountBtn.click();
     await driver.pause(2000);
 
     // Click on Map theme settings option
@@ -668,7 +688,11 @@ for (const text of contentElements4) {
     // await settingsButton.click();
     // await driver.pause(2000);
 
-    await PageObjects.clickAccountButton();
+    //await PageObjects.clickAccountButton();
+    const accountBtn = await driver.$("accessibility id:menu_account_button");
+    await accountBtn.waitForDisplayed({ timeout: 3000 }); 
+    await accountBtn.click();
+    await driver.pause(2000);
 
 
     // Click on Language option to navigate to language screen

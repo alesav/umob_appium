@@ -123,6 +123,54 @@ class PageObjects extends Page {
     }
 
     /**
+     * Clicks the account button for not-logged-in users and ensures the account screen loads
+     * Checks for "Let's get started!" text instead of logged-in user elements
+     * @param {number} maxRetries - Maximum number of retry attempts (default: 5)
+     * @param {number} checkDelay - Delay before checking if account screen loaded (default: 3000ms)
+     * @returns {Promise<void>}
+     */
+    async clickAccountButtonNotLoggedTest(maxRetries: number = 5, checkDelay: number = 3000): Promise<void> {
+        // Element that should be visible on the account screen for not-logged-in users
+        const notLoggedAccountScreenIndicator = "Let's get started!";
+
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                console.log(`Attempt ${attempt}: Clicking account button (not logged test)`);
+                
+                // Wait for account button to exist and click it
+                await this.accountButton.waitForExist();
+                await driver.pause(1000);
+                await this.accountButton.click();
+                
+                // Wait to see if the account screen actually loads
+                await driver.pause(checkDelay);
+                
+                // Check if the not-logged-in account screen indicator is visible
+                try {
+                    const indicator = await driver.$(`-android uiautomator:new UiSelector().text("${notLoggedAccountScreenIndicator}")`);
+                    if (await indicator.isExisting() && await indicator.isDisplayed()) {
+                        console.log(`Success: Not-logged account screen loaded on attempt ${attempt}`);
+                        return; // Success - exit the retry loop
+                    }
+                } catch (error) {
+                    // Continue to retry logic
+                }
+                
+                console.log(`Attempt ${attempt}: Not-logged account screen not loaded, will retry...`);
+                if (attempt === maxRetries) {
+                    throw new Error(`Failed to load not-logged account screen after ${maxRetries} attempts`);
+                }
+                
+            } catch (error) {
+                console.log(`Attempt ${attempt}: Error clicking account button:`, error.message);
+                if (attempt === maxRetries) {
+                    throw new Error(`Failed to click account button after ${maxRetries} attempts. Last error: ${error.message}`);
+                }
+            }
+        }
+    }
+
+    /**
      * Clicks the account button and ensures the account screen actually loads
      * Retries if spinner overlay prevents the actual click
      * @param {number} maxRetries - Maximum number of retry attempts (default: 5)
