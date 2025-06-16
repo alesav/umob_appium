@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || '4bigfoot+10';
+const USER = process.env.TEST_USER || 'new';
 
 
 
@@ -103,7 +103,7 @@ let testStatus = "Pass";
       .perform();
 
     // Click UMOB Bike 20 button
-    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
+    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
     await umob20Button.click();
 
     //const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("SELECT UMOB BIKE 2 0")');
@@ -197,9 +197,14 @@ let testStatus = "Pass";
 
     await driver.pause(5000);
 
-    // Click close button
-    const closeButton = await driver.$("accessibility id:closeButton-text");
-    await closeButton.click();
+    // Click got it button
+    const gotButton = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
+    await gotButton.click();
+
+    // Click not now button
+    const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+    await expect(notNowButton).toBeDisplayed();
+    await notNowButton.click();
 
   } catch (e) {
     error = e;
