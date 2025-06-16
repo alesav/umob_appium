@@ -40,6 +40,10 @@ class TestHelpers {
     return await AppiumHelpers.getScreenCenter();
   }
 
+  static async clickMyLocation() {
+    return await AppiumHelpers.clickMyLocation();
+  }  
+
   static async performDoubleClick(x, y) {
     return await AppiumHelpers.performDoubleClick(x, y);
   }
@@ -270,7 +274,7 @@ describe('Umob Scooter Booking Tests', () => {
         targetScooter.coordinates.longitude,
         targetScooter.coordinates.latitude
       );
-
+      console.log(`Scooter coordinates set to: ${targetScooter.coordinates.longitude}, ${targetScooter.coordinates.latitude}`);
 
       await ScooterBookingActions.clickScooterOnMap();
       await ScooterBookingActions.selectPaymentMethod();
