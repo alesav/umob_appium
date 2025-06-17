@@ -444,11 +444,11 @@ await expect (closeB).toBeDisplayed();
 
                     // Click GOT IT
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).waitForEnabled();
                 
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).click();
                     // Click not now button
     const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');

@@ -415,11 +415,11 @@ try {
 
                     // Click GOT IT
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).waitForEnabled();
                 
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).click();
 
                      // Click not now button
