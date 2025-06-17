@@ -42,9 +42,10 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
             // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
              //"../tests/specs/notLoggedTests/*.spec.ts"
+             "../tests/specs/book/failedPaymentNoBooking.spec.ts"
 
           
-
+/*
            "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
          "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
@@ -62,7 +63,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users
 
           "../tests/specs/book/*.spec.ts"
-         
+         */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
