@@ -21,12 +21,13 @@ export const config: WebdriverIO.Config = {
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",
 // "c:/dev/umob_appium/tests/specs/newUser/addVoucher.spec.ts",
 // "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+//"../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
 
 
-"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
+////"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", problem
 ////"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
-/// "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-/// "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
+ 
+ "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts"
  ///"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
 
     ],
