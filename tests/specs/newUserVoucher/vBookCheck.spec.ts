@@ -454,7 +454,7 @@ await driver.executeScript('mobile: scrollGesture', [{
 */
 
 //click got it button
-const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');
+const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
 await expect(gotIt).toBeDisplayed();
 await gotIt.click();
 
