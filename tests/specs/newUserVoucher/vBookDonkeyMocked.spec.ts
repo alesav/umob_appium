@@ -313,6 +313,7 @@ await driver.performActions([
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
+    
     testStatus = "Fail";
     testDetails = e.message;
   
