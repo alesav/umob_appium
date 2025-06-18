@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new6';
+const USER = process.env.TEST_USER || 'new17';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -313,7 +313,7 @@ await driver.performActions([
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
-    
+
     testStatus = "Fail";
     testDetails = e.message;
   
