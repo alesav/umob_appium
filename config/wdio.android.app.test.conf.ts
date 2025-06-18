@@ -9,11 +9,15 @@ export const config: WebdriverIO.Config = {
       //  "/Users/alesav/Dev/umob/umob_appium/tests/specs/account/*.spec.ts",
    //"c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts",
  
- "c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
+ //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
+ //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
  //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
- //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+// "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+ "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
+ "c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts"
+
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
 //  "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts",
