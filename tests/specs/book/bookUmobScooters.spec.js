@@ -22,13 +22,13 @@ class TestHelpers {
       const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
       const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
       
-      if (!credentials.test?.new) {
-        throw new Error('New user credentials not found in test environment');
+      if (!credentials.test?.new31) {
+        throw new Error('New31 user credentials not found in test environment');
       }
       
       return {
-        username: credentials.test.new.username,
-        password: credentials.test.new.password
+        username: credentials.test.new31.username,
+        password: credentials.test.new31.password
       };
     } catch (error) {
       console.error('Error loading credentials:', error);

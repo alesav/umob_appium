@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || '4bigfoot+10';
+const USER = process.env.TEST_USER || 'new25';
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -184,7 +184,7 @@ scooters = await fetchScooterCoordinates();
     await logInBtn.isClickable();
     await driver.pause(2000);
     await logInBtn.click();
-    await PageObjects.login({ username: "4bigfoot+10@gmail.com", password: "123Qwerty!" });
+    await PageObjects.login({ username: "new25@gmail.com", password: "123Qwerty!" });
 
     */
 

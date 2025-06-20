@@ -53,8 +53,8 @@ function getCredentials(environment = "test", userKey = null) {
 }
 
 // Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "4bigfoot+11";
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new35';
 
 describe("Book Public Transport", () => {
     before(async () => {
@@ -137,7 +137,7 @@ describe("Book Public Transport", () => {
 
             // Verify departure and destination input section
             const departureDestinationLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Enter departure & destination points")',
+                '-android uiautomator:new UiSelector().text("Enter starting point & destination")',
             );
             await expect(departureDestinationLabel).toBeDisplayed();
 
