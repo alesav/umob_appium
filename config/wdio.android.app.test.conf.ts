@@ -13,10 +13,9 @@ export const config: WebdriverIO.Config = {
  //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
  //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
- //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+ //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
 // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
- "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
- "c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts"
+//  "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
 
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -35,6 +34,18 @@ export const config: WebdriverIO.Config = {
  
 // "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts"
  ///"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
+///////////////////////////////////////////////////////////////////////////////////
+
+ //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+ "c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
+ "c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.ts"
+
+//"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
+//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+//"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //Umob Bike 22
+//"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //Umob Boke 23
+//"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+//"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 
     ],
     capabilities: [
@@ -50,8 +61,4 @@ export const config: WebdriverIO.Config = {
         },
     ],
     maxInstances: 1,
-<<<<<<< HEAD
-};       
-=======
 };
->>>>>>> fc5741d3e79ad829c97778c2c534204965fff90f

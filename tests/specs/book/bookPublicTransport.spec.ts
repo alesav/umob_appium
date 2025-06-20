@@ -137,7 +137,7 @@ describe("Book Public Transport", () => {
 
             // Verify departure and destination input section
             const departureDestinationLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Enter departure & destination points")',
+                '-android uiautomator:new UiSelector().text("Enter starting point & destination")',
             );
             await expect(departureDestinationLabel).toBeDisplayed();
 
