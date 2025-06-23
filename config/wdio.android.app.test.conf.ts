@@ -19,8 +19,8 @@ export const config: WebdriverIO.Config = {
 
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-//  "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-  //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts"
+ // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts"
+  "c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",
@@ -29,24 +29,36 @@ export const config: WebdriverIO.Config = {
 //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
 
 
-////"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", problem
+//"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
 ////"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
  
-"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
+//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
 // "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts"
- ///"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
+//"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
+//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
+ 
  //"../tests/specs/newUser/addVoucher.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
+ ///"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"/// umknown timeout problem
 ///////////////////////////////////////////////////////////////////////////////////
 
-// "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
+//"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts"
+//"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts"
+//"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
+///"../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts" //manually not working because user must be replaced. Now new20, new must have donkey voucher
+//"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
+
+ //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
  //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
+ //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.js"
+ ///"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
 
 //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
-//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //Umob Bike 22
-//"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //Umob Boke 23
+//"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts" //Umob Boke 23
 //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 
