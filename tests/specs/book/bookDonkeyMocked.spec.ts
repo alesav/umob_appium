@@ -126,12 +126,14 @@ describe("Donkey Bike Booking Test", () => {
 
             await continueButton.click();
 
-            // Handle permissions
+            // Handle permissions (there is no such permission in github actions)
+            /*
             const allowPermissionBtn = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_button",
             );
             await expect(allowPermissionBtn).toBeDisplayed();
             await allowPermissionBtn.click();
+            */
 
             /*
     await driver.pause(5000);

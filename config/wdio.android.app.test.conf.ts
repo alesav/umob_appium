@@ -20,7 +20,7 @@ export const config: WebdriverIO.Config = {
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts"
-  "c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts"
+ // "c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",
