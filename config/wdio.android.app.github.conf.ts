@@ -33,7 +33,7 @@ export const config: WebdriverIO.Config = {
             //"../tests/specs/account/combinedLoggedTest.spec.ts"
             // "../tests/specs/book/bookUmobScooters.spec.ts",
             // "../tests/specs/book/bookTaxi.spec.ts"
-            "../tests/specs/book/bookDonkeyMocked.spec.ts"
+           // "../tests/specs/book/bookDonkeyMocked.spec.ts"
            
             // "../tests/specs/account/combinedLoggedTest.spec.ts",
             // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
@@ -52,7 +52,7 @@ export const config: WebdriverIO.Config = {
           // "../tests/specs/book/bookPublicTransport.spec.ts"
           // "../tests/specs/book/bookUmobBike.spec.ts"
           
-/*
+
 //night run
            "../tests/specs/account/*.spec.ts",
           "../tests/specs/login/*.spec.ts",
@@ -81,7 +81,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveFelyx.spec.ts",
           "../tests/specs/book/failedPaymentNoBooking.spec.ts"
           
-         */
+         
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",

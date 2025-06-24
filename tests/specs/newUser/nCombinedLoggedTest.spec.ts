@@ -43,7 +43,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new13';
+const USER = process.env.TEST_USER || 'new40';
 
 /////////////////////////////////////////////////////////////////////////////////
 

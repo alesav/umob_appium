@@ -68,6 +68,7 @@ describe('Combined Not Logged User Tests', () => {
     //await planTrip.click();
     await PageObjects.planTripBtn.click();
 
+    /*
     //scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -78,6 +79,19 @@ describe('Combined Not Logged User Tests', () => {
       percent: 100.0
     }]);
     await driver.pause(1000);
+*/
+//scroll to bottom
+await driver.pause(2000);
+const { width, height } = await driver.getWindowSize();
+await driver.executeScript('mobile: scrollGesture', [{
+ left: width/2,
+ top: 0,
+ width: 0,
+ height: height*0.8,
+ direction: 'down',
+ percent: 2
+}]);
+await driver.pause(1000);
 
     const taxiButton = await driver.$('-android uiautomator:new UiSelector().text("GRAB TAXI")');
     await expect(taxiButton).toBeDisplayed();
@@ -292,6 +306,7 @@ for (const text of contentElements4) {
       const sendButton = await driver.$("-android uiautomator:new UiSelector().description(\"Send\")");
       await expect(sendButton).toBeDisplayed();
       await sendButton.click();
+      await driver.pause(1000);
 
       //check if message was sent
       const messageCheck = await driver.$(`-android uiautomator:new UiSelector().text("test")`);
@@ -411,6 +426,7 @@ for (const text of contentElements4) {
     //Scroll to bottom
     await driver.pause(3000);
     
+    /*
     await driver.executeScript('mobile: scrollGesture', [{
      left: width/2,
      top: 0,
@@ -420,6 +436,21 @@ for (const text of contentElements4) {
      percent: 2
     }]);
     await driver.pause(6000);
+    */
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
@@ -432,6 +463,20 @@ for (const text of contentElements4) {
 
     const anyProviders = await driver.$("-android uiautomator:new UiSelector().text(\"1 provider\")");
     await expect(anyProviders).toBeDisplayed();
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger4',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
     const publicTransport = await driver.$("-android uiautomator:new UiSelector().text(\"Public transport\")");
     await expect(publicTransport).toBeDisplayed();

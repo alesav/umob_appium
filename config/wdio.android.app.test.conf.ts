@@ -16,6 +16,7 @@ export const config: WebdriverIO.Config = {
  //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
 // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
 //  "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
+//"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
 
  //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -27,40 +28,61 @@ export const config: WebdriverIO.Config = {
 // "c:/dev/umob_appium/tests/specs/newUser/addVoucher.spec.ts",
 // "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
 //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
 ////"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
- 
+ //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
-// "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts"
-//"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
-//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
- 
- //"../tests/specs/newUser/addVoucher.spec.ts"
+  //"../tests/specs/newUser/addVoucher.spec.ts"
  //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
  ///"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"/// umknown timeout problem
-///////////////////////////////////////////////////////////////////////////////////
-
-//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
-//"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts"
-//"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts"
-//"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
-///"../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts" //manually not working because user must be replaced. Now new20, new must have donkey voucher
+ //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
 //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
 
- //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
+ 
  //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
  //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
  //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.js"
- ///"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
-
-//"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
+ //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
 //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
-//"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //Umob Bike 22
 //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts" //Umob Boke 23
 //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+//"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+//morning run
+
+//"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+//"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+//"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21
+//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 
+//"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+//"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 22
+//"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23
+//"c:/dev/umob_appium/tests/specs/login/login.negative.spec.ts",
+//"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
+//"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts",         //new25
+//"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"  //new38
+//"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 click on pointer for location during manual run
+
+/*
+//new user tests should be in some order (credentials update required)
+    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //new13  //new40
+    "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",      //new20  //new40 (3 places to replace)
+    "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file  //new39  //new40 (174str)
+    "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   new40 (comment update)
+    "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",      ///new13   //new40
+    "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //new40
+    "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always new welcome voucher required//new20  //new40
+    //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once
+*/
+
+
 
     ],
     capabilities: [
