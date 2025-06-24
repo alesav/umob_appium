@@ -49,7 +49,7 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/book/reserveFelyx.spec.ts"
            // "../tests/specs/book/bookUmobBike.spec.ts"
 
-           "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
+           "../tests/specs/book/bookPublicTransport.spec.ts"
           // "../tests/specs/book/bookUmobBike.spec.ts"
           
 /*
