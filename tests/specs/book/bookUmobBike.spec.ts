@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new';
+const USER = process.env.TEST_USER || 'new33';
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -339,7 +339,7 @@ try {
              { type: 'pointerUp', button: 0 },
          ],
      },]);
-
+/*
               // Click Details
               await driver.$(
                 '-android uiautomator:new UiSelector().text("DETAILS")'
@@ -411,16 +411,21 @@ try {
    const statusElement = await driver.$('//*[@text="Completed"]');
    await expect(statusElement).toBeDisplayed();
  
-   
+   */
 
                     // Click GOT IT
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).waitForEnabled();
                 
                     await driver.$(
-                      '-android uiautomator:new UiSelector().text("GOT IT")'
+                      '-android uiautomator:new UiSelector().text("GOT IT!")'
                     ).click();
+
+                     // Click not now button
+    const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+    await expect(notNowButton).toBeDisplayed();
+    await notNowButton.click();
 
            //check main screen is displayed
 

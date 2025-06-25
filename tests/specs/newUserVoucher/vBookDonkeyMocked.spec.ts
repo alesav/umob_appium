@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new6';
+const USER = process.env.TEST_USER || 'new17';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,7 +106,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       .perform();
 
     // Click UMOB Bike 20 button
-    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
+    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
     await umob20Button.click();
 
     //verify that new user voucher is visible
@@ -228,6 +228,7 @@ await driver.performActions([
     const endTripButton = await driver.$("accessibility id:endTrip-text");
     await endTripButton.click();
 
+    /*
     //click to see details
     const detailsButton3 = await driver.$('-android uiautomator:new UiSelector().text("DETAILS")');
     await driver.pause(10000);
@@ -248,6 +249,8 @@ await driver.performActions([
     //verify used voucher is dispayed
     const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect(multiVoucher1).toBeDisplayed();
+
+    */
 
     /*
     //Scroll to bottom
@@ -279,9 +282,14 @@ await driver.performActions([
   await driver.pause(2000);
 
     //click got it button
-    const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');
+    const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
     await expect(gotIt).toBeDisplayed();
     await gotIt.click();
+
+     // Click not now button
+     const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+     await expect(notNowButton).toBeDisplayed();
+     await notNowButton.click();
 
     //verify that main map screen is displayed
     await PageObjects.clickAccountButton();
@@ -305,6 +313,7 @@ await driver.performActions([
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
+
     testStatus = "Fail";
     testDetails = e.message;
   

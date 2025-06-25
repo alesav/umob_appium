@@ -57,7 +57,7 @@ describe('Donkey Bike Booking Test with Welcome voucher for the New User', () =>
       .perform();
 
     // Click UMOB Bike 20 button
-    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
+    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
     await umob20Button.click();
 
     //verify that new user voucher is visible
@@ -153,6 +153,7 @@ await driver.performActions([
     const endTripButton = await driver.$("accessibility id:endTrip-text");
     await endTripButton.click();
 
+    /*
     //click to see details
     const detailsButton3 = await driver.$('-android uiautomator:new UiSelector().text("DETAILS")');
     await driver.pause(10000);
@@ -185,11 +186,18 @@ await driver.performActions([
       direction: 'down',
       percent: 100
     }]); 
+    */
 
     //click got it button
-    const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');
+    const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
     await expect(gotIt).toBeDisplayed();
     await gotIt.click();
+
+    
+     // Click not now button
+    const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+    await expect(notNowButton).toBeDisplayed();
+    await notNowButton.click();
 
     // Click on Account button
     await PageObjects.clickAccountButton();

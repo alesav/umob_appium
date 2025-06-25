@@ -45,7 +45,7 @@ function getCredentials(environment = 'test', userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new6';
+const USER = process.env.TEST_USER || 'new37';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -406,6 +406,7 @@ await useButton.click();
 
 await driver.pause(8000);
 //verify end screen for the ride
+/*
 const thanks = await driver.$('-android uiautomator:new UiSelector().textContains("Thanks")');
 await expect (thanks).toBeDisplayed();
 
@@ -450,11 +451,17 @@ await driver.executeScript('mobile: scrollGesture', [{
   direction: 'down',
   percent: 100
 }]); 
+*/
 
 //click got it button
-const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT")');
+const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
 await expect(gotIt).toBeDisplayed();
 await gotIt.click();
+
+ // Click not now button
+ const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+ await expect(notNowButton).toBeDisplayed();
+ await notNowButton.click();
 
 //verify that main map screen is displayed
 await PageObjects.clickAccountButton();

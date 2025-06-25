@@ -53,8 +53,8 @@ function getCredentials(environment = "test", userKey = null) {
 }
 
 // Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "4bigfoot+11";
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'new36';
 
 describe("Donkey Bike Booking Test", () => {
     before(async () => {
@@ -126,12 +126,14 @@ describe("Donkey Bike Booking Test", () => {
 
             await continueButton.click();
 
-            // Handle permissions
+            // Handle permissions (there is no such permission in github actions)
+            /*
             const allowPermissionBtn = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_button",
             );
             await expect(allowPermissionBtn).toBeDisplayed();
             await allowPermissionBtn.click();
+            */
 
             /*
     await driver.pause(5000);
@@ -217,11 +219,26 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(5000);
 
+            /*
             // Click close button
             const closeButton = await driver.$(
                 "accessibility id:closeButton-text",
+                
             );
             await closeButton.click();
+            */
+            // Click got it button
+    const gotButton = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
+    await expect(gotButton).toBeDisplayed();
+    await gotButton.click();
+
+    // Click not now button
+    const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+    await expect(notNowButton).toBeDisplayed();
+    await notNowButton.click();
+
+
+            
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

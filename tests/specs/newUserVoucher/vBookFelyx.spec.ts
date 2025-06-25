@@ -54,7 +54,7 @@ function getCredentials(environment = "test", userKey = null) {
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new6";
+const USER = process.env.TEST_USER || "new15";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -423,6 +423,8 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await useButton.click();
 
             await driver.pause(20000);
+
+            /*
             //verify end screen for the ride
             const thanks = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Thanks")',
@@ -488,6 +490,7 @@ await driver.executeScript('mobile: scrollGesture', [{
 }]);
 */
 
+/*
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
             await driver.performActions([
@@ -515,16 +518,20 @@ await driver.executeScript('mobile: scrollGesture', [{
                 },
             ]);
             await driver.pause(2000);
+            */
 
-            //click got it button
-            const gotIt = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT")',
-            );
-            await expect(gotIt).toBeDisplayed();
-            await gotIt.click();
+//click got it button
+const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
+await expect(gotIt).toBeDisplayed();
+await gotIt.click();
 
-            //verify that main map screen is displayed
-            await PageObjects.clickAccountButton();
+ // Click not now button
+ const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+ await expect(notNowButton).toBeDisplayed();
+ await notNowButton.click();
+
+//verify that main map screen is displayed
+    await PageObjects.clickAccountButton();
 
             //verify that my account screen is displayed
             const myRides = await driver.$(

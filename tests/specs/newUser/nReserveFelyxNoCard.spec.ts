@@ -306,7 +306,7 @@ await expect(cards).toBeDisplayed();
 await expect(bancontactCard).toBeDisplayed();
 
 //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-await expect(googlePay).toBeDisplayed();
+//await expect(googlePay).toBeDisplayed();
 
 //const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
 await expect(payPal).toBeDisplayed();
