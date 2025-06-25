@@ -171,7 +171,7 @@ class TestRunner {
  */
 describe('Donkey Bike Booking - New User Without Card', () => {
   const ENV = process.env.TEST_ENV || 'test';
-  const USER = process.env.TEST_USER || 'new39';
+  const USER = process.env.TEST_USER || 'newUser';
   
   const bikeLocation = {
     name: "UMOB Bike 2 1",

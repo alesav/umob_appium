@@ -221,7 +221,7 @@ class TestRunner {
  */
 describe('Felyx Scooter Booking - New User Without Card', () => {
   const ENV = process.env.TEST_ENV || 'test';
-  const USER = process.env.TEST_USER || 'new11';
+  const USER = process.env.TEST_USER || 'newUser';
   
   const defaultLocation = {
     longitude: 4.46893572807312,

@@ -10,21 +10,21 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to get fixed credentials for the new20 user from credentials file
+// Function to get fixed credentials for the newUser from credentials file
 function getCredentials() {
   try {
     const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
     const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
     
-    // Always use the new20 user from test environment
-    if (!credentials.test || !credentials.test.new20) {
-      throw new Error('new20 user not found in test environment');
+    // Always use the newUser from test environment
+    if (!credentials.test || !credentials.test.newUser) {
+      throw new Error('newUser not found in test environment');
     }
     
-    // Return the new20 user credentials
+    // Return the newUser credentials
     return {
-      username: credentials.test.new20.username,
-      password: credentials.test.new20.password
+      username: credentials.test.newUser.username,
+      password: credentials.test.newUser.password
     };
   } catch (error) {
     console.error('Error loading credentials:', error);

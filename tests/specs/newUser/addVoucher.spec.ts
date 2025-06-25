@@ -1,6 +1,35 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to get fixed credentials for the newUser from credentials file
+function getCredentials() {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Always use the newUser from test environment
+    if (!credentials.test || !credentials.test.newUser) {
+      throw new Error('newUser not found in test environment');
+    }
+    
+    // Return the newUser credentials
+    return {
+      username: credentials.test.newUser.username,
+      password: credentials.test.newUser.password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -8,6 +37,8 @@ describe('Add voucher for the New User', () => {
   let scooters;
 
   before(async () => {
+
+      const credentials = getCredentials();
 
       // Find and click LOG IN button
       const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
@@ -18,11 +49,11 @@ describe('Add voucher for the New User', () => {
       // Login form elements
       const usernameField = await driver.$("accessibility id:login_username_field");
       await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("new20@gmail.com");
+      await usernameField.addValue(credentials.username);
 
       const passwordField = await driver.$("accessibility id:login_password_field");
       await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue("123Qwerty!");
+      await passwordField.addValue(credentials.password);
 
       const loginButtonText = await driver.$("accessibility id:login_button-text");
       await expect(loginButtonText).toBeDisplayed();
