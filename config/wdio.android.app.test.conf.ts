@@ -56,19 +56,19 @@ export const config: WebdriverIO.Config = {
 
 //morning run
 
-//"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
-//"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-//"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21
-//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 
-//"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
-//"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 22
-//"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23
-//"c:/dev/umob_appium/tests/specs/login/login.negative.spec.ts",
-//"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
-//"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts",         //new25
-//"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"  //new38
-//"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 click on pointer for location during manual run
+//"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
+"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",//? awaits log in button
+//"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok
+//"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
+//"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok
+"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 22/ not in center aand no 22 bike FAIL
+"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14)
+//"c:/dev/umob_appium/tests/specs/login/login.negative.spec.ts", //ok
+//"../tests/specs/newUser/popupAddPaymentMethod.spec.ts", //new13  //ok
+//"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
+//"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts",         //new25 //ok
+//"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok
+"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen, no multi voucher shown, to delete check bonus ride
 
 /*
 //new user tests should be in some order (credentials update required)
