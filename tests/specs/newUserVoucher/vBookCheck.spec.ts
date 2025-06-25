@@ -240,7 +240,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(10000);
+    await driver.pause(8000);
 
     //verify that multi voucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
@@ -251,18 +251,18 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     await expect (selectPayment).toBeDisplayed();
 
     //click to choose limitless vaucher
-    //await vaucher.click();
+    await vaucher.click();
 
     //confirm that you can choose payment without vauchers and select limitless vaucher "multi"
-    // const noVaucher = await driver.$('-android uiautomator:new UiSelector().text("No ride credit")');
-    // await expect (noVaucher).toBeDisplayed();
+    const noVaucher = await driver.$('-android uiautomator:new UiSelector().text("No ride credit")');
+    await expect (noVaucher).toBeDisplayed();
 
     // const checkVaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
     // await expect (checkVaucher).toBeDisplayed();
 
-      //const multiVaucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
-    // await expect (multiVaucher).toBeDisplayed();
-    // await multiVaucher.click();
+      const multiVaucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+    await expect (multiVaucher).toBeDisplayed();
+    await multiVaucher.click();
 
     // Click for booking
     await driver.$(
@@ -277,7 +277,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     await expect (unlockingRide).toBeDisplayed();
 
 
-    await driver.pause(20000);
+    await driver.pause(18000);
     //verify that ride unlocked
     const unlockHeader = await driver.$('-android uiautomator:new UiSelector().text("Ride unlocked")');
     await expect (unlockHeader).toBeDisplayed();
@@ -316,7 +316,7 @@ const openCase = await driver.$('-android uiautomator:new UiSelector().text("OPE
 await expect (openCase).toBeDisplayed();
 
 //verify continue button
-await driver.pause(9000);
+await driver.pause(7000);
 const continueB = await driver.$('-android uiautomator:new UiSelector().text("CONTINUE")');
 await expect (continueB).toBeDisplayed();
 await continueB.click();
@@ -384,7 +384,7 @@ await photoButton.click();
 
 
 
-await driver.pause(12000);
+await driver.pause(10000);
 //verify confirmation for using a picture
 const pictureHeader = await driver.$('-android uiautomator:new UiSelector().text("Use this picture?")');
 await expect (pictureHeader).toBeDisplayed();
