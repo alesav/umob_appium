@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define API token and base URL
-TOKEN="BGbTPWeB5gpD6uKXkuZ6z6YB5okLwrb4nONrBU5Rr1rcjlKi2LJqJQQJ99BDACAAAAAN5uH1AAASAZDO1l3e"
+TOKEN="AlPnxLJLeazqdQjt4rdaRkBsDD1Cy6GSFx6qVIreRBtzQpRjT7IXJQQJ99BFACAAAAAN5uH1AAASAZDO1Sqr"
 BASE_URL="https://dev.azure.com/umob/umob"
 
 # Create temp directory for downloads

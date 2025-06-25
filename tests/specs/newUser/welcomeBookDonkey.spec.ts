@@ -2,13 +2,42 @@ import { execSync } from 'child_process';
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from '../../helpers/SendResults.js';
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to get fixed credentials for the newUser from credentials file
+function getCredentials() {
+  try {
+    const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+    
+    // Always use the newUser from test environment
+    if (!credentials.test || !credentials.test.newUser) {
+      throw new Error('newUser not found in test environment');
+    }
+    
+    // Return the newUser credentials
+    return {
+      username: credentials.test.newUser.username,
+      password: credentials.test.newUser.password
+    };
+  } catch (error) {
+    console.error('Error loading credentials:', error);
+    throw new Error('Failed to load credentials configuration');
+  }
+}
 
 describe('Donkey Bike Booking Test with Welcome voucher for the New User', () => {
 
     before(async () => {
   
-  
-        await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
+        const credentials = getCredentials();
+        await PageObjects.login({ username: credentials.username, password: credentials.password });
 
         const longitude = 4.4744300;
         const latitude = 51.9155956;
