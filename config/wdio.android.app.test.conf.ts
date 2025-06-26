@@ -56,7 +56,7 @@ export const config: WebdriverIO.Config = {
 
 //morning run
 
-//"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
+"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
 
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",//? awaits log in button
 
