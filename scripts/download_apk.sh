@@ -1,8 +1,15 @@
 #!/bin/bash
 
 # Define API token and base URL
-TOKEN="AlPnxLJLeazqdQjt4rdaRkBsDD1Cy6GSFx6qVIreRBtzQpRjT7IXJQQJ99BFACAAAAAN5uH1AAASAZDO1Sqr"
+# TOKEN is now read from environment variable (set via GitHub Actions secrets)
+TOKEN="${AZURE_PAT}"
 BASE_URL="https://dev.azure.com/umob/umob"
+
+# Check if TOKEN is set
+if [ -z "$TOKEN" ]; then
+  echo "Error: AZURE_PWA environment variable is not set. Please check your GitHub Actions secrets."
+  exit 1
+fi
 
 # Create temp directory for downloads
 TEMP_DIR=$(mktemp -d)
