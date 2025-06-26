@@ -81,7 +81,7 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   new40 (comment update)
     "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",      ///new13   //new40
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //new40
-    "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always new welcome voucher required//new20  //new40
+   // "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always new welcome voucher required//new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once
 */
 

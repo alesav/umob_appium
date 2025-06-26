@@ -101,7 +101,7 @@ describe("Donkey Bike Booking Test", () => {
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
-                '-android uiautomator:new UiSelector().text("UMOB Bike 2 2")',
+                '-android uiautomator:new UiSelector().text("UMOB Bike 2 4")',
             );
             await umob20Button.click();
 
