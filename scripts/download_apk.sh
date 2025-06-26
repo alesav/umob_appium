@@ -2,7 +2,7 @@
 
 # Define API token and base URL
 # TOKEN is now read from environment variable (set via GitHub Actions secrets)
-TOKEN="${AZURE_PWA}"
+TOKEN="${AZURE_PAT}"
 BASE_URL="https://dev.azure.com/umob/umob"
 
 # Check if TOKEN is set
