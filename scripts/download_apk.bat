@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 echo ===== Android Build Downloader and Installer for Windows =====
 
 REM Define API token and base URL
-set TOKEN=57bZ8u4IUjbxgvtsghx7OejOSE7GwWSaRld7pucB0shh9vnP5ShjJQQJ99BFACAAAAAN5uH1AAASAZDOR32f
+set TOKEN="TOKEN_PLACEHOLDER"
 set BASE_URL=https://dev.azure.com/umob/umob
 
 REM Create temp directory for downloads
