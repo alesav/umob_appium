@@ -136,7 +136,7 @@ describe("Book Public Transport", () => {
                       { type: 'pointerUp', button: 0 },
                   ],
               },]);
-              await driver.pause(1000);
+              await driver.pause(2000);
 /*
             //scroll to bottom
 await driver.pause(2000);
