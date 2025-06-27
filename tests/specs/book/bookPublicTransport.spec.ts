@@ -93,7 +93,7 @@ describe("Book Public Transport", () => {
             await PageObjects.planTripBtn.click();
 
             await driver.pause(2000);
-
+/*
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -121,6 +121,36 @@ describe("Book Public Transport", () => {
             ]);
 
             await driver.pause(1000);
+            */
+            const { width, height } = await driver.getWindowSize();
+            await driver.performActions([
+              {
+                  type: 'pointer',
+                  id: 'finger1',
+                  parameters: { pointerType: 'touch' },
+                  actions: [
+                      { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+                      { type: 'pointerDown', button: 0 },
+                      { type: 'pause', duration: 100 },
+                      { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+                      { type: 'pointerUp', button: 0 },
+                  ],
+              },]);
+              await driver.pause(2000);
+/*
+            //scroll to bottom
+await driver.pause(2000);
+const { width, height } = await driver.getWindowSize();
+await driver.executeScript('mobile: scrollGesture', [{
+ left: width/2,
+ top: 0,
+ width: 0,
+ height: height*0.8,
+ direction: 'down',
+ percent: 2
+}]);
+await driver.pause(1000);
+*/
 
             // Click to choose public transport
             const ptButton = await driver.$(

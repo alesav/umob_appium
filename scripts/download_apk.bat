@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 echo ===== Android Build Downloader and Installer for Windows =====
 
 REM Define API token and base URL
-set TOKEN=BGbTPWeB5gpD6uKXkuZ6z6YB5okLwrb4nONrBU5Rr1rcjlKi2LJqJQQJ99BDACAAAAAN5uH1AAASAZDO1l3e
+set TOKEN="TOKEN_PLACEHOLDER"
 set BASE_URL=https://dev.azure.com/umob/umob
 
 REM Create temp directory for downloads
@@ -34,10 +34,11 @@ if %ERRORLEVEL% NEQ 0 (
     goto :cleanup_and_exit
 )
 
-REM Get 20 latest build IDs - save JSON response to a file first to avoid pipe issues
-echo Fetching 20 latest build IDs...
+REM Get 50 latest build IDs - save JSON response to a file first to avoid pipe issues
+echo Fetching 50 latest build IDs...
 
-for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9&$top=20^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | map(.id) | .[]"') do (    
+for /f "tokens=*" %%a in ('curl -s -u :%TOKEN% "%BASE_URL%/_apis/build/builds?definitions=9^&api-version=7.1-preview.7" ^| jq -r ".value | sort_by(.startTime) | reverse | .[0:50] | map(.id) | .[]"') do (
+
     set BUILD_IDS=!BUILD_IDS! %%a
 )
 
@@ -120,7 +121,7 @@ for %%b in (%BUILD_IDS%) do (
     echo ------------------------
 )
 
-echo No android-Test artifacts were found in the latest 10 builds.
+echo No android-Test artifacts were found in the latest 50 builds.
 
 :cleanup_and_exit
 REM Clean up
