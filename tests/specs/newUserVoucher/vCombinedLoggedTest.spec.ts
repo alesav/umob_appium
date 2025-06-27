@@ -786,10 +786,10 @@ await expect(backButton).toBeDisplayed();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 1000 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: 5 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -2187,17 +2187,17 @@ await driver.performActions([
     await driver.pause(6000);
 
     */
-    
+    await driver.pause(2000);
     await driver.performActions([
       {
           type: 'pointer',
           id: 'finger4',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 900 },
+              { type: 'pointerMove', duration: 0, x: width/3, y: 850 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/3, y: 50 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
