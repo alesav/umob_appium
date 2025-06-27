@@ -165,7 +165,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
       );
     await driver.pause(3000);
     
-    await driver.terminateApp("com.umob.umob");
+    //await driver.terminateApp("com.umob.umob");
   });
 
   beforeEach(async () => {
