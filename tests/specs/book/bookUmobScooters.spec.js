@@ -145,12 +145,15 @@ class ScooterBookingActions {
 
     await driver.pause(4000);
 
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
     execSync(`adb shell input tap ${centerX} ${centerY}`);
   }

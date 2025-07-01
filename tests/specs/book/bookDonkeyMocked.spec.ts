@@ -92,12 +92,15 @@ describe("Donkey Bike Booking Test", () => {
             const centerX = Math.round(width / 2);
 
             // Center screen click
-            await driver
-                .action("pointer")
-                .move({ x: centerX, y: Math.round(height / 2) })
-                .down()
-                .up()
-                .perform();
+            // await driver
+            //     .action("pointer")
+            //     .move({ x: centerX, y: Math.round(height / 2) })
+            //     .down()
+            //     .up()
+            //     .perform();
+
+            //Click on middle of the screen
+await AppiumHelpers.clickCenterOfScreen();
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(

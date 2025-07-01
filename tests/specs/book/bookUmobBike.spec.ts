@@ -270,12 +270,15 @@ try {
     const { centerX, centerY } = await getScreenCenter();
 
     // Click exactly in the center
-     await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    //  await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+await AppiumHelpers.clickCenterOfScreen();
 
      // Click Understood
      //  await driver.$(
@@ -511,12 +514,15 @@ try {
       const { centerX, centerY } = await getScreenCenter();
   
       // Click exactly in the center
-      await driver
-        .action("pointer")
-        .move({ x: centerX, y: centerY })
-        .down()
-        .up()
-        .perform();
+      // await driver
+      //   .action("pointer")
+      //   .move({ x: centerX, y: centerY })
+      //   .down()
+      //   .up()
+      //   .perform();
+      
+      //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
         // test notification about service area
       await driver.$(

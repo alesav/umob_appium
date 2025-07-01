@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 const API_URL = 'https://backend-test.umobapp.com/api/tomp/mapboxmarkers';
 const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiJiMzI0ZDRlNy01OGNmLTRkZTMtOWE2Yi04N2YxYzcyYzM0ZjUiLCJ1bmlxdWVfbmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJBbGVrcyIsImZhbWlseV9uYW1lIjoiU2F2IiwiZW1haWwiOiI0YmlnZm9vdCsxOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwicGhvbmVfbnVtYmVyIjoiKzMxOTcwMTA1ODc3MjQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjRkYTQ1MTk2LTA2OTEtYjg4MC04MTM2LTNhMTZlNTk4OWY2NSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiIyYTlhNjMwNS1hMjYxLTgwMjQtOTQ5Yy0zYTE2ZTU5ODlmN2EiLCJhdWQiOiJ1TW9iIiwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyB1TW9iIiwianRpIjoiY2QyM2VlMzktMTE2Mi00ZDhmLTkyMDgtZDgxMDdiZTc2MGYxIiwiaXNzIjoiaHR0cHM6Ly9iYWNrZW5kLXRlc3QudW1vYmFwcC5jb20vIiwiZXhwIjoxNzQyMTk0ODc2LCJpYXQiOjE3MzQ0MTg4NzZ9.u6ndZq46MDie48o9UNmzjTzAmSpyEJcHEmgKWkKB_UT0EC6vQXSIifrrD3KtFy9gD_Y0DFa3k043uRvEp7Cp1Gnu1OEWl6BKjIi0FOZ4yHTHPgTLhSQWSFfxJx_0yjtanvmC5aFg-t6kGvA76S8QMlbNYOKJf9R3mv3fPmnC1jIRMlZeIuikzHBJ1D3czlx1Pk3lFjsWoQcdZbWEpsRY4PEv28uLfh46COq2myEHDA_mk9WG-V7ocPuNRYiHamHcjttHem5Y_yNNUfoXDPwsQSlehtAuZnB6dyIL1C5OrNl5ZfyFiD1p6XWuBAFUmh5wOSWE23Fmm8fruD2UXSPPWg';
 
@@ -189,12 +189,15 @@ describe('Lime Scooter Booking Tests', () => {
     const { centerX, centerY } = await getScreenCenter();
 
     // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
     // Click Understood
     await driver.$(
@@ -333,12 +336,15 @@ describe('Lime Scooter Booking Tests', () => {
     const { centerX, centerY } = await getScreenCenter();
 
     // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
         // Click Start
         await driver.$(
@@ -380,12 +386,15 @@ describe('Lime Scooter Booking Tests', () => {
     const { centerX, centerY } = await getScreenCenter();
 
     // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
 
         // Click Start
@@ -429,12 +438,15 @@ describe('Lime Scooter Booking Tests', () => {
       const { centerX, centerY } = await getScreenCenter();
   
       // Click exactly in the center
-      await driver
-        .action("pointer")
-        .move({ x: centerX, y: centerY })
-        .down()
-        .up()
-        .perform();
+      // await driver
+      //   .action("pointer")
+      //   .move({ x: centerX, y: centerY })
+      //   .down()
+      //   .up()
+      //   .perform();
+
+      //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
   
             // Click Understood
       await driver.$(

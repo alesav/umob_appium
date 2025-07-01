@@ -246,12 +246,15 @@ describe("Reserve Felyx Test", () => {
             await driver.pause(2000);
 
             // Click exactly in the center
-            await driver
-                .action("pointer")
-                .move({ x: centerX, y: centerY })
-                .down()
-                .up()
-                .perform();
+            // await driver
+            //     .action("pointer")
+            //     .move({ x: centerX, y: centerY })
+            //     .down()
+            //     .up()
+            //     .perform();
+
+            //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
             // Click Understood
             // await driver.$(

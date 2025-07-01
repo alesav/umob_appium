@@ -211,12 +211,15 @@ scooters = await fetchScooterCoordinates();
       //await applyFilters();
       const { centerX, centerY } = await getScreenCenter();
 
-      await driver
-        .action("pointer")
-        .move({ x: centerX, y: centerY })
-        .down()
-        .up()
-        .perform();
+      // await driver
+      //   .action("pointer")
+      //   .move({ x: centerX, y: centerY })
+      //   .down()
+      //   .up()
+      //   .perform();
+
+      //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
       await driver.pause(4000);
       const prices = await driver.$('-android uiautomator:new UiSelector().textContains("to start")');

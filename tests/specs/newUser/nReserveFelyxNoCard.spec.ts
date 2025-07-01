@@ -232,12 +232,15 @@ describe('Trying to Reserve Felyx by a New User Without a Card', () => {
     const { centerX, centerY } = await getScreenCenter();
 
     // Click exactly in the center
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: centerY })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: centerY })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
     // Click Understood
     // await driver.$(
