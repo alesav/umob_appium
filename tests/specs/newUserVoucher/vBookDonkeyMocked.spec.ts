@@ -87,11 +87,11 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
  try {
 
     // Set initial location
-    await AppiumHelpers.setLocationAndRestartApp(
-      4.4744301, 
-      51.9155956
-    );
-    await driver.pause(5000);
+    // await AppiumHelpers.setLocationAndRestartApp(
+    //   4.4744301, 
+    //   51.9155956
+    // );
+    // await driver.pause(5000);
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
@@ -104,6 +104,24 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
       .down()
       .up()
       .perform();
+
+
+
+
+// Tap at center using W3C Actions
+await driver.performActions([{
+    type: 'pointer',
+    id: 'finger1',
+    parameters: { pointerType: 'touch' },
+    actions: [
+        { type: 'pointerMove', duration: 0, x: width / 2, y: height / 2 },
+        { type: 'pointerDown', button: 0 },
+        { type: 'pointerUp', button: 0 }
+    ]
+}]);
+
+// Release actions to clean up
+await driver.releaseActions();
 
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
