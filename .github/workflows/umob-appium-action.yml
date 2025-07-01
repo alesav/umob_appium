@@ -34,7 +34,7 @@ jobs:
               env:
                 AZURE_PAT: ${{ secrets.AZURE_PAT }}
               with:
-                api-level: 31
+                api-level: 33
                 profile: pixel
                 disable-animations: true
                 emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -packet-streamer-endpoint default
