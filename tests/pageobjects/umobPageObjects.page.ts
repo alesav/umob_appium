@@ -25,9 +25,14 @@ class PageObjects extends Page {
     get flash() {
         return $("#flash");
     }
-    get accountButton() {
+    // get accountButton() {
+    //     return $(
+    //         '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)',
+    //     );
+    // }
+        get accountButton() {
         return $(
-            '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)',
+            "accessibility id:menu_account_button",
         );
     }
     get planTripBtn() {
@@ -132,13 +137,13 @@ class PageObjects extends Page {
             await permissionsPopup.click();
 
             console.log("deviceInfo " + deviceCapabilities);
-            if (deviceCapabilities.includes("Local")) {
-                const enableNotifications = await driver.$(
-                    "id:com.android.permissioncontroller:id/permission_allow_button",
-                );
-                await expect(enableNotifications).toBeDisplayed();
-                await enableNotifications.click();
-            }
+            // if (deviceCapabilities.includes("Local")) {
+            //     const enableNotifications = await driver.$(
+            //         "id:com.android.permissioncontroller:id/permission_allow_button",
+            //     );
+            //     await expect(enableNotifications).toBeDisplayed();
+            //     await enableNotifications.click();
+            // }
 
             await driver.pause(5000);
             // const permissionsPopup2 = await driver.$(
@@ -158,7 +163,7 @@ class PageObjects extends Page {
             await permissionsPopup3.isDisplayed();
             await permissionsPopup3.click();
 
-           // await this.accountButton.waitForExist();
+            await this.accountButton.waitForExist();
         } catch (e) {
             error = e;
             console.error("Login failed:", error);

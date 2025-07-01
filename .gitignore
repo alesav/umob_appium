@@ -21,5 +21,6 @@ chromeDriver
 screenshots/
 
 app/
+scripts/local.sh
 
 .github/workflows/umob-appium-action.yml
