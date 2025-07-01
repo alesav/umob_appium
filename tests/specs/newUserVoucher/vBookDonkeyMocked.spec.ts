@@ -91,42 +91,47 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     //   4.4744301, 
     //   51.9155956
     // );
-    // await driver.pause(5000);
+     await driver.pause(5000);
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
     const centerX = Math.round(width / 2);
     
     // Center screen click
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: Math.round(height / 2) })
-      .down()
-      .up()
-      .perform();
+    // await driver
+    //   .action("pointer")
+    //   .move({ x: centerX, y: Math.round(height / 2) })
+    //   .down()
+    //   .up()
+    //   .perform();
+
+//Click on middle of the screen
+    const middleScreen = await driver.$('-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")');
+       await expect (middleScreen).toBeDisplayed();
+    await middleScreen.click();
 
 
+// // Tap at center using W3C Actions
+// await driver.performActions([{
+//     type: 'pointer',
+//     id: 'finger1',
+//     parameters: { pointerType: 'touch' },
+//     actions: [
+//         { type: 'pointerMove', duration: 0, x: width / 2, y: height / 2 },
+//         { type: 'pointerDown', button: 0 },
+//         { type: 'pointerUp', button: 0 }
+//     ]
+// }]);
 
-
-// Tap at center using W3C Actions
-await driver.performActions([{
-    type: 'pointer',
-    id: 'finger1',
-    parameters: { pointerType: 'touch' },
-    actions: [
-        { type: 'pointerMove', duration: 0, x: width / 2, y: height / 2 },
-        { type: 'pointerDown', button: 0 },
-        { type: 'pointerUp', button: 0 }
-    ]
-}]);
-
-// Release actions to clean up
-await driver.releaseActions();
+// // Release actions to clean up
+// await driver.releaseActions();
 
 await driver.execute('mobile: shell', {
     command: 'input',
     args: ['tap', String(width / 2), String(height / 2)]
 });
+
+
 
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
