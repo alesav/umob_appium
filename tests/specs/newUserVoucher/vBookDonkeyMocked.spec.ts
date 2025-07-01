@@ -123,6 +123,11 @@ await driver.performActions([{
 // Release actions to clean up
 await driver.releaseActions();
 
+await driver.execute('mobile: shell', {
+    command: 'input',
+    args: ['tap', String(width / 2), String(height / 2)]
+});
+
     // Click UMOB Bike 20 button
     const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
     await umob20Button.click();
