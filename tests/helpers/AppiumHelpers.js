@@ -66,8 +66,8 @@ export default class AppiumHelpers {
     await driver.pause(5000);
     //await driver.terminateApp("com.umob.umob");
     //await driver.activateApp("com.umob.umob");
-    await PageObjects.accountButton.waitForExist();
-    await driver.pause(5000);
+    //await PageObjects.accountButton.waitForExist();
+    //await driver.pause(1000);
     const locationButton = await driver.$('-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)');
     await locationButton.waitForEnabled();
     await driver.pause(1000);
@@ -133,5 +133,11 @@ export default class AppiumHelpers {
     await driver.pause(1000);
     await locationButton.click();
     await driver.pause(1000);
+  }
+
+    static async clickCenterOfScreen() {
+    const middleScreen = await driver.$('-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")');
+       await expect (middleScreen).toBeDisplayed();
+    await middleScreen.click();
   }
 }

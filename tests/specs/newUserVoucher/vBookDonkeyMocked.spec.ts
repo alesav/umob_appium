@@ -106,9 +106,7 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     //   .perform();
 
 //Click on middle of the screen
-    const middleScreen = await driver.$('-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")');
-       await expect (middleScreen).toBeDisplayed();
-    await middleScreen.click();
+await AppiumHelpers.clickCenterOfScreen();
 
 
 // // Tap at center using W3C Actions
