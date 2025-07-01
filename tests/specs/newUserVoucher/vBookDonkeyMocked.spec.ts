@@ -126,10 +126,10 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
 // // Release actions to clean up
 // await driver.releaseActions();
 
-await driver.execute('mobile: shell', {
-    command: 'input',
-    args: ['tap', String(width / 2), String(height / 2)]
-});
+// await driver.execute('mobile: shell', {
+//     command: 'input',
+//     args: ['tap', String(width / 2), String(height / 2)]
+// });
 
 
 
@@ -181,7 +181,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },

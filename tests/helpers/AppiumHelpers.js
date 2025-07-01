@@ -64,8 +64,8 @@ export default class AppiumHelpers {
     }
 
     await driver.pause(5000);
-    await driver.terminateApp("com.umob.umob");
-    await driver.activateApp("com.umob.umob");
+    //await driver.terminateApp("com.umob.umob");
+    //await driver.activateApp("com.umob.umob");
     await PageObjects.accountButton.waitForExist();
     await driver.pause(5000);
     const locationButton = await driver.$('-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)');
