@@ -150,6 +150,14 @@ class PageObjects extends Page {
             await permissionsPopup2.isDisplayed();
             await permissionsPopup2.click();
 
+                        await driver.pause(5000);
+             const permissionsPopup3 = await driver.$(
+                 '-android uiautomator:new UiSelector().textContains("hile using the app")',
+             );
+
+            await permissionsPopup3.isDisplayed();
+            await permissionsPopup3.click();
+
             await this.accountButton.waitForExist();
         } catch (e) {
             error = e;
