@@ -140,9 +140,12 @@ class PageObjects extends Page {
                 await enableNotifications.click();
             }
 
-            await driver.pause(2000);
-            const permissionsPopup2 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("hile using the app")',
+            await driver.pause(5000);
+            // const permissionsPopup2 = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("hile using the app")',
+            // );
+                        const permissionsPopup2 = await driver.$(
+                'id:com.android.permissioncontroller:id/permission_allow_button',
             );
             await permissionsPopup2.isDisplayed();
             await permissionsPopup2.click();
