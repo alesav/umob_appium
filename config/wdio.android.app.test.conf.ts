@@ -52,7 +52,7 @@ export const config: WebdriverIO.Config = {
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
-//"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new31 stop booking after night run
+//"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
 //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
 
 ///////////////////////////////////////////////////////////////////////////////////
