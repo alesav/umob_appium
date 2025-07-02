@@ -10,32 +10,21 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to load credentials based on environment and user
-function getCredentials(environment = 'test', userKey = null) {
+// Function to get fixed credentials for the newUser from credentials file
+function getCredentials() {
   try {
     const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
     const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
     
-    // Check if environment exists
-    if (!credentials[environment]) {
-      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
-      environment = 'test';
+    // Always use the newUser from test environment
+    if (!credentials.test || !credentials.test.newUser) {
+      throw new Error('newUser not found in test environment');
     }
     
-    const envUsers = credentials[environment];
-    
-    // If no specific user is requested, use the first user in the environment
-    if (!userKey) {
-      userKey = Object.keys(envUsers)[0];
-    } else if (!envUsers[userKey]) {
-      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
-      userKey = Object.keys(envUsers)[0];
-    }
-    
-    // Return the user credentials
+    // Return the newUser credentials
     return {
-      username: envUsers[userKey].username,
-      password: envUsers[userKey].password
+      username: credentials.test.newUser.username,
+      password: credentials.test.newUser.password
     };
   } catch (error) {
     console.error('Error loading credentials:', error);
@@ -43,24 +32,15 @@ function getCredentials(environment = 'test', userKey = null) {
   }
 }
 
-// Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new17';
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
+describe('Donkey Bike Booking Test with Welcome voucher for the New User', () => {
 
     before(async () => {
   
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials();
         await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-        //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
-
-
-        const longitude = 4.4744301;
-      const latitude = 51.9155956;
+        const longitude = 4.4744300;
+        const latitude = 51.9155956;
 
         await AppiumHelpers.setLocationAndRestartApp(
           longitude, 
@@ -75,9 +55,9 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     await driver.activateApp("com.umob.umob");
   });
 
-  it('Book Donkey UMOB Bike 20 with multi voucher', async () => {
+  it('Book Donkey UMOB Bike 20 with Welcome voucher for the New User', async () => {
 
-    const testId = "5599063f-c9d2-427c-89eb-bcc23d3c669f"
+    const testId = "594c7a95-242a-48f6-9fbf-6a6d29911fc5"
     // Send results
  let testStatus = "Pass";
  let screenshotPath = "";
@@ -87,11 +67,11 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
  try {
 
     // Set initial location
-    // await AppiumHelpers.setLocationAndRestartApp(
-    //   4.4744301, 
-    //   51.9155956
-    // );
-     await driver.pause(5000);
+    await AppiumHelpers.setLocationAndRestartApp(
+      4.4744301, 
+      51.9155956
+    );
+    await driver.pause(5000);
 
     // Get screen dimensions for click positioning
     const { width, height } = await driver.getWindowSize();
@@ -105,45 +85,22 @@ describe('Donkey Bike Booking Test with unlimited multi voucher', () => {
     //   .up()
     //   .perform();
 
-//Click on middle of the screen
-await AppiumHelpers.clickCenterOfScreen();
-
-
-// // Tap at center using W3C Actions
-// await driver.performActions([{
-//     type: 'pointer',
-//     id: 'finger1',
-//     parameters: { pointerType: 'touch' },
-//     actions: [
-//         { type: 'pointerMove', duration: 0, x: width / 2, y: height / 2 },
-//         { type: 'pointerDown', button: 0 },
-//         { type: 'pointerUp', button: 0 }
-//     ]
-// }]);
-
-// // Release actions to clean up
-// await driver.releaseActions();
-
-// await driver.execute('mobile: shell', {
-//     command: 'input',
-//     args: ['tap', String(width / 2), String(height / 2)]
-// });
-
-
+    //Click on middle of the screen
+	await AppiumHelpers.clickCenterOfScreen();
 
     // Click UMOB Bike 20 button
-    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 3")');
+    const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
     await umob20Button.click();
 
     //verify that new user voucher is visible
-    const voucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+    const voucher = await driver.$('-android uiautomator:new UiSelector().textContains("New User Donkey")');
     await expect (voucher).toBeDisplayed();
 
     //verify that payment card is displayed
     const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("**** **** 1115")');
     await expect (selectPayment).toBeDisplayed();
-    
 
+    /*
     //click to choose limitless voucher
     await voucher.click();
     await driver.pause(2000);
@@ -155,7 +112,7 @@ await AppiumHelpers.clickCenterOfScreen();
     const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
     await expect (multiVoucher).toBeDisplayed();
     await multiVoucher.click();
-    await driver.pause(2000);
+    await driver.pause();
 
 
 
@@ -163,34 +120,28 @@ await AppiumHelpers.clickCenterOfScreen();
         await expect (selectPayment).toBeDisplayed();
         await expect (multiVoucher).toBeDisplayed();
 
-    /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
+    
+      */
 
-      
-      await driver.pause(2000);
+        
 await driver.performActions([
   {
       type: 'pointer',
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
+          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
-  await driver.pause(2000);
+  await driver.pause(1000);
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("START TRIP")');
+    const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
 
@@ -199,15 +150,13 @@ await driver.performActions([
 
     await driver.pause(2000);
 
-    //there is no permission in github actions
     //allow permission 
-    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    // await expect(permission).toBeDisplayed();
-    // await permission.click();
-    // await driver.pause(3000);
+    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    await expect(permission).toBeDisplayed();
+    await permission.click();
+    await driver.pause(3000);
 
     //Scroll to bottom
-    /*
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
       top: 1500,
@@ -216,24 +165,6 @@ await driver.performActions([
       direction: 'down',
       percent: 100
     }]); 
-    */
-
-    
-      await driver.pause(2000);
-await driver.performActions([
-  {
-      type: 'pointer',
-      id: 'finger1',
-      parameters: { pointerType: 'touch' },
-      actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
-          { type: 'pointerDown', button: 0 },
-          { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
-          { type: 'pointerUp', button: 0 },
-      ],
-  },]);
-  await driver.pause(7000);
 
     
 
@@ -264,21 +195,20 @@ await driver.performActions([
     const header = await driver.$('-android uiautomator:new UiSelector().text("Ride")');
     await expect(header).toBeDisplayed();
 
+     //verify used voucher is dispayed
+     const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
+     await expect(usedVoucher).toBeDisplayed();
+
     //verify that there is 0euro price
     const zeroEuro = await driver.$('-android uiautomator:new UiSelector().textContains("€0.")');
     await expect(zeroEuro).toBeDisplayed();
 
-    //verify used voucher is dispayed
-    const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
-    await expect(usedVoucher).toBeDisplayed();
+   
 
     //verify used voucher is dispayed
-    const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
+    const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("New User")');
     await expect(multiVoucher1).toBeDisplayed();
 
-    */
-
-    /*
     //Scroll to bottom
     await driver.executeScript('mobile: scrollGesture', [{
       left: 100,
@@ -290,35 +220,21 @@ await driver.performActions([
     }]); 
     */
 
-    
-      await driver.pause(2000);
-await driver.performActions([
-  {
-      type: 'pointer',
-      id: 'finger1',
-      parameters: { pointerType: 'touch' },
-      actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
-          { type: 'pointerDown', button: 0 },
-          { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
-          { type: 'pointerUp', button: 0 },
-      ],
-  },]);
-  await driver.pause(2000);
-
     //click got it button
     const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
     await expect(gotIt).toBeDisplayed();
     await gotIt.click();
 
+    
      // Click not now button
-     const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
-     await expect(notNowButton).toBeDisplayed();
-     await notNowButton.click();
+    const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
+    await expect(notNowButton).toBeDisplayed();
+    await notNowButton.click();
 
-    //verify that main map screen is displayed
+    // Click on Account button
     await PageObjects.clickAccountButton();
+
+    await driver.pause(2000);
 
     //verify that my account screen is displayed
     const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');
@@ -339,7 +255,6 @@ await driver.performActions([
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
-
     testStatus = "Fail";
     testDetails = e.message;
   
