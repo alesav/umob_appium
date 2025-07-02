@@ -160,7 +160,7 @@ await driver.performActions([
     await driver.pause(2000);
 
     //verify header and offer for choosing payment method
-    const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("PAYMENT METHODS")');
     await expect(paymentHeader).toBeDisplayed();
 
     const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
