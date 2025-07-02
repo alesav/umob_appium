@@ -128,9 +128,9 @@ const getScreenCenter = async () => {
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
-          radius: 1166.6137310913994,
+          longitude: 4.47997,
+          latitude: 51.921,
+          radius: 200.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],

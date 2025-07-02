@@ -884,9 +884,9 @@ await driver.performActions([
     // await expect(permission2).toBeDisplayed();
     // await permission2.click();
 
-    // const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"ALLOW\")");
-    // await expect(allowBut).toBeDisplayed();
-    // await allowBut.click();
+    const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"While using\")");
+    await expect(allowBut).toBeDisplayed();
+    await allowBut.click();
 
     //verify onfido screen
     const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");
@@ -2199,6 +2199,7 @@ await driver.performActions([
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
+    await cancelButtonText.click();
 
   } catch (e) {
     error = e;

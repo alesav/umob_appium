@@ -125,9 +125,9 @@ const getScreenCenter = async () => {
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
-          radius: 1166.6137310913994,
+          longitude: 4.47997,
+          latitude: 51.921,
+          radius: 200.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],
@@ -167,8 +167,8 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
 
-    const longitude = 4.47586407;
-  const latitude = 51.92502035;
+    const longitude = 4.47997;
+  const latitude = 51.921;
 
   await AppiumHelpers.setLocationAndRestartApp(
     longitude, 

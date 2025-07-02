@@ -51,7 +51,7 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
              "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //didnt run
              "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //didnt run
-             "../tests/specs/login/*.spec.ts", //positive scenarios ok, negative scenarios PERMISSIONS required
+             "../tests/specs/login/*.spec.ts", //positive scenarios ok, negative scenarios PERMISSIONS required but there are
              "../tests/specs/book/bookUmobMoped.spec.ts", //parking photo?
              "../tests/specs/book/reserveCheck.spec.ts",
              //"../tests/specs/notLoggedTests/*.spec.ts"
@@ -62,14 +62,14 @@ export const config: WebdriverIO.Config = {
               */
             //  "../tests/specs/book/reserveFelyx.spec.ts"
             //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-            "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-            "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
-           "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-           "../tests/specs/book/bookTaxi.spec.ts",
-           "../tests/specs/book/bookUmobMoped.spec.ts",
-           "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-           "../tests/specs/book/reserveCheck.spec.ts",
-           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+        //     "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //timeout problem
+        //     "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+        //    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+        //    "../tests/specs/book/bookTaxi.spec.ts",
+        //    "../tests/specs/book/bookUmobMoped.spec.ts", //photo problem
+        //    "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //choosing from outside of area
+        //    "../tests/specs/book/reserveCheck.spec.ts",
+        //    "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 
         //    "../tests/specs/book/bookPublicTransport.spec.ts",
         //   "../tests/specs/book/bookUmobBike.spec.ts",
@@ -77,7 +77,7 @@ export const config: WebdriverIO.Config = {
           // "../tests/specs/book/bookUmobBike.spec.ts"
           
           
-/*
+
 //night run
 
            "../tests/specs/account/*.spec.ts",
@@ -95,6 +95,7 @@ export const config: WebdriverIO.Config = {
           //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
           //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
+          
 
           //book folder
           "../tests/specs/book/bookPublicTransport.spec.ts",
@@ -107,7 +108,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveFelyx.spec.ts",
           "../tests/specs/book/failedPaymentNoBooking.spec.ts"
          
-    */
+    
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
