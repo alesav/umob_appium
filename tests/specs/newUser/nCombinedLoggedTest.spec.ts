@@ -874,19 +874,19 @@ await driver.performActions([
     await startVerification.click();
 
     //allow permission for mobile
-    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-    // await expect(permission).toBeDisplayed();
-    // await permission.click();
-    // await driver.pause(2000);
+    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    await expect(permission).toBeDisplayed();
+    await permission.click();
+    await driver.pause(2000);
 
     //allow permission for mobile
     // const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
     // await expect(permission2).toBeDisplayed();
     // await permission2.click();
 
-    const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"ALLOW\")");
-    await expect(allowBut).toBeDisplayed();
-    await allowBut.click();
+    // const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"ALLOW\")");
+    // await expect(allowBut).toBeDisplayed();
+    // await allowBut.click();
 
     //verify onfido screen
     const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");

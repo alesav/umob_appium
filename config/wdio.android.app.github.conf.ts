@@ -61,8 +61,15 @@ export const config: WebdriverIO.Config = {
 
               */
             //  "../tests/specs/book/reserveFelyx.spec.ts"
-            "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-           "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+            //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+            "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+            "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+           "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+           "../tests/specs/book/bookTaxi.spec.ts",
+           "../tests/specs/book/bookUmobMoped.spec.ts",
+           "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
+           "../tests/specs/book/reserveCheck.spec.ts",
+           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 
         //    "../tests/specs/book/bookPublicTransport.spec.ts",
         //   "../tests/specs/book/bookUmobBike.spec.ts",
