@@ -39,17 +39,23 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
              /// "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
              // "../tests/specs/book/bookPublicTransport.spec.ts",
-              "../tests/specs/book/bookDonkeyMocked.spec.ts",
+             // "../tests/specs/book/bookDonkeyMocked.spec.ts",
               "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
-              "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts",
+              "../tests/specs/newUser/nReserveDonkeyNoCard.spec.ts", //js to be checked
               "../tests/specs/book/bookUmobScooters.spec.js", //js file
-              "../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
+              "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+              "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
 
             //  "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-            // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+             "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+             "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+             "../tests/specs/login/*.spec.ts",
+             "../tests/specs/book/bookUmobMoped.spec.ts",
+             "../tests/specs/book/reserveCheck.spec.ts",
              //"../tests/specs/notLoggedTests/*.spec.ts"
              //"../tests/specs/book/failedPaymentNoBooking.spec.ts"
-            //  "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+              "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+              "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
             //  "../tests/specs/book/reserveFelyx.spec.ts"
            //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
 

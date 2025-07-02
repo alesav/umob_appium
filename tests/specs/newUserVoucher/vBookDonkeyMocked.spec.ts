@@ -197,14 +197,14 @@ await driver.performActions([
     await continueButton.click();
 
 
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     //there is no permission in github actions
     //allow permission 
-    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-    // await expect(permission).toBeDisplayed();
-    // await permission.click();
-    // await driver.pause(3000);
+    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+    await expect(permission).toBeDisplayed();
+    await permission.click();
+    await driver.pause(3000);
 
     //Scroll to bottom
     /*
