@@ -89,9 +89,26 @@ describe('Login positive scenarios', () => {
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
 
-            const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-            await expect(allowForegroundPermissionBtn).toBeDisplayed();
-            await allowForegroundPermissionBtn.click();
+            const permissionsPopup = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Allow")',
+            );
+            await permissionsPopup.isDisplayed();
+            await expect(permissionsPopup).toBeDisplayed();
+            await permissionsPopup.click();
+
+            const permissionsPopup2 = await driver.$(
+                'id:com.android.permissioncontroller:id/permission_allow_button',
+            );
+            await permissionsPopup2.isDisplayed();
+            await permissionsPopup2.click();
+
+            await driver.pause(5000);
+
+            const permissionsPopup3 = await driver.$(
+                 '-android uiautomator:new UiSelector().textContains("hile using the app")',
+             );
+            await permissionsPopup3.isDisplayed();
+            await permissionsPopup3.click();
 
             await PageObjects.clickAccountButton();
 

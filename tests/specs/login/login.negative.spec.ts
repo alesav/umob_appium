@@ -44,11 +44,14 @@ describe('Login Negative Scenarios', () => {
     await loginButton.click();
 
                 // // Wait for permissions popup
-                // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")');
-                // await permissionsPopup.isDisplayed();
-                // await expect(permissionsPopup).toBeDisplayed();
-                // await permissionsPopup.click();
+            const permissionsPopup = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Allow")',
+            );
+            await permissionsPopup.isDisplayed();
+            await expect(permissionsPopup).toBeDisplayed();
+            await permissionsPopup.click();
 
+            
                 console.log("deviceInfo "+ deviceCapabilities);
                 if (deviceCapabilities.includes("Local")) {
                     const enableNotifications = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
@@ -125,6 +128,13 @@ describe('Login Negative Scenarios', () => {
     const loginButton = await driver.$("accessibility id:login_button");
     await expect(loginButton).toBeDisplayed();
     await loginButton.click();
+
+                const permissionsPopup = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Allow")',
+            );
+            await permissionsPopup.isDisplayed();
+            await expect(permissionsPopup).toBeDisplayed();
+            await permissionsPopup.click();
     
 
     // Verify error message
