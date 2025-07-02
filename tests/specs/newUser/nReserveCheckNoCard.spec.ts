@@ -111,8 +111,8 @@ const getScreenCenter = async () => {
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.470424,
+          latitude: 51.922954,
           radius: 2000,
           zoomLevel: 15.25,
           subOperators: [],
@@ -220,8 +220,8 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     // ).click();
     await driver.pause(6000);
 
-    const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
-       await laterButton.click();
+    //const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+      // await laterButton.click();
 
     //verify that new user vaucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
@@ -264,7 +264,7 @@ describe('Trying to Reserve Check by a New User Without a Card', () => {
     await driver.pause(3000);
 
     //verify header and offer for choosing payment method
-    const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("PAYMENT METHODS")');
     await expect(paymentHeader).toBeDisplayed();
 
     const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
