@@ -61,6 +61,7 @@ export const config: WebdriverIO.Config = {
 
               */
             //  "../tests/specs/book/reserveFelyx.spec.ts"
+            "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
            "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
 
         //    "../tests/specs/book/bookPublicTransport.spec.ts",
