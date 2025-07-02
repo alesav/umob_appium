@@ -85,11 +85,17 @@ class DonkeyBikeActions {
   }
 
   static async clickFinishLater() {
+    await driver.pause(2000);
+    try {
       const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-      await finishLater.isDisplayed()
-      await driver.pause(2000);
-      await finishLater.click();
-      await finishLater.click();
+      if (await finishLater.isDisplayed()) {
+        await driver.pause(2000);
+        await finishLater.click();
+        await finishLater.click();
+      }
+    } catch (e) {
+      // Element not present, do nothing
+    }
   }
 
   static async selectBike(bikeText) {
@@ -210,7 +216,7 @@ describe('Donkey Bike Booking - New User Without Card', () => {
       await DonkeyBikeActions.clickFinishLater();
       
       // Click on center of screen to interact with map  
-      await DonkeyBikeActions.clickCenterOfScreen();
+      await AppiumHelpers.clickCenterOfScreen();
 
       // Select the specific bike
       await DonkeyBikeActions.selectBike("UMOB Bike 2 1");

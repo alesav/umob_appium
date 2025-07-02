@@ -211,29 +211,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
       targetScooter.coordinates.latitude
     );
     await driver.pause(5000);
-
-        // Filter not needed results
-        //await applyFilters();
-
-    // Click on scooter marker
-    // await driver
-    //   .$(
-    //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-    //   )
-    //   .click();
-
-    const { centerX, centerY } = await getScreenCenter();
-
-    // Click exactly in the center
-    // await driver
-    //   .action("pointer")
-    //   .move({ x: centerX, y: centerY })
-    //   .down()
-    //   .up()
-    //   .perform();
-
-    //Click on middle of the screen
-	await AppiumHelpers.clickCenterOfScreen();
+	  await AppiumHelpers.clickCenterOfScreen();
 
     // Click Understood
     // await driver.$(
