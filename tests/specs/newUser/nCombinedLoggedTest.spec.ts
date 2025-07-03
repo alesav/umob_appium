@@ -874,17 +874,17 @@ await driver.performActions([
     await startVerification.click();
 
     //allow permission for mobile
-    // const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-    // await expect(permission).toBeDisplayed();
-    // await permission.click();
-    // await driver.pause(2000);
+    const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+    await expect(permission).toBeDisplayed();
+    await permission.click();
+    await driver.pause(2000);
 
     //allow permission for mobile
     // const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
     // await expect(permission2).toBeDisplayed();
     // await permission2.click();
 
-    const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"ALLOW\")");
+    const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"While using\")");
     await expect(allowBut).toBeDisplayed();
     await allowBut.click();
 
@@ -2199,6 +2199,7 @@ await driver.performActions([
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
+    await cancelButtonText.click();
 
   } catch (e) {
     error = e;
