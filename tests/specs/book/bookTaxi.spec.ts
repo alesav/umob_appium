@@ -61,16 +61,17 @@ describe("Book a Taxi", () => {
     before(async () => {
         const credentials = getCredentials(ENV, USER);
 
+                await PageObjects.login({
+            username: credentials.username,
+            password: credentials.password,
+        });
+
         const latitude = 51.9155956;
         const longitude = 4.4744301;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
 
-        // await PageObjects.login(credentials);
-        await PageObjects.login({
-            username: credentials.username,
-            password: credentials.password,
-        });
+
 
         /*
 

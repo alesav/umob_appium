@@ -104,7 +104,8 @@ class PageObjects extends Page {
                 '-android uiautomator:new UiSelector().text("LOG IN")',
             );
             await logInBtn.waitForDisplayed({ timeout: 200000 });
-            await driver.pause(3000);
+              await logInBtn.waitForEnabled();
+            await driver.pause(5000);
             await logInBtn.click();
 
             const usernameField = await driver.$(
