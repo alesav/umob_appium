@@ -324,10 +324,10 @@ try {
 
 //allow permissions for take a photo
 
-// const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-// await expect(permission).toBeDisplayed();
-// await permission.click();
-// await driver.pause(5000);
+const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+await expect(permission).toBeDisplayed();
+await permission.click();
+await driver.pause(5000);
 
 
 //verify parking photo header
