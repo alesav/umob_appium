@@ -73,7 +73,7 @@ export default class AppiumHelpers {
     await driver.pause(1000);
     await locationButton.click();
 
-    await driver.pause(1000);
+    await driver.pause(3000);
   }
 
   /**
