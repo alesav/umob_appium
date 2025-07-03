@@ -20,7 +20,7 @@ export const config: WebdriverIO.Config = {
             // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
             // "../tests/specs/login/login.negative.spec.ts",
             // "../tests/specs/book/bookPublicTransport.spec.ts"
-             "../tests/specs/book/bookTaxi.spec.ts",
+             //"../tests/specs/book/bookTaxi.spec.ts",
             //"../tests/specs/book/reserveFelyx.spec.ts"            
            // "../tests/specs/book/reserveCheck.spec.ts"
             //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
@@ -30,14 +30,14 @@ export const config: WebdriverIO.Config = {
             //  "../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
             // "../tests/specs/book/failedPaymentNoBooking.spec.ts",
             //"../tests/specs/account/combinedLoggedTest.spec.ts"
-             "../tests/specs/book/bookUmobScooters.spec.ts",
+            // "../tests/specs/book/bookUmobScooters.spec.ts",
             // "../tests/specs/book/bookTaxi.spec.ts"
             //"..//tests/specs/newUser/nReserveCheckNoCard.spec.ts"
            
             // "../tests/specs/account/combinedLoggedTest.spec.ts",
             // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
             //  "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-              "../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
+              //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
              // "../tests/specs/book/bookPublicTransport.spec.ts",
              // "../tests/specs/book/bookDonkeyMocked.spec.ts",
 
@@ -78,7 +78,7 @@ export const config: WebdriverIO.Config = {
          // "../tests/specs/newUserVoucher/vBookCheck.spec.ts" //ok
           
           
-/*
+
 //night run
 
            "../tests/specs/account/*.spec.ts",
@@ -108,7 +108,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts",
           "../tests/specs/book/failedPaymentNoBooking.spec.ts"
-         */
+         
     
     ],
 
