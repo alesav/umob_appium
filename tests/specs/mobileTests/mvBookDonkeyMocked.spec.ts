@@ -190,14 +190,14 @@ await driver.performActions([
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("START TRIP")');
+    const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
 
     await continueButton.click();
 
 
-    await driver.pause(3000);
+    await driver.pause(2000);
 
     //there is no permission in github actions
     //allow permission 
