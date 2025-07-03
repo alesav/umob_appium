@@ -25,12 +25,12 @@ export const config: WebdriverIO.Config = {
            // "../tests/specs/book/reserveCheck.spec.ts"
             //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
            
-             "../tests/specs/book/bookUmobScooters.spec.js",
+            // "../tests/specs/book/bookUmobScooters.spec.js",
             //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
             //  "../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
             // "../tests/specs/book/failedPaymentNoBooking.spec.ts",
             //"../tests/specs/account/combinedLoggedTest.spec.ts"
-            // "../tests/specs/book/bookUmobScooters.spec.ts",
+             "../tests/specs/book/bookUmobScooters.spec.ts"
             // "../tests/specs/book/bookTaxi.spec.ts"
             //"..//tests/specs/newUser/nReserveCheckNoCard.spec.ts"
            
@@ -73,9 +73,9 @@ export const config: WebdriverIO.Config = {
 
         //    "../tests/specs/book/bookPublicTransport.spec.ts",
         //   "../tests/specs/book/bookUmobBike.spec.ts",
-           "../tests/specs/book/bookUmobMoped.spec.ts",
+         //  "../tests/specs/book/bookUmobMoped.spec.ts",
           // "../tests/specs/book/bookUmobBike.spec.ts"
-          "../tests/specs/newUserVoucher/vBookCheck.spec.ts"
+         // "../tests/specs/newUserVoucher/vBookCheck.spec.ts" //ok
           
           
 /*

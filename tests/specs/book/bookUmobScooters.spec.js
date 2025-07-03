@@ -137,6 +137,10 @@ class ScooterBookingActions {
   }
 
   static async verifyRideDetails() {
+    const firstTicketItem = await driver.$('//android.view.ViewGroup[@content-desc="undefined-AccountListItemButton"][1]');
+    await expect(firstTicketItem).toBeDisplayed();
+    await firstTicketItem.click();
+
     const headerTitle = await driver.$('//*[@resource-id="undefined-header-title"]');
     await expect(headerTitle).toBeDisplayed();
     await expect(await headerTitle.getText()).toBe('Ride');
@@ -331,7 +335,10 @@ describe('Umob Scooter Booking Tests', () => {
 
       await PageObjects.gotItButton.waitForEnabled();
       await PageObjects.gotItButton.click();
+      await PageObjects.notNowButton.waitForEnabled();
+      await PageObjects.notNowButton.click();
 
+      await ScooterBookingActions.navigateToMyRides();
       await ScooterBookingActions.verifyRideDetails();
     }, targetScooter);
   });

@@ -50,9 +50,9 @@ export const config: WebdriverIO.Config = {
 //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts" //Umob Boke 23
 //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
+//"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
-//"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
+"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
 //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
 
 ///////////////////////////////////////////////////////////////////////////////////
