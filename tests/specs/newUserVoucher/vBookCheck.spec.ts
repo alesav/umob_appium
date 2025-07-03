@@ -210,7 +210,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
       targetScooter.coordinates.longitude, 
       targetScooter.coordinates.latitude
     );
-    await driver.pause(3000);
+    await driver.pause(2000);
 	  await AppiumHelpers.clickCenterOfScreen();
 
     // Click Understood
@@ -221,7 +221,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(5000);
+    await driver.pause(3000);
 
     //verify that multi voucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
@@ -322,7 +322,7 @@ await driver.$(
   '-android uiautomator:new UiSelector().text("END TRIP")'
 ).click();
 
-await driver.pause(5000);
+await driver.pause(3000);
 
 
 //verify anouncement for return helmet
@@ -371,7 +371,7 @@ await photoButton.click();
 
 
 
-await driver.pause(5000);
+await driver.pause(4000);
 //verify confirmation for using a picture
 const pictureHeader = await driver.$('-android uiautomator:new UiSelector().text("Use this picture?")');
 await expect (pictureHeader).toBeDisplayed();

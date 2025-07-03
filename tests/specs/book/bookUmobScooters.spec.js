@@ -132,32 +132,6 @@ class ScooterBookingActions {
     await PageObjects.endTrip();
   }
 
-  static async clickScooterOnMap() {
-    const { centerX, centerY } = await TestHelpers.getScreenCenter();
-    
-    await TestHelpers.performDoubleClick(centerX, centerY);
-    await driver.pause(4000);
-
-    await driver.execute('mobile: clickGesture', {
-      x: centerX,
-      y: centerY
-    });
-
-    await driver.pause(4000);
-
-    // await driver
-    //   .action("pointer")
-    //   .move({ x: centerX, y: centerY })
-    //   .down()
-    //   .up()
-    //   .perform();
-
-    //Click on middle of the screen
-	await AppiumHelpers.clickCenterOfScreen();
-
-    execSync(`adb shell input tap ${centerX} ${centerY}`);
-  }
-
   static async handleTripCompletion() {
     await PageObjects.handleTripCompletion();
   }
@@ -279,7 +253,7 @@ describe('Umob Scooter Booking Tests', () => {
       );
       console.log(`Scooter coordinates set to: ${targetScooter.coordinates.longitude}, ${targetScooter.coordinates.latitude}`);
 
-      await ScooterBookingActions.clickScooterOnMap();
+      await AppiumHelpers.clickCenterOfScreen();
       await ScooterBookingActions.selectPaymentMethod();
       await ScooterBookingActions.startTrip();
       await driver.pause(10000);
@@ -302,7 +276,7 @@ describe('Umob Scooter Booking Tests', () => {
         targetScooter.coordinates.latitude
       );
 
-      await ScooterBookingActions.clickScooterOnMap();
+      await AppiumHelpers.clickCenterOfScreen();
       await ScooterBookingActions.selectPaymentMethod();
       await ScooterBookingActions.startTrip();
 
@@ -319,7 +293,7 @@ describe('Umob Scooter Booking Tests', () => {
         targetScooter.coordinates.latitude
       );
 
-      await ScooterBookingActions.clickScooterOnMap();
+      await AppiumHelpers.clickCenterOfScreen(); 
       await ScooterBookingActions.selectPaymentMethod();
       await ScooterBookingActions.startTrip();
 
@@ -336,7 +310,7 @@ describe('Umob Scooter Booking Tests', () => {
         targetScooter.coordinates.latitude
       );
 
-      await ScooterBookingActions.clickScooterOnMap();
+      await AppiumHelpers.clickCenterOfScreen();
       await ScooterBookingActions.selectPaymentMethod();
       await ScooterBookingActions.startTrip();
       await driver.pause(10000);
