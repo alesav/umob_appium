@@ -64,17 +64,18 @@ export const config: WebdriverIO.Config = {
             //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //     "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //timeout problem
         //     "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
-            "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
+           // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //    "../tests/specs/book/bookTaxi.spec.ts",
         //    "../tests/specs/book/bookUmobMoped.spec.ts", //photo problem
         //    "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //choosing from outside of area
         //    "../tests/specs/book/reserveCheck.spec.ts",
-        //    "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+          //  "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 
         //    "../tests/specs/book/bookPublicTransport.spec.ts",
         //   "../tests/specs/book/bookUmobBike.spec.ts",
         //   "../tests/specs/book/bookUmobMoped.spec.ts"
           // "../tests/specs/book/bookUmobBike.spec.ts"
+          "../tests/specs/newUserVoucher/vBookCheck.spec.ts"
           
           
 /*

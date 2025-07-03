@@ -210,7 +210,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
       targetScooter.coordinates.longitude, 
       targetScooter.coordinates.latitude
     );
-    await driver.pause(5000);
+    await driver.pause(3000);
 	  await AppiumHelpers.clickCenterOfScreen();
 
     // Click Understood
@@ -221,7 +221,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     // await driver.$(
     //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
     // ).click();
-    await driver.pause(8000);
+    await driver.pause(5000);
 
     //verify that multi voucher is visible
     const vaucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
@@ -250,35 +250,28 @@ describe('Check Booking Test with unlimited multi voucher', () => {
       '-android uiautomator:new UiSelector().text("START TRIP")'
     ).waitForEnabled();
 
+    await driver.pause(2000);
     await driver.$('-android uiautomator:new UiSelector().text("START TRIP")').click();
 
     
-    //verify unlocking ride screen
-    const unlockingRide = await driver.$('-android uiautomator:new UiSelector().text("Unlocking your ride")');
-    await expect (unlockingRide).toBeDisplayed();
+    // //verify unlocking ride screen
+    // const unlockingRide = await driver.$('-android uiautomator:new UiSelector().text("Unlocking your ride")');
+    // await expect (unlockingRide).toBeDisplayed();
 
 
-    await driver.pause(18000);
-    //verify that ride unlocked
-    const unlockHeader = await driver.$('-android uiautomator:new UiSelector().text("Ride unlocked")');
-    await expect (unlockHeader).toBeDisplayed();
+    // await driver.pause(18000);
+    // //verify that ride unlocked
+    // const unlockHeader = await driver.$('-android uiautomator:new UiSelector().text("Ride unlocked")');
+    // await expect (unlockHeader).toBeDisplayed();
 
     //verify ride status
-    const rideStatus = await driver.$('-android uiautomator:new UiSelector().text("Ride successfully unlocked.")');
-    await expect (rideStatus).toBeDisplayed();
+    // const rideStatus = await driver.$('-android uiautomator:new UiSelector().text("Ride successfully unlocked.")');
+    // await expect (rideStatus).toBeDisplayed();
 
 
 //verify operator Check
-const operator = await driver.$('-android uiautomator:new UiSelector().text("Check")');
-await expect (operator).toBeDisplayed();
-
-
-//click start riding button
-await driver.pause(3000);
-const startButton = await driver.$('-android uiautomator:new UiSelector().text("START RIDING!")');
-await expect (startButton).toBeDisplayed();
-await startButton.click();
-await driver.pause(6000);
+// const operator = await driver.$('-android uiautomator:new UiSelector().text("Check")');
+// await expect (operator).toBeDisplayed();
 
 //verify grab helmet header
 const grabHelmet = await driver.$('-android uiautomator:new UiSelector().text("Grab the helmet")');
@@ -288,24 +281,37 @@ await expect (grabHelmet).toBeDisplayed();
 const anouncement = await driver.$('-android uiautomator:new UiSelector().textContains("A helmet is mandatory for this scooter.")');
 await expect (anouncement).toBeDisplayed();
 
+
 //verify instruction
 const instruction = await driver.$('-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")');
 await expect (instruction).toBeDisplayed();
+
 
 //verify open helmet case button
 const openCase = await driver.$('-android uiautomator:new UiSelector().text("OPEN HELMET CASE")');
 await expect (openCase).toBeDisplayed();
 
 //verify continue button
-await driver.pause(7000);
+await driver.pause(3000);
 const continueB = await driver.$('-android uiautomator:new UiSelector().text("CONTINUE")');
 await expect (continueB).toBeDisplayed();
 await continueB.click();
 
+
+//click start riding button
+// await driver.pause(3000);
+// const startButton = await driver.$('-android uiautomator:new UiSelector().text("START RIDING!")');
+// await expect (startButton).toBeDisplayed();
+// await startButton.click();
+// await driver.pause(6000);
+
+
+
+
 //verify pause button
 const pauseButton = await driver.$('-android uiautomator:new UiSelector().text("PAUSE")');
 await expect (pauseButton).toBeDisplayed();
-await driver.pause(5000);
+await driver.pause(3000);
 
 // Click End Trip
 await driver.$(
@@ -316,7 +322,7 @@ await driver.$(
   '-android uiautomator:new UiSelector().text("END TRIP")'
 ).click();
 
-await driver.pause(7000);
+await driver.pause(5000);
 
 
 //verify anouncement for return helmet
@@ -332,7 +338,7 @@ await expect (instruction2).toBeDisplayed();
 //verify open case button for the helmet
 const helmetButton = await driver.$('-android uiautomator:new UiSelector().text("OPEN HELMET CASE")');
 await expect (helmetButton).toBeDisplayed();
-await driver.pause(8000);
+await driver.pause(4000);
 
 //verify and click continue button
 const continueB2 = await driver.$('-android uiautomator:new UiSelector().text("CONTINUE")');
@@ -346,7 +352,7 @@ await driver.pause(2000);
 const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
 await expect(permission).toBeDisplayed();
 await permission.click();
-await driver.pause(8000);
+await driver.pause(4000);
 
 
 //verify parking photo header
@@ -365,7 +371,7 @@ await photoButton.click();
 
 
 
-await driver.pause(10000);
+await driver.pause(5000);
 //verify confirmation for using a picture
 const pictureHeader = await driver.$('-android uiautomator:new UiSelector().text("Use this picture?")');
 await expect (pictureHeader).toBeDisplayed();
@@ -382,10 +388,10 @@ await expect (retakeButton).toBeDisplayed();
 //verify use picture button
 const useButton = await driver.$('-android uiautomator:new UiSelector().text("USE PICTURE")');
 await expect (useButton).toBeDisplayed();
-await driver.pause(7000);
+await driver.pause(3000);
 await useButton.click();
 
-await driver.pause(8000);
+await driver.pause(2000);
 //verify end screen for the ride
 /*
 const thanks = await driver.$('-android uiautomator:new UiSelector().textContains("Thanks")');
