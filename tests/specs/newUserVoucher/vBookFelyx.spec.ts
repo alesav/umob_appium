@@ -202,7 +202,6 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
     ////////////////////////////////////////////////////////////////////////////////
     it("Book Felyx moped with multi voucher", async () => {
         const testId = "9a8a6f87-2ccd-42c9-9676-b1bd0b8b27a3";
-        await driver.setTimeout({ script: 20000 });
         // Send results
         let testStatus = "Pass";
         let screenshotPath = "";

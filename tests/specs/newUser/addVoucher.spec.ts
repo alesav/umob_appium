@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
+import submitTestRun from '../../helpers/SendResults.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -9,27 +9,42 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to get fixed credentials for the newUser from credentials file
-function getCredentials() {
+// Function to load credentials based on environment and user
+function getCredentials(environment = 'test', userKey = null) {
   try {
     const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
     const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
     
-    // Always use the newUser from test environment
-    if (!credentials.test || !credentials.test.newUser) {
-      throw new Error('newUser not found in test environment');
+    // Check if environment exists
+    if (!credentials[environment]) {
+      console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
+      environment = 'test';
     }
     
-    // Return the newUser credentials
+    const envUsers = credentials[environment];
+    
+    // If no specific user is requested, use the first user in the environment
+    if (!userKey) {
+      userKey = Object.keys(envUsers)[0];
+    } else if (!envUsers[userKey]) {
+      console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
+      userKey = Object.keys(envUsers)[0];
+    }
+    
+    // Return the user credentials
     return {
-      username: credentials.test.newUser.username,
-      password: credentials.test.newUser.password
+      username: envUsers[userKey].username,
+      password: envUsers[userKey].password
     };
   } catch (error) {
     console.error('Error loading credentials:', error);
     throw new Error('Failed to load credentials configuration');
   }
 }
+
+// Get environment and user from env variables or use defaults
+const ENV = process.env.TEST_ENV || 'test';
+const USER = process.env.TEST_USER || 'newUser';
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -38,66 +53,13 @@ describe('Add voucher for the New User', () => {
 
   before(async () => {
 
-      const credentials = getCredentials();
+    const credentials = getCredentials(ENV, USER);
 
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
-      await driver.pause(2000);
-      await logInBtn.click();
-
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue(credentials.username);
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue(credentials.password);
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Wait for welcome message
-      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
-
-
-        
-        // Check Account is presented
-        //await driver.$(
-        //  '-android uiautomator:new UiSelector().text("Account")'
-       // ).waitForEnabled();
-
+    await PageObjects.login({ username: credentials.username, password: credentials.password });
 
   });
 
-  /*
 
-  beforeEach(async () => {
-    await driver.activateApp("com.umob.umob");
-        // Wait for screen to be loaded
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Account")'
-        ).waitForEnabled();
-  });
-
-*/
 
   ////////////////////////////////////////////////////////////////////////////////
   it('Add voucher for the New User', async () => {

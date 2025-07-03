@@ -93,10 +93,7 @@ let scooters;
             
         scooters = await fetchScooterCoordinates();
 
-        // await PageObjects.login(credentials);
-
-        //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION")
-        //execSync("adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION")
+      await PageObjects.login({ username: credentials.username, password: credentials.password });
   
       targetScooter = scooters.find(
         scooter => scooter.id.includes('UmobMock')
@@ -106,9 +103,7 @@ let scooters;
         targetScooter.coordinates.longitude, 
         targetScooter.coordinates.latitude
       );
-              await PageObjects.login({ username: credentials.username, password: credentials.password });
 
-    await driver.terminateApp("com.umob.umob");
     });
 
   beforeEach(async () => {
