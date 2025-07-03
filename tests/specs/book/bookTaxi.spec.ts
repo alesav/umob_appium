@@ -385,6 +385,21 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             );
             await expect(firstRoutePrice).toBeDisplayed();
 
+            const { width, height } = await driver.getWindowSize();
+            await driver.performActions([
+             {
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+           { type: 'pointerDown', button: 0 },
+           { type: 'pause', duration: 100 },
+           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+           { type: 'pointerUp', button: 0 },
+             ],
+            },]);
+
             //check notification is displayed
             const notification = await driver.$(
                 '-android uiautomator:new UiSelector().text("All rentals are subject to terms & conditions of umob and transport providers. Fees may apply for waiting or cancellation.")',

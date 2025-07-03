@@ -266,7 +266,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await driver.pause(8000);
             await startTrip.click();
 
-            await driver.pause(18000);
+            await driver.pause(8000);
 
             //verify that ride unlocked (UI changed)
             // const unlockHeader = await driver.$(
@@ -293,7 +293,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             // );
             // await expect(startButton).toBeDisplayed();
             // await startButton.click();
-            await driver.pause(5000);
+            //await driver.pause(5000);
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -320,7 +320,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(openCase).toBeDisplayed();
 
             //verify continue button
-            //await driver.pause(8000);
+            await driver.pause(2000);
             const continueB = await driver.$(
                 '-android uiautomator:new UiSelector().text("CONTINUE")',
             );
@@ -343,7 +343,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 .$('-android uiautomator:new UiSelector().text("END TRIP")')
                 .click();
 
-            await driver.pause(5000);
+            await driver.pause(3000);
 
             //verify anouncement for return helmet
             const helmetBack = await driver.$(
@@ -425,7 +425,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await driver.pause(2000);
             await useButton.click();
 
-            await driver.pause(5000);
+            await driver.pause(2000);
 
             /*
             //verify end screen for the ride
