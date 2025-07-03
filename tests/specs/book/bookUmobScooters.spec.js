@@ -293,7 +293,7 @@ describe('Umob Scooter Booking Tests', () => {
         targetScooter.coordinates.latitude
       );
 
-      await AppiumHelpers.clickCenterOfScreen();
+      await AppiumHelpers.clickCenterOfScreen(); 
       await ScooterBookingActions.selectPaymentMethod();
       await ScooterBookingActions.startTrip();
 
