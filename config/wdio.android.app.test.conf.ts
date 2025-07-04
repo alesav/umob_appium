@@ -15,10 +15,10 @@ export const config: WebdriverIO.Config = {
  //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
  //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts"
 // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-//  "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
+  //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
 //"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
 
- //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
+ "c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
  // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts"
   //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
@@ -52,7 +52,7 @@ export const config: WebdriverIO.Config = {
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
-"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
+//"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
 //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
 
 ///////////////////////////////////////////////////////////////////////////////////
