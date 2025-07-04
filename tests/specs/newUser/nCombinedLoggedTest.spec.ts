@@ -387,6 +387,7 @@ await expect(menuElement).toBeDisplayed();
      
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
+    await expect(inviteFriendsButton).toBeDisplayed();
     await inviteFriendsButton.click();
     await driver.pause(3000);
 
@@ -989,6 +990,7 @@ await driver.performActions([
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    await expect(myRidesAndTicketsButton).toBeDisplayed();
     await myRidesAndTicketsButton.click();
     await driver.pause(3000);
 
@@ -1094,6 +1096,7 @@ await driver.performActions([
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
@@ -2122,7 +2125,7 @@ for (const text of contentElements2) {
     //await driver.pause(2000);
 
     //go to account
-    await driver.pause(3000);
+    await driver.pause(2000);
     await PageObjects.clickAccountButton();
      await driver.pause(3000);
 

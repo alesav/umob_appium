@@ -719,10 +719,11 @@ await driver.executeScript('mobile: scrollGesture', [{
 }]);
 await driver.pause(2000);
 };
- await driver.pause(2000);
+ //await driver.pause(2000);
 
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
@@ -1239,6 +1240,7 @@ await driver.pause(2000);
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
+    await cancelButton.click();
 
   } catch (e) {
     error = e;
@@ -1314,6 +1316,7 @@ await driver.pause(2000);
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
+    await expect(mapThemeOption).toBeDisplayed();
     await mapThemeOption.click();
     await driver.pause(2000);
 

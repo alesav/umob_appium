@@ -123,8 +123,8 @@ let testStatus = "Pass";
 
       await driver.pause(7000);
 
-       const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
-       await laterButton.click();
+      //  const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+      //  await laterButton.click();
 
       await AppiumHelpers.setLocationAndRestartApp(
         targetScooter.coordinates.longitude, 
