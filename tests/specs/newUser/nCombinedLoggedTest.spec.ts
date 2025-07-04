@@ -537,6 +537,7 @@ await driver.performActions([
     //navigate to personal info
 
     const personalInfo = await driver.$("-android uiautomator:new UiSelector().text(\"Personal info\")");
+    await expect(personalInfo).toBeDisplayed();
     await personalInfo.click();
 
     // Verify screen header
@@ -888,6 +889,7 @@ await driver.performActions([
     const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"While using\")");
     await expect(allowBut).toBeDisplayed();
     await allowBut.click();
+    await driver.pause(2000);
 
     //verify onfido screen
     const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");
@@ -1230,6 +1232,7 @@ await driver.performActions([
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
+    await expect(myPaymentsButton).toBeDisplayed();
     await myPaymentsButton.click();
     await driver.pause(3000);
 
@@ -1354,6 +1357,7 @@ await driver.performActions([
 
     // Click on Language option to navigate to language screen
     const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+    await expect(languageOption).toBeDisplayed();
     await languageOption.click();
     await driver.pause(2000);
 
@@ -1511,6 +1515,7 @@ await driver.performActions([
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
+    await expect(mapThemeOption).toBeDisplayed();
     await mapThemeOption.click();
     await driver.pause(2000);
 
@@ -1648,6 +1653,7 @@ await driver.performActions([
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
+    await expect(supportButton).toBeDisplayed();
     await supportButton.click();
 
 
@@ -1774,6 +1780,8 @@ for (const text of contentElements2) {
 
 
       //go to about tab
+      await driver.pause(5000);
+      await expect(about).toBeDisplayed();
      await about.click();
      await driver.pause(2000);
 
@@ -2203,6 +2211,7 @@ await driver.performActions([
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
     await cancelButtonText.click();
+    await driver.pause(1000);
 
   } catch (e) {
     error = e;

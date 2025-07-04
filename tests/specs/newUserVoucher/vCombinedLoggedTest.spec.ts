@@ -1583,6 +1583,10 @@ await driver.performActions([
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
 
+    //click cancel button
+    await cancelButton.click();
+    await driver.pause(1000);
+
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
@@ -1797,6 +1801,7 @@ await driver.performActions([
 
   // Click on Language option to navigate to language screen
   const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+  await expect(languageOption).toBeDisplayed();
   await languageOption.click();
   await driver.pause(2000);
     
@@ -1947,6 +1952,7 @@ await driver.performActions([
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
+    await expect(supportButton).toBeDisplayed();
     await supportButton.click();
 
 

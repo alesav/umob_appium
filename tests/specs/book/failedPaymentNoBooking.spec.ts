@@ -52,8 +52,8 @@ const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQ
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.4744301,
+          latitude: 51.9155956,
           radius: 2000,
           zoomLevel: 15.25,
           subOperators: [],
@@ -221,7 +221,7 @@ await driver.pause(5000);
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().textContains("CONTINUE")');
+    const continueButton = await driver.$('android=new UiSelector().textContains("START TRIP")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
     await driver.pause(2000);

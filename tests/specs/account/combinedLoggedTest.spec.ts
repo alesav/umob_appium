@@ -154,6 +154,7 @@ let testStatus = "Pass";
 
     // Click on Account button
     await PageObjects.clickAccountButton();
+    await driver.pause(2000);
 
     // Verify screen header
     // const screenHeader = await driver.$("-android uiautomator:new UiSelector().resourceId(\"MyAccountContainer-header-title\")");
@@ -354,6 +355,7 @@ for (const menuItem of accountMenuItems3) {
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
     await driver.pause(1000);
+    await expect(myRidesAndTicketsButton).toBeDisplayed();
     await myRidesAndTicketsButton.click();
     await driver.pause(1000);
 
@@ -459,6 +461,7 @@ for (const menuItem of accountMenuItems3) {
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
     await driver.pause(1000);
+    await expect(myPaymentsButton).toBeDisplayed();
     await myPaymentsButton.click();
     await driver.pause(3000);
 
@@ -544,6 +547,7 @@ for (const menuItem of accountMenuItems3) {
 
     // Navigate to personal info
     const personalInfo = await driver.$("-android uiautomator:new UiSelector().text(\"Personal info\")");
+    await expect(personalInfo).toBeDisplayed();
     await personalInfo.click();
 
     // Verify screen header
@@ -820,6 +824,7 @@ await driver.pause(2000);
     
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
+    await expect(inviteFriendsButton).toBeDisplayed();
     await inviteFriendsButton.click();
     await driver.pause(3000);
 
@@ -1241,6 +1246,7 @@ await driver.pause(2000);
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
     await cancelButton.click();
+    await driver.pause(1000);
 
   } catch (e) {
     error = e;
@@ -1412,7 +1418,7 @@ await driver.pause(2000);
     await driver.pause(2000);
 
     // Scroll down to make Delete account button visible
-    await driver.pause(3000);
+    await driver.pause(1000);
     const { width, height } = await driver.getWindowSize();
     await driver.executeScript('mobile: scrollGesture', [{
      left: width/2,
@@ -1431,6 +1437,7 @@ await driver.pause(2000);
 
     // Click on Language option to navigate to language screen
     const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+    await expect(languageOption).toBeDisplayed();
     await languageOption.click();
     await driver.pause(2000);
 

@@ -204,6 +204,7 @@ class PageObjects extends Page {
 
     async startTrip() {
         await this.startTripButton.waitForEnabled();
+        await driver.pause(2000);
         await this.startTripButton.click();
     }
 
