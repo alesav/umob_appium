@@ -1066,7 +1066,7 @@ await driver.performActions([
    const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
    await expect(inviteFriendsButton).toBeDisplayed();
    await inviteFriendsButton.click();
-   await driver.pause(3000);
+   await driver.pause(2000);
 
    // Verify back button is present
    const backButton = await driver.$("-android uiautomator:new UiSelector().description(\"back_button\")");

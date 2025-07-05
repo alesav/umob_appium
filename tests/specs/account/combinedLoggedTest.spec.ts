@@ -947,6 +947,7 @@ const { width, height } = await driver.getWindowSize();
 
     // Click on Account button
     await PageObjects.clickAccountButton();
+    await driver.pause(2000);
     
     // Navigate to Payment Settings screen
     const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment settings\")");
@@ -1120,16 +1121,16 @@ const { width, height } = await driver.getWindowSize();
     await expect(changeDocumentButton).toBeDisplayed();
 
      //Scroll to bottom
-  //    await driver.pause(2000);
-  //    await driver.executeScript('mobile: scrollGesture', [{
-  //     left: width/2,
-  //     top: 0,
-  //     width: 0,
-  //     height: height*0.8,
-  //     direction: 'down',
-  //     percent: 2
-  //    }]);
-  // await driver.pause(3000);
+     await driver.pause(2000);
+     await driver.executeScript('mobile: scrollGesture', [{
+      left: width/2,
+      top: 0,
+      width: 0,
+      height: height*0.8,
+      direction: 'down',
+      percent: 2
+     }]);
+  await driver.pause(1000);
 
 
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
