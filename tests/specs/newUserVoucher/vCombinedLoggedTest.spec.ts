@@ -507,6 +507,7 @@ await expect(backButton).toBeDisplayed();
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
     await expect(myRidesAndTicketsButton).toBeDisplayed();
+    await driver.pause(1000);
     await myRidesAndTicketsButton.click();
     await driver.pause(3000);
 
