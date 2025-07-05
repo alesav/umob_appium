@@ -114,7 +114,7 @@ class DonkeyBikeActions {
   }
   static async clickContinueButton() {
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("CONTINUE")');
+    const continueButton = await driver.$('android=new UiSelector().text("START TRIP")');
     await expect(continueButton).toBeDisplayed();
     await expect(continueButton).toBeEnabled();
     await continueButton.click();
@@ -122,7 +122,7 @@ class DonkeyBikeActions {
   }
 
   static async verifyPaymentMethodsScreen() {
-    const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("PAYMENT METHODS")');
     await expect(paymentHeader).toBeDisplayed();
 
     const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
