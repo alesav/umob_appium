@@ -343,6 +343,7 @@ await driver.pause(3000);
 // Tap a button for taking photo
 const photoButton = await driver.$("-android uiautomator:new UiSelector().resourceId(\"buttonContainer\")");
 await expect (photoButton).toBeDisplayed();
+await driver.pause(2000);
 await photoButton.click();
 
 
