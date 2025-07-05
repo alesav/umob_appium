@@ -705,25 +705,27 @@ for (const menuItem of accountMenuItems3) {
 
     // Click on Account button
     await PageObjects.clickAccountButton();
-    await driver.pause(2000);
+    await driver.pause(3000);
     
    // Get window size 
 const { width, height } = await driver.getWindowSize();
 
 // scroll
-for (let i = 0; i < 2; i++) {
-await driver.pause(2000);
-await driver.executeScript('mobile: scrollGesture', [{
-  left: width/2,
-  top: height * 0.2, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. then more close to 0 then more scroll you get 
-  width: width * 0.8,
-  height: height * 0.4, //width of the scrolling area
-  direction: 'down',
-  percent: 0.9
-}]);
-await driver.pause(2000);
-};
- //await driver.pause(2000);
+
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.8 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.6 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
+ await driver.pause(2000);
 
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
