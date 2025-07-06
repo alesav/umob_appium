@@ -2078,8 +2078,9 @@ for (const text of contentElements2) {
 
       //go to about tab
      await expect(about).toBeDisplayed();
-     await about.click();
      await driver.pause(2000);
+     await about.click();
+     await driver.pause(1000);
 
      //check for text on about tab
 

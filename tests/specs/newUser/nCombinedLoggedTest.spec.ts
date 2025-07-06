@@ -91,16 +91,18 @@ try {
     //await expect(planTrip).toBeDisplayed();
     await PageObjects.promosBtn.waitForExist();
     await PageObjects.promosBtn.click();
+    await driver.pause(1000);
     // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
     // await expect(promos).toBeDisplayed();
     // await promos.click();
 
     //verify welcome vouchers
 
-    const donkeyVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
-    await expect(donkeyVoucher).toBeDisplayed();
     const checkVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
     await expect(checkVoucher).toBeDisplayed();
+
+    const donkeyVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
+    await expect(donkeyVoucher).toBeDisplayed();
 
   
 
