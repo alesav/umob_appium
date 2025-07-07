@@ -91,11 +91,11 @@ export const config: WebdriverIO.Config = {
          //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", ok
          //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
          //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-         "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
          //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
           
-          /*
+          
 
 //night run
 
@@ -127,7 +127,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts"
           
-         */
+         
   
     ],
 
