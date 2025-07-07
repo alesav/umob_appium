@@ -129,9 +129,9 @@ const getScreenCenter = async () => {
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.46893572807312,
-          latitude: 51.91743146298927,
-          radius: 1166.6137310913994,
+          longitude: 4.474777685709118,
+          latitude: 51.91625362101655,
+          radius: 200.6137310913994,
           zoomLevel: 15.25,
           subOperators: [],
           assetClasses: [23],
@@ -173,8 +173,8 @@ describe('Trying to Reserve Felyx by a New User Without a drivers licence', () =
 
       //await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 
-      const longitude = 4.46893572807312;
-      const latitude = 51.91743146298927;
+      const longitude = 4.474777685709118;
+      const latitude = 51.91625362101655;
 
       await AppiumHelpers.setLocationAndRestartApp(
         longitude, 
