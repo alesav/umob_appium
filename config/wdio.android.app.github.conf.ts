@@ -61,7 +61,7 @@ export const config: WebdriverIO.Config = {
 
               */
             //  "../tests/specs/book/reserveFelyx.spec.ts"
-            //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+            "../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
         //     "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //timeout problem
         //     "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         //    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts"
@@ -89,7 +89,7 @@ export const config: WebdriverIO.Config = {
          //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
           
-          
+          /*
 
 //night run
 
@@ -121,7 +121,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts"
           
-         
+         */
   
     ],
 

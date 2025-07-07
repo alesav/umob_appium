@@ -2160,14 +2160,14 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.6 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
-    
+  await driver.pause(1000);
 
     // Click on Delete account button
     const deleteAccountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Delete account\")");
