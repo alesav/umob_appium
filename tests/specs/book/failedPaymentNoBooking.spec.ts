@@ -157,8 +157,8 @@ let testStatus = "Pass";
     // await umob20Button.click();
     await driver.pause(7000);
 
-    const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
-    await selectUmob.click();
+    // const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
+    // await selectUmob.click();
 
     /* Click 2cm above bottom edge
     await driver
