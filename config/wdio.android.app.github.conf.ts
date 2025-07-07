@@ -86,11 +86,11 @@ export const config: WebdriverIO.Config = {
          //"../tests/specs/book/bookUmobScooters.spec.js", //more
         // "../tests/specs/book/reserveFelyx.spec.ts", //more
         // "../tests/specs/book/bookTaxi.spec.ts",
-         "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
+        // "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
          //"../tests/specs/book/bookDonkeyMocked.spec.ts",
          //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", ok
          //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
-         "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
          "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
          //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
