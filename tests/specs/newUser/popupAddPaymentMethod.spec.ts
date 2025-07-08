@@ -200,6 +200,8 @@ describe('Add Payment Method through popup for the New User', () => {
           const el5 = await driver.$("id:com.umob.umob:id/payButton");
           await el5.click();
 
+          await driver.pause(2000);
+
            //Assert Remove payment method button is displayed
             const removeBtn =await driver.$(
              '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
