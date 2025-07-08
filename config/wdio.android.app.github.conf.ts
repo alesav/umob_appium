@@ -89,15 +89,15 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
          //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
          // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js" //ok
-         "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
+        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
          //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
          //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-         "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
-         "../tests/specs/book/bookDonkeyMocked.spec.ts"
+        // "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
+         //"../tests/specs/book/bookDonkeyMocked.spec.ts"
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
           
           
-/*
+
 //night run
 
            "../tests/specs/account/*.spec.ts",
@@ -110,7 +110,7 @@ export const config: WebdriverIO.Config = {
           //"../tests/specs/newUser/*.spec.ts",
           "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
           "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
-          "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+          "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
           "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
           //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
           "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
@@ -129,7 +129,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/reserveFelyx.spec.ts"
           
          
-  */
+  
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
