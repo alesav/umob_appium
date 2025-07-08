@@ -94,6 +94,7 @@ await driver.performActions([
           { type: 'pointerUp', button: 0 },
       ],
   },]);
+  await driver.pause(1000);
 
         //go to ride credit
         const creditButton = await driver.$('-android uiautomator:new UiSelector().textContains("Ride credit")');

@@ -593,13 +593,15 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.6 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 20 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
+
+      await driver.pause(1000);
     
 
     // // Verify Street field
@@ -644,7 +646,7 @@ await driver.performActions([
               { type: 'pointerUp', button: 0 },
           ],
       },]);
-    
+    await driver.pause(1000);
 
   
    // Verify Zip Code field
@@ -990,7 +992,7 @@ await driver.performActions([
   //  const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
   //  await accountButton.click();
     await PageObjects.clickAccountButton();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
@@ -2160,7 +2162,7 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.5 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.7 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
@@ -2213,6 +2215,10 @@ await driver.performActions([
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
     await cancelButtonText.click();
+    await driver.pause(1000);
+
+    // Quit this delete account popup
+    await cancelButton.click();
     await driver.pause(1000);
 
   } catch (e) {
