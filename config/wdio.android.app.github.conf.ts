@@ -104,7 +104,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
          //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
         // "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
-         "../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
+         //"../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
                  
           
 /*
