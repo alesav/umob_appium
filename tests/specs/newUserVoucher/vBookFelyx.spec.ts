@@ -265,34 +265,34 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await driver.pause(8000);
             await startTrip.click();
 
-            await driver.pause(18000);
+            await driver.pause(8000);
 
-            //verify that ride unlocked
-            const unlockHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Ride unlocked")',
-            );
-            await expect(unlockHeader).toBeDisplayed();
+            //verify that ride unlocked (UI changed)
+            // const unlockHeader = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Ride unlocked")',
+            // );
+            // await expect(unlockHeader).toBeDisplayed();
 
             //verify ride status
-            const rideStatus = await driver.$(
-                '-android uiautomator:new UiSelector().text("Ride successfully unlocked.")',
-            );
-            await expect(rideStatus).toBeDisplayed();
+            // const rideStatus = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Ride successfully unlocked.")',
+            // );
+            // await expect(rideStatus).toBeDisplayed();
 
             //verify operator Felyx
-            const operator = await driver.$(
-                '-android uiautomator:new UiSelector().text("Felyx")',
-            );
-            await expect(operator).toBeDisplayed();
+            // const operator = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Felyx")',
+            // );
+            // await expect(operator).toBeDisplayed();
 
             //click start riding button
-            await driver.pause(13000);
-            const startButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("START RIDING!")',
-            );
-            await expect(startButton).toBeDisplayed();
-            await startButton.click();
-            await driver.pause(10000);
+            // await driver.pause(13000);
+            // const startButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("START RIDING!")',
+            // );
+            // await expect(startButton).toBeDisplayed();
+            // await startButton.click();
+            //await driver.pause(5000);
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -319,7 +319,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(openCase).toBeDisplayed();
 
             //verify continue button
-            await driver.pause(8000);
+            await driver.pause(2000);
             const continueB = await driver.$(
                 '-android uiautomator:new UiSelector().text("CONTINUE")',
             );
@@ -331,7 +331,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().text("PAUSE")',
             );
             await expect(pauseButton).toBeDisplayed();
-            await driver.pause(15000);
+            await driver.pause(10000);
 
             // Click End Trip
             await driver
@@ -342,7 +342,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 .$('-android uiautomator:new UiSelector().text("END TRIP")')
                 .click();
 
-            await driver.pause(15000);
+            await driver.pause(3000);
 
             //verify anouncement for return helmet
             const helmetBack = await driver.$(
@@ -361,7 +361,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
             );
             await expect(helmetButton).toBeDisplayed();
-            await driver.pause(8000);
+            await driver.pause(3000);
 
             //verify and click continue button
             const continueB2 = await driver.$(
@@ -370,7 +370,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
 
-            await driver.pause(8000);
+            await driver.pause(5000);
 
             //allow permissions for take a photo
 
@@ -379,7 +379,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(permission).toBeDisplayed();
             await permission.click();
-            await driver.pause(15000);
+            await driver.pause(5000);
 
             //verify parking photo header
             const parkingHeader = await driver.$(
@@ -397,7 +397,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             const photoButton = await driver.$("~endTrip");
             await photoButton.click();
 
-            await driver.pause(13000);
+            await driver.pause(5000);
             //verify confirmation for using a picture
             const pictureHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use this picture?")',
@@ -421,10 +421,10 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().text("USE PICTURE")',
             );
             await expect(useButton).toBeDisplayed();
-            await driver.pause(10000);
+            await driver.pause(2000);
             await useButton.click();
 
-            await driver.pause(8000);
+            await driver.pause(2000);
 
             /*
             //verify end screen for the ride
@@ -531,6 +531,7 @@ await gotIt.click();
  const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
  await expect(notNowButton).toBeDisplayed();
  await notNowButton.click();
+ await driver.pause(2000);
 
 //verify that main map screen is displayed
     await PageObjects.clickAccountButton();
@@ -546,6 +547,7 @@ await gotIt.click();
             // await expect(lastRide).toBeDisplayed();
 
             //click on my rides and tickets
+            await driver.pause(2000);
             await myRides.click();
 
             //verify that payment is visible in my rides and tickets screen and it is 0 Euro

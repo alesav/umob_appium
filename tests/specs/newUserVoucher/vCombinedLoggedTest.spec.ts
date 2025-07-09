@@ -506,6 +506,8 @@ await expect(backButton).toBeDisplayed();
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    await expect(myRidesAndTicketsButton).toBeDisplayed();
+    await driver.pause(1000);
     await myRidesAndTicketsButton.click();
     await driver.pause(3000);
 
@@ -628,8 +630,9 @@ await expect(backButton).toBeDisplayed();
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
+    await expect(myPaymentsButton).toBeDisplayed();
     await myPaymentsButton.click();
-    await driver.pause(3000);
+    await driver.pause(4000);
 
     // Verify screen header
     const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
@@ -711,11 +714,12 @@ await expect(backButton).toBeDisplayed();
 
     // Click on Account button
     await PageObjects.clickAccountButton();
-    await driver.pause(2000);
+    await driver.pause(3000);
 
     //navigate to personal info
 
     const personalInfo = await driver.$("-android uiautomator:new UiSelector().text(\"Personal info\")");
+    await expect(personalInfo).toBeDisplayed();
     await personalInfo.click();
 
     // Verify screen header
@@ -929,6 +933,7 @@ await driver.pause(2000);
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
@@ -1059,8 +1064,9 @@ await driver.performActions([
     
    // Navigate to Invite Friends
    const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
+   await expect(inviteFriendsButton).toBeDisplayed();
    await inviteFriendsButton.click();
-   await driver.pause(3000);
+   await driver.pause(2000);
 
    // Verify back button is present
    const backButton = await driver.$("-android uiautomator:new UiSelector().description(\"back_button\")");
@@ -1578,6 +1584,10 @@ await driver.performActions([
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
 
+    //click cancel button
+    await cancelButton.click();
+    await driver.pause(1000);
+
   } catch (e) {
     error = e;
     console.error("Test failed:", error);
@@ -1666,6 +1676,7 @@ await driver.performActions([
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
+    await expect(mapThemeOption).toBeDisplayed();
     await mapThemeOption.click();
     await driver.pause(2000);
 
@@ -1791,6 +1802,7 @@ await driver.performActions([
 
   // Click on Language option to navigate to language screen
   const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+  await expect(languageOption).toBeDisplayed();
   await languageOption.click();
   await driver.pause(2000);
     
@@ -1941,6 +1953,7 @@ await driver.performActions([
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
+    await expect(supportButton).toBeDisplayed();
     await supportButton.click();
 
 
@@ -2061,10 +2074,13 @@ for (const text of contentElements2) {
 
       // Press the device back button (this method works on mobile)
       await driver.back();
+      await driver.pause(5000);
 
       //go to about tab
-     await about.click();
+     await expect(about).toBeDisplayed();
      await driver.pause(2000);
+     await about.click();
+     await driver.pause(1000);
 
      //check for text on about tab
 
@@ -2274,7 +2290,7 @@ await driver.performActions([
 
 //go to account
 await PageObjects.clickAccountButton();
- await driver.pause(2000);
+ await driver.pause(3000);
 
  /*
  // Scroll down to Log Out option

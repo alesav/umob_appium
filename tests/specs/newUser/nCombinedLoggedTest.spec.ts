@@ -91,16 +91,18 @@ try {
     //await expect(planTrip).toBeDisplayed();
     await PageObjects.promosBtn.waitForExist();
     await PageObjects.promosBtn.click();
+    await driver.pause(1000);
     // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
     // await expect(promos).toBeDisplayed();
     // await promos.click();
 
     //verify welcome vouchers
 
-    const donkeyVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
-    await expect(donkeyVoucher).toBeDisplayed();
     const checkVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
     await expect(checkVoucher).toBeDisplayed();
+
+    const donkeyVoucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
+    await expect(donkeyVoucher).toBeDisplayed();
 
   
 
@@ -387,6 +389,7 @@ await expect(menuElement).toBeDisplayed();
      
     // Navigate to Invite Friends
     const inviteFriendsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends\")");
+    await expect(inviteFriendsButton).toBeDisplayed();
     await inviteFriendsButton.click();
     await driver.pause(3000);
 
@@ -536,6 +539,7 @@ await driver.performActions([
     //navigate to personal info
 
     const personalInfo = await driver.$("-android uiautomator:new UiSelector().text(\"Personal info\")");
+    await expect(personalInfo).toBeDisplayed();
     await personalInfo.click();
 
     // Verify screen header
@@ -589,13 +593,15 @@ await driver.performActions([
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.6 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: 20 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
+
+      await driver.pause(1000);
     
 
     // // Verify Street field
@@ -640,7 +646,7 @@ await driver.performActions([
               { type: 'pointerUp', button: 0 },
           ],
       },]);
-    
+    await driver.pause(1000);
 
   
    // Verify Zip Code field
@@ -887,6 +893,7 @@ await driver.performActions([
     const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"While using\")");
     await expect(allowBut).toBeDisplayed();
     await allowBut.click();
+    await driver.pause(2000);
 
     //verify onfido screen
     const el2 = await driver.$("-android uiautomator:new UiSelector().text(\"Select issuing country to see which documents we accept\")");
@@ -985,10 +992,11 @@ await driver.performActions([
   //  const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
   //  await accountButton.click();
     await PageObjects.clickAccountButton();
-     await driver.pause(2000);
+     await driver.pause(3000);
 
     // Navigate to My Rides & Tickets
     const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    await expect(myRidesAndTicketsButton).toBeDisplayed();
     await myRidesAndTicketsButton.click();
     await driver.pause(3000);
 
@@ -1094,6 +1102,7 @@ await driver.performActions([
     
     // Navigate to Ride Credit
     const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
@@ -1227,6 +1236,7 @@ await driver.performActions([
     
     // Navigate to My Payments
     const myPaymentsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
+    await expect(myPaymentsButton).toBeDisplayed();
     await myPaymentsButton.click();
     await driver.pause(3000);
 
@@ -1351,6 +1361,7 @@ await driver.performActions([
 
     // Click on Language option to navigate to language screen
     const languageOption = await driver.$("-android uiautomator:new UiSelector().text(\"Language\")");
+    await expect(languageOption).toBeDisplayed();
     await languageOption.click();
     await driver.pause(2000);
 
@@ -1508,6 +1519,7 @@ await driver.performActions([
 
     // Click on Map theme settings option
     const mapThemeOption = await driver.$("-android uiautomator:new UiSelector().text(\"Map theme settings\")");
+    await expect(mapThemeOption).toBeDisplayed();
     await mapThemeOption.click();
     await driver.pause(2000);
 
@@ -1645,6 +1657,7 @@ await driver.performActions([
 
     // click on support button
     const supportButton = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
+    await expect(supportButton).toBeDisplayed();
     await supportButton.click();
 
 
@@ -1771,6 +1784,8 @@ for (const text of contentElements2) {
 
 
       //go to about tab
+      await driver.pause(5000);
+      await expect(about).toBeDisplayed();
      await about.click();
      await driver.pause(2000);
 
@@ -2122,7 +2137,7 @@ for (const text of contentElements2) {
     //await driver.pause(2000);
 
     //go to account
-    await driver.pause(3000);
+    await driver.pause(2000);
     await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
@@ -2147,14 +2162,14 @@ await driver.performActions([
       id: 'finger1',
       parameters: { pointerType: 'touch' },
       actions: [
-          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.8 },
+          { type: 'pointerMove', duration: 0, x: width/4, y: height*0.7 },
           { type: 'pointerDown', button: 0 },
           { type: 'pause', duration: 100 },
           { type: 'pointerMove', duration: 1000, x: width/4, y: 10 },
           { type: 'pointerUp', button: 0 },
       ],
   },]);
-    
+  await driver.pause(1000);
 
     // Click on Delete account button
     const deleteAccountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Delete account\")");
@@ -2200,6 +2215,11 @@ await driver.performActions([
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
     await cancelButtonText.click();
+    await driver.pause(1000);
+
+    // Quit this delete account popup
+    await cancelButton.click();
+    await driver.pause(1000);
 
   } catch (e) {
     error = e;

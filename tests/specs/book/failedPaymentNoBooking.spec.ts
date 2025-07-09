@@ -52,8 +52,8 @@ const AUTH_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQ
         body: JSON.stringify({
           regionId: "",
           stationId: "",
-          longitude: 4.47586407,
-          latitude: 51.92502035,
+          longitude: 4.4744301,
+          latitude: 51.9155956,
           radius: 2000,
           zoomLevel: 15.25,
           subOperators: [],
@@ -123,8 +123,8 @@ let testStatus = "Pass";
 
       await driver.pause(7000);
 
-       const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
-       await laterButton.click();
+      //  const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
+      //  await laterButton.click();
 
       await AppiumHelpers.setLocationAndRestartApp(
         targetScooter.coordinates.longitude, 
@@ -157,8 +157,8 @@ let testStatus = "Pass";
     // await umob20Button.click();
     await driver.pause(7000);
 
-    const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
-    await selectUmob.click();
+    // const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
+    // await selectUmob.click();
 
     /* Click 2cm above bottom edge
     await driver
@@ -190,8 +190,8 @@ const screenHeight = windowSize.height;
 
 // calculate points for scroll
 // starting point: a little bit more down from the screen center
-const startX = Math.round(screenWidth / 2);
-const startY = Math.round(screenHeight * 0.75);
+const startX = Math.round(screenWidth / 3);
+const startY = Math.round(screenHeight * 0.85);
 
 // end point: upper side of the screen
 const endX = startX; // save the same position for X for vertical scroll
@@ -221,7 +221,7 @@ await driver.pause(5000);
 
     // Click continue button
     await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().textContains("CONTINUE")');
+    const continueButton = await driver.$('android=new UiSelector().textContains("START TRIP")');
     await expect (continueButton).toBeDisplayed();
     await expect (continueButton).toBeEnabled();
     await driver.pause(2000);

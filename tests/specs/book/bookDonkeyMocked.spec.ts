@@ -151,6 +151,7 @@ await AppiumHelpers.clickCenterOfScreen();
     }]);
     */
 
+    await driver.pause(2000);
             await driver.performActions([
                 {
                     type: "pointer",
@@ -197,22 +198,40 @@ await AppiumHelpers.clickCenterOfScreen();
       .up()
       .perform();*/
 
-            await driver.pause(5000);
+            await driver.pause(3000);
 
-            const umob20Button1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
-            );
-            await umob20Button1.click();
+          //click to start and unlock the bike
+    const umob20Button1 = await driver.$('-android uiautomator:new UiSelector().text("START TRIP")');
+    await umob20Button1.click();
 
-            const umob20Button2 = await driver.$(
-                '-android uiautomator:new UiSelector().text("UNLOCK BIKE")',
-            );
-            await umob20Button2.click();
+    const umobText1 = await driver.$('-android uiautomator:new UiSelector().text("Use the handle to open the lock")');
+    await expect(umobText1).toBeDisplayed();
 
-            const umob20Button3 = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONFIRM")',
-            );
-            await umob20Button3.click();
+    const umobText2 = await driver.$('-android uiautomator:new UiSelector().textContains("Pull the lock from")');
+    await expect(umobText2).toBeDisplayed();
+
+    await driver.performActions([
+        {
+          type: 'pointer',
+          id: 'finger6',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+              { type: 'pointerUp', button: 0 },
+          ],
+        },]);
+      await driver.pause(2000);
+    
+    
+        const continueBtn = await driver.$('-android uiautomator:new UiSelector().textContains("CONTINUE")');
+        await expect(continueBtn).toBeDisplayed();
+        await continueBtn.click();
+    
+        //pause for ride duration
+        await driver.pause(8000);
 
             // Click end trip button
             const endTripButton = await driver.$(
@@ -220,7 +239,7 @@ await AppiumHelpers.clickCenterOfScreen();
             );
             await endTripButton.click();
 
-            await driver.pause(5000);
+            await driver.pause(2000);
 
             /*
             // Click close button
