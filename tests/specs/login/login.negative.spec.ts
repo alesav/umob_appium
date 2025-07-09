@@ -109,6 +109,10 @@ describe('Login Negative Scenarios', () => {
  
  try {
 
+      // Find and click LOG IN button
+    const gotIt = await driver.$('-android uiautomator:new UiSelector().text("Got it")');
+    await gotIt.click();
+
     // Find and click LOG IN button
     const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
     await logInBtn.click();
