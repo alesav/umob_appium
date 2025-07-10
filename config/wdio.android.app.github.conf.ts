@@ -77,11 +77,7 @@ export const config: WebdriverIO.Config = {
          
          
          //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
-<<<<<<< HEAD
-         //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
-=======
          //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
->>>>>>> e7eda59565689821c08bfcbf48bce9663e7c2256
          //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
 
          //"../tests/specs/book/bookUmobMoped.spec.ts",
