@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
             // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",            
             // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
             // "../tests/specs/login/login.negative.spec.ts",
-            // "../tests/specs/book/bookPublicTransport.spec.ts"
+           //  "../tests/specs/book/bookPublicTransport.spec.ts",
              //"../tests/specs/book/bookTaxi.spec.ts",
             //"../tests/specs/book/reserveFelyx.spec.ts"            
            // "../tests/specs/book/reserveCheck.spec.ts"
@@ -36,7 +36,7 @@ export const config: WebdriverIO.Config = {
             // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts"
             //  "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
               //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"
-             // "../tests/specs/book/bookPublicTransport.spec.ts",
+             //"../tests/specs/book/bookPublicTransport.spec.ts",
              // "../tests/specs/book/bookDonkeyMocked.spec.ts",
 
              /*
@@ -81,10 +81,10 @@ export const config: WebdriverIO.Config = {
          //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
 
          //"../tests/specs/book/bookUmobMoped.spec.ts",
-        // "../tests/specs/book/bookPublicTransport.spec.ts" //more
+         "../tests/specs/book/bookPublicTransport.spec.ts", //more
          //"../tests/specs/book/bookUmobScooters.spec.js", //more
         // "../tests/specs/book/reserveFelyx.spec.ts", //more
-        // "../tests/specs/book/bookTaxi.spec.ts",
+         "../tests/specs/book/bookTaxi.spec.ts",
         // "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
          //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
          // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js" //ok
@@ -101,9 +101,9 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js" //ok
-        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
+        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
          //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
-        "../tests/specs/newUser/nReserveFelyxNoId.spec.ts" // fail because payment card wasnt added
+       // "../tests/specs/newUser/nReserveFelyxNoId.spec.ts" // fail because payment card wasnt added
         // "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
                  
