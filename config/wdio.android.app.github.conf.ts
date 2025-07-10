@@ -94,7 +94,7 @@ export const config: WebdriverIO.Config = {
          "../tests/specs/book/bookDonkeyMocked.spec.ts",
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
 
-         "tests/specs/account/addAdress.spec.ts",
+         "../tests/specs/account/addAdress.spec.ts",
         // "../tests/specs/book/bookUmobScooters.spec.js",
         // "../tests/specs/account/addPaymentMethod.spec.ts", // ok
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //taking photo crashed app. Cant stop active booking for new37 user!
