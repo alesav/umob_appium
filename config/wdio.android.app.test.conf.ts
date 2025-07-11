@@ -48,12 +48,15 @@ export const config: WebdriverIO.Config = {
  //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
 //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
 //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts" //Umob Boke 23
-"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
+//"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
 //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
 //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
 //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
 //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
+//"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+//"../tests/specs/book/bookDonkeyMocked.spec.ts"
+//"../tests/specs/newUser/deleteCard.spec.ts"
 
 ///////////////////////////////////////////////////////////////////////////////////
 //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
@@ -87,6 +90,7 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //newUser
    // "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
+    "../tests/specs/newUser/deleteCard.spec.ts"
 */
 
 
