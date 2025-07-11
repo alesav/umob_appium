@@ -56,7 +56,7 @@ export const config: WebdriverIO.Config = {
 //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
 //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
 //"../tests/specs/book/bookDonkeyMocked.spec.ts"
-"../tests/specs/newUser/deleteCard.spec.ts"
+//"../tests/specs/newUser/deleteCard.spec.ts"
 
 ///////////////////////////////////////////////////////////////////////////////////
 //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
@@ -90,6 +90,7 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //newUser
    // "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
+    "../tests/specs/newUser/deleteCard.spec.ts"
 */
 
 
