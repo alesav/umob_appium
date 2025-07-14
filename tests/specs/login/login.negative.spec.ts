@@ -117,11 +117,7 @@ describe("Login Negative Scenarios", () => {
         let error = null;
 
         try {
-            const deviceCapabilities = await JSON.stringify(
-                driver.capabilities,
-            ).toString();
-            
-            // Find and click LOG IN button
+           // Find and click LOG IN button
             const logInBtn = await driver.$(
                 '-android uiautomator:new UiSelector().text("LOG IN")',
             );
@@ -149,23 +145,21 @@ describe("Login Negative Scenarios", () => {
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
 
-             // // Wait for permissions popup
-             const permissionsPopup = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Allow")',
+            const enableNotifications = await driver.$(
+                "id:com.android.permissioncontroller:id/permission_allow_button",
             );
-            await permissionsPopup.isDisplayed();
-            await expect(permissionsPopup).toBeDisplayed();
-            await permissionsPopup.click();
+            await expect(enableNotifications).toBeDisplayed();
+            await enableNotifications.click();
 
-            console.log("deviceInfo " + deviceCapabilities);
-            if (deviceCapabilities.includes("Local")) {
-                const enableNotifications = await driver.$(
-                    "id:com.android.permissioncontroller:id/permission_allow_button",
-                );
-                await expect(enableNotifications).toBeDisplayed();
-                await enableNotifications.click();
-            }
+             // // Wait for permissions popup
+            //  const permissionsPopup = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Allow")',
+            // );
+            // await permissionsPopup.isDisplayed();
+            // await expect(permissionsPopup).toBeDisplayed();
+            // await permissionsPopup.click();
 
+           
             // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")',
             // );
 
