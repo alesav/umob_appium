@@ -89,7 +89,7 @@ export const config: WebdriverIO.Config = {
          //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
          // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js" //ok
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
-         "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
          //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
          //"../tests/specs/book/bookDonkeyMocked.spec.ts",
          //"../tests/specs/account/combinedLoggedTest.spec.ts",
@@ -106,7 +106,8 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
        // "../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
-       // "../tests/specs/newUser/deleteCard.spec.ts"
+        "../tests/specs/newUser/deleteCard.spec.ts",
+        "../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         // "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
                  
