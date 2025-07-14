@@ -72,21 +72,25 @@ export const config: WebdriverIO.Config = {
 // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok. looks like no card but card is!!! check on screenshot. 
  //"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 24/ not in center. bike FAIL (bike 22 is missing)
  //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14). fully ok
-// "c:/dev/umob_appium/tests/specs/login/login.negative.spec.ts", //ok
-// "../tests/specs/newUser/popupAddPaymentMethod.spec.ts", //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
+ //"c:/dev/umob_appium/tests/specs/account/AddAdress.spec.ts",
+"c:/dev/umob_appium/tests/specs/login/login.negative.spec.ts", //ok
+//"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+ //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",  //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
+// "../tests/specs/newUser/deleteCard.spec.ts"
 // "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
 // "c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts",         //new25 //ok/ 
 // "c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok. not in center, so doesnt click a moped
+//"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
 
 //"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
 
 /*
 //new user tests should be in some order 
-    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new10)
+    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new43)
     "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",      //new20  //newUser
     "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file  //new39  //newUser (174str)
     "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   newUser 
-    "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",      ///new13   //newUser
+    "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",      ///new13   //newUser
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //newUser
    // "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once

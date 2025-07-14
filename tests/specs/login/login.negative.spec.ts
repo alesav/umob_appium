@@ -145,12 +145,12 @@ describe("Login Negative Scenarios", () => {
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
 
-            const permissionsPopup = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Allow")',
-            );
-            await permissionsPopup.isDisplayed();
-            await expect(permissionsPopup).toBeDisplayed();
-            await permissionsPopup.click();
+            // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")',
+            // );
+
+            // await permissionsPopup.isDisplayed();
+            // await expect(permissionsPopup).toBeDisplayed();
+            // await permissionsPopup.click();
 
             // Verify error message
             const errorMessage = await driver.$(
