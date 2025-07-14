@@ -225,6 +225,7 @@ describe("Login Negative Scenarios", () => {
             const loginButtonText = await driver
                 .$("accessibility id:login_button")
                 .isEnabled();
+
             //await expect(loginButtonText).toBeFalsy();
             console.log(loginButtonText);
             await expect(loginButtonText).toBeFalsy();
