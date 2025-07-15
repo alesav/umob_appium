@@ -613,7 +613,7 @@ await driver.pause(1000);
 
             // Check text "make sure you download your..."
             const assureText = await driver.$(
-                '-android uiautomator:new UiSelector().text("Make sure you download your tickets at least 15 mins before the trip. You can always find your tickets in My Rides & Tickets")',
+                '-android uiautomator:new UiSelector().text("Make sure you download your tickets at least 15 mins before the trip. You can always find your tickets in My Rides & Tickets.")',
             );
             await expect(assureText).toBeDisplayed();
 

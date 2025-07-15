@@ -863,7 +863,7 @@ await driver.performActions([
     await expect(question).toBeDisplayed();
 
     
-    const text = await driver.$("-android uiautomator:new UiSelector().textContains(\"Enable camera and microphone\")");
+    const text = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make sure you enabled your camera and microphone\")");
     await expect(text).toBeDisplayed();
 
     
