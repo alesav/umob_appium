@@ -659,8 +659,7 @@ for (const text of contentElements4) {
     const themeOptions = [
       { name: 'Dark' },
       { name: 'Light' },
-      { name: 'Terrain' },
-      { name: 'Playground' }
+      { name: 'Terrain' }
     ];
 
     for (const theme of themeOptions) {

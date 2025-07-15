@@ -79,7 +79,7 @@ await PageObjects.clickAccountButton();
 await driver.pause(2000);
 
    //go to payment settings
-   const paymentSettings = await driver.$('-android uiautomator:new UiSelector().textContains("Payment settings")');
+   const paymentSettings = await driver.$('-android uiautomator:new UiSelector().textContains("Payment methods")');
    await expect (paymentSettings).toBeDisplayed();
    await paymentSettings.click();
 
@@ -92,7 +92,7 @@ await driver.pause(2000);
    await removeButton.click();
    await driver.pause(1000);
 
-   //verify that it was removed by displaying Payment settings in account menu 
+   //verify that it was removed by displaying Payment methods in account menu 
    await expect (paymentSettings).toBeDisplayed();
    
             

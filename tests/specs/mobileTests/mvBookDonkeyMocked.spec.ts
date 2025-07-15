@@ -149,7 +149,7 @@ await AppiumHelpers.clickCenterOfScreen();
     await driver.pause(2000);
 
     //confirm that you can choose payment without vouchers and select limitless voucher "multi1"
-    const noVoucher = await driver.$('-android uiautomator:new UiSelector().text("No ride credit")');
+    const noVoucher = await driver.$('-android uiautomator:new UiSelector().text("No voucher")');
     await expect (noVoucher).toBeDisplayed();
 
     const multiVoucher = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
@@ -321,7 +321,7 @@ await driver.performActions([
     await PageObjects.clickAccountButton();
 
     //verify that my account screen is displayed
-    const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');
+    const myRides = await driver.$('-android uiautomator:new UiSelector().text("My rides")');
     await expect(myRides).toBeDisplayed();
 
     //verify that payment is visible in my account and it is 0 Euro

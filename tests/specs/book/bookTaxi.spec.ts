@@ -403,7 +403,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             //check notification is displayed
             const notification = await driver.$(
-                '-android uiautomator:new UiSelector().text("All rentals are subject to terms & conditions of umob and transport providers. Fees may apply for waiting or cancellation.")',
+                '-android uiautomator:new UiSelector().text("All rentals are subject to terms & conditions of uMob and transport providers. Fees may apply for waiting or cancellation.")',
             );
             await expect(notification).toBeDisplayed();
 

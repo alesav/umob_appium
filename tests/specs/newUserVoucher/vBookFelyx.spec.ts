@@ -346,7 +346,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify anouncement for return helmet
             const helmetBack = await driver.$(
-                '-android uiautomator:new UiSelector().text("Return helmet")',
+                '-android uiautomator:new UiSelector().text("Return the helmet")',
             );
             await expect(helmetBack).toBeDisplayed();
 
@@ -538,7 +538,7 @@ await gotIt.click();
 
             //verify that my account screen is displayed
             const myRides = await driver.$(
-                '-android uiautomator:new UiSelector().text("My Rides & Tickets")',
+                '-android uiautomator:new UiSelector().text("My rides")',
             );
             await expect(myRides).toBeDisplayed();
 

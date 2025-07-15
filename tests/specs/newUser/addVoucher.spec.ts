@@ -96,8 +96,8 @@ await driver.performActions([
   },]);
   await driver.pause(1000);
 
-        //go to ride credit
-        const creditButton = await driver.$('-android uiautomator:new UiSelector().textContains("Ride credit")');
+        //go to ride credit/Vouchers
+        const creditButton = await driver.$('-android uiautomator:new UiSelector().textContains("Vouchers")');
         await expect (creditButton).toBeDisplayed();
         await creditButton.click();
         const code = await driver.$('-android uiautomator:new UiSelector().textContains("Code")');

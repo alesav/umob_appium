@@ -237,7 +237,7 @@ await driver.performActions([
     await driver.pause(2000);
 
     //verify that my account screen is displayed
-    const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');
+    const myRides = await driver.$('-android uiautomator:new UiSelector().text("My rides")');
     await expect(myRides).toBeDisplayed();
 
     //verify that payment is visible in my account and it is 0 Euro

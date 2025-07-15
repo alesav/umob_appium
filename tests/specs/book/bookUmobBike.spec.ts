@@ -300,7 +300,7 @@ await AppiumHelpers.clickCenterOfScreen();
     ).click();
 
     await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
+      '-android uiautomator:new UiSelector().text("No voucher")'
     ).click();
 
 

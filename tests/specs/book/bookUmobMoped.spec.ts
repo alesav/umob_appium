@@ -292,7 +292,7 @@ try {
     ).click();
 
     await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
+      '-android uiautomator:new UiSelector().text("No voucher")'
     ).click();
 
 
@@ -822,7 +822,7 @@ try {
     ).click();
 
     await driver.$(
-      '-android uiautomator:new UiSelector().text("No ride credit")'
+      '-android uiautomator:new UiSelector().text("No voucher")'
     ).click();
 
         // Click Start

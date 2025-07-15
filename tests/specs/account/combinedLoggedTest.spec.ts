@@ -178,9 +178,9 @@ let testStatus = "Pass";
 const accountMenuItems = [
   "Invite friends",
   "Personal info",
-  "Payment settings",
+  "Payment methods",
   "ID Document",
-  "My Rides & Tickets"
+  "My rides"
 ];
 
 for (const menuItem of accountMenuItems) {
@@ -207,7 +207,7 @@ await driver.pause(2000);
 
 // Verify account menu items after first scrolling
 const accountMenuItems2 = [
-  "Ride credit",
+  "Vouchers",
   "My payments",
   "Language",
   "Map theme settings",
@@ -353,14 +353,14 @@ for (const menuItem of accountMenuItems3) {
     await driver.pause(2000);
 
     // Navigate to My Rides & Tickets
-    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My rides\")");
     await driver.pause(1000);
     await expect(myRidesAndTicketsButton).toBeDisplayed();
     await myRidesAndTicketsButton.click();
     await driver.pause(1000);
 
     // Verify screen header
-    // const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    // const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My rides\")");
     // await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
@@ -727,14 +727,14 @@ const { width, height } = await driver.getWindowSize();
       },]);
  await driver.pause(2000);
 
-    // Navigate to Ride Credit
-    const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    // Navigate to Ride Credit/Vouchers (new version of text)
+    const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Vouchers\")");
     await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
     // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Vouchers\")");
     await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
@@ -950,7 +950,7 @@ const { width, height } = await driver.getWindowSize();
     await driver.pause(2000);
     
     // Navigate to Payment Settings screen
-    const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment settings\")");
+    const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment methods\")");
     await expect(paymentSettingsButton).toBeDisplayed();
     await paymentSettingsButton.click();
 
@@ -1345,8 +1345,7 @@ const { width, height } = await driver.getWindowSize();
     const themeOptions = [
       { name: 'Dark' },
       { name: 'Light' },
-      { name: 'Terrain' },
-      { name: 'Playground' }
+      { name: 'Terrain' }
     ];
 
     for (const theme of themeOptions) {

@@ -136,7 +136,7 @@ await AppiumHelpers.clickCenterOfScreen();
             );
             await expect(allowPermissionBtn).toBeDisplayed();
             await allowPermissionBtn.click();
-            
+                        
 
             /*
     await driver.pause(5000);
@@ -152,30 +152,20 @@ await AppiumHelpers.clickCenterOfScreen();
     */
 
     await driver.pause(2000);
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger1",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height * 0.6,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: height * 0.2,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
             /*const screen = await driver.getWindowRect();
     const screenWidth = screen.width;

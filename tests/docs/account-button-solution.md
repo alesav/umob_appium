@@ -17,9 +17,9 @@ async clickAccountButton(maxRetries: number = 5, checkDelay: number = 3000): Pro
 - Waits 3 seconds for the account screen to load
 - Checks if any account screen indicators are visible:
   - "Personal info"
-  - "Payment settings" 
+  - "Payment methods" 
   - "Invite friends"
-  - "My Rides & Tickets"
+  - "My rides"
 - If account screen didn't load, retries up to 5 times
 - Provides detailed logging for debugging
 
