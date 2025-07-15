@@ -326,7 +326,7 @@ await driver.pause(3000);
 
 
 //verify anouncement for return helmet
-const helmetBack = await driver.$('-android uiautomator:new UiSelector().text("Return helmet")');
+const helmetBack = await driver.$('-android uiautomator:new UiSelector().text("Return the helmet")');
 await expect (helmetBack).toBeDisplayed();
 
 
