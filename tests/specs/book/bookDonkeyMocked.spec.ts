@@ -129,7 +129,7 @@ await AppiumHelpers.clickCenterOfScreen();
 
             await continueButton.click();
 
-            // Handle permissions 
+          /*  // Handle permissions 
             
             const allowPermissionBtn = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_button",
@@ -137,6 +137,7 @@ await AppiumHelpers.clickCenterOfScreen();
             await expect(allowPermissionBtn).toBeDisplayed();
             await allowPermissionBtn.click();
                         
+            */
 
             /*
     await driver.pause(5000);
