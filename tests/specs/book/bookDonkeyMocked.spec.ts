@@ -129,7 +129,7 @@ await AppiumHelpers.clickCenterOfScreen();
 
             await continueButton.click();
 
-          /*  // Handle permissions 
+            // Handle permissions 
             
             const allowPermissionBtn = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_button",
@@ -137,7 +137,6 @@ await AppiumHelpers.clickCenterOfScreen();
             await expect(allowPermissionBtn).toBeDisplayed();
             await allowPermissionBtn.click();
                         
-            */
 
             /*
     await driver.pause(5000);
@@ -160,7 +159,7 @@ await AppiumHelpers.clickCenterOfScreen();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.95 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.6 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
               { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
