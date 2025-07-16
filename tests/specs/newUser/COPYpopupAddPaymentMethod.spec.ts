@@ -138,8 +138,8 @@ describe('Add Payment Method through popup for the New User', () => {
 
         // Check if verification is in progress (need to retry)
         try {
-          const verificationInProgress = await driver.$('-android uiautomator:new UiSelector().text("Verification in progress")');
-          if (await verificationInProgress.isDisplayed()) {
+          const verificationInProgress = await driver.$('-android uiautomator:new UiSelector().textContains("Verification in progress")');
+          if (await verificationInProgress.isExisting()) {
             console.log("Verification in progress detected, clicking ADD PAYMENT METHOD and retrying...");
             
             // First click on ADD PAYMENT METHOD to go to payment method page
