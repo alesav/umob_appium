@@ -158,10 +158,10 @@ await AppiumHelpers.clickCenterOfScreen();
           id: 'finger1',
           parameters: { pointerType: 'touch' },
           actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.6 },
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.65 },
               { type: 'pointerDown', button: 0 },
               { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.1 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
               { type: 'pointerUp', button: 0 },
           ],
       },]);
@@ -191,6 +191,8 @@ await AppiumHelpers.clickCenterOfScreen();
 
           //click to start and unlock the bike
     const umob20Button1 = await driver.$('-android uiautomator:new UiSelector().text("START TRIP")');
+    await expect(umob20Button1).toBeDisplayed()
+    await driver.pause(1000);
     await umob20Button1.click();
 
     const umobText1 = await driver.$('-android uiautomator:new UiSelector().text("Use the handle to open the lock")');
