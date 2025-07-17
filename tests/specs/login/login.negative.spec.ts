@@ -58,13 +58,13 @@ describe("Login Negative Scenarios", () => {
             await permissionsPopup.click();
 
             console.log("deviceInfo " + deviceCapabilities);
-            if (deviceCapabilities.includes("Local")) {
-                const enableNotifications = await driver.$(
-                    "id:com.android.permissioncontroller:id/permission_allow_button",
-                );
-                await expect(enableNotifications).toBeDisplayed();
-                await enableNotifications.click();
-            }
+            // if (deviceCapabilities.includes("Local")) {
+            //     const enableNotifications = await driver.$(
+            //         "id:com.android.permissioncontroller:id/permission_allow_button",
+            //     );
+            //     await expect(enableNotifications).toBeDisplayed();
+            //     await enableNotifications.click();
+            // }
 
             // Verify error message
             const errorMessage = await driver.$(

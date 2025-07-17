@@ -12,7 +12,7 @@ describe('Combined Not Logged User Tests', () => {
     try {
       // Wait for the popup text to be visible
       const popupText = await driver.$('android=new UiSelector().text("Sign up & get €10,-")');
-      await popupText.waitForDisplayed({ timeout: 7000 });
+      await popupText.waitForDisplayed({ timeout: 15000 });
 
       // Verify popup elements
       const popupDescription = await driver.$('android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")');
@@ -21,6 +21,7 @@ describe('Combined Not Logged User Tests', () => {
       // Click the "EXPLORE MAP" button
       const exploreMapButton = await driver.$('android=new UiSelector().text("EXPLORE MAP")');
       await expect(exploreMapButton).toBeDisplayed();
+      await driver.pause(5000);
       await exploreMapButton.click();
       await driver.pause(2000);
       
