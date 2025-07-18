@@ -97,7 +97,7 @@ describe("Login positive scenarios", () => {
                 "accessibility id:login_username_field",
             );
             await expect(usernameField).toBeDisplayed();
-            await usernameField.addValue("4bigfoot+10@gmail.com");
+            await usernameField.addValue("test@gmail.com");
 
             const passwordField = await driver.$(
                 "accessibility id:login_password_field",
