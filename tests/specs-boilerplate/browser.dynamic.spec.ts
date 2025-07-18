@@ -1,7 +1,7 @@
-import DynamicPage from '../pageobjects/dynamic.page.js';
+import DynamicPage from "../pageobjects/dynamic.page.js";
 
-describe('dynamic loading', () => {
-    it('should be an button on the page',  async () => {
+describe("dynamic loading", () => {
+    it("should be an button on the page", async () => {
         await DynamicPage.open();
 
         await expect(DynamicPage.loadedPage).not.toBeExisting();

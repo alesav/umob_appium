@@ -77,7 +77,7 @@ class Carousel extends Gestures {
         // We need to determine the center position of the carousel on the screen. This can be done by taking the
         // starting position (carouselRectangles.y) and add half of the height of the carousel to it.
         const y = Math.round(
-            carouselRectangles.y + carouselRectangles.height / 2
+            carouselRectangles.y + carouselRectangles.height / 2,
         );
 
         // Execute the gesture by providing a starting position and an end position
@@ -87,7 +87,7 @@ class Carousel extends Gestures {
             // part of the screen we take 10% of the x-position. The y-position has already been determined.
             from: {
                 x: Math.round(
-                    carouselRectangles.width - carouselRectangles.width * 0.1
+                    carouselRectangles.width - carouselRectangles.width * 0.1,
                 ),
                 y,
             },
@@ -95,7 +95,7 @@ class Carousel extends Gestures {
             // part of the screen we add 10% to the x-position. The y-position has already been determined.
             to: {
                 x: Math.round(
-                    carouselRectangles.x + carouselRectangles.width * 0.1
+                    carouselRectangles.x + carouselRectangles.width * 0.1,
                 ),
                 y,
             },
@@ -111,7 +111,7 @@ class Carousel extends Gestures {
         // We need to determine the center position of the carousel on the screen. This can be done by taking the
         // starting position (carouselRectangles.y) and add half of the height of the carousel to it.
         const y = Math.round(
-            carouselRectangles.y + carouselRectangles.height / 2
+            carouselRectangles.y + carouselRectangles.height / 2,
         );
 
         // Execute the gesture by providing a starting position and an end position
@@ -121,7 +121,7 @@ class Carousel extends Gestures {
             // part of the screen we add 10% to the x-position. The y-position has already been determined.
             from: {
                 x: Math.round(
-                    carouselRectangles.x + carouselRectangles.width * 0.1
+                    carouselRectangles.x + carouselRectangles.width * 0.1,
                 ),
                 y,
             },
@@ -129,7 +129,7 @@ class Carousel extends Gestures {
             // part of the screen we take 10% of the x-position. The y-position has already been determined.
             to: {
                 x: Math.round(
-                    carouselRectangles.width - carouselRectangles.width * 0.1
+                    carouselRectangles.width - carouselRectangles.width * 0.1,
                 ),
                 y,
             },

@@ -53,8 +53,8 @@ function getCredentials(environment = "test", userKey = null) {
 }
 
 // Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new18';
+const ENV = process.env.TEST_ENV || "test";
+const USER = process.env.TEST_USER || "new18";
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -254,7 +254,7 @@ describe("Reserve Felyx Test", () => {
             //     .perform();
 
             //Click on middle of the screen
-	await AppiumHelpers.clickCenterOfScreen();
+            await AppiumHelpers.clickCenterOfScreen();
 
             // Click Understood
             // await driver.$(

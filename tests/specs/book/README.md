@@ -9,32 +9,33 @@
 
 #### Key Improvements:
 
-1. **Removed Code Duplication**: 
-   - Eliminated repetitive element selectors and actions
-   - Consolidated common functionality into reusable classes
+1. **Removed Code Duplication**:
+    - Eliminated repetitive element selectors and actions
+    - Consolidated common functionality into reusable classes
 
 2. **Better Organization**:
-   - `TestHelpers` class: Utility functions for credentials, screen interaction, location setting
-   - `ScooterBookingActions` class: All scooter booking related actions
-   - `TestRunner` class: Centralized error handling and test result submission
+    - `TestHelpers` class: Utility functions for credentials, screen interaction, location setting
+    - `ScooterBookingActions` class: All scooter booking related actions
+    - `TestRunner` class: Centralized error handling and test result submission
 
 3. **Enhanced PageObjects Usage**:
-   - Moved UI interactions to PageObjects where possible
-   - Added new methods to PageObjects for common actions
+    - Moved UI interactions to PageObjects where possible
+    - Added new methods to PageObjects for common actions
 
 4. **Improved Error Handling**:
-   - Centralized try-catch logic in `TestRunner.runTest()`
-   - Consistent screenshot capture and test result submission
-   - No more repeated error handling code in each test
+    - Centralized try-catch logic in `TestRunner.runTest()`
+    - Consistent screenshot capture and test result submission
+    - No more repeated error handling code in each test
 
 5. **Better Maintainability**:
-   - Each test case is now focused on its specific scenario
-   - Common setup/teardown logic is centralized
-   - Easy to add new test cases or modify existing ones
+    - Each test case is now focused on its specific scenario
+    - Common setup/teardown logic is centralized
+    - Easy to add new test cases or modify existing ones
 
 ### PageObjects Improvements (`umobPageObjects.page.ts`)
 
 #### Added New Methods:
+
 - `selectPaymentMethod()`: Handles payment method selection
 - `startTrip()`: Initiates trip booking
 - `endTrip()`: Ends the current trip
@@ -44,6 +45,7 @@
 - `clickRetryButton()`: Retry button interaction
 
 #### Added New Element Selectors:
+
 - Trip-related buttons (start, end, retry, etc.)
 - Payment-related elements
 - Navigation elements
@@ -52,9 +54,9 @@
 
 1. **Positive Scenario**: Successfully book and complete a scooter trip
 2. **Negative Scenarios**:
-   - Vehicle not operational error
-   - User blocked error  
-   - Trip geo error with retry logic
+    - Vehicle not operational error
+    - User blocked error
+    - Trip geo error with retry logic
 
 ## Benefits of Refactoring
 
@@ -71,15 +73,15 @@ The refactored tests maintain the same functionality as before but with much cle
 
 ```javascript
 // Example of how clean the tests now look:
-it('Positive Scenario: Book Mocked Umob Scooter Successfully', async () => {
-  await TestRunner.runTest("test-id", async () => {
-    await ScooterBookingActions.clickScooterOnMap();
-    await ScooterBookingActions.selectPaymentMethod();
-    await ScooterBookingActions.startTrip();
-    await ScooterBookingActions.endTrip();
-    await ScooterBookingActions.handleTripCompletion();
-    await ScooterBookingActions.navigateToMyRides();
-    await ScooterBookingActions.verifyRideDetails();
-  });
+it("Positive Scenario: Book Mocked Umob Scooter Successfully", async () => {
+    await TestRunner.runTest("test-id", async () => {
+        await ScooterBookingActions.clickScooterOnMap();
+        await ScooterBookingActions.selectPaymentMethod();
+        await ScooterBookingActions.startTrip();
+        await ScooterBookingActions.endTrip();
+        await ScooterBookingActions.handleTripCompletion();
+        await ScooterBookingActions.navigateToMyRides();
+        await ScooterBookingActions.verifyRideDetails();
+    });
 });
 ```

@@ -15,7 +15,7 @@ describe("WebdriverIO and Appium, when interacting with form elements,", () => {
         const text = "Hello, this is a demo app";
         await FormScreen.input.setValue(text);
         await expect(FormScreen.inputTextResult).toHaveText(
-            expect.stringContaining(text)
+            expect.stringContaining(text),
         );
 
         /**

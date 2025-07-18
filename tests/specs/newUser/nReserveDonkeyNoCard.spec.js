@@ -1,10 +1,10 @@
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from '../../helpers/SendResults.js';
+import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -14,235 +14,276 @@ const __dirname = path.dirname(__filename);
  * Test Helper Functions
  */
 class TestHelpers {
-  static getCredentials(environment = 'test', userKey = null) {
-    try {
-      const credentialsPath = path.resolve(__dirname, '../../../config/credentials.json');
-      const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
-      
-      if (!credentials[environment]) {
-        console.warn(`Environment '${environment}' not found in credentials file. Using 'test' environment.`);
-        environment = 'test';
-      }
-      
-      const envUsers = credentials[environment];
-      
-      if (!userKey) {
-        userKey = Object.keys(envUsers)[0];
-      } else if (!envUsers[userKey]) {
-        console.warn(`User '${userKey}' not found in '${environment}' environment. Using first available user.`);
-        userKey = Object.keys(envUsers)[0];
-      }
-      
-      return {
-        username: envUsers[userKey].username,
-        password: envUsers[userKey].password
-      };
-    } catch (error) {
-      console.error('Error loading credentials:', error);
-      throw new Error('Failed to load credentials configuration');
+    static getCredentials(environment = "test", userKey = null) {
+        try {
+            const credentialsPath = path.resolve(
+                __dirname,
+                "../../../config/credentials.json",
+            );
+            const credentials = JSON.parse(
+                fs.readFileSync(credentialsPath, "utf8"),
+            );
+
+            if (!credentials[environment]) {
+                console.warn(
+                    `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
+                );
+                environment = "test";
+            }
+
+            const envUsers = credentials[environment];
+
+            if (!userKey) {
+                userKey = Object.keys(envUsers)[0];
+            } else if (!envUsers[userKey]) {
+                console.warn(
+                    `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
+                );
+                userKey = Object.keys(envUsers)[0];
+            }
+
+            return {
+                username: envUsers[userKey].username,
+                password: envUsers[userKey].password,
+            };
+        } catch (error) {
+            console.error("Error loading credentials:", error);
+            throw new Error("Failed to load credentials configuration");
+        }
     }
-  }
 
-  static async getScreenCenter() {
-    return await AppiumHelpers.getScreenCenter();
-  }
-
-  static async setLocationAndRestartApp(longitude, latitude) {
-    return await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
-  }
-
-  static async captureScreenshot(testId) {
-    const screenshotPath = `./screenshots/${testId}.png`;
-    try {
-      await driver.saveScreenshot(screenshotPath);
-    } catch (error) {
-      console.warn("Driver screenshot failed, using adb fallback");
-      execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+    static async getScreenCenter() {
+        return await AppiumHelpers.getScreenCenter();
     }
-    return screenshotPath;
-  }
 
+    static async setLocationAndRestartApp(longitude, latitude) {
+        return await AppiumHelpers.setLocationAndRestartApp(
+            longitude,
+            latitude,
+        );
+    }
+
+    static async captureScreenshot(testId) {
+        const screenshotPath = `./screenshots/${testId}.png`;
+        try {
+            await driver.saveScreenshot(screenshotPath);
+        } catch (error) {
+            console.warn("Driver screenshot failed, using adb fallback");
+            execSync(`adb exec-out screencap -p > ${screenshotPath}`);
+        }
+        return screenshotPath;
+    }
 }
 
 /**
  * Donkey Bike Booking Actions
  */
 class DonkeyBikeActions {
-  static async clickCenterOfScreen() {
-    const { centerX, centerY } = await TestHelpers.getScreenCenter();
-    
-    // await driver
-    //   .action("pointer")
-    //   .move({ x: centerX, y: centerY })
-    //   .down()
-    //   .up()
-    //   .perform();
+    static async clickCenterOfScreen() {
+        const { centerX, centerY } = await TestHelpers.getScreenCenter();
 
-    //Click on middle of the screen
-	await AppiumHelpers.clickCenterOfScreen();
-    
-    await driver.pause(2000);
-  }
+        // await driver
+        //   .action("pointer")
+        //   .move({ x: centerX, y: centerY })
+        //   .down()
+        //   .up()
+        //   .perform();
 
-  static async clickFinishLater() {
-    await driver.pause(2000);
-    try {
-      const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-      if (await finishLater.isDisplayed()) {
+        //Click on middle of the screen
+        await AppiumHelpers.clickCenterOfScreen();
+
         await driver.pause(2000);
-        await finishLater.click();
-        await finishLater.click();
-      }
-    } catch (e) {
-      // Element not present, do nothing
     }
-  }
 
-  static async selectBike(bikeText) {
-    const bikeButton = await driver.$(`-android uiautomator:new UiSelector().text("${bikeText}")`);
-    await bikeButton.click();
-  }
+    static async clickFinishLater() {
+        await driver.pause(2000);
+        try {
+            const finishLater = await driver.$(
+                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+            );
+            if (await finishLater.isDisplayed()) {
+                await driver.pause(2000);
+                await finishLater.click();
+                await finishLater.click();
+            }
+        } catch (e) {
+            // Element not present, do nothing
+        }
+    }
 
-  static async verifyNewUserVoucher() {
-    const voucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
-    await expect(voucher).toBeDisplayed();
-  }
+    static async selectBike(bikeText) {
+        const bikeButton = await driver.$(
+            `-android uiautomator:new UiSelector().text("${bikeText}")`,
+        );
+        await bikeButton.click();
+    }
 
-  static async verifySelectPaymentMethod() {
-    const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-    await expect(selectPayment).toBeDisplayed();
-  }
-  static async clickContinueButton() {
-    await driver.pause(5000);
-    const continueButton = await driver.$('android=new UiSelector().text("START TRIP")');
-    await expect(continueButton).toBeDisplayed();
-    await expect(continueButton).toBeEnabled();
-    await continueButton.click();
-    await driver.pause(2000);
-  }
+    static async verifyNewUserVoucher() {
+        const voucher = await driver.$(
+            '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
+        );
+        await expect(voucher).toBeDisplayed();
+    }
 
-  static async verifyPaymentMethodsScreen() {
-    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("PAYMENT METHODS")');
-    await expect(paymentHeader).toBeDisplayed();
+    static async verifySelectPaymentMethod() {
+        const selectPayment = await driver.$(
+            '-android uiautomator:new UiSelector().text("Select payment method")',
+        );
+        await expect(selectPayment).toBeDisplayed();
+    }
+    static async clickContinueButton() {
+        await driver.pause(5000);
+        const continueButton = await driver.$(
+            'android=new UiSelector().text("START TRIP")',
+        );
+        await expect(continueButton).toBeDisplayed();
+        await expect(continueButton).toBeEnabled();
+        await continueButton.click();
+        await driver.pause(2000);
+    }
 
-    const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-    await expect(cards).toBeDisplayed();
+    static async verifyPaymentMethodsScreen() {
+        const paymentHeader = await driver.$(
+            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
+        );
+        await expect(paymentHeader).toBeDisplayed();
 
-    const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-    await expect(bancontactCard).toBeDisplayed();
-  }
+        const cards = await driver.$(
+            '-android uiautomator:new UiSelector().text("Cards")',
+        );
+        await expect(cards).toBeDisplayed();
 
-  static async verifyPaymentOptions() {
-    const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-    await expect(payPal).toBeDisplayed();
-  }
+        const bancontactCard = await driver.$(
+            '-android uiautomator:new UiSelector().text("Bancontact card")',
+        );
+        await expect(bancontactCard).toBeDisplayed();
+    }
+
+    static async verifyPaymentOptions() {
+        const payPal = await driver.$(
+            '-android uiautomator:new UiSelector().text("PayPal")',
+        );
+        await expect(payPal).toBeDisplayed();
+    }
 }
 
 /**
  * Test Runner with proper error handling
  */
 class TestRunner {
-  static async runTest(testId, testFunction, bikeInfo = null) {
-    let testStatus = "Pass";
-    let screenshotPath = "";
-    let testDetails = "";
-    let error = null;
+    static async runTest(testId, testFunction, bikeInfo = null) {
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
 
-    try {
-      await testFunction();
-    } catch (e) {
-      error = e;
-      console.error("Test failed:", error);
-      testStatus = "Fail";
-      
-      const bikeDetails = bikeInfo ? 
-        `Bike: ${bikeInfo.name} (${bikeInfo.longitude}, ${bikeInfo.latitude}) | ` : '';
-      testDetails = `${bikeDetails}Error: ${e.message}`;
-      
-      screenshotPath = await TestHelpers.captureScreenshot(testId);
-    } finally {
-      try {
-        await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-        console.log("Test run submitted successfully");
-      } catch (submitError) {
-        console.error("Failed to submit test run:", submitError);
-      }
+        try {
+            await testFunction();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
 
-      if (error) {
-        throw error;
-      }
+            const bikeDetails = bikeInfo
+                ? `Bike: ${bikeInfo.name} (${bikeInfo.longitude}, ${bikeInfo.latitude}) | `
+                : "";
+            testDetails = `${bikeDetails}Error: ${e.message}`;
+
+            screenshotPath = await TestHelpers.captureScreenshot(testId);
+        } finally {
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            if (error) {
+                throw error;
+            }
+        }
     }
-  }
 }
 
 /**
  * Main Test Suite
  */
-describe('Donkey Bike Booking - New User Without Card', () => {
-  const ENV = process.env.TEST_ENV || 'test';
-  const USER = process.env.TEST_USER || 'newUser';
-  
-  const bikeLocation = {
-    name: "UMOB Bike 2 1",
-    longitude: 4.4744301,
-    latitude: 51.9155956
-  };
+describe("Donkey Bike Booking - New User Without Card", () => {
+    const ENV = process.env.TEST_ENV || "test";
+    const USER = process.env.TEST_USER || "newUser";
 
-  before(async () => {
-    const credentials = TestHelpers.getCredentials(ENV, USER);
-    await PageObjects.login({ username: credentials.username, password: credentials.password });
-    
-    await TestHelpers.setLocationAndRestartApp(
-      bikeLocation.longitude, 
-      bikeLocation.latitude
-    );
-    
-    await driver.pause(3000);
-  });
+    const bikeLocation = {
+        name: "UMOB Bike 2 1",
+        longitude: 4.4744301,
+        latitude: 51.9155956,
+    };
 
-  beforeEach(async () => {
-    await driver.activateApp("com.umob.umob");
-  });
+    before(async () => {
+        const credentials = TestHelpers.getCredentials(ENV, USER);
+        await PageObjects.login({
+            username: credentials.username,
+            password: credentials.password,
+        });
 
-  afterEach(async () => {
-    await driver.terminateApp("com.umob.umob");
-  });
+        await TestHelpers.setLocationAndRestartApp(
+            bikeLocation.longitude,
+            bikeLocation.latitude,
+        );
 
-  it('New User Tries to Book Donkey UMOB Bike Without Card', async () => {
-    await TestRunner.runTest("a66df007-2bfa-4531-af52-87e3eec81280", async () => {
-      // Set specific location for the bike
-      await TestHelpers.setLocationAndRestartApp(4.474431, 51.91564);
+        await driver.pause(3000);
+    });
 
-      await DonkeyBikeActions.clickFinishLater();
-      
-      // Click on center of screen to interact with map  
-      await AppiumHelpers.clickCenterOfScreen();
+    beforeEach(async () => {
+        await driver.activateApp("com.umob.umob");
+    });
 
-      // Select the specific bike
-      await DonkeyBikeActions.selectBike("UMOB Bike 2 1");
+    afterEach(async () => {
+        await driver.terminateApp("com.umob.umob");
+    });
 
-      // Verify new user voucher is displayed
-      await DonkeyBikeActions.verifyNewUserVoucher();
+    it("New User Tries to Book Donkey UMOB Bike Without Card", async () => {
+        await TestRunner.runTest(
+            "a66df007-2bfa-4531-af52-87e3eec81280",
+            async () => {
+                // Set specific location for the bike
+                await TestHelpers.setLocationAndRestartApp(4.474431, 51.91564);
 
-      // Verify payment method selection is shown
-      await DonkeyBikeActions.verifySelectPaymentMethod();
+                await DonkeyBikeActions.clickFinishLater();
 
-      // Swipe up to reveal more options
-      await AppiumHelpers.performSwipeUp();
+                // Click on center of screen to interact with map
+                await AppiumHelpers.clickCenterOfScreen();
 
-      // Click continue button
-      await DonkeyBikeActions.clickContinueButton();
+                // Select the specific bike
+                await DonkeyBikeActions.selectBike("UMOB Bike 2 1");
 
-      // Verify payment methods screen
-      await DonkeyBikeActions.verifyPaymentMethodsScreen();
+                // Verify new user voucher is displayed
+                await DonkeyBikeActions.verifyNewUserVoucher();
 
-      // Swipe down to see more payment options
-      await driver.pause(2000);
-      await AppiumHelpers.performSwipeDown();
+                // Verify payment method selection is shown
+                await DonkeyBikeActions.verifySelectPaymentMethod();
 
-      // Verify available payment options
-      await DonkeyBikeActions.verifyPaymentOptions();
+                // Swipe up to reveal more options
+                await AppiumHelpers.performSwipeUp();
 
-    }, bikeLocation);
-  });
+                // Click continue button
+                await DonkeyBikeActions.clickContinueButton();
+
+                // Verify payment methods screen
+                await DonkeyBikeActions.verifyPaymentMethodsScreen();
+
+                // Swipe down to see more payment options
+                await driver.pause(2000);
+                await AppiumHelpers.performSwipeDown();
+
+                // Verify available payment options
+                await DonkeyBikeActions.verifyPaymentOptions();
+            },
+            bikeLocation,
+        );
+    });
 });

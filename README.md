@@ -53,9 +53,9 @@ npm install
 
 5. Running tests locally
     - **Android App:** `npm run android.app`
-    - **Android Browser:**  `npm run android.browser`
+    - **Android Browser:** `npm run android.browser`
     - **iOS App:** `npm run ios.app`
-    - **iOS Browser:**  `npm run ios.browser`
+    - **iOS Browser:** `npm run ios.browser`
     - **Android App with cucumber:** `npm run android.app.cucumber`
 
 ## How to implement in your project
@@ -89,13 +89,13 @@ If `accessibilityID`'s can't be used, and for example only XPATH is available, t
 ```js
 const SELECTORS = {
     WEB_VIEW_SCREEN: browser.isAndroid
-        ? '*//android.webkit.WebView'
-        : '*//XCUIElementTypeWebView',
+        ? "*//android.webkit.WebView"
+        : "*//XCUIElementTypeWebView",
 };
 ```
 
 > [!NOTE]
-> If you look into the screen/page-objects you might see that a lot of selectors are made private, meaning you can't use the elements in the spec-file itself. This has been done on purpose because one of the *best practices* is to remove all interactions from your spec files and implement the interactions in the page objects. This will make it easier to maintain for the future and easier to refactor if new interaction methods will be added or names will be adjusted.
+> If you look into the screen/page-objects you might see that a lot of selectors are made private, meaning you can't use the elements in the spec-file itself. This has been done on purpose because one of the _best practices_ is to remove all interactions from your spec files and implement the interactions in the page objects. This will make it easier to maintain for the future and easier to refactor if new interaction methods will be added or names will be adjusted.
 
 ## Native App Tests
 
@@ -114,7 +114,7 @@ npm run ios.app
 Drag-and-drop an element can be a complex gesture to automate with Appium. The demo app has a simple puzzle that hopefully makes it easier and fun to understand how to implement a drag-and-drop in WebdriverIO. The test can be found [here](./tests/specs/app.drag.and.drop.spec.ts) and the drag-and-drop implementation can be found in [this](./tests/screenobjects DragScreen.ts) file.
 
 This file will now only hold the [`touchAction`](https://webdriver.io/docs/api/browser/touchAction/) way of using the drag and drop Gesture.
-The `touchPerform` is the *old* JSONWP way of implementing a gesture and is not W3C compatible. The `touchAction` is the new official W3C implementation of a gesture.
+The `touchPerform` is the _old_ JSONWP way of implementing a gesture and is not W3C compatible. The `touchAction` is the new official W3C implementation of a gesture.
 
 You can run the single test with the following commands
 
@@ -199,7 +199,7 @@ npm run ios.app -- --spec=tests/specs/app.deep.link.navigation.spec.ts
 
 ### Swiping
 
-Swiping is a movement with your finger on the screen that has a starting position on the screen, an x-, and y-coordinate and an end position, also an x-, and y-coordinate. The starting position can be seen as the first time you touch the screen, the initial *press*. The end position can be seen as the time you release the screen. If you translate this into steps you will get:
+Swiping is a movement with your finger on the screen that has a starting position on the screen, an x-, and y-coordinate and an end position, also an x-, and y-coordinate. The starting position can be seen as the first time you touch the screen, the initial _press_. The end position can be seen as the time you release the screen. If you translate this into steps you will get:
 
 1. Press your finger on the screen in the starting position
 1. Move your finger to the end position
@@ -224,9 +224,8 @@ npm run ios.app -- --spec=tests/specs/app.swipe.spec.ts
 The app has a WebView that will automatically load the WebdriverIO documentation page. This boilerplate holds 2 test files:
 
 1. [Interact within a WebView with CSS Selectors](./tests/specs/app.webview.spec.ts).
-   *You will also find a test that interacts between a WebView and the Native part of the app.*
+   _You will also find a test that interacts between a WebView and the Native part of the app._
 1. [Automate a WebView based on Native Selectors](./tests/specs/app.webview.xpath.spec.ts). This test will compare the execution time of:
-
     - automating the WebView by **NOT** switching to the WebView (by using native selectors).
     - automating the WebView by **SWITCHING** to the WebView.
 
@@ -310,7 +309,7 @@ When you've done that you will see a lot of successful logs in your terminal.
 #### Run app tests on the Sauce Labs Real Device Cloud
 
 > ![NOTE]
-> Due to the lack of signing iOS apps, this boilerplate doesn't support Real Devices.  Only Android Real Devices are supported. If you want to use iOS Real Devices then you need to provide your own app that has been signed properly.
+> Due to the lack of signing iOS apps, this boilerplate doesn't support Real Devices. Only Android Real Devices are supported. If you want to use iOS Real Devices then you need to provide your own app that has been signed properly.
 
 Please check the [Android Real Devices](./config/wdio.android.app.conf.ts)-config to see the setup for Android real devices.
 

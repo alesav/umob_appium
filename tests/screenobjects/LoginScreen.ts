@@ -1,42 +1,66 @@
-import AppScreen from './AppScreen.js';
-import Gestures from '../helpers/Gestures.js';
+import AppScreen from "./AppScreen.js";
+import Gestures from "../helpers/Gestures.js";
 
 const SELECTORS = {
-    SCREEN: '~Login-screen',
+    SCREEN: "~Login-screen",
 };
 
 class LoginScreen extends AppScreen {
-    constructor () {
+    constructor() {
         super(SELECTORS.SCREEN);
     }
 
-    get screen () {return $(SELECTORS.SCREEN);}
-    private get loginContainerButton () {return $('~button-login-container');}
-    private get signUpContainerButton () {return $('~button-sign-up-container');}
-    private get loginButton () {return $('~button-LOGIN');}
-    private get signUpButton () {return $('~button-SIGN UP');}
-    private get email () {return $('~input-email');}
-    private get password () {return $('~input-password');}
-    private get repeatPassword () {return $('~input-repeat-password');}
-    private get biometricButton () {return $('~button-biometric');}
+    get screen() {
+        return $(SELECTORS.SCREEN);
+    }
+    private get loginContainerButton() {
+        return $("~button-login-container");
+    }
+    private get signUpContainerButton() {
+        return $("~button-sign-up-container");
+    }
+    private get loginButton() {
+        return $("~button-LOGIN");
+    }
+    private get signUpButton() {
+        return $("~button-SIGN UP");
+    }
+    private get email() {
+        return $("~input-email");
+    }
+    private get password() {
+        return $("~input-password");
+    }
+    private get repeatPassword() {
+        return $("~input-repeat-password");
+    }
+    private get biometricButton() {
+        return $("~button-biometric");
+    }
 
-    async isBiometricButtonDisplayed () {
+    async isBiometricButtonDisplayed() {
         return this.biometricButton.isDisplayed();
     }
 
-    async tapOnLoginContainerButton(){
+    async tapOnLoginContainerButton() {
         await this.loginContainerButton.click();
     }
 
-    async tapOnSignUpContainerButton(){
+    async tapOnSignUpContainerButton() {
         await this.signUpContainerButton.click();
     }
 
-    async tapOnBiometricButton(){
+    async tapOnBiometricButton() {
         await this.biometricButton.click();
     }
 
-    async submitLoginForm({ username, password }:{username:string; password:string;}) {
+    async submitLoginForm({
+        username,
+        password,
+    }: {
+        username: string;
+        password: string;
+    }) {
         await this.email.setValue(username);
         await this.password.setValue(password);
 
@@ -52,7 +76,7 @@ class LoginScreen extends AppScreen {
              *
              * That's why we click outside of the keyboard.
              */
-            await $('~Login-screen').click();
+            await $("~Login-screen").click();
         }
         // On smaller screens there could be a possibility that the button is not shown
         await Gestures.checkIfDisplayedWithSwipe({
@@ -63,7 +87,13 @@ class LoginScreen extends AppScreen {
         await this.loginButton.click();
     }
 
-    async submitSignUpForm({ username, password }:{username:string; password:string;}) {
+    async submitSignUpForm({
+        username,
+        password,
+    }: {
+        username: string;
+        password: string;
+    }) {
         await this.email.setValue(username);
         await this.password.setValue(password);
         await this.repeatPassword.setValue(password);
@@ -80,7 +110,7 @@ class LoginScreen extends AppScreen {
              *
              * That's why we click outside of the keyboard.
              */
-            await $('~Login-screen').click();
+            await $("~Login-screen").click();
         }
         // On smaller screens there could be a possibility that the button is not shown
         await Gestures.checkIfDisplayedWithSwipe({

@@ -1,9 +1,9 @@
-import TabBar from '../screenobjects/components/TabBar.js';
-import WebViewScreen from '../screenobjects/WebviewScreen.js';
-import { timeDifference } from '../helpers/Utils.js';
+import TabBar from "../screenobjects/components/TabBar.js";
+import WebViewScreen from "../screenobjects/WebviewScreen.js";
+import { timeDifference } from "../helpers/Utils.js";
 
-describe('WebdriverIO and Appium, when interacting with a webview through XPATH', () => {
-    let start:number;
+describe("WebdriverIO and Appium, when interacting with a webview through XPATH", () => {
+    let start: number;
 
     beforeEach(async () => {
         await TabBar.waitForTabBarShown();
@@ -19,15 +19,15 @@ describe('WebdriverIO and Appium, when interacting with a webview through XPATH'
      * THIS IS JUST ONE EXAMPLE IN THE DIFFERENCE BETWEEN USING
      * XPATH OR A DIFFERENT LOCATOR STRATEGY
      */
-    it('should be able to verify that the WebView is shown by xpath', async () => {
+    it("should be able to verify that the WebView is shown by xpath", async () => {
         await WebViewScreen.waitForWebViewIsDisplayedByXpath();
         const end = Date.now();
-        timeDifference('Test time for using XPATH', start, end);
+        timeDifference("Test time for using XPATH", start, end);
     });
 
-    it('should be able to verify that the WebView is shown by switching to the WebView', async () => {
+    it("should be able to verify that the WebView is shown by switching to the WebView", async () => {
         await WebViewScreen.waitForWebsiteLoaded();
         const end = Date.now();
-        timeDifference('Test time for switching to the WebView', start, end);
+        timeDifference("Test time for switching to the WebView", start, end);
     });
 });

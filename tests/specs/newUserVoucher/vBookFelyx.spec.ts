@@ -232,7 +232,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             //     .perform();
 
             //Click on middle of the screen
-	await AppiumHelpers.clickCenterOfScreen();
+            await AppiumHelpers.clickCenterOfScreen();
 
             // Click Understood
             // await driver.$(
@@ -492,7 +492,7 @@ await driver.executeScript('mobile: scrollGesture', [{
 }]);
 */
 
-/*
+            /*
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
             await driver.performActions([
@@ -522,19 +522,23 @@ await driver.executeScript('mobile: scrollGesture', [{
             await driver.pause(2000);
             */
 
-//click got it button
-const gotIt = await driver.$('-android uiautomator:new UiSelector().text("GOT IT!")');
-await expect(gotIt).toBeDisplayed();
-await gotIt.click();
+            //click got it button
+            const gotIt = await driver.$(
+                '-android uiautomator:new UiSelector().text("GOT IT!")',
+            );
+            await expect(gotIt).toBeDisplayed();
+            await gotIt.click();
 
- // Click not now button
- const notNowButton = await driver.$('-android uiautomator:new UiSelector().text("NOT NOW")');
- await expect(notNowButton).toBeDisplayed();
- await notNowButton.click();
- await driver.pause(2000);
+            // Click not now button
+            const notNowButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("NOT NOW")',
+            );
+            await expect(notNowButton).toBeDisplayed();
+            await notNowButton.click();
+            await driver.pause(2000);
 
-//verify that main map screen is displayed
-    await PageObjects.clickAccountButton();
+            //verify that main map screen is displayed
+            await PageObjects.clickAccountButton();
 
             //verify that my account screen is displayed
             const myRides = await driver.$(
