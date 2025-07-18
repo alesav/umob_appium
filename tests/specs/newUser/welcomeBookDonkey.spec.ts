@@ -206,12 +206,13 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
                     ],
                 },
             ]);
-            await driver.pause(3000);
+            await driver.pause(4000);
 
             //click to start and unlock the bike
             const umob20Button1 = await driver.$(
                 '-android uiautomator:new UiSelector().text("START TRIP")',
             );
+            await expect(umob20Button1).toBeDisplayed();
             await umob20Button1.click();
 
             const umobText1 = await driver.$(
@@ -263,6 +264,7 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             const endTripButton = await driver.$(
                 "accessibility id:endTrip-text",
             );
+            await expect(endTripButton).toBeDisplayed();
             await endTripButton.click();
             await driver.pause(3000);
 

@@ -161,9 +161,10 @@ describe("Combined Not Logged User Tests", () => {
         try {
             //await driver.activateApp("com.umob.umob");
             //await driver.pause(7000);
-            const qButton = await driver.$(
-                '-android uiautomator:new UiSelector().className("com.horcrux.svg.PathView").instance(4)',
-            );
+            // const qButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().className("com.horcrux.svg.PathView").instance(4)',
+            // );
+            const qButton = await driver.$("accessibility id:home_help_button");
             await expect(qButton).toBeDisplayed();
             await driver.pause(2000);
             await qButton.click();
