@@ -123,13 +123,14 @@ await driver.pause(2000);
 
    const countryDropdown = await driver.$('//android.widget.TextView[@text="Country"]//parent::android.view.ViewGroup');
    await countryDropdown.click();
+   await driver.pause(2000);
    
 //click on country 
 const nCountry = await driver.$('-android uiautomator:new UiSelector().text("Argentina")');
 await expect (nCountry).toBeDisplayed();
-await driver.pause(1000);
+await driver.pause(2000);
 await nCountry.click();
-await driver.pause(1000);
+await driver.pause(2000);
 
 await driver.executeScript('mobile: scrollGesture', [{
  left: 100,

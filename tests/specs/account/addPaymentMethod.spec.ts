@@ -106,13 +106,13 @@ describe("Add Payment Method", () => {
             //CLick Payment Settings
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("Payment settings")',
+                    '-android uiautomator:new UiSelector().text("Payment methods")',
                 )
                 .waitForDisplayed();
             await driver.pause(2000);
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("Payment settings")',
+                    '-android uiautomator:new UiSelector().text("Payment methods")',
                 )
                 .click();
 
@@ -201,12 +201,12 @@ describe("Add Payment Method", () => {
             //CLick Payment Settings
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("Payment settings")',
+                    '-android uiautomator:new UiSelector().text("Payment methods")',
                 )
                 .waitForDisplayed();
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("Payment settings")',
+                    '-android uiautomator:new UiSelector().text("Payment methods")',
                 )
                 .click();
 

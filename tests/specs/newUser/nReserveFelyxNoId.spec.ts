@@ -257,7 +257,7 @@ describe('Trying to Reserve Felyx by a New User Without a drivers licence', () =
 
     //verify that driver's licence is not added
     await driver.$(
-      '-android uiautomator:new UiSelector().text("Add your driver\'s license")'
+      '-android uiautomator:new UiSelector().textContains("Add your driver\'s license or Id")'
     ).waitForDisplayed();
 
     // Click Reserve

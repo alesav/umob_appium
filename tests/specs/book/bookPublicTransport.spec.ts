@@ -505,6 +505,22 @@ await driver.pause(1000);
             );
             await expect(header).toBeDisplayed();
 
+            const { width, height } = await driver.getWindowSize();
+            await driver.performActions([
+                {
+                    type: 'pointer',
+                    id: 'finger1',
+                    parameters: { pointerType: 'touch' },
+                    actions: [
+                        { type: 'pointerMove', duration: 0, x: width/2, y: height*0.85 },
+                        { type: 'pointerDown', button: 0 },
+                        { type: 'pause', duration: 100 },
+                        { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+                        { type: 'pointerUp', button: 0 },
+                    ],
+                },]);
+                await driver.pause(2000);
+
             // Check key elements are displayed (conditions,travel costs)
             const travelCosts = await driver.$(
                 '-android uiautomator:new UiSelector().text("Travel costs")',
@@ -613,7 +629,7 @@ await driver.pause(1000);
 
             // Check text "make sure you download your..."
             const assureText = await driver.$(
-                '-android uiautomator:new UiSelector().text("Make sure you download your tickets at least 15 mins before the trip. You can always find your tickets in Rides & Tickets")',
+                '-android uiautomator:new UiSelector().text("Make sure you download your tickets at least 15 mins before the trip. You can always find your tickets in My Rides & Tickets.")',
             );
             await expect(assureText).toBeDisplayed();
 

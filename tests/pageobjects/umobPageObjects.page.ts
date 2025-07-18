@@ -43,7 +43,7 @@ class PageObjects extends Page {
     }
     get myRidesButton() {
         return $(
-            '-android uiautomator:new UiSelector().text("My Rides & Tickets")',
+            '-android uiautomator:new UiSelector().text("My rides")',
         );
     }
 
@@ -80,7 +80,7 @@ class PageObjects extends Page {
     }
     get noRideCreditOption() {
         return $(
-            '-android uiautomator:new UiSelector().text("No ride credit")',
+            '-android uiautomator:new UiSelector().text("No voucher")',
         );
     }
 
@@ -296,9 +296,9 @@ class PageObjects extends Page {
         // Elements that should be visible on the account screen to confirm navigation worked
         const accountScreenIndicators = [
             "Personal info",
-            "Payment settings",
+            "Payment methods",
             "Invite friends",
-            "My Rides & Tickets",
+            "My rides",
         ];
 
         for (let attempt = 1; attempt <= maxRetries; attempt++) {

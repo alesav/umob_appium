@@ -140,9 +140,9 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.470424,
-                latitude: 51.922954,
-                radius: 1166.6137310913994,
+                longitude: 4.474777685709118,
+                latitude: 51.91625362101655,
+                radius: 200.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
@@ -346,7 +346,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify anouncement for return helmet
             const helmetBack = await driver.$(
-                '-android uiautomator:new UiSelector().text("Return helmet")',
+                '-android uiautomator:new UiSelector().text("Return the helmet")',
             );
             await expect(helmetBack).toBeDisplayed();
 
@@ -538,7 +538,7 @@ await gotIt.click();
 
             //verify that my account screen is displayed
             const myRides = await driver.$(
-                '-android uiautomator:new UiSelector().text("My Rides & Tickets")',
+                '-android uiautomator:new UiSelector().text("My rides")',
             );
             await expect(myRides).toBeDisplayed();
 

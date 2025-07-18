@@ -231,9 +231,9 @@ try {
     const accountMenuItems = [
       "Invite friends",
        "Personal info",
-       "Payment settings",
+       "Payment methods",
        "ID Document",
-       "My Rides & Tickets",
+       "My rides",
      ];
  
      for (const menuItem of accountMenuItems) {
@@ -283,7 +283,7 @@ await driver.performActions([
        
  // Verify account menu items after first scrolling
 const accountMenuItems2 = [
-  "Ride credit",
+  "Vouchers",
   "My payments",
   "Language",
   "Map theme settings",
@@ -863,7 +863,7 @@ await driver.performActions([
     await expect(question).toBeDisplayed();
 
     
-    const text = await driver.$("-android uiautomator:new UiSelector().textContains(\"Enable camera and microphone\")");
+    const text = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make sure you enabled your camera and microphone\")");
     await expect(text).toBeDisplayed();
 
     
@@ -893,6 +893,12 @@ await driver.performActions([
     const allowBut = await driver.$("-android uiautomator:new UiSelector().textContains(\"While using\")");
     await expect(allowBut).toBeDisplayed();
     await allowBut.click();
+    await driver.pause(2000);
+
+    //notification for onfido web page
+    const acceptBut = await driver.$("-android uiautomator:new UiSelector().text(\"Accept\")");
+    await expect(acceptBut).toBeDisplayed();
+    await acceptBut.click();
     await driver.pause(2000);
 
     //verify onfido screen
@@ -994,14 +1000,14 @@ await driver.performActions([
     await PageObjects.clickAccountButton();
      await driver.pause(3000);
 
-    // Navigate to My Rides & Tickets
-    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    // Navigate to My Rides & Tickets ("My rides" is a new version)
+    const myRidesAndTicketsButton = await driver.$("-android uiautomator:new UiSelector().text(\"My rides\")");
     await expect(myRidesAndTicketsButton).toBeDisplayed();
     await myRidesAndTicketsButton.click();
     await driver.pause(3000);
 
     // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My Rides & Tickets\")");
+    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My rides\")");
     await expect(screenHeader).toBeDisplayed();
     await driver.pause(3000);
 
@@ -1099,15 +1105,16 @@ await driver.performActions([
            { type: 'pointerUp', button: 0 },
        ],
    },]);
+   await driver.pause(2000);
     
-    // Navigate to Ride Credit
-    const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    // Navigate to Ride Credit/Vouchers (new version)
+    const rideCreditButton = await driver.$("-android uiautomator:new UiSelector().text(\"Vouchers\")");
     await expect(rideCreditButton).toBeDisplayed();
     await rideCreditButton.click();
     await driver.pause(3000);
 
     // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Ride credit\")");
+    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Vouchers\")");
     await expect(screenHeader).toBeDisplayed();
 
     // Verify back button is present
@@ -1539,8 +1546,7 @@ await driver.performActions([
     const themeOptions = [
       { name: 'Dark' },
       { name: 'Light' },
-      { name: 'Terrain' },
-      { name: 'Playground' }
+      { name: 'Terrain' }
     ];
 
     for (const theme of themeOptions) {
@@ -1923,7 +1929,7 @@ for (const text of contentElements2) {
     const taxi = await driver.$("-android uiautomator:new UiSelector().text(\"Taxi\")");
     await expect(taxi).toBeDisplayed();
 
-    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"4 providers\")");
+    const taxiProviders = await driver.$("-android uiautomator:new UiSelector().text(\"5 providers\")");
     await expect(taxiProviders).toBeDisplayed();
 
     const any = await driver.$("-android uiautomator:new UiSelector().text(\"Any\")");
@@ -2214,9 +2220,7 @@ await driver.performActions([
     // Verify Help button
     const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
     await expect(helpButton).toBeDisplayed();
-    await cancelButtonText.click();
-    await driver.pause(1000);
-
+    
     // Quit this delete account popup
     await cancelButton.click();
     await driver.pause(1000);

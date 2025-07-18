@@ -235,7 +235,7 @@ describe('Check Booking Test with unlimited multi voucher', () => {
     await vaucher.click();
 
     //confirm that you can choose payment without vauchers and select limitless vaucher "multi"
-    const noVaucher = await driver.$('-android uiautomator:new UiSelector().text("No ride credit")');
+    const noVaucher = await driver.$('-android uiautomator:new UiSelector().text("No voucher")');
     await expect (noVaucher).toBeDisplayed();
 
     // const checkVaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
@@ -326,7 +326,7 @@ await driver.pause(3000);
 
 
 //verify anouncement for return helmet
-const helmetBack = await driver.$('-android uiautomator:new UiSelector().text("Return helmet")');
+const helmetBack = await driver.$('-android uiautomator:new UiSelector().text("Return the helmet")');
 await expect (helmetBack).toBeDisplayed();
 
 
@@ -454,7 +454,7 @@ await gotIt.click();
 await PageObjects.clickAccountButton();
 
 //verify that my account screen is displayed
-const myRides = await driver.$('-android uiautomator:new UiSelector().text("My Rides & Tickets")');
+const myRides = await driver.$('-android uiautomator:new UiSelector().text("My rides")');
 await expect(myRides).toBeDisplayed();
 
 //verify that payment is visible in my account and it is 0 Euro

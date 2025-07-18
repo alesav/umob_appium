@@ -280,7 +280,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
-                            y: height * 0.8,
+                            y: height * 0.9,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
@@ -288,12 +288,41 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: height * 0.2,
+                            y: height * 0.1,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
                 },
             ]);
+
+            await driver.pause(1000);
+
+            //second scroll is required because of big amount of taxi operators
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.9,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.1,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
 
             const selectButton = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("SELECT")',
@@ -403,7 +432,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             //check notification is displayed
             const notification = await driver.$(
-                '-android uiautomator:new UiSelector().text("All rentals are subject to terms & conditions of umob and transport providers. Fees may apply for waiting or cancellation.")',
+                '-android uiautomator:new UiSelector().text("All rentals are subject to terms & conditions of uMob and transport providers. Fees may apply for waiting or cancellation.")',
             );
             await expect(notification).toBeDisplayed();
 

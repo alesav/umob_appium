@@ -129,14 +129,13 @@ await AppiumHelpers.clickCenterOfScreen();
 
             await continueButton.click();
 
-            // Handle permissions 
+            // Handle allow permissions 
             
-            const allowPermissionBtn = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_button",
-            );
-            await expect(allowPermissionBtn).toBeDisplayed();
-            await allowPermissionBtn.click();
-            
+            const permission = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
+            await expect(permission).toBeDisplayed();
+            await permission.click();
+            await driver.pause(2000);
+                        
 
             /*
     await driver.pause(5000);
@@ -152,30 +151,20 @@ await AppiumHelpers.clickCenterOfScreen();
     */
 
     await driver.pause(2000);
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger1",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height * 0.8,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: height * 0.4,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
+    
+    await driver.performActions([
+      {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'touch' },
+          actions: [
+              { type: 'pointerMove', duration: 0, x: width/2, y: height*0.65 },
+              { type: 'pointerDown', button: 0 },
+              { type: 'pause', duration: 100 },
+              { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
+              { type: 'pointerUp', button: 0 },
+          ],
+      },]);
 
             /*const screen = await driver.getWindowRect();
     const screenWidth = screen.width;
@@ -202,6 +191,8 @@ await AppiumHelpers.clickCenterOfScreen();
 
           //click to start and unlock the bike
     const umob20Button1 = await driver.$('-android uiautomator:new UiSelector().text("START TRIP")');
+    await expect(umob20Button1).toBeDisplayed()
+    await driver.pause(1000);
     await umob20Button1.click();
 
     const umobText1 = await driver.$('-android uiautomator:new UiSelector().text("Use the handle to open the lock")');
