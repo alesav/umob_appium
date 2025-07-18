@@ -1,10 +1,10 @@
-import TabBar from '../screenobjects/components/TabBar.js';
-import LoginScreen from '../screenobjects/LoginScreen.js';
-import Biometrics from '../helpers/Biometrics.js';
-import NativeAlert from '../screenobjects/components/NativeAlert.js';
-import AndroidSettings from '../screenobjects/AndroidSettings.js';
-import { executeInHomeScreenContext, relaunchApp } from '../helpers/Utils.js';
-import { BUNDLE_ID, PACKAGE_NAME } from '../helpers/Constants.js';
+import TabBar from "../screenobjects/components/TabBar.js";
+import LoginScreen from "../screenobjects/LoginScreen.js";
+import Biometrics from "../helpers/Biometrics.js";
+import NativeAlert from "../screenobjects/components/NativeAlert.js";
+import AndroidSettings from "../screenobjects/AndroidSettings.js";
+import { executeInHomeScreenContext, relaunchApp } from "../helpers/Utils.js";
+import { BUNDLE_ID, PACKAGE_NAME } from "../helpers/Constants.js";
 
 /**
  * IMPORTANT!
@@ -13,7 +13,7 @@ import { BUNDLE_ID, PACKAGE_NAME } from '../helpers/Constants.js';
  * For iOS it's pretty straightforward, but for Android is more complex. There is a helper (Android Settings) that will handle all steps for
  * you for Android 9.0 (2018) till the latest version of Android.
  */
-describe('WebdriverIO and Appium, when interacting with a biometric button,', () => {
+describe("WebdriverIO and Appium, when interacting with a biometric button,", () => {
     beforeEach(async () => {
         await goToLoginPage();
 
@@ -26,7 +26,10 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
 
             // Wait for the app again and go to the login screen
             await goToLoginPage();
-        } else if (driver.isAndroid && !(await LoginScreen.isBiometricButtonDisplayed())) {
+        } else if (
+            driver.isAndroid &&
+            !(await LoginScreen.isBiometricButtonDisplayed())
+        ) {
             // Android is more complex, see this method
             await AndroidSettings.enableBiometricLogin();
             // restart the app
@@ -37,7 +40,7 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
         }
     });
 
-    it('should be able to login with a matching touch/faceID/fingerprint', async () => {
+    it("should be able to login with a matching touch/faceID/fingerprint", async () => {
         // Always make sure you are on the right tab
         await LoginScreen.tapOnLoginContainerButton();
         // Press the touch/faceID/Fingerprint button
@@ -46,20 +49,20 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
         await Biometrics.submitBiometricLogin(true);
         // Wait for the alert and validate it
         await NativeAlert.waitForIsShown();
-        await expect(await NativeAlert.text()).toContain('Success');
+        await expect(await NativeAlert.text()).toContain("Success");
 
-        if (driver.isIOS){
+        if (driver.isIOS) {
             // Before we can close the alert we need to wait for the native "Face ID" modal to disappear
             // This modal can not be detected by Appium, so we need to wait for it to disappear
             await driver.pause(750);
         }
 
         // Close the alert
-        await NativeAlert.topOnButtonWithText('OK');
+        await NativeAlert.topOnButtonWithText("OK");
         await NativeAlert.waitForIsShown(false);
     });
 
-    it('should NOT be able to login with a non matching touch/faceID/fingerprint', async () => {
+    it("should NOT be able to login with a non matching touch/faceID/fingerprint", async () => {
         // Always make sure you are on the right tab
         await LoginScreen.tapOnLoginContainerButton();
         // Press the touch/faceID/Fingerprint button
@@ -77,16 +80,18 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
                 // Wait for the alert and validate it
                 await NativeAlert.waitForIsShown();
                 // There's the English and US version of the "Not Recognized|Not Recognised"" text, so we just check for "Not Recogni
-                await expect(await NativeAlert.text()).toContain('Not Recogni');
+                await expect(await NativeAlert.text()).toContain("Not Recogni");
 
                 // Close the alert
-                await NativeAlert.topOnButtonWithText('Cancel');
+                await NativeAlert.topOnButtonWithText("Cancel");
                 await NativeAlert.waitForIsShown(false);
             });
         } else {
-            await AndroidSettings.waitAndTap('Cancel');
+            await AndroidSettings.waitAndTap("Cancel");
             // @TODO: This takes very long, need to fix this
-            await (await AndroidSettings.findAndroidElementByMatchingText('Cancel')).waitForDisplayed({ reverse:true });
+            await (
+                await AndroidSettings.findAndroidElementByMatchingText("Cancel")
+            ).waitForDisplayed({ reverse: true });
             await NativeAlert.waitForIsShown(false);
         }
     });
@@ -95,7 +100,7 @@ describe('WebdriverIO and Appium, when interacting with a biometric button,', ()
 /**
  * Go to the login screen
  */
-async function goToLoginPage(){
+async function goToLoginPage() {
     await TabBar.waitForTabBarShown();
     await TabBar.openLogin();
     await LoginScreen.waitForIsShown(true);

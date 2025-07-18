@@ -35,7 +35,7 @@ describe("WebdriverIO and Appium, when interacting with a WebView,", () => {
         // Search for url
         await $(".DocSearch-Input").setValue("url");
         await driver.waitUntil(async () =>
-            (await $(".DocSearch-HitsFooter").getText()).includes("See all")
+            (await $(".DocSearch-HitsFooter").getText()).includes("See all"),
         );
         // Let's take the first result
         await $("#docsearch-item-0 a").click();
@@ -105,10 +105,10 @@ describe("WebdriverIO and Appium, when interacting with a WebView,", () => {
         await WebViewScreen.switchToContext({ context: CONTEXT_REF.WEBVIEW });
         // Search for the OCR service
         await $(".DocSearch-Input").setValue(
-            "ocr service for appium native apps"
+            "ocr service for appium native apps",
         );
         await driver.waitUntil(async () =>
-            (await $(".DocSearch-HitsFooter").getText()).includes("See all")
+            (await $(".DocSearch-HitsFooter").getText()).includes("See all"),
         );
         // Let's take the first result
         await $("#docsearch-item-0 a").click();

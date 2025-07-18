@@ -1,4 +1,4 @@
-import { config as baseConfig } from './wdio.shared.sauce.conf.js';
+import { config as baseConfig } from "./wdio.shared.sauce.conf.js";
 const buildName = `WebdriverIO Native Demo app, iOS Simulators: ${new Date().getTime()}`;
 
 export const config: WebdriverIO.Config = {
@@ -7,9 +7,7 @@ export const config: WebdriverIO.Config = {
     // ============
     // Specs
     // ============
-    specs: [
-        '../../tests/specs/**/app*.spec.ts',
-    ],
+    specs: ["../../tests/specs/**/app*.spec.ts"],
 
     // ============
     // Capabilities
@@ -22,23 +20,23 @@ export const config: WebdriverIO.Config = {
     capabilities: [
         {
             // The defaults you need to have in your config
-            platformName: 'iOS',
-            'appium:deviceName': 'iPhone 14 Simulator',
-            'appium:platformVersion': '16.2',
-            'appium:automationName': 'XCUITest',
-            'appium:orientation': 'PORTRAIT',
+            platformName: "iOS",
+            "appium:deviceName": "iPhone 14 Simulator",
+            "appium:platformVersion": "16.2",
+            "appium:automationName": "XCUITest",
+            "appium:orientation": "PORTRAIT",
             // The path to the app
-            'appium:app': 'storage:filename=wdio-demo-app-ios.zip',
+            "appium:app": "storage:filename=wdio-demo-app-ios.zip",
             // Read the reset strategies very well, they differ per platform, see
             // http://appium.io/docs/en/writing-running-appium/other/reset-strategies/
-            'appium:newCommandTimeout': 240,
+            "appium:newCommandTimeout": 240,
             // Sauce Labs specific options
-            'sauce:options': {
+            "sauce:options": {
                 // Group builds by build name
                 build: buildName,
             },
         },
     ],
 
-    maxInstances: 25
+    maxInstances: 25,
 };

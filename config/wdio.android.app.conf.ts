@@ -14,6 +14,6 @@ export const config: WebdriverIO.Config = {
             "appium:appActivity": "com.umob.umob.MainActivity",
             "appium:newCommandTimeout": 240,
             "appium:noReset": true,
-          },
+        },
     ],
 };

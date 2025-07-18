@@ -22,5 +22,6 @@ screenshots/
 
 app/
 scripts/local.sh
+scripts/local-accept.sh
 
 .github/workflows/umob-appium-action.yml

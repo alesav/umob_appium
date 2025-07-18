@@ -1,12 +1,15 @@
 # Tips and Tricks
 
 ## Useful information
+
 Check the following sites for more information about WebdriverIO/Appium
+
 - [WebdriverIO](http://webdriver.io)
 - [Appium Docs](http://appium.io/docs/en/about-appium/intro/)
 - [Appium Pro Newsletter](http://appiumpro.com)
 
 ## Helpers
+
 The following helpers can be found [here](../tests/helpers/)
 
 - Gestures (static methods)
@@ -23,13 +26,16 @@ These helpers and component objects can be used to easily automate certain actio
 Just copy them in your project and use them.
 
 ## Is it wise to use XPATH?
+
 The advice is to prevent using XPATH unless there is no other option. XPATH is a brittle locator strategy and will take some time to find
 elements on a page.
 More info about that can be found in the [Appium Pro News letters](https://appiumpro.com):
+
 - [Making Your Appium Tests Fast and Reliable, Part 2: Finding Elements](https://appiumpro.com/editions/20)
 - [How to Find Elements in iOS (Not) By XPath](https://appiumpro.com/editions/8)
 
 ### Example
+
 A testcase can be found [here](../tests/specs/app.webview.xpath.spec.ts) that illustrates the difference between finding a webview by XPATH
 and in a different way.
 Checking if the WebView is loaded including the webpage can be done in **4 seconds** with this piece of JS

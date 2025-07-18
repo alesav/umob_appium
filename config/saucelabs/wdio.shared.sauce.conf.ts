@@ -1,5 +1,5 @@
-import type { Options } from '@wdio/types';
-import { config as baseConfig } from '../wdio.shared.conf.js';
+import type { Options } from "@wdio/types";
+import { config as baseConfig } from "../wdio.shared.conf.js";
 
 export const config: WebdriverIO.Config = {
     ...baseConfig,
@@ -8,9 +8,9 @@ export const config: WebdriverIO.Config = {
     // Services
     // ========
     services: [
-        ...baseConfig.services || [],
+        ...(baseConfig.services || []),
         [
-            'sauce',
+            "sauce",
             {
                 // For Sauce Options see https://webdriver.io/docs/sauce-service#sauce-service-options
             },
@@ -26,7 +26,7 @@ export const config: WebdriverIO.Config = {
     // in via the `region` property. Available short handles for regions are `us` (default) and `eu`.
     // These regions are used for the Sauce Labs Virtual cloud and the Sauce Labs Real Device Cloud.
     // If you don't provide the region, it defaults to `us`.
-    region: process.env.REGION as Options.SauceRegions || 'us',
+    region: (process.env.REGION as Options.SauceRegions) || "us",
 
     // Increase for real device support
     connectionRetryTimeout: 180000,
@@ -35,5 +35,5 @@ export const config: WebdriverIO.Config = {
     specFileRetries: 2,
 
     // reduce logs
-    logLevel: 'silent',
+    logLevel: "silent",
 };

@@ -1,4 +1,4 @@
-import { config as baseConfig } from './wdio.shared.sauce.conf.js';
+import { config as baseConfig } from "./wdio.shared.sauce.conf.js";
 
 const buildName = `WebdriverIO Native Demo app, Android Emulators: ${new Date().getTime()}`;
 
@@ -8,9 +8,7 @@ export const config: WebdriverIO.Config = {
     // ============
     // Specs
     // ============
-    specs: [
-        '../../tests/specs/**/app*.spec.ts',
-    ],
+    specs: ["../../tests/specs/**/app*.spec.ts"],
 
     // ============
     // Capabilities
@@ -23,21 +21,21 @@ export const config: WebdriverIO.Config = {
     capabilities: [
         {
             // The defaults you need to have in your config
-            platformName: 'Android',
-            'appium:deviceName': 'Google Pixel 7 Pro GoogleAPI Emulator',
-            'appium:platformVersion': '13.0',
-            'appium:automationName': 'UiAutomator2',
-            'appium:orientation': 'PORTRAIT',
+            platformName: "Android",
+            "appium:deviceName": "Google Pixel 7 Pro GoogleAPI Emulator",
+            "appium:platformVersion": "13.0",
+            "appium:automationName": "UiAutomator2",
+            "appium:orientation": "PORTRAIT",
             // The path to the app
-            'appium:app': 'storage:filename=wdio-demo-app-android.apk',
-            'appium:appWaitActivity': 'com.wdiodemoapp.MainActivity',
-            'appium:newCommandTimeout': 240,
+            "appium:app": "storage:filename=wdio-demo-app-android.apk",
+            "appium:appWaitActivity": "com.wdiodemoapp.MainActivity",
+            "appium:newCommandTimeout": 240,
             // Sauce Labs specific options
-            'sauce:options':{
+            "sauce:options": {
                 // Group builds by build name
                 build: buildName,
                 // Provide the Appium version
-                appiumVersion: '2.0.0'
+                appiumVersion: "2.0.0",
             },
         },
     ],

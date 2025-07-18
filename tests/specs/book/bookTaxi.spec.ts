@@ -54,14 +54,14 @@ function getCredentials(environment = "test", userKey = null) {
 }
 
 // Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || 'test';
-const USER = process.env.TEST_USER || 'new34';
+const ENV = process.env.TEST_ENV || "test";
+const USER = process.env.TEST_USER || "new34";
 
 describe("Book a Taxi", () => {
     before(async () => {
         const credentials = getCredentials(ENV, USER);
 
-                await PageObjects.login({
+        await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
         });
@@ -70,8 +70,6 @@ describe("Book a Taxi", () => {
         const longitude = 4.4744301;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
-
-
 
         /*
 
@@ -417,18 +415,29 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
-             {
-            type: 'pointer',
-            id: 'finger1',
-            parameters: { pointerType: 'touch' },
-            actions: [
-           { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
-           { type: 'pointerDown', button: 0 },
-           { type: 'pause', duration: 100 },
-           { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
-           { type: 'pointerUp', button: 0 },
-             ],
-            },]);
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.7,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.2,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
 
             //check notification is displayed
             const notification = await driver.$(

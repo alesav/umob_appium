@@ -1,6 +1,6 @@
 interface XY {
-    x:number;
-    y:number;
+    x: number;
+    y: number;
 }
 
 export const DIRECTIONS = {
@@ -10,71 +10,70 @@ export const DIRECTIONS = {
     //  - On the home screen or in applications, it typically scrolls the content upwards.
     //  - From the top edge, it often opens the notifications panel or quick settings.
     //  - In browsers or reading apps, it can be used to scroll through content.
-    DOWN: 'down',
+    DOWN: "down",
     // Starting Point: You place your finger on the right side of the screen.
     // Movement: You slide your finger horizontally to the left.
     // Action: The response to this gesture depends on the application:
     //  - It can move to the next item in a carousel or a set of images.
     //  - In a navigation context, it might go back to the previous page or close the current view.
     //  - On the home screen, it usually switches to the next virtual desktop or screen.
-    LEFT: 'left',
+    LEFT: "left",
     // Starting Point: You place your finger on the left side of the screen.
     // Movement: You slide your finger horizontally to the right.
     // Action: Similar to swiping left, but in the opposite direction:
     //  - It often moves to the previous item in a carousel or gallery.
     //  - Can be used to open side menus or navigation drawers in apps.
     //  - On the home screen, it typically switches to the previous virtual desktop.
-    RIGHT: 'right',
+    RIGHT: "right",
     // Starting Point: You place your finger towards the bottom of the screen.
     // Movement: You slide your finger upwards towards the top of the screen.
     // Action: Depending on the context, different actions can occur:
     //  - On the home screen or in a list, this usually scrolls the content downwards.
     //  - In a full-screen app, it might open additional options or the app drawer.
     //  - On certain interfaces, it could trigger a 'refresh' action or open a search bar.
-    UP: 'up',
+    UP: "up",
 } as const;
-type SwipeDirectionType = typeof DIRECTIONS[keyof typeof DIRECTIONS];
+type SwipeDirectionType = (typeof DIRECTIONS)[keyof typeof DIRECTIONS];
 
 class Gestures {
     /**
      * Check if an element is visible and if not wipe up a portion of the screen to
      * check if it visible after x amount of scrolls
      */
-    static async checkIfDisplayedWithSwipe (
-        {
-            scrollContainer,
-            searchableElement,
-            maxScrolls,
-            amount=0,
-            direction=DIRECTIONS.DOWN,
-            // Never scroll from the exact top or bottom of the screen, you might trigger the notification bar or other OS/App features
-            percentage=0.99,
-        }:
-        {
-            scrollContainer:WebdriverIO.Element,
-            searchableElement:WebdriverIO.Element,
-            maxScrolls:number,
-            amount?: number,
-            direction?: SwipeDirectionType,
-            percentage?: number,
-        }
-    ){
+    static async checkIfDisplayedWithSwipe({
+        scrollContainer,
+        searchableElement,
+        maxScrolls,
+        amount = 0,
+        direction = DIRECTIONS.DOWN,
+        // Never scroll from the exact top or bottom of the screen, you might trigger the notification bar or other OS/App features
+        percentage = 0.99,
+    }: {
+        scrollContainer: WebdriverIO.Element;
+        searchableElement: WebdriverIO.Element;
+        maxScrolls: number;
+        amount?: number;
+        direction?: SwipeDirectionType;
+        percentage?: number;
+    }) {
         // If the element is not displayed and we haven't scrolled the max amount of scrolls
         // then scroll and execute the method again
-        if (!await searchableElement.isDisplayed() && amount <= maxScrolls) {
+        if (!(await searchableElement.isDisplayed()) && amount <= maxScrolls) {
             // 1. Determine the percentage of the scrollable container to be scrolled
             // The scroll percentage is the percentage of the scrollable container that should be scrolled
             let scrollPercentage;
-            if (isNaN(percentage)){
-                console.log('\nThe percentage to scroll should be a number.\n');
+            if (isNaN(percentage)) {
+                console.log("\nThe percentage to scroll should be a number.\n");
                 // Never scroll from the exact top or bottom of the screen, you might trigger the notification bar or other OS/App features
                 scrollPercentage = 0.99;
             } else if (percentage > 1) {
-                console.log('\nThe percentage to scroll should be a number between 0 and 1.\n');
+                console.log(
+                    "\nThe percentage to scroll should be a number between 0 and 1.\n",
+                );
                 // Never scroll from the exact top or bottom of the screen, you might trigger the notification bar or other OS/App features
                 scrollPercentage = 0.99;
             } else {
-                scrollPercentage = 1-percentage;
+                scrollPercentage = 1 - percentage;
             }
 
             // 2. Determine the swipe coordinates
@@ -89,21 +88,35 @@ class Gestures {
             //    - bottom
             //    - left
             //    of the element. These positions will contain the x and y coordinates on where to put the finger
-            const { x, y, width, height } = await driver.getElementRect(scrollContainer.elementId);
+            const { x, y, width, height } = await driver.getElementRect(
+                scrollContainer.elementId,
+            );
             // It's always advisable to swipe from the center of the element.
             const scrollRectangles = {
                 // The x is the center of the element,
                 // The y is the y of the element + the height of the element * the scroll percentage
-                top: { x: Math.round(x + width / 2), y: Math.round(y + height * scrollPercentage) },
+                top: {
+                    x: Math.round(x + width / 2),
+                    y: Math.round(y + height * scrollPercentage),
+                },
                 // The x is the x of the element + the width of the element, minus the width of the element * the scroll percentage
                 // The y is the center of the element,
-                right: { x: Math.round(x + width - width * scrollPercentage), y: Math.round(y + height / 2) },
+                right: {
+                    x: Math.round(x + width - width * scrollPercentage),
+                    y: Math.round(y + height / 2),
+                },
                 // The x is the center of the element,
                 // The y is the y of the element, plus the height, minus the height of the element * the scroll percentage
-                bottom: { x: Math.round(x + width / 2), y: Math.round(y + height - height * scrollPercentage) },
+                bottom: {
+                    x: Math.round(x + width / 2),
+                    y: Math.round(y + height - height * scrollPercentage),
+                },
                 // The x is the x of the element, plus the width of the element * the scroll percentage
                 // The y is the center of the element,
-                left: { x: Math.round(x + width * scrollPercentage), y: Math.round(y + height / 2) },
+                left: {
+                    x: Math.round(x + width * scrollPercentage),
+                    y: Math.round(y + height / 2),
+                },
             };
 
             // 3. Swipe in the given direction
@@ -128,7 +141,9 @@ class Gestures {
                     to: scrollRectangles.top,
                 });
             } else {
-                console.log('\nThe direction to scroll should be one of the following: down, left, right or up.\n');
+                console.log(
+                    "\nThe direction to scroll should be one of the following: down, left, right or up.\n",
+                );
             }
 
             // 4. Check if the element is visible or swipe again
@@ -136,13 +151,15 @@ class Gestures {
                 scrollContainer,
                 searchableElement,
                 maxScrolls,
-                amount:amount + 1,
+                amount: amount + 1,
                 direction,
                 percentage,
             });
         } else if (amount > maxScrolls) {
             // If the element is still not visible after the max amount of scroll let it fail
-            throw new Error(`The element '${searchableElement}' could not be found or is not visible.`);
+            throw new Error(
+                `The element '${searchableElement}' could not be found or is not visible.`,
+            );
         }
 
         // The element was found, proceed with the next action
@@ -158,11 +175,11 @@ class Gestures {
      * The "clean and easy" way is the recommended way to execute a gesture. It is easier to read and understand.
      * The "verbose" way is the way the Appium server expects the gesture to be send to the server and this is also how the "clean" way is translated to.
      */
-    static async executeGesture ({ from, to }:{from: XY, to: XY}) {
+    static async executeGesture({ from, to }: { from: XY; to: XY }) {
         // The "clean" way
         await driver
             // a. Create the event
-            .action('pointer')
+            .action("pointer")
             // b. Move finger into start position
             .move(from.x, from.y) // This can also be written as .move({ x:from.x, y:from.y }) which allows you to add more options
             // c. Finger comes down into contact with screen

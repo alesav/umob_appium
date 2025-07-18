@@ -117,7 +117,7 @@ describe("Login Negative Scenarios", () => {
         let error = null;
 
         try {
-           // Find and click LOG IN button
+            // Find and click LOG IN button
             const logInBtn = await driver.$(
                 '-android uiautomator:new UiSelector().text("LOG IN")',
             );
@@ -151,7 +151,7 @@ describe("Login Negative Scenarios", () => {
             await expect(enableNotifications).toBeDisplayed();
             await enableNotifications.click();
 
-             // // Wait for permissions popup
+            // // Wait for permissions popup
             //  const permissionsPopup = await driver.$(
             //     '-android uiautomator:new UiSelector().textContains("Allow")',
             // );
@@ -159,7 +159,6 @@ describe("Login Negative Scenarios", () => {
             // await expect(permissionsPopup).toBeDisplayed();
             // await permissionsPopup.click();
 
-           
             // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")',
             // );
 

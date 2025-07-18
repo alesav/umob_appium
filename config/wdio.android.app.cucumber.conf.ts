@@ -30,7 +30,7 @@ export const config: WebdriverIO.Config = {
                 "..",
                 "tests",
                 "steps",
-                "login_and_signup_steps.ts"
+                "login_and_signup_steps.ts",
             ),
         ], // <string[]> (file/dir) require files before executing features
         backtrace: false, // <boolean> show full backtrace for errors
@@ -71,7 +71,7 @@ export const config: WebdriverIO.Config = {
                 "apps",
                 //
                 // NOTE: Change this name according to the app version you downloaded
-                "android.wdio.native.app.v1.0.8.apk"
+                "android.wdio.native.app.v1.0.8.apk",
             ),
             "appium:appWaitActivity": "com.wdiodemoapp.MainActivity",
             "appium:newCommandTimeout": 240,

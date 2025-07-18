@@ -30,10 +30,8 @@ class PageObjects extends Page {
     //         '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)',
     //     );
     // }
-        get accountButton() {
-        return $(
-            "accessibility id:menu_account_button",
-        );
+    get accountButton() {
+        return $("accessibility id:menu_account_button");
     }
     get planTripBtn() {
         return $('-android uiautomator:new UiSelector().text("Plan Trip")');
@@ -42,9 +40,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Promos")');
     }
     get myRidesButton() {
-        return $(
-            '-android uiautomator:new UiSelector().text("My rides")',
-        );
+        return $('-android uiautomator:new UiSelector().text("My rides")');
     }
 
     // Trip related elements
@@ -79,9 +75,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().textContains("multi")');
     }
     get noRideCreditOption() {
-        return $(
-            '-android uiautomator:new UiSelector().text("No voucher")',
-        );
+        return $('-android uiautomator:new UiSelector().text("No voucher")');
     }
 
     async login({
@@ -107,7 +101,7 @@ class PageObjects extends Page {
                 '-android uiautomator:new UiSelector().text("LOG IN")',
             );
             await logInBtn.waitForDisplayed({ timeout: 200000 });
-              await logInBtn.waitForEnabled();
+            await logInBtn.waitForEnabled();
             await driver.pause(5000);
             await logInBtn.click();
 
@@ -153,16 +147,16 @@ class PageObjects extends Page {
             // const permissionsPopup2 = await driver.$(
             //     '-android uiautomator:new UiSelector().textContains("hile using the app")',
             // );
-                        const permissionsPopup2 = await driver.$(
-                'id:com.android.permissioncontroller:id/permission_allow_button',
+            const permissionsPopup2 = await driver.$(
+                "id:com.android.permissioncontroller:id/permission_allow_button",
             );
             await permissionsPopup2.isDisplayed();
             await permissionsPopup2.click();
 
-                        await driver.pause(5000);
-             const permissionsPopup3 = await driver.$(
-                 '-android uiautomator:new UiSelector().textContains("hile using the app")',
-             );
+            await driver.pause(5000);
+            const permissionsPopup3 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("hile using the app")',
+            );
 
             await permissionsPopup3.isDisplayed();
             await permissionsPopup3.click();

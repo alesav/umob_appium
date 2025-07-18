@@ -1,11 +1,17 @@
-import { DEFAULT_PIN, INCORRECT_PIN } from './Constants.js';
-import { executeInHomeScreenContext } from './Utils.js';
+import { DEFAULT_PIN, INCORRECT_PIN } from "./Constants.js";
+import { executeInHomeScreenContext } from "./Utils.js";
 
 class Biometrics {
-    private get iosAllowBiometry() {return $('~Don’t Allow');}
-    private get allowBiometry() {return $('-ios class chain:**/XCUIElementTypeButton[`name == "Allow" OR name=="OK"`]');}
+    private get iosAllowBiometry() {
+        return $("~Don’t Allow");
+    }
+    private get allowBiometry() {
+        return $(
+            '-ios class chain:**/XCUIElementTypeButton[`name == "Allow" OR name=="OK"`]',
+        );
+    }
     private get androidBiometryAlert() {
-        const regex = '(Please log in|Login with.*)';
+        const regex = "(Please log in|Login with.*)";
 
         return $(`android=new UiSelector().textMatches("${regex}")`);
     }
@@ -19,7 +25,9 @@ class Biometrics {
             return this.submitIosBiometricLogin(successful);
         }
 
-        return this.submitAndroidBiometricLogin(successful ? DEFAULT_PIN : INCORRECT_PIN);
+        return this.submitAndroidBiometricLogin(
+            successful ? DEFAULT_PIN : INCORRECT_PIN,
+        );
     }
 
     /**
@@ -44,7 +52,9 @@ class Biometrics {
         // - https://github.com/appium/appium/issues/19716
         await executeInHomeScreenContext(async () => {
             try {
-                await this.iosAllowBiometry.waitForDisplayed({ timeout: 3 * 1000 });
+                await this.iosAllowBiometry.waitForDisplayed({
+                    timeout: 3 * 1000,
+                });
                 await this.allowBiometry.click();
             } catch (e) {
                 // This means that allow using touch/facID has already been accepted and thus the alert is not shown
@@ -55,8 +65,10 @@ class Biometrics {
     /**
      * Submit Android biometric login
      */
-    async submitAndroidBiometricLogin(fingerprintId:number) {
-        await this.androidBiometryAlert.waitForDisplayed({ timeout: 10 *1000 });
+    async submitAndroidBiometricLogin(fingerprintId: number) {
+        await this.androidBiometryAlert.waitForDisplayed({
+            timeout: 10 * 1000,
+        });
 
         await driver.fingerPrint(fingerprintId);
     }
