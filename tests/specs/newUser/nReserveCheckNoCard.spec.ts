@@ -335,6 +335,10 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             );
             await expect(payPal).toBeDisplayed();
 
+            const closeBtn = await driver.$("accessibility id:Close");
+            await expect(closeBtn).toBeDisplayed();
+            await closeBtn.click();
+
             ////////////////////////////////////////////////////////////////////////////////////////////////
             //looks like the rest of the code is not required because there is no google pay on emulated mobile in github actions
 

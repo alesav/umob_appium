@@ -198,7 +198,7 @@ class FelyxScooterActions {
 
     static async verifyStartTripPaymentOptions() {
         const paymentHeader = await driver.$(
-            "id:com.umob.umob:id/payment_method_header_title",
+            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
         );
         await expect(paymentHeader).toBeDisplayed();
 
@@ -216,6 +216,10 @@ class FelyxScooterActions {
             '-android uiautomator:new UiSelector().text("PayPal")',
         );
         await expect(payPal).toBeDisplayed();
+
+        const closeBtn = await driver.$("accessibility id:Close");
+        await expect(closeBtn).toBeDisplayed();
+        await closeBtn.click();
     }
 }
 

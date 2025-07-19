@@ -227,6 +227,11 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
                 '-android uiautomator:new UiSelector().text("PayPal")',
             );
             await expect(payPal).toBeDisplayed();
+
+            const closeBtn = await driver.$("accessibility id:Close");
+            await expect(closeBtn).toBeDisplayed();
+            await closeBtn.click();
+            
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
