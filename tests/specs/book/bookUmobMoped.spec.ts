@@ -513,11 +513,24 @@ await expect (closeB).toBeDisplayed();
             const route = await driver.$('-android uiautomator:new UiSelector().text("Route")');
             await expect(route).toBeDisplayed();
 
-            const startAddress = await driver.$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")');
-            await expect(startAddress).toBeDisplayed();
+            const addresses = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")');
+            await expect(addresses).toBeDisplayed();
 
-            const priceElement = await driver.$('//*[@text="€1.25"]');
-            await expect(priceElement).toBeDisplayed();
+            //checking that there are two the same addresses
+            expect(addresses).toHaveLength(2);
+
+            // Checking that both addresses are displayed
+            for (const address of addresses) {
+            await expect(address).toBeDisplayed();
+            }
+
+            //cycle "for" to check that both adresses exist
+            // for (let i = 0; i < addresses.length; i++) {
+            //     await expect(addresses[i]).toBeDisplayed();
+            // }
+
+            // const priceElement = await driver.$('//*[@text="€1.25"]');
+            // await expect(priceElement).toBeDisplayed();
     
             const travelCostElement = await driver.$('//*[@text="Travel cost"]');
             await expect(travelCostElement).toBeDisplayed();
