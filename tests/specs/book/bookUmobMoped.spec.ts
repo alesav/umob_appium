@@ -513,6 +513,10 @@ await expect (closeB).toBeDisplayed();
             const route = await driver.$('-android uiautomator:new UiSelector().text("Route")');
             await expect(route).toBeDisplayed();
 
+            const addressCount = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")').length;
+            expect(addressCount).toBe(2);
+
+            /*
             const addresses = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")');
             await expect(addresses).toBeDisplayed();
 
@@ -523,6 +527,7 @@ await expect (closeB).toBeDisplayed();
             for (const address of addresses) {
             await expect(address).toBeDisplayed();
             }
+            */
 
             //cycle "for" to check that both adresses exist
             // for (let i = 0; i < addresses.length; i++) {
