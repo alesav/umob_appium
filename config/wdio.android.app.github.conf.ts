@@ -105,11 +105,11 @@ export const config: WebdriverIO.Config = {
          ////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
          ///////////////"../tests/specs/book/reserveCheck.spec.ts",
         // "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
-        "../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
+        //"../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
         //"../tests/specs/login/login.negative.spec.ts"
 
            
-/*
+
 //night run
 
            "../tests/specs/account/*.spec.ts",
@@ -140,7 +140,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/bookUmobMoped.spec.ts",
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts"
-          */
+          
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
