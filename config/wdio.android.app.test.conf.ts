@@ -51,7 +51,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
-        //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
+        "c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
@@ -73,7 +73,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 24/ not in center. bike FAIL (bike 22 is missing)
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14). fully ok
         ///////////////////"c:/dev/umob_appium/tests/specs/account/AddAdress.spec.ts",
-        "c:/dev/umob_appium/tests/specs/login/login.positive.spec.ts", //ok
+        //"c:/dev/umob_appium/tests/specs/login/login.positive.spec.ts", //ok
         //////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",  //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
         //"../tests/specs/newUser/deleteCard.spec.ts"
