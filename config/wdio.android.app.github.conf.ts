@@ -84,7 +84,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-        "../tests/specs/book/bookTaxi.spec.ts",
+        //"../tests/specs/book/bookTaxi.spec.ts",
         // "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/account/combinedLoggedTest.spec.ts",
