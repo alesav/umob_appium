@@ -120,8 +120,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -131,8 +129,6 @@ describe("Combined test for the logged in old user with rides history", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -314,8 +310,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -325,8 +319,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -418,8 +410,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -429,8 +419,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -537,8 +525,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -548,8 +534,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -726,8 +710,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -737,8 +719,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -868,8 +848,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -879,8 +857,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1006,8 +982,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1017,8 +991,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1115,8 +1087,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1126,8 +1096,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1310,8 +1278,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1321,8 +1287,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1446,8 +1410,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1457,8 +1419,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1570,8 +1530,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1581,8 +1539,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1700,8 +1656,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1711,8 +1665,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1784,8 +1736,6 @@ await driver.pause(1000);
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1795,8 +1745,6 @@ await driver.pause(1000);
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

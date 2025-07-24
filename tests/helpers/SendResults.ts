@@ -2,10 +2,10 @@ import fs from "fs";
 import path from "path";
 
 const submitTestRun = async (
-    testId,
-    status,
-    details = "",
-    screenshot = null,
+    testId: string,
+    status: string,
+    details: string = "",
+    screenshot: string | null | undefined = null,
 ) => {
     try {
         // Create a FormData instance

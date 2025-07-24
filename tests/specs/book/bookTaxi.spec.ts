@@ -12,7 +12,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment = "test", userKey = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -219,8 +222,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -230,8 +231,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -350,7 +349,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             await driver.pause(1000);
 
-
             const selectButton = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("SELECT")',
             );
@@ -363,8 +361,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -374,8 +370,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -527,8 +521,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

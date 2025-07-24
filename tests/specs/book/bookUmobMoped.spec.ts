@@ -11,7 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment = "test", userKey = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -490,7 +493,7 @@ await expect (closeB).toBeDisplayed();
 
             //click on account button
             await PageObjects.accountButton.waitForDisplayed();
-            
+
             //navigate to my rides
             await PageObjects.navigateToMyRides();
 
@@ -500,21 +503,25 @@ await expect (closeB).toBeDisplayed();
             );
             await expect(firstTicketItem).toBeDisplayed();
             await firstTicketItem.click();
-    
+
             const headerTitle = await driver.$(
                 '//*[@resource-id="undefined-header-title"]',
             );
             await expect(headerTitle).toBeDisplayed();
             await expect(await headerTitle.getText()).toBe("Ride");
-    
+
             const providerElement = await driver.$('//*[@text="UmobMock"]');
             await expect(providerElement).toBeDisplayed();
 
-            const route = await driver.$('-android uiautomator:new UiSelector().text("Route")');
+            const route = await driver.$(
+                '-android uiautomator:new UiSelector().text("Route")',
+            );
             await expect(route).toBeDisplayed();
 
             //verifying that there re starting and departure addresses
-            const addressCount = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")').length;
+            const addressCount = await driver.$$(
+                '-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")',
+            ).length;
             expect(addressCount).toBe(2);
 
             /*
@@ -537,16 +544,22 @@ await expect (closeB).toBeDisplayed();
 
             // const priceElement = await driver.$('//*[@text="€1.25"]');
             // await expect(priceElement).toBeDisplayed();
-    
-            const travelCostElement = await driver.$('//*[@text="Travel cost"]');
+
+            const travelCostElement = await driver.$(
+                '//*[@text="Travel cost"]',
+            );
             await expect(travelCostElement).toBeDisplayed();
-    
-            const totalAmountElement = await driver.$('//*[@text="Total amount"]');
+
+            const totalAmountElement = await driver.$(
+                '//*[@text="Total amount"]',
+            );
             await expect(totalAmountElement).toBeDisplayed();
-    
-            const paymentsHeaderElement = await driver.$('//*[@text="Payments"]');
+
+            const paymentsHeaderElement = await driver.$(
+                '//*[@text="Payments"]',
+            );
             await expect(paymentsHeaderElement).toBeDisplayed();
-    
+
             await driver.executeScript("mobile: scrollGesture", [
                 {
                     left: 100,
@@ -557,29 +570,24 @@ await expect (closeB).toBeDisplayed();
                     percent: 100.0,
                 },
             ]);
-    
+
             const statusElement = await driver.$('//*[@text="Completed"]');
             await expect(statusElement).toBeDisplayed();
-    
+
             await driver
                 .$('-android uiautomator:new UiSelector().text("GOT IT")')
                 .waitForEnabled();
-    
+
             await driver
                 .$('-android uiautomator:new UiSelector().text("GOT IT")')
                 .click();
-         
 
-
-            
             // Wait for Home screen to be loaded
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
             testStatus = "Fail";
             testDetails = e.message;
-
-            console.log("TEST 123");
 
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
@@ -590,8 +598,6 @@ await expect (closeB).toBeDisplayed();
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -843,7 +849,7 @@ await expect (closeB).toBeDisplayed();
           testStatus = "Fail";
           testDetails = e.message;
       
-          console.log("TEST 123")
+          
       
           // Capture screenshot on failure
           screenshotPath = "./screenshots/"+ testId+".png";
@@ -855,7 +861,7 @@ await expect (closeB).toBeDisplayed();
         } finally {
           // Submit test run result
           try {
-              console.log("TEST 456")
+             
       
             await submitTestRun(testId, testStatus, testDetails, screenshotPath);
             console.log("Test run submitted successfully");
@@ -958,8 +964,6 @@ await expect (closeB).toBeDisplayed();
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -969,8 +973,6 @@ await expect (closeB).toBeDisplayed();
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

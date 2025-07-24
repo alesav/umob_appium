@@ -229,13 +229,13 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
 
             // const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
             // await laterButton.click();
-            
+
             //verify that new user vaucher is visible
             const vaucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Check")',
             );
             await expect(vaucher).toBeDisplayed();
-            
+
             //verify that select payment method is displayed
             // const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
             // await expect (selectPayment).toBeDisplayed();
@@ -419,8 +419,6 @@ await driver.performActions([
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -430,8 +428,6 @@ await driver.performActions([
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

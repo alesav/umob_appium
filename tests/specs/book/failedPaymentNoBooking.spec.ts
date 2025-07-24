@@ -2,6 +2,7 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -358,8 +359,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -369,8 +368,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

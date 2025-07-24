@@ -4,11 +4,19 @@ on:
     push:
         branches:
             - main
+        # Only trigger on the main repository
+        paths-ignore:
+            - "README.md"
+            - "docs/**"
     schedule:
         - cron: "0 23 * * *"
+    # Add manual trigger for testing
+    workflow_dispatch:
 jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
+        # Only run on the main repository, not on forks
+        if: github.repository == 'alekswhim/umob_appium'
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -32,26 +40,26 @@ jobs:
             - name: run tests
               uses: reactivecircus/android-emulator-runner@v2
               env:
-                AZURE_PAT: ${{ secrets.AZURE_PAT }}
+                  AZURE_PAT: ${{ secrets.AZURE_PAT }}
               with:
-                api-level: 34
-                profile: pixel
-                disable-animations: true
-                emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -packet-streamer-endpoint default -skin 1080x1920 -no-skin
-                # Add these options for better touch support
-                arch: x86_64
-                target: google_apis  # Use Google APIs instead of default
-                script: |
-                  # Prevent fullscreen
-                  adb shell settings put secure immersive_mode_confirmations confirmed
+                  api-level: 34
+                  profile: pixel
+                  disable-animations: true
+                  emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -packet-streamer-endpoint default -skin 1080x1920 -no-skin
+                  # Add these options for better touch support
+                  arch: x86_64
+                  target: google_apis # Use Google APIs instead of default
+                  script: |
+                      # Prevent fullscreen
+                      adb shell settings put secure immersive_mode_confirmations confirmed
 
-                  # Enable hardware features
-                  adb shell settings put system pointer_location 0
-                  adb shell settings put system show_touches 1
-          
-                  mkdir screenshots
-                  sh ./scripts/download_apk.sh
-                  npm run android.app.github
+                      # Enable hardware features
+                      adb shell settings put system pointer_location 0
+                      adb shell settings put system show_touches 1
+
+                      mkdir screenshots
+                      sh ./scripts/download_apk.sh
+                      npm run android.app.github
 
             - name: Last actions
               run: |

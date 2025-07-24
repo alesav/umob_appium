@@ -2,6 +2,7 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -11,7 +12,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment = "test", userKey = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -57,10 +61,6 @@ const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "new15";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
-const AUTH_TOKEN =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDU5MTE1MDksImlhdCI6MTczODEzNTUwOSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjgwODcyNmQ4LWRhNzEtNDI5Zi1iYTE2LWU4MjA4Y2IwMzkwNiIsInN1YiI6IjA1Nzg4NjE2LTc3NDUtNDJiZC05MjgyLTI2ZGM3MmU2OWJhNiIsInVuaXF1ZV9uYW1lIjoibmV3NkBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc2QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJMaW1pdGxlc3MgIiwiZmFtaWx5X25hbWUiOiJOZXc2IiwiZW1haWwiOiJuZXc2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE2MTY1NjE5MDkiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImFiNWRhNTYwLWQ4YWQtMjdjNy00YzMxLTNhMTdjMzFmZjI2MSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiOTE1YzQ5OS0yNmY3LTliOTktYzM3Zi0zYTE3YzMxZmYyYTUifQ.ByPVz_kFwrxDY57_zqqJQZ7VLz76aZcEvSqLpNlIx2xzyjF3Azdnut6oq1P95Ij2E4Wjhsv1N5efciATjzEcOIGyRdGNxsfCV_F1Ci5DRrQaDOK362hVhpiVbdbGQWeR8S4qFYUHum-wFWgYBZB5bBiz91Vr_odMtVAzyk277W1gXF0DsbPHXVX7gC8zzN-sRvCad5ixbQHGOQ0uOEgHZXX15vAJZOA6PmqgLlP_d_8_2YbYn2kT8ha1brRv00T5MFplyVOjAV8eoKkZ32KYiQ456VAGxYBt9wdD-BC1vz1d2GOnUbyHJdZMEDRzT0Ylt5_TcF3bqf-wnpAhGJeu6A";
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -124,53 +124,9 @@ const applyFilters = async () => {
         .click();
 };
 
-const fetchScooterCoordinates = async () => {
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: AUTH_TOKEN,
-                "Accept-Language": "en",
-                "X-Requested-With": "XMLHttpRequest",
-                "App-Version": "1.23429.3.23429",
-                "App-Platform": "android",
-            },
-            body: JSON.stringify({
-                regionId: "",
-                stationId: "",
-                longitude: 4.474777685709118,
-                latitude: 51.91625362101655,
-                radius: 200.6137310913994,
-                zoomLevel: 15.25,
-                subOperators: [],
-                assetClasses: [23],
-                operatorAvailabilities: [2, 1, 3],
-                showEmptyStations: false,
-                skipCount: 0,
-                sorting: "",
-                defaultMaxResultCount: 10,
-                maxMaxResultCount: 1000,
-                maxResultCount: 10,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Fetched scooter coordinates:", JSON.stringify(data));
-        return data.assets;
-    } catch (error) {
-        console.error("Error fetching scooter coordinates:", error);
-        throw error;
-    }
-};
 /////////////////////////////////////////////////////////////////////////////////
 describe("Felyx Booking Test with unlimited multi voucher", () => {
-    let scooters;
+    let scooters: Scooter[];
 
     before(async () => {
         // Fetch scooter coordinates before running tests
@@ -182,9 +138,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-        const targetScooter = scooters.find((scooter) =>
-            scooter.id.includes("Felyx"),
-        );
+        const targetScooter = findFelyxScooter(scooters);
 
         // Set location to specific scooter coordinates
         await AppiumHelpers.setLocationAndRestartApp(
@@ -587,8 +541,6 @@ await driver.executeScript('mobile: scrollGesture', [{
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -598,8 +550,6 @@ await driver.executeScript('mobile: scrollGesture', [{
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+/**
+ * Script to update all test files to use the new ScooterCoordinates helper
+ */
+
+import fs from 'fs';
+import path from 'path';
+
+const files = [
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/book/reserveCheck.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/newUserVoucher/vBookFelyx.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/book/bookUmobBike.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/book/bookUmobMoped.spec.ts',
+    '/Users/alesav/Dev/umob/umob_appium/tests/specs/newUserVoucher/vBookCheck.spec.ts'
+];
+
+function updateFile(filePath) {
+    console.log(`Updating ${filePath}...`);
+    
+    let content = fs.readFileSync(filePath, 'utf8');
+    
+    // Add import for ScooterCoordinates helper
+    if (!content.includes('ScooterCoordinates.js')) {
+        content = content.replace(
+            /import AppiumHelpers from "\.\.\/\.\.\/helpers\/AppiumHelpers\.js";/,
+            `import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import { fetchScooterCoordinates, findFelyxScooter, findCheckScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";`
+        );
+    }
+    
+    // Remove duplicate type definitions
+    content = content.replace(
+        /\/\/ Define types for the scooter data[\s\S]*?const API_URL = "https:\/\/backend-test\.umobapp\.com\/api\/tomp\/mapboxmarkers";[\s\S]*?Bearer [^"]+";/,
+        ''
+    );
+    
+    // Remove fetchScooterCoordinates function
+    content = content.replace(
+        /const fetchScooterCoordinates = async \(\)[\s\S]*?};/,
+        ''
+    );
+    
+    // Update variable declarations
+    content = content.replace(/let scooters;/g, 'let scooters: Scooter[];');
+    
+    // Update find calls for Felyx
+    content = content.replace(
+        /const targetScooter = scooters\.find\(\(scooter\) =>\s*scooter\.id\.includes\("Felyx"\),?\s*\);/g,
+        'const targetScooter = findFelyxScooter(scooters);'
+    );
+    
+    // Update find calls for Check
+    content = content.replace(
+        /const targetScooter = scooters\.find\(\(scooter\) =>\s*scooter\.id\.includes\("Check"\),?\s*\);/g,
+        'const targetScooter = findCheckScooter(scooters);'
+    );
+    
+    // Remove null checks (now handled by helper functions)
+    content = content.replace(
+        /if \(!targetScooter\) \{\s*throw new Error\([^}]+\);\s*\}/g,
+        ''
+    );
+    
+    fs.writeFileSync(filePath, content);
+    console.log(`✅ Updated ${filePath}`);
+}
+
+// Update all files
+files.forEach(updateFile);
+
+console.log('🎉 All files updated successfully!');

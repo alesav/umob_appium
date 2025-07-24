@@ -2,6 +2,16 @@
 
 ## Useful information
 
+# Work on your personal repo as usual
+
+git add .
+git commit -m "Your commit message"
+git push origin main # pushes to your personal repo
+
+Push to Corporate Repo When Needed:
+bash# Push current state to corporate repo
+git push corporate main
+
 Check the following sites for more information about WebdriverIO/Appium
 
 - [WebdriverIO](http://webdriver.io)

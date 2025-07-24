@@ -480,7 +480,7 @@ await driver.execute('mobile: clickGesture', {
   testStatus = "Fail";
   testDetails = e.message;
 
-  console.log("TEST 123")
+  
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
@@ -494,7 +494,7 @@ try {
 } finally {
   // Submit test run result
   try {
-      console.log("TEST 456")
+     
 
     await submitTestRun(testId, testStatus, testDetails, screenshotPath);
     console.log("Test run submitted successfully");
@@ -632,7 +632,7 @@ await performDoubleClick(driver, centerX, centerY);
   testStatus = "Fail";
   testDetails = e.message;
 
-  console.log("TEST 123")
+  
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
@@ -646,7 +646,7 @@ try {
 } finally {
   // Submit test run result
   try {
-      console.log("TEST 456")
+     
 
     await submitTestRun(testId, testStatus, testDetails, screenshotPath);
     console.log("Test run submitted successfully");
@@ -787,7 +787,7 @@ await performDoubleClick(driver, centerX, centerY);
     testStatus = "Fail";
     testDetails = e.message;
 
-    console.log("TEST 123")
+    
 
     // Capture screenshot on failure
     screenshotPath = "./screenshots/"+ testId+".png";
@@ -1077,7 +1077,7 @@ await performDoubleClick(driver, centerX, centerY);
   testStatus = "Fail";
   testDetails = e.message;
 
-  console.log("TEST 123")
+  
 
   // Capture screenshot on failure
   screenshotPath = "./screenshots/"+ testId+".png";
@@ -1090,7 +1090,7 @@ try {
 } finally {
   // Submit test run result
   try {
-      console.log("TEST 456")
+     
 
     await submitTestRun(testId, testStatus, testDetails, screenshotPath);
     console.log("Test run submitted successfully");

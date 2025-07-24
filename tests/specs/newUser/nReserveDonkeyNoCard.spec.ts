@@ -11,7 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment = "test", userKey = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -231,14 +234,11 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             const closeBtn = await driver.$("accessibility id:Close");
             await expect(closeBtn).toBeDisplayed();
             await closeBtn.click();
-            
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
             testStatus = "Fail";
             testDetails = e.message;
-
-            console.log("TEST 123");
 
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
@@ -249,8 +249,6 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

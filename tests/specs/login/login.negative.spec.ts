@@ -77,8 +77,6 @@ describe("Login Negative Scenarios", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -88,8 +86,6 @@ describe("Login Negative Scenarios", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -120,7 +116,7 @@ describe("Login Negative Scenarios", () => {
             const enableNotifications = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_button",
             );
-            
+
             const deviceCapabilities = await JSON.stringify(
                 driver.capabilities,
             ).toString();
@@ -210,8 +206,6 @@ describe("Login Negative Scenarios", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -258,8 +252,6 @@ describe("Login Negative Scenarios", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -269,8 +261,6 @@ describe("Login Negative Scenarios", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

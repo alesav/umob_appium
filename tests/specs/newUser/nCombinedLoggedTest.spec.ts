@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment = "test", userKey = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -122,8 +125,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -133,8 +134,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -364,8 +363,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -375,8 +372,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -536,8 +531,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -547,8 +540,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -775,8 +766,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -786,8 +775,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1101,8 +1088,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1112,8 +1097,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1195,8 +1178,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1206,8 +1187,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1365,8 +1344,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1376,8 +1353,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1490,8 +1465,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1501,8 +1474,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1659,8 +1630,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1670,8 +1639,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -1813,8 +1780,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -1824,8 +1789,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -2312,8 +2275,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -2323,8 +2284,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -2434,7 +2393,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
     testStatus = "Fail";
     testDetails = e.message;
   
-    console.log("TEST 123")
+    
   
     // Capture screenshot on failure
     screenshotPath = "./screenshots/"+ testId+".png";
@@ -2446,7 +2405,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
   } finally {
     // Submit test run result
     try {
-        console.log("TEST 456")
+       
   
       await submitTestRun(testId, testStatus, testDetails, screenshotPath);
       console.log("Test run submitted successfully");
@@ -2606,8 +2565,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -2617,8 +2574,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,
@@ -2751,8 +2706,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             testStatus = "Fail";
             testDetails = e.message;
 
-            console.log("TEST 123");
-
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
@@ -2762,8 +2715,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         } finally {
             // Submit test run result
             try {
-                console.log("TEST 456");
-
                 await submitTestRun(
                     testId,
                     testStatus,

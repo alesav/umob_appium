@@ -1,0 +1,54 @@
+/**
+ * Type definitions for AppiumHelpers.js
+ */
+
+interface ScreenCenter {
+    centerX: number;
+    centerY: number;
+    screenWidth: number;
+    screenHeight: number;
+}
+
+declare class AppiumHelpers {
+    /**
+     * Get the center coordinates of the device screen
+     */
+    static getScreenCenter(): Promise<ScreenCenter>;
+
+    /**
+     * Perform a double click gesture at the specified coordinates
+     */
+    static performDoubleClick(x: number, y: number): Promise<void>;
+
+    /**
+     * Set device location and restart the app
+     */
+    static setLocationAndRestartApp(longitude: number, latitude: number): Promise<void>;
+
+    /**
+     * Perform a swipe up gesture on the screen
+     */
+    static performSwipeUp(): Promise<void>;
+
+    /**
+     * Perform a swipe down gesture on the screen
+     */
+    static performSwipeDown(): Promise<void>;
+
+    /**
+     * Click the reserve button
+     */
+    static clickReserveButton(): Promise<void>;
+
+    /**
+     * Click the my location button
+     */
+    static clickMyLocation(): Promise<void>;
+
+    /**
+     * Click the center of the screen
+     */
+    static clickCenterOfScreen(): Promise<void>;
+}
+
+export default AppiumHelpers;
