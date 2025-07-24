@@ -140,8 +140,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.47997,
-                latitude: 51.921,
+                longitude: 4.47446,
+                latitude: 51.92084,
                 radius: 200.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
@@ -184,8 +184,8 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
         //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
-        const longitude = 4.47997;
-        const latitude = 51.921;
+        const longitude = 4.47446;
+        const latitude = 51.92084;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);

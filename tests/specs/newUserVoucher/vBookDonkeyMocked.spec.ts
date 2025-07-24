@@ -132,7 +132,7 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
-                '-android uiautomator:new UiSelector().text("UMOB Bike 2 3")',
+                '-android uiautomator:new UiSelector().text("UMOB Bike 3 1")',
             );
             await umob20Button.click();
 
@@ -248,7 +248,7 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
-                            y: height * 0.7,
+                            y: height * 0.65,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },

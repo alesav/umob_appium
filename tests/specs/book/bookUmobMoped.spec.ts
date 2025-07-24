@@ -486,7 +486,92 @@ await expect (closeB).toBeDisplayed();
             );
             await expect(notNowButton).toBeDisplayed();
             await notNowButton.click();
+            await driver.pause(2000);
 
+            //click on account button
+            await PageObjects.accountButton.waitForDisplayed();
+            
+            //navigate to my rides
+            await PageObjects.navigateToMyRides();
+
+            //verify ride details (address)
+            const firstTicketItem = await driver.$(
+                '//android.view.ViewGroup[@content-desc="undefined-AccountListItemButton"][1]',
+            );
+            await expect(firstTicketItem).toBeDisplayed();
+            await firstTicketItem.click();
+    
+            const headerTitle = await driver.$(
+                '//*[@resource-id="undefined-header-title"]',
+            );
+            await expect(headerTitle).toBeDisplayed();
+            await expect(await headerTitle.getText()).toBe("Ride");
+    
+            const providerElement = await driver.$('//*[@text="UmobMock"]');
+            await expect(providerElement).toBeDisplayed();
+
+            const route = await driver.$('-android uiautomator:new UiSelector().text("Route")');
+            await expect(route).toBeDisplayed();
+
+            //verifying that there re starting and departure addresses
+            const addressCount = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")').length;
+            expect(addressCount).toBe(2);
+
+            /*
+            const addresses = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")');
+            await expect(addresses).toBeDisplayed();
+
+            //checking that there are two the same addresses
+            expect(addresses).toHaveLength(2);
+
+            // Checking that both addresses are displayed
+            for (const address of addresses) {
+            await expect(address).toBeDisplayed();
+            }
+            */
+
+            //cycle "for" to check that both adresses exist
+            // for (let i = 0; i < addresses.length; i++) {
+            //     await expect(addresses[i]).toBeDisplayed();
+            // }
+
+            // const priceElement = await driver.$('//*[@text="€1.25"]');
+            // await expect(priceElement).toBeDisplayed();
+    
+            const travelCostElement = await driver.$('//*[@text="Travel cost"]');
+            await expect(travelCostElement).toBeDisplayed();
+    
+            const totalAmountElement = await driver.$('//*[@text="Total amount"]');
+            await expect(totalAmountElement).toBeDisplayed();
+    
+            const paymentsHeaderElement = await driver.$('//*[@text="Payments"]');
+            await expect(paymentsHeaderElement).toBeDisplayed();
+    
+            await driver.executeScript("mobile: scrollGesture", [
+                {
+                    left: 100,
+                    top: 1000,
+                    width: 200,
+                    height: 800,
+                    direction: "down",
+                    percent: 100.0,
+                },
+            ]);
+    
+            const statusElement = await driver.$('//*[@text="Completed"]');
+            await expect(statusElement).toBeDisplayed();
+    
+            await driver
+                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .waitForEnabled();
+    
+            await driver
+                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .click();
+         
+
+
+            
             // Wait for Home screen to be loaded
         } catch (e) {
             error = e;

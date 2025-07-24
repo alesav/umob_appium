@@ -164,6 +164,10 @@ class DonkeyBikeActions {
             '-android uiautomator:new UiSelector().text("PayPal")',
         );
         await expect(payPal).toBeDisplayed();
+
+        const closeBtn = await driver.$("accessibility id:Close");
+        await expect(closeBtn).toBeDisplayed();
+        await closeBtn.click();
     }
 }
 

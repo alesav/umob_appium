@@ -134,16 +134,13 @@ describe("Add address for any user", () => {
             // const country = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(9)");
             // await country.click();
 
-            const countryDropdown = await driver.$(
-                '//android.widget.TextView[@text="Country"]//parent::android.view.ViewGroup',
-            );
+            const countryDropdown = await driver.$('//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]');
+            await expect(countryDropdown).toBeDisplayed();
             await countryDropdown.click();
             await driver.pause(2000);
 
             //click on country
-            const nCountry = await driver.$(
-                '-android uiautomator:new UiSelector().text("Argentina")',
-            );
+            const nCountry = await driver.$('-android uiautomator:new UiSelector().textContains("Argentina")');
             await expect(nCountry).toBeDisplayed();
             await driver.pause(2000);
             await nCountry.click();
@@ -162,9 +159,7 @@ describe("Add address for any user", () => {
             await driver.pause(1000);
 
             //choosing city
-            const city = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("City")',
-            );
+            const city = await driver.$('-android uiautomator:new UiSelector().textContains("City")');
             await expect(city).toBeDisplayed();
 
             //click on city section and add value

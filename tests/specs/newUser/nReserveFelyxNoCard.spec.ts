@@ -331,6 +331,10 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
             //const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
             await expect(payPal).toBeDisplayed();
 
+            const closeBtn = await driver.$("accessibility id:Close");
+            await expect(closeBtn).toBeDisplayed();
+            await closeBtn.click();
+
             /*
                     // Click End Trip
                     await driver.$(
