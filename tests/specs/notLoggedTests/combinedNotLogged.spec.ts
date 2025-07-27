@@ -523,7 +523,7 @@ describe("Combined Not Logged User Tests", () => {
             await expect(taxiProviders).toBeDisplayed();
 
             const any = await driver.$(
-                '-android uiautomator:new UiSelector().text("Any")',
+                '-android uiautomator:new UiSelector().text("Unknown")',
             );
             await expect(any).toBeDisplayed();
 

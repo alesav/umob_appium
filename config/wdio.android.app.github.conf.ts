@@ -109,7 +109,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/login/login.negative.spec.ts"
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts"
 
-           
+           /*
 
 //night run
 
@@ -141,7 +141,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/bookUmobMoped.spec.ts",
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts"
-          
+          */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
