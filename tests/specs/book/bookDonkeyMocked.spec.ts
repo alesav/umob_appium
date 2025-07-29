@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new36";
+const USER = process.env.TEST_USER || "new45";
 
 describe("Donkey Bike Booking Test", () => {
     before(async () => {
@@ -107,7 +107,7 @@ describe("Donkey Bike Booking Test", () => {
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
-                '-android uiautomator:new UiSelector().text("UMOB Bike 2 4")',
+                '-android uiautomator:new UiSelector().text("UMOB Bike 0 1")',
             );
             await umob20Button.click();
 

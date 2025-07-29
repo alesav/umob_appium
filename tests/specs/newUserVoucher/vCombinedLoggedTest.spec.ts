@@ -2497,7 +2497,7 @@ await driver.pause(2000);
             await expect(taxiProviders).toBeDisplayed();
 
             const any = await driver.$(
-                '-android uiautomator:new UiSelector().text("Any")',
+                '-android uiautomator:new UiSelector().text("Unknown")',
             );
             await expect(any).toBeDisplayed();
 
