@@ -56,13 +56,15 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/book/bookDonkeyMocked.spec.ts"
-        "../tests/specs/newUser/deleteCard.spec.ts"
+        //"../tests/specs/newUser/deleteCard.spec.ts"
 
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
 
         //morning run
+        "../tests/specs/book/reserveFelyx.spec.ts",
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
 
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts" //new35 //ok
 
@@ -72,7 +74,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
         // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok. looks like no card but card is!!! check on screenshot.
         //"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 24/ not in center. bike FAIL (bike 22 is missing)
-        //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14). fully ok
+        "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",      //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14). fully ok
         ///////////////////"c:/dev/umob_appium/tests/specs/account/AddAdress.spec.ts",
         //"c:/dev/umob_appium/tests/specs/login/login.positive.spec.ts", //ok
         //////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
