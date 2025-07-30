@@ -104,9 +104,9 @@ export const config: WebdriverIO.Config = {
     // "../tests/specs/login/login.negative.spec.ts",
     // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
     // "../tests/specs/account/AddAdress.spec.ts", //new12
-    "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+    //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
     // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-    "../tests/specs/newUser/deleteCard.spec.ts" //newUser
+    //"../tests/specs/newUser/deleteCard.spec.ts" //newUser
 
 
     ],
