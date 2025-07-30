@@ -56,7 +56,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new12";
+const USER = process.env.TEST_USER || "new12"; //new12
 
 /////////////////////////////////////////////////////////////////////////////////
 describe("Add address for any user", () => {
