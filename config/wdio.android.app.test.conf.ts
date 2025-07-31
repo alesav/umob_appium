@@ -60,7 +60,7 @@ export const config: WebdriverIO.Config = {
 
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-        "../tests/specs/book/bookDonkeyMocked.spec.ts",
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts",
 
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
