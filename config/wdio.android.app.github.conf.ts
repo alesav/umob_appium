@@ -81,7 +81,7 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/book/reserveFelyx.spec.ts", //more
         // "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-         "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
+        ////////// "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
@@ -107,7 +107,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts" //taking photo crashed app. Cant stop active booking for new32 user!
         //"../tests/specs/login/login.negative.spec.ts"
-        //"../tests/specs/newUser/welcomeBookDonkey.spec.ts"
+        "../tests/specs/newUser/welcomeBookDonkey.spec.ts"
 
            /*
 
