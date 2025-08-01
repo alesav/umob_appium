@@ -401,6 +401,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             const photoButton = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
             );
+            await expect(photoButton).toBeDisplayed();
             await photoButton.click();
 
             await driver.pause(4000);
