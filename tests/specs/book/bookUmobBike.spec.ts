@@ -152,8 +152,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.477300196886063,
-                latitude: 51.92350013464292,
+                longitude: 4.4773, //4.477300196886063,
+                latitude: 51.9235, //51.92350013464292,
                 radius: 1166.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
@@ -280,6 +280,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
             //   )
             //   .click();
+            await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
 
@@ -457,7 +458,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             );
             await expect(notNowButton).toBeDisplayed();
             await notNowButton.click();
-
+            
             //check main screen is displayed
 
             await driver.pause(2000);
@@ -526,12 +527,19 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
                     scooter.id === "UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE",
             );
 
+            /*
             // Set location to specific scooter coordinates
             execSync(
                 `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`,
             );
+            */
+           // Set location to specific scooter coordinates
+           await AppiumHelpers.setLocationAndRestartApp(
+            targetScooter.coordinates.longitude,
+            targetScooter.coordinates.latitude,
+            );
             await driver.pause(5000);
-
+            
             // Filter not needed results
             //await applyFilters();
 
