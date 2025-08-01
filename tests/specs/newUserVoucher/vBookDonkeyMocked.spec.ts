@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new17";
+const USER = process.env.TEST_USER || "new36";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -71,8 +71,8 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
 
         //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
-        const longitude = 4.4744301;
-        const latitude = 51.9155956;
+        const longitude = 4.4734301;
+        const latitude = 51.9145956;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
@@ -135,8 +135,9 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
-                '-android uiautomator:new UiSelector().text("UMOB Bike 3 1")',
+                '-android uiautomator:new UiSelector().text("UMOB Bike 1 1")',
             );
+            await expect(umob20Button).toBeDisplayed();
             await umob20Button.click();
 
             //verify that new user voucher is visible

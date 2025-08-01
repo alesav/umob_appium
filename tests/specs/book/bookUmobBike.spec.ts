@@ -63,7 +63,7 @@ const USER = process.env.TEST_USER || "new33";
 
 const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
 const AUTH_TOKEN =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDY2MTAyMTgsImlhdCI6MTczODgzNDIxOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjE2ZWUzZjRjLTQzYzktNGE3Ni1iOTdhLTYxMGI0NmU0MGM3ZCIsInN1YiI6IjRhNGRkZmRhLTNmMWYtNDEyMS1iNzU1LWZmY2ZjYTQwYzg3MiIsInNlc3Npb25faWQiOiIzNGU4NDZmOC02MmI3LTRiMzgtODkxYS01NjE4NWM4ZDdhOGEiLCJ1bmlxdWVfbmFtZSI6Im5ld0BnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXdAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldyIsImZhbWlseV9uYW1lIjoiTmV3IiwiZW1haWwiOiJuZXdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOiJGYWxzZSIsInBob25lX251bWJlciI6IiszMTk3MDEwNTg2NTU2IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjoiVHJ1ZSIsIm9pX3Byc3QiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfYXVfaWQiOiI0ODZkYTI1OS05ZGViLTJmMDQtYmM2OS0zYTE3ZWNjNTY1YTEiLCJjbGllbnRfaWQiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfdGtuX2lkIjoiMTQzZGNiNGUtZTFjYi01MmU0LWU5ZWUtM2ExN2VjYzU2NWI5In0.4slYA6XbzRDTNdPJSOmxGlsuetx1IywPojVVMooyyL8Whu4Go6I2V-wspetKGptQnG85X75lg6gWAOYwV5ES5mJQJ4unZuCUW82sDPMNZwEhw_Hzl6UyO5vd3pYJOzry07RcskSwonVKZqipiAEusiYRCvo0AjUx33g5NaRAhXUCE8p_9vdTgSMVjtQkFGpsXih-Hw8rcy7N_HH_LWz-C2ZIA9i2sV3tEHNpTgVhs9Z0WTISirTXdmSolv6JvlqkGETsq0CSFa-0xmhjWU036KB2C5nKBLpUP6AUwibcLDEc0_RoUka-Ia-a4QNVZuzME3pMxIaGOToYf1WLEHPeIQ";
+    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkZEMTM2Q0Y3Nzg3RDhGRUM4RDQzMUFDRUY2M0IxQURCODI3RjMzMjEiLCJ4NXQiOiJfUk5zOTNoOWoteU5ReHJPOWpzYTI0Sl9NeUUiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NjE4MTM5MzEsImlhdCI6MTc1NDAzNzkzMSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjJkOThhM2RjLTQwYmQtNDkyYS1iNGU5LTEzMWRiMzFkOWE1NCIsInN1YiI6Ijc3ZDg4ZjhhLTBkODAtNDVkMS1iZGZkLTc3NjE2YmRmMGViMCIsInByZWZlcnJlZF91c2VybmFtZSI6Im5ldzE1QGdtYWlsLmNvbSIsImVtYWlsIjoibmV3MTVAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldzE1IiwiZmFtaWx5X25hbWUiOiJTbmV3MTUiLCJwaG9uZV9udW1iZXIiOiIrMzE5NzAxMDU4MDMwMiIsInBob25lX251bWJlcl92ZXJpZmllZCI6IlRydWUiLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwic2Vzc2lvbl9pZCI6Ijc5Y2FhMzI2LThjNzMtNDU1Ny1hNDJjLTgzNGIyMDFiNjUyYiIsInVuaXF1ZV9uYW1lIjoibmV3MTVAZ21haWwuY29tIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImU4MjY0N2ZmLTRhMTYtOGZjMy1iZDQ0LTNhMWI3NmZiYTc3NCIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiYTVhMzcyMi0zNTcyLTNlYzMtMTM3Yi0zYTFiNzZmYmE4MDAifQ.kswKL_MyhB5LM3kZv19WMpSdkSlApdYabI0SSBqvlD4FjoZpOHaXlayJBCoMD7LG9HbPKrE58TwfPKpWGvv0InkMPH7Lsr3bVwgiD5hv2PXr-GBNH0LzF13q3jDN6Gs5-MDtB1s7K-bKfvVxFr6N1--i11A-AgvTY_xrBpJcfeCE74iHqDX4wkXvCwq_kyv-O6RffC4Lje53oPRzq7ymjMunFi_wsmcDIjF9vGyhlRcGTAmv3y2vKXtJrvEOtQIXmqlLfvWp0JSAiBNle33psvWROQjTVOL6q6alEDe7PzJHzoLZgn8bgE3QWQo-GOFlaZYTjJAcnvZ08ljqboJTOA";
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -146,18 +146,18 @@ const fetchScooterCoordinates = async () => {
                 Authorization: AUTH_TOKEN,
                 "Accept-Language": "en",
                 "X-Requested-With": "XMLHttpRequest",
-                "App-Version": "1.23684.3.23684",
+                "App-Version": "1.26124.3.26124",
                 "App-Platform": "android",
             },
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.477300196886063,
-                latitude: 51.92350013464292,
+                longitude: 4.4773, //4.477300196886063,
+                latitude: 51.9235, //51.92350013464292,
                 radius: 1166.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
-                assetClasses: [24, 17],
+                assetClasses: [17, 23, 24],
                 operatorAvailabilities: [2, 1, 3],
                 showEmptyStations: false,
                 skipCount: 0,
@@ -197,8 +197,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
         });
 
         const targetScooter = scooters.find(
-            (scooter) =>
-                scooter.id === "UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE",
+            (scooter) => scooter.id === "UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE",
         );
 
         await AppiumHelpers.setLocationAndRestartApp(
@@ -281,6 +280,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
             //   )
             //   .click();
+            await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
 
@@ -458,7 +458,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             );
             await expect(notNowButton).toBeDisplayed();
             await notNowButton.click();
-
+            
             //check main screen is displayed
 
             await driver.pause(2000);
@@ -527,12 +527,19 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
                     scooter.id === "UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE",
             );
 
+            /*
             // Set location to specific scooter coordinates
             execSync(
                 `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`,
             );
+            */
+           // Set location to specific scooter coordinates
+           await AppiumHelpers.setLocationAndRestartApp(
+            targetScooter.coordinates.longitude,
+            targetScooter.coordinates.latitude,
+            );
             await driver.pause(5000);
-
+            
             // Filter not needed results
             //await applyFilters();
 

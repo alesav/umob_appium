@@ -60,8 +60,11 @@ export const config: WebdriverIO.Config = {
 
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts",
 
         //morning run
+        //"../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
 
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts" //new35 //ok
 
@@ -92,10 +95,20 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   newUser 
     "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",      ///new13   //newUser
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //newUser
-   // "../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
+    //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
     "../tests/specs/newUser/deleteCard.spec.ts"
 */
+
+    //tests for accept version of app
+    // "../tests/specs/login/login.negative.spec.ts",
+    // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+    // "../tests/specs/account/AddAdress.spec.ts", //new12
+    //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+    // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+    //"../tests/specs/newUser/deleteCard.spec.ts" //newUser
+
+
     ],
     capabilities: [
         {
