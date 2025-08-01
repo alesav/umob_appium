@@ -110,7 +110,7 @@ export const config: WebdriverIO.Config = {
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
 
            
-/*
+
 //night run
 
            "../tests/specs/account/*.spec.ts",
@@ -141,7 +141,7 @@ export const config: WebdriverIO.Config = {
           "../tests/specs/book/bookUmobMoped.spec.ts",
           "../tests/specs/book/reserveCheck.spec.ts",
           "../tests/specs/book/reserveFelyx.spec.ts"
-          */
+          
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
