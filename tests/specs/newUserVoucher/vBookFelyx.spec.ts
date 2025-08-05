@@ -349,6 +349,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //take a picture
             const photoButton = await driver.$("~endTrip");
+            await expect(photoButton).toBeDisplayed();
             await photoButton.click();
 
             await driver.pause(5000);

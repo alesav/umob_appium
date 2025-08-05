@@ -735,7 +735,7 @@ await driver.pause(1000);
                             type: "pointerMove",
                             duration: 0,
                             x: 160,
-                            y: height / 2 + 100,
+                            y: height / 2 + 200,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
@@ -744,6 +744,7 @@ await driver.pause(1000);
                     ],
                 },
             ]);
+            await driver.pause(1500);
 
             // Check vehicle section is displayed
             const vehicleHeader = await driver.$(
@@ -756,6 +757,7 @@ await driver.pause(1000);
                 '-android uiautomator:new UiSelector().text("Vehicle type")',
             );
             await expect(vehicleType).toBeDisplayed();
+            
 
             // Check booking number is displayed
             const bookingNo = await driver.$(
