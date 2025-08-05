@@ -170,6 +170,10 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             scooter.id.includes("Check"),
         );
 
+        console.log("All scooter:", JSON.stringify(scooters));
+
+        console.log("Target scooter:", JSON.stringify(targetScooter));
+
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
             targetScooter.coordinates.latitude,

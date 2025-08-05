@@ -9,7 +9,6 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts"
         //  "/Users/alesav/Dev/umob/umob_appium/tests/specs/account/*.spec.ts",
         // "c:/dev/umob_appium/tests/specs/newUser/nCombinedLoggedTest.spec.ts"
-
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
@@ -18,7 +17,6 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
-
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts",
         // "c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         // "c:/dev/umob_appium/tests/specs/newUser/popupAddPaymentMethod.spec.ts"
@@ -31,7 +29,6 @@ export const config: WebdriverIO.Config = {
         // "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
         ////"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
@@ -41,7 +38,6 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"/// umknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
-
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.js"
@@ -57,19 +53,14 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/book/bookDonkeyMocked.spec.ts"
         //"../tests/specs/newUser/deleteCard.spec.ts"
-
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
-
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts" //new35 //ok
-
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
-
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok. not in center of the map, verification in progress could be after nreservechecknocard
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
         // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok. looks like no card but card is!!! check on screenshot.
@@ -84,9 +75,7 @@ export const config: WebdriverIO.Config = {
         // "c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts",         //new25 //ok/
         // "c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
-
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new43)
