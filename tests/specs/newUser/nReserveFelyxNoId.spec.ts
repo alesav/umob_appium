@@ -220,9 +220,9 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             // Set location to specific scooter coordinates
             console.log(
                 "Long: " +
-                    targetScooter.coordinates.longitude +
-                    " Lat: " +
-                    targetScooter.coordinates.latitude,
+                targetScooter.coordinates.longitude +
+                " Lat: " +
+                targetScooter.coordinates.latitude,
             );
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
@@ -266,7 +266,7 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             //verify that driver's licence is not added
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().textContains("Add your driver\'s license or Id")',
+                    '-android uiautomator:new UiSelector().textContains("Add a driver license for mopeds, or")',
                 )
                 .waitForDisplayed();
 
