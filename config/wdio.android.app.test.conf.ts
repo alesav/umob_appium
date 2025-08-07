@@ -76,6 +76,8 @@ export const config: WebdriverIO.Config = {
         // "c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        "../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new43)
