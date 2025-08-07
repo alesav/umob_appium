@@ -75,7 +75,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
 
         //"../tests/specs/book/bookUmobMoped.spec.ts",
-        //"../tests/specs/book/bookPublicTransport.spec.ts", //more
+        "../tests/specs/book/bookPublicTransport.spec.ts", //more
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
