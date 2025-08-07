@@ -197,7 +197,8 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
         });
 
         const targetScooter = scooters.find(
-            (scooter) => scooter.id === "UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE",
+            (scooter) =>
+                scooter.id === "UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE",
         );
 
         await AppiumHelpers.setLocationAndRestartApp(
@@ -458,24 +459,8 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             );
             await expect(notNowButton).toBeDisplayed();
             await notNowButton.click();
-            
+
             //check main screen is displayed
-
-            await driver.pause(2000);
-
-            scooters = await fetchScooterCoordinates();
-
-            const targetScooter = scooters.find(
-                (scooter) =>
-                    scooter.id === "UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE",
-            );
-
-            // Set location to specific scooter coordinates
-            await AppiumHelpers.setLocationAndRestartApp(
-                targetScooter.coordinates.longitude,
-                targetScooter.coordinates.latitude,
-            );
-            await driver.pause(7000);
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -527,19 +512,23 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
                     scooter.id === "UmobMock:QZGKL2BP2CI35_ROTTERDAM_EBIKE",
             );
 
+            console.log("All scooter:", JSON.stringify(scooters));
+
+            console.log("Target scooter:", JSON.stringify(targetScooter));
+
             /*
             // Set location to specific scooter coordinates
             execSync(
                 `adb shell am startservice -e longitude ${targetScooter.coordinates.longitude} -e latitude ${targetScooter.coordinates.latitude} io.appium.settings/.LocationService`,
             );
             */
-           // Set location to specific scooter coordinates
-           await AppiumHelpers.setLocationAndRestartApp(
-            targetScooter.coordinates.longitude,
-            targetScooter.coordinates.latitude,
+            // Set location to specific scooter coordinates
+            await AppiumHelpers.setLocationAndRestartApp(
+                targetScooter.coordinates.longitude,
+                targetScooter.coordinates.latitude,
             );
             await driver.pause(5000);
-            
+
             // Filter not needed results
             //await applyFilters();
 
