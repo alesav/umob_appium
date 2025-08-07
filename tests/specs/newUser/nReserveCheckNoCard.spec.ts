@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to get fixed credentials for the newUser from credentials file
+// Function to get fixed credentials for the User from credentials file
 function getCredentials() {
     try {
         const credentialsPath = path.resolve(
@@ -26,7 +26,7 @@ function getCredentials() {
             throw new Error("newUser not found in test environment");
         }
 
-        // Return the newUser credentials
+        // Return the User credentials
         return {
             username: credentials.test.newUser.username,
             password: credentials.test.newUser.password,
