@@ -144,7 +144,7 @@ const fetchScooterCoordinates = async () => {
                 stationId: "",
                 longitude: 4.474984046128891,
                 latitude: 51.91638293318269,
-                radius: 150.6137310913994,
+                radius: 100.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
