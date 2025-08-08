@@ -92,12 +92,6 @@ const applyFilters = async () => {
         )
         .click();
 
-    // Click Moped to unselect it
-    //await driver.$(
-    //  '-android uiautomator:new UiSelector().text("E-moped")'
-    //).waitForEnabled();
-
-    //await driver.$('-android uiautomator:new UiSelector().text("E-moped")').click();
 
     // Click Bike to unselect it
     await driver
@@ -206,43 +200,6 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             targetScooter.coordinates.latitude,
         );
 
-        /*
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.click();
-
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("new@gmail.com");
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue("123Qwerty!");
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      */
-
-        // Handle permissions
-        //const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-        //await expect(allowPermissionBtn).toBeDisplayed();
-        //await allowPermissionBtn.click();
-
-        // Wait for welcome message
-        //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-        //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-        // Handle location permissions
-        // const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-        // await expect(allowForegroundPermissionBtn).toBeDisplayed();
-        // await allowForegroundPermissionBtn.click();
 
         // Check Account is presented
     });
@@ -266,37 +223,13 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
         try {
             await driver.pause(5000);
 
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
 
             const { centerX, centerY } = await getScreenCenter();
 
-            // Click exactly in the center
-            //  await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            //  await driver.$(
-            //  '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
-
-            //await driver.$(
-            //'-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            //).click();
 
             //choose card payment
             await driver
@@ -397,83 +330,6 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             await driver.pause(8000);
 
-            /*
-//verify end screen for the ride
-const thanks = await driver.$('-android uiautomator:new UiSelector().textContains("Thanks")');
-await expect (thanks).toBeDisplayed();
-
-const felyxName = await driver.$('-android uiautomator:new UiSelector().text("UmobMock")');
-await expect (felyxName).toBeDisplayed();
-
-const euro = await driver.$('-android uiautomator:new UiSelector().textContains("€")');
-await expect (euro).toBeDisplayed();
-
-const closeB = await driver.$('-android uiautomator:new UiSelector().text("CLOSE")');
-await expect (closeB).toBeDisplayed();
-
-
-
-              // Click Details
-              await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
-              ).waitForEnabled();
-          
-              await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")'
-              ).click();
-    
-   // Verify Screen Header
-   const headerTitle = await driver.$('//*[@resource-id="undefined-header-title"]');
-   await expect(headerTitle).toBeDisplayed();
-   await expect(await headerTitle.getText()).toBe('Ride');
- 
-   // Verify Basic Ride Information
-   const dateElement = await driver.$(
-     '//*[@text="UmobMock"]'
-   );
-   await expect(dateElement).toBeDisplayed();
- 
-  //  const priceElement = await driver.$('//*[@text="€1.25"]');
-  //  await expect(priceElement).toBeDisplayed();
- 
-   // Verify Route Information
-   const startLocationElement = await driver.$(
-     '//*[@text="Rodezand 46, 3011 AN Rotterdam, Netherlands"]');
-   await expect(startLocationElement).toBeDisplayed();
-   await expect(await startLocationElement.getText()).toBe('Rodezand 46, 3011 AN Rotterdam, Netherlands');
-
- 
-   // Verify Pricing Details
-   const travelCostElement = await driver.$('//*[@text="Travel cost"]');
-   await expect(travelCostElement).toBeDisplayed();
- 
-  //  const travelCostValueElement = await driver.$('//*[@text="€1.25"]');
-  //  await expect(travelCostValueElement).toBeDisplayed();
- 
-   const totalAmountElement = await driver.$('//*[@text="Total amount"]');
-   await expect(totalAmountElement).toBeDisplayed();
- 
-  //  const totalAmountValueElement = await driver.$('//*[@text="€1.25"]');
-  //  await expect(totalAmountValueElement).toBeDisplayed();
- 
-   // Verify Payments Section
-   const paymentsHeaderElement = await driver.$('//*[@text="Payments"]');
-   await expect(paymentsHeaderElement).toBeDisplayed();
-
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100, 
-    top: 1000, 
-    width: 200, 
-    height: 800, 
-    direction: 'down',
-    percent: 100.0
-  }]);
- 
-   // Verify Transaction Details
- 
-   const statusElement = await driver.$('//*[@text="Completed"]');
-   await expect(statusElement).toBeDisplayed();
- */
 
             // Click GOT IT
             await driver
@@ -524,26 +380,6 @@ await expect (closeB).toBeDisplayed();
             ).length;
             expect(addressCount).toBe(2);
 
-            /*
-            const addresses = await driver.$$('-android uiautomator:new UiSelector().text("Rodezand 46, 3011 AN Rotterdam, Netherlands")');
-            await expect(addresses).toBeDisplayed();
-
-            //checking that there are two the same addresses
-            expect(addresses).toHaveLength(2);
-
-            // Checking that both addresses are displayed
-            for (const address of addresses) {
-            await expect(address).toBeDisplayed();
-            }
-            */
-
-            //cycle "for" to check that both adresses exist
-            // for (let i = 0; i < addresses.length; i++) {
-            //     await expect(addresses[i]).toBeDisplayed();
-            // }
-
-            // const priceElement = await driver.$('//*[@text="€1.25"]');
-            // await expect(priceElement).toBeDisplayed();
 
             const travelCostElement = await driver.$(
                 '//*[@text="Travel cost"]',
@@ -592,9 +428,7 @@ await expect (closeB).toBeDisplayed();
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -903,25 +737,9 @@ await expect (closeB).toBeDisplayed();
             );
             await driver.pause(5000);
 
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
 
             const { centerX, centerY } = await getScreenCenter();
 
-            // Click exactly in the center
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -967,9 +785,7 @@ await expect (closeB).toBeDisplayed();
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

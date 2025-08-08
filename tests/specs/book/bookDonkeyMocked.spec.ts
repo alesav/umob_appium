@@ -94,13 +94,6 @@ describe("Donkey Bike Booking Test", () => {
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-            // Center screen click
-            // await driver
-            //     .action("pointer")
-            //     .move({ x: centerX, y: Math.round(height / 2) })
-            //     .down()
-            //     .up()
-            //     .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -111,16 +104,6 @@ describe("Donkey Bike Booking Test", () => {
             );
             await umob20Button.click();
 
-            //const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("SELECT UMOB BIKE 2 0")');
-            //await selectUmob.click();
-
-            /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
 
             // Click continue button
             await driver.pause(5000);
@@ -141,18 +124,6 @@ describe("Donkey Bike Booking Test", () => {
             await permission.click();
             await driver.pause(2000);
 
-            /*
-    await driver.pause(5000);
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
-    }]);
-    */
 
             await driver.pause(2000);
 
@@ -181,26 +152,6 @@ describe("Donkey Bike Booking Test", () => {
                 },
             ]);
 
-            /*const screen = await driver.getWindowRect();
-    const screenWidth = screen.width;
-    const screenHeight = screen.height;
-
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: screenWidth / 2,  // горизонтальная середина экрана
-      top: screenHeight * 0.65,  // точка начала скролла в нижней части экрана
-      width: screenWidth / 2,  // ширина области для скролла
-      height: screenHeight * 0.15,  // высота области для скролла
-      direction: 'down',  // направление скролла
-      percent: 100  // полное прокручивание
-    }]); */
-
-            // Click 5cm above bottom
-            /*await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 50 })
-      .down()
-      .up()
-      .perform();*/
 
             await driver.pause(3000);
 
@@ -265,14 +216,7 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(2000);
 
-            /*
-            // Click close button
-            const closeButton = await driver.$(
-                "accessibility id:closeButton-text",
-                
-            );
-            await closeButton.click();
-            */
+
             // Click got it button
             const gotButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("GOT IT!")',
@@ -295,9 +239,7 @@ describe("Donkey Bike Booking Test", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

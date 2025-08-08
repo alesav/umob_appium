@@ -87,9 +87,7 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -170,29 +168,6 @@ describe("Login Negative Scenarios", () => {
             }
             */
 
-            /*
-            const enableNotifications = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_button",
-            );
-            await expect(enableNotifications).toBeDisplayed();
-            await enableNotifications.click();
-            */
-
-            // // Wait for permissions popup
-            //  const permissionsPopup = await driver.$(
-            //     '-android uiautomator:new UiSelector().textContains("Allow")',
-            // );
-            // await permissionsPopup.isDisplayed();
-            // await expect(permissionsPopup).toBeDisplayed();
-            // await permissionsPopup.click();
-
-            // const permissionsPopup = await driver.$('-android uiautomator:new UiSelector().textContains("Allow")',
-            // );
-
-            // await permissionsPopup.isDisplayed();
-            // await expect(permissionsPopup).toBeDisplayed();
-            // await permissionsPopup.click();
-
             // Verify error message
             const errorMessage = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invalid username or password")',
@@ -207,9 +182,7 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -262,9 +235,7 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
