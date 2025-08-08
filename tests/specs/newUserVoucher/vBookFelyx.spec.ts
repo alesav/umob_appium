@@ -350,9 +350,10 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             //take a picture
             const photoButton = await driver.$("~endTrip");
             await expect(photoButton).toBeDisplayed();
+            await driver.pause(2000);
             await photoButton.click();
 
-            await driver.pause(5000);
+            await driver.pause(4000);
             //verify confirmation for using a picture
             const pictureHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use this picture?")',

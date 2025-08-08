@@ -142,9 +142,9 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.474777685709118,
-                latitude: 51.91625362101655,
-                radius: 200.6137310913994,
+                longitude: 4.474984046128891,
+                latitude: 51.91638293318269,
+                radius: 100.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
@@ -188,8 +188,8 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
 
         //await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
 
-        const longitude = 4.474777685709118;
-        const latitude = 51.91625362101655;
+        const longitude = 4.474984046128891;
+        const latitude = 51.91638293318269;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
@@ -220,9 +220,9 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             // Set location to specific scooter coordinates
             console.log(
                 "Long: " +
-                    targetScooter.coordinates.longitude +
-                    " Lat: " +
-                    targetScooter.coordinates.latitude,
+                targetScooter.coordinates.longitude +
+                " Lat: " +
+                targetScooter.coordinates.latitude,
             );
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
@@ -266,7 +266,7 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             //verify that driver's licence is not added
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().textContains("Add your driver\'s license or Id")',
+                    '-android uiautomator:new UiSelector().textContains("Add a driver license for mopeds, or")',
                 )
                 .waitForDisplayed();
 

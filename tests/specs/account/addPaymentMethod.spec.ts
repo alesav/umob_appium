@@ -74,15 +74,6 @@ describe("Add Payment Method", () => {
         });
     });
 
-    /*
-  before(async () => {
-
-        await PageObjects.login({ username:'4bigfoot+11@gmail.com', password: '123Qwerty!' });
-
-
-  });
-
-  */
 
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
@@ -148,15 +139,6 @@ describe("Add Payment Method", () => {
                 )
                 .click();
 
-            //CLick Remove payment method
-            /*
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).click();
-          */
 
             //CLick Cards
             await driver
@@ -197,9 +179,6 @@ describe("Add Payment Method", () => {
             await driver.pause(2000);
             await removeBtn.click();
 
-            //  await driver.pause(5000);
-            //  const el6 = await driver.$("accessibility id:back_button");
-            //  await el6.click();
 
             //CLick Payment Settings
             await driver
@@ -228,9 +207,7 @@ describe("Add Payment Method", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

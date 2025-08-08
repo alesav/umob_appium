@@ -77,53 +77,6 @@ const getScreenCenter = async () => {
     };
 };
 
-/*
-  // Filter mopeds and stations 
-  const applyFilters = async () => {
-    // Click ? icon
-    await driver.$(
-      '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")'
-    ).waitForEnabled();
-
-    await driver.$(
-      '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")'
-    ).click();
-
-        // Click Moped to unselect it
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Scooter")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Scooter")'
-        ).click();
-
-          // Click Bike to unselect it
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Bike")'
-          ).waitForEnabled();
-      
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Bike")'
-          ).click();
-
-          // Click Openbaar vervoer to unselect it
-  await driver.$(
-    '-android uiautomator:new UiSelector().text("Openbaar vervoer")'
-  ).waitForEnabled();
-
-  await driver.$(
-    '-android uiautomator:new UiSelector().text("Openbaar vervoer")'
-  ).click();
-
-            // Minimize drawer
-            await driver.$(
-              '-android uiautomator:new UiSelector().className("com.horcrux.svg.PathView").instance(10)'
-            ).click();
-
-  };
-
-  */
 
 const fetchScooterCoordinates = async () => {
     try {
@@ -194,15 +147,6 @@ describe("Check Reservation Tests", () => {
             targetScooter.coordinates.latitude,
         );
 
-        /*
-    scooters = await fetchScooterCoordinates();
-    const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-    await logInBtn.isClickable();
-    await driver.pause(2000);
-    await logInBtn.click();
-    await PageObjects.login({ username: "new25@gmail.com", password: "123Qwerty!" });
-
-    */
     });
 
     beforeEach(async () => {
@@ -228,12 +172,6 @@ describe("Check Reservation Tests", () => {
             //await applyFilters();
             const { centerX, centerY } = await getScreenCenter();
 
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -307,9 +245,7 @@ describe("Check Reservation Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
