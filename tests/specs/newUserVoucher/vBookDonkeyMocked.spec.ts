@@ -69,7 +69,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-        //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
         const longitude = 4.4734301;
         const latitude = 51.9145956;
@@ -91,47 +90,18 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
         let error = null;
 
         try {
-            // Set initial location
-            // await AppiumHelpers.setLocationAndRestartApp(
-            //   4.4744301,
-            //   51.9155956
-            // );
+
             await driver.pause(5000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-            // Center screen click
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: Math.round(height / 2) })
-            //   .down()
-            //   .up()
-            //   .perform();
+
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // // Tap at center using W3C Actions
-            // await driver.performActions([{
-            //     type: 'pointer',
-            //     id: 'finger1',
-            //     parameters: { pointerType: 'touch' },
-            //     actions: [
-            //         { type: 'pointerMove', duration: 0, x: width / 2, y: height / 2 },
-            //         { type: 'pointerDown', button: 0 },
-            //         { type: 'pointerUp', button: 0 }
-            //     ]
-            // }]);
-
-            // // Release actions to clean up
-            // await driver.releaseActions();
-
-            // await driver.execute('mobile: shell', {
-            //     command: 'input',
-            //     args: ['tap', String(width / 2), String(height / 2)]
-            // });
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
@@ -173,13 +143,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await expect(selectPayment).toBeDisplayed();
             await expect(multiVoucher).toBeDisplayed();
 
-            /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
 
             await driver.pause(2000);
             await driver.performActions([
@@ -229,17 +192,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await permission.click();
             await driver.pause(2000);
 
-            //Scroll to bottom
-            /*
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
-    }]); 
-    */
 
             // await driver.pause(2000);
             await driver.performActions([
@@ -325,41 +277,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             );
             await endTripButton.click();
 
-            /*
-    //click to see details
-    const detailsButton3 = await driver.$('-android uiautomator:new UiSelector().text("DETAILS")');
-    await driver.pause(10000);
-    await detailsButton3.click();
-
-    //verify header Ride
-    const header = await driver.$('-android uiautomator:new UiSelector().text("Ride")');
-    await expect(header).toBeDisplayed();
-
-    //verify that there is 0euro price
-    const zeroEuro = await driver.$('-android uiautomator:new UiSelector().textContains("€0.")');
-    await expect(zeroEuro).toBeDisplayed();
-
-    //verify used voucher is dispayed
-    const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
-    await expect(usedVoucher).toBeDisplayed();
-
-    //verify used voucher is dispayed
-    const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
-    await expect(multiVoucher1).toBeDisplayed();
-
-    */
-
-            /*
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
-    }]); 
-    */
 
             await driver.pause(2000);
             await driver.performActions([
@@ -411,9 +328,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             );
             await expect(myRides).toBeDisplayed();
 
-            //verify that payment is visible in my account and it is 0 Euro
-            // const lastRide = await driver.$('-android uiautomator:new UiSelector().textContains("€0")');
-            // await expect(lastRide).toBeDisplayed();
 
             //click on my rides and tickets
             await myRides.click();
@@ -433,9 +347,7 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -457,13 +369,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
         }
     });
 
-    /*
-    // Click close button
-    const closeButton = await driver.$("accessibility id:closeButton-text");
-    await closeButton.click();
-  });
-
-  */
 
     afterEach(async () => {
         await driver.terminateApp("com.umob.umob");

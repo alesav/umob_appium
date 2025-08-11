@@ -2003,34 +2003,12 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            //const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            //await accountButton.click();
-            //await driver.pause(2000);
 
             //go to account
             await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
-            /*
-     // Scroll down to delete account option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2172,33 +2150,11 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Settings button to navigate to settings
-            // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            // await settingsButton.click();
-            // await driver.pause(2000);
 
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            /*
-     // Scroll down to Log Out option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2280,9 +2236,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

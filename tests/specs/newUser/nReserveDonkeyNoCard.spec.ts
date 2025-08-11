@@ -71,7 +71,6 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             password: credentials.password,
         });
 
-        //await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
 
         const longitude = 4.4744301;
         const latitude = 51.9155956;
@@ -101,13 +100,6 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-            // Center screen click
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: Math.round(height / 2) })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -132,13 +124,6 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             );
             await expect(selectPayment).toBeDisplayed();
 
-            /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
 
             await driver.pause(2000);
             await driver.performActions([
@@ -223,8 +208,8 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             await driver.pause(2000);
 
             //there is no google pay in github actions emulated mobile device
-            // const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            // await expect(googlePay).toBeDisplayed();
+            const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+            await expect(googlePay).toBeDisplayed();
 
             const payPal = await driver.$(
                 '-android uiautomator:new UiSelector().text("PayPal")',
@@ -243,9 +228,7 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -267,36 +250,6 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
         }
     });
 
-    /*
-
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 10
-    }]); 
-    
-    */
-
-    /*
-    
-    const screen = await driver.getWindowRect();
-    const screenWidth = screen.width;
-    const screenHeight = screen.height;
-    
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: screenWidth / 2,  // горизонтальная середина экрана
-      top: screenHeight * 0.65,  // точка начала скролла в нижней части экрана
-      width: screenWidth / 2,  // ширина области для скролла
-      height: screenHeight * 0.15,  // высота области для скролла
-      direction: 'down',  // направление скролла
-      percent: 100  // полное прокручивание
-    }]); 
-    
-    */
 
     afterEach(async () => {
         await driver.terminateApp("com.umob.umob");
