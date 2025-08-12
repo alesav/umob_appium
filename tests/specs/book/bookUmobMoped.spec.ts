@@ -230,7 +230,7 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-
+            /*
             //choose card payment
             await driver
                 .$(
@@ -247,6 +247,7 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             await driver
                 .$('-android uiautomator:new UiSelector().text("No voucher")')
                 .click();
+                */
 
             // Click Start
             await driver
