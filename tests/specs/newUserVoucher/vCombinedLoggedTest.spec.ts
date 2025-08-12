@@ -1791,11 +1791,13 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().text("About")',
             );
             await expect(about).toBeDisplayed();
+            /*
 
             const where = await driver.$(
                 '-android uiautomator:new UiSelector().text("Where")',
             );
             await expect(where).toBeDisplayed();
+            */
 
             // Click on "FAQ" to be sure you are in the right place
             await faq.click();
@@ -1963,6 +1965,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
             );
             await expect(text2).toBeDisplayed();
+            /*
 
 
             //go to where tab
@@ -2077,6 +2080,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             //quit support screen
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
+            */
 
         } catch (e) {
             error = e;

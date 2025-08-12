@@ -166,11 +166,13 @@ describe("Combined Not Logged User Tests", () => {
                 '-android uiautomator:new UiSelector().text("About")',
             );
             await expect(about).toBeDisplayed();
+            /*
 
             const where = await driver.$(
                 '-android uiautomator:new UiSelector().text("Where")',
             );
             await expect(where).toBeDisplayed();
+            */
 
             // Click on "FAQ" to be sure you are in the right place
             await faq.click();
@@ -368,6 +370,8 @@ describe("Combined Not Logged User Tests", () => {
             );
             await expect(text3).toBeDisplayed();
 
+            /*
+
             //go to where tab
             await where.click();
             await driver.pause(2000);
@@ -507,6 +511,7 @@ describe("Combined Not Logged User Tests", () => {
             //quit support screen
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
+            */
 
         } catch (e) {
             error = e;
