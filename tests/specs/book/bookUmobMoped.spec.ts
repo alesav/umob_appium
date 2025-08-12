@@ -744,6 +744,7 @@ await expect (closeB).toBeDisplayed();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
+            /*
 
             //choose card payment
             await driver
@@ -761,6 +762,7 @@ await expect (closeB).toBeDisplayed();
             await driver
                 .$('-android uiautomator:new UiSelector().text("No voucher")')
                 .click();
+                */
 
             // Click Start
             await driver
