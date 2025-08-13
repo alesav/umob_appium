@@ -190,7 +190,7 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             );
             await expect(permission).toBeDisplayed();
             await permission.click();
-            await driver.pause(2000);
+            await driver.pause(3000);
 
 
             // await driver.pause(2000);
@@ -203,15 +203,15 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
                         {
                             type: "pointerMove",
                             duration: 0,
-                            x: width / 2,
-                            y: height * 0.65,
+                            x: width / 25,
+                            y: height * 0.66,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
                         {
                             type: "pointerMove",
                             duration: 1000,
-                            x: width / 2,
+                            x: width / 25,
                             y: height * 0.2,
                         },
                         { type: "pointerUp", button: 0 },
