@@ -28,15 +28,15 @@ class TestHelpers {
                 fs.readFileSync(credentialsPath, "utf8"),
             );
 
-            if (!credentials.test?.new50) {
+            if (!credentials.test?.new43) {
                 throw new Error(
                     "User12 (new42) user credentials not found in test environment",
                 );
             }
 
             return {
-                username: credentials.test.new50.username,
-                password: credentials.test.new50.password,
+                username: credentials.test.new43.username,
+                password: credentials.test.new43.password,
             };
         } catch (error) {
             console.error("Error loading credentials:", error);
