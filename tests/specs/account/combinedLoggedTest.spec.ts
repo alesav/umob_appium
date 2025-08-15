@@ -52,7 +52,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             password: credentials.password,
         });
 
-        // await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
+
     });
 
     it("should display key navigation elements on the main screen", async () => {
@@ -81,10 +81,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.planTripBtn.waitForExist();
             await PageObjects.promosBtn.waitForExist();
 
-            //  const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-            //  await expect(planTrip).toBeDisplayed();
-            //  const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-            //  await expect(promos).toBeDisplayed();
 
             //click PLAN TRIP button to verify taxi and public transport options
             //await planTrip.click();
@@ -123,9 +119,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -161,23 +155,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Verify screen header
-            // const screenHeader = await driver.$("-android uiautomator:new UiSelector().resourceId(\"MyAccountContainer-header-title\")");
-            // await expect(screenHeader).toBeDisplayed();
-            // await expect(await screenHeader.getText()).toBe("My Account");
 
-            // Verify user welcome message
-            // const welcomeText = await driver.$("-android uiautomator:new UiSelector().text(\"Welcome back,\")");
-            // await expect(welcomeText).toBeDisplayed();
-
-            // Verify last ride section
-            // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-            // await expect(lastRideSection).toBeDisplayed();
-            // await driver.pause(2000);
-
-            // Check last ride amount (flexible verification)
-            // const lastRideAmount = await driver.$("-android uiautomator:new UiSelector().textContains(\"€\")");
-            // await expect(lastRideAmount).toBeDisplayed();
             // Verify account menu items
             const accountMenuItems = [
                 "Invite friends",
@@ -258,30 +236,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-            /*
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(1000);
-    */
-
-            /*
-await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
-  top: 100,
-  width: 200,
-  height: 540,
-  direction: 'down',
-  percent: 100.0
-}]);
-await driver.pause(1000);
-
-*/
 
             // Verify account menu items after second scrolling
             const accountMenuItems3 = ["Support", "Delete account"];
@@ -313,9 +267,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -373,9 +325,6 @@ await driver.pause(1000);
             await myRidesAndTicketsButton.click();
             await driver.pause(1000);
 
-            // Verify screen header
-            // const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My rides\")");
-            // await expect(screenHeader).toBeDisplayed();
 
             // Verify back button is present
             const backButton = await driver.$(
@@ -383,9 +332,6 @@ await driver.pause(1000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify last ride section
-            // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-            // await expect(lastRideSection).toBeDisplayed();
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
@@ -396,9 +342,6 @@ await driver.pause(1000);
             // Verify at least one previous payment exists
             await expect(previousPaymentsList.length).toBeGreaterThan(1);
 
-            // Verify "Previous rides" section header
-            // const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
-            // await expect(previousRidesHeader).toBeDisplayed();
             await driver.pause(3000);
 
             // back to common list of account menu
@@ -413,9 +356,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -499,13 +440,6 @@ await driver.pause(1000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify last payment section
-            // const lastPaymentSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last payment\")");
-            // await expect(lastPaymentSection).toBeDisplayed();
-
-            // Verify "Previous payments" section header
-            // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-            // await expect(previousPaymentsHeader).toBeDisplayed();
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
@@ -528,9 +462,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -590,8 +522,6 @@ await driver.pause(1000);
             );
             await expect(emailQuestion).toBeDisplayed();
 
-            /*const emailValue = await driver.$("-android uiautomator:new UiSelector().text(\"new@gmail.com\")");
-    await expect(emailValue).toBeDisplayed(); */
 
             // Verify Edit button for email
             const emailEditButton = await driver.$(
@@ -605,8 +535,6 @@ await driver.pause(1000);
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-            /*const phoneValue = await driver.$("-android uiautomator:new UiSelector().text(\"+3197010586556\")");
-    await expect(phoneValue).toBeDisplayed(); */
 
             // Verify Name Section
             const nameQuestion = await driver.$(
@@ -614,8 +542,6 @@ await driver.pause(1000);
             );
             await expect(nameQuestion).toBeDisplayed();
 
-            /*const nameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(nameValue).toBeDisplayed(); */
 
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
@@ -623,8 +549,6 @@ await driver.pause(1000);
             );
             await expect(lastNameQuestion).toBeDisplayed();
 
-            /*const lastNameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(lastNameValue).toBeDisplayed(); */
 
             // Verify Address Section
             const addressQuestion = await driver.$(
@@ -664,18 +588,6 @@ await driver.pause(1000);
             );
             await expect(countryLabel).toBeDisplayed();
 
-            //Scroll to bottom
-            //     await driver.pause(2000);
-            //     const { width, height } = await driver.getWindowSize();
-            //     await driver.executeScript('mobile: scrollGesture', [{
-            //      left: width/2,
-            //      top: 0,
-            //      width: 0,
-            //      height: height*0.8,
-            //      direction: 'down',
-            //      percent: 2
-            //     }]);
-            // await driver.pause(5000);
 
             // Verify Zip Code field
             const zipCode = await driver.$(
@@ -713,9 +625,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -903,7 +813,7 @@ await driver.pause(1000);
             await expect(backButton).toBeDisplayed();
 
             // Verify screen title
-            //const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
+
             const screenTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite your friends")',
             );
@@ -915,7 +825,7 @@ await driver.pause(1000);
             await expect(descriptionHeader).toBeDisplayed();
 
             // Verify screen description
-            //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
+
             const screenDescription = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invite a friend to join umob, and")',
             );
@@ -927,9 +837,6 @@ await driver.pause(1000);
             );
             await expect(yourCodeLabel).toBeDisplayed();
 
-            /* Verify the actual referral code
-    const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-    await expect(referralCode).toBeDisplayed(); */
 
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
@@ -945,12 +852,9 @@ await driver.pause(1000);
             ]);
             await driver.pause(2000);
 
-            // Verify usage count
-            //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-            //await expect(usageCount).toBeDisplayed();
 
             // Verify Share Code button
-            //const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
+
             const shareCodeButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
             );
@@ -961,17 +865,6 @@ await driver.pause(1000);
             );
             await expect(viewStats).toBeDisplayed();
 
-            /*
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: width/2,
-      top: 0,
-      width: 0,
-      height: height*0.8,
-      direction: 'up',
-      percent: 2
-     }]);
-     await driver.pause(2000);
-*/
 
             // click back button to main acount menu
             await backButton.click();
@@ -985,9 +878,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1042,9 +933,6 @@ await driver.pause(1000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify card information
-            //const releaseText = await driver.$("-android uiautomator:new UiSelector().text(\"NEW\")");
-            //await expect(releaseText).toBeDisplayed();
 
             const cardType = await driver.$(
                 '-android uiautomator:new UiSelector().text("MasterCard")',
@@ -1090,9 +978,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1281,9 +1167,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1413,9 +1297,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1466,10 +1348,6 @@ await driver.pause(1000);
             ]);
             await driver.pause(2000);
 
-            // Click on Settings button to navigate to settings
-            // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            // await settingsButton.click();
-            // await driver.pause(2000);
 
             // Click on Map theme settings option
             const mapThemeOption = await driver.$(
@@ -1533,9 +1411,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1586,9 +1462,6 @@ await driver.pause(1000);
             ]);
             await driver.pause(2000);
 
-            // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            // await settingsButton.click();
-            // await driver.pause(2000);
 
             // Click on Language option to navigate to language screen
             const languageOption = await driver.$(
@@ -1659,9 +1532,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {
@@ -1739,9 +1610,7 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

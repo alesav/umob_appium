@@ -185,7 +185,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-        //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
 
         const longitude = 4.47446;
         const latitude = 51.92084;
@@ -209,9 +208,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
         let error = null;
 
         try {
-            // const targetScooter = scooters.find(
-            //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
-            // );
+
             const targetScooter = scooters.find((scooter) =>
                 scooter.id.includes("Check"),
             );
@@ -224,14 +221,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await driver.pause(2000);
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
 
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).click();
             await driver.pause(3000);
 
             //verify that multi voucher is visible
@@ -255,8 +245,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(noVaucher).toBeDisplayed();
 
-            // const checkVaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
-            // await expect (checkVaucher).toBeDisplayed();
 
             const multiVaucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
@@ -274,22 +262,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 .$('-android uiautomator:new UiSelector().text("START TRIP")')
                 .click();
 
-            // //verify unlocking ride screen
-            // const unlockingRide = await driver.$('-android uiautomator:new UiSelector().text("Unlocking your ride")');
-            // await expect (unlockingRide).toBeDisplayed();
-
-            // await driver.pause(18000);
-            // //verify that ride unlocked
-            // const unlockHeader = await driver.$('-android uiautomator:new UiSelector().text("Ride unlocked")');
-            // await expect (unlockHeader).toBeDisplayed();
-
-            //verify ride status
-            // const rideStatus = await driver.$('-android uiautomator:new UiSelector().text("Ride successfully unlocked.")');
-            // await expect (rideStatus).toBeDisplayed();
-
-            //verify operator Check
-            // const operator = await driver.$('-android uiautomator:new UiSelector().text("Check")');
-            // await expect (operator).toBeDisplayed();
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -323,12 +295,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await expect(continueB).toBeDisplayed();
             await continueB.click();
 
-            //click start riding button
-            // await driver.pause(3000);
-            // const startButton = await driver.$('-android uiautomator:new UiSelector().text("START RIDING!")');
-            // await expect (startButton).toBeDisplayed();
-            // await startButton.click();
-            // await driver.pause(6000);
 
             //verify pause button
             const pauseButton = await driver.$(
@@ -432,53 +398,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await useButton.click();
 
             await driver.pause(2000);
-            //verify end screen for the ride
-            /*
-const thanks = await driver.$('-android uiautomator:new UiSelector().textContains("Thanks")');
-await expect (thanks).toBeDisplayed();
 
-const felyxName = await driver.$('-android uiautomator:new UiSelector().text("Check")');
-await expect (felyxName).toBeDisplayed();
-
-const euro = await driver.$('-android uiautomator:new UiSelector().textContains("€")');
-await expect (euro).toBeDisplayed();
-
-const closeB = await driver.$('-android uiautomator:new UiSelector().text("CLOSE")');
-await expect (closeB).toBeDisplayed();
-
-
-const details = await driver.$('-android uiautomator:new UiSelector().text("DETAILS")');
-await expect (details).toBeDisplayed();
-await details.click();
-await driver.pause(2000);
-
-//verify details ride screen
-//verify header Ride
-const header = await driver.$('-android uiautomator:new UiSelector().text("Ride")');
-await expect(header).toBeDisplayed();
-
-//verify that there is 0euro price
-const zeroEuro = await driver.$('-android uiautomator:new UiSelector().textContains("€0.")');
-await expect(zeroEuro).toBeDisplayed();
-
-//verify used voucher is dispayed
-const usedVoucher = await driver.$('-android uiautomator:new UiSelector().text("Used voucher")');
-await expect(usedVoucher).toBeDisplayed();
-
-//verify used voucher is dispayed
-const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("multi")');
-await expect(multiVoucher1).toBeDisplayed();
-
-//Scroll to bottom
-await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
-  top: 1500,
-  width: 200,
-  height: 100,
-  direction: 'down',
-  percent: 100
-}]); 
-*/
 
             //click got it button
             const gotIt = await driver.$(
@@ -503,9 +423,6 @@ await driver.executeScript('mobile: scrollGesture', [{
             );
             await expect(myRides).toBeDisplayed();
 
-            //verify that payment is visible in my account and it is 0 Euro
-            // const lastRide = await driver.$('-android uiautomator:new UiSelector().textContains("€0")');
-            // await expect(lastRide).toBeDisplayed();
 
             //click on my rides and tickets
             await myRides.click();
@@ -515,6 +432,7 @@ await driver.executeScript('mobile: scrollGesture', [{
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
+
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -524,9 +442,7 @@ await driver.executeScript('mobile: scrollGesture', [{
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

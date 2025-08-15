@@ -97,14 +97,7 @@ describe("Add address for any user", () => {
             // Scroll down to zip code section
             await driver.pause(5000);
             const { width, height } = await driver.getWindowSize();
-            // await driver.executeScript('mobile: swipeGesture', [{
-            //   left: 10,
-            //   top: 100,
-            //   width,
-            //   height,
-            //   direction: 'down',
-            //   percent: 1.0
-            // }]);
+
 
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -133,9 +126,6 @@ describe("Add address for any user", () => {
             await codeSection.clearValue();
             await codeSection.addValue("3014");
 
-            // //click on country section
-            // const country = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(9)");
-            // await country.click();
 
             const countryDropdown = await driver.$(
                 '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]',
@@ -238,9 +228,7 @@ describe("Add address for any user", () => {
             screenshotPath = testId + ".png";
             console.log("Screenshot saved to", screenshotPath);
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

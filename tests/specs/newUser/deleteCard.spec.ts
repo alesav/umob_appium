@@ -117,9 +117,7 @@ describe("Remove payment card for the new user", () => {
             screenshotPath = testId + ".png";
             console.log("Screenshot saved to", screenshotPath);
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

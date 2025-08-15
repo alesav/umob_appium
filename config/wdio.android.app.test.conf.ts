@@ -47,11 +47,11 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
-        //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new32 stop booking after night run
-        //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new42 stop booking after night run
+        //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
+        //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-        //"../tests/specs/book/bookDonkeyMocked.spec.ts"
+        "../tests/specs/book/bookDonkeyMocked.spec.ts"
         //"../tests/specs/newUser/deleteCard.spec.ts"
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
@@ -59,7 +59,7 @@ export const config: WebdriverIO.Config = {
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts" //new35 //ok
+        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok. not in center of the map, verification in progress could be after nreservechecknocard
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
@@ -76,10 +76,12 @@ export const config: WebdriverIO.Config = {
         // "c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         /*
 //new user tests should be in some order 
-    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new43)
-    "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",      //new20  //newUser
+    "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
+    "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",      //new20  //new43
     "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file  //new39  //newUser (174str)
     "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   newUser 
     "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",      ///new13   //newUser
@@ -88,13 +90,16 @@ export const config: WebdriverIO.Config = {
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
     "../tests/specs/newUser/deleteCard.spec.ts"
 */
+
         //tests for accept version of app
         // "../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        // "../tests/specs/account/AddAdress.spec.ts", //new12
-        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        //"../tests/specs/newUser/deleteCard.spec.ts" //newUser
+        // "../tests/specs/newUser/deleteCard.spec.ts" //newUser (new48/test@gmail.com)
+
+
     ],
     capabilities: [
         {

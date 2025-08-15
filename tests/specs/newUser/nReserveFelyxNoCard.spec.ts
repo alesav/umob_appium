@@ -129,7 +129,6 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        // await PageObjects.login({ username:'new11@gmail.com', password: '123Qwerty!' });
 
         const longitude = 4.46893572807312;
         const latitude = 51.91743146298927;
@@ -153,9 +152,7 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
         let error = null;
 
         try {
-            // const targetScooter = scooters.find(
-            //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
-            // );
+
             const targetScooter = findFelyxScooter(scooters);
             await driver.pause(3000);
             // Set location to specific scooter coordinates
@@ -165,37 +162,14 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
             );
             await driver.pause(5000);
 
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
 
             const { centerX, centerY } = await getScreenCenter();
 
-            // Click exactly in the center
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
 
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).click();
             await driver.pause(3000);
 
             //verify that payment method not set up
@@ -234,8 +208,8 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
             await expect(bancontactCard).toBeDisplayed();
 
             //there is no google pay in github actions
-            // const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            // await expect(googlePay).toBeDisplayed();
+            const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+            await expect(googlePay).toBeDisplayed();
 
             const payPal = await driver.$(
                 '-android uiautomator:new UiSelector().text("PayPal")',
@@ -258,46 +232,23 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
                 .click();
 
             //verify header and offer for choosing payment method
-            //const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
+
             await expect(paymentHeader).toBeDisplayed();
 
             //const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
             await expect(cards).toBeDisplayed();
 
-            //const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
             await expect(bancontactCard).toBeDisplayed();
 
-            //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            //await expect(googlePay).toBeDisplayed();
+            await expect(googlePay).toBeDisplayed();
 
-            //const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
             await expect(payPal).toBeDisplayed();
 
             const closeBtn = await driver.$("accessibility id:Close");
             await expect(closeBtn).toBeDisplayed();
             await closeBtn.click();
 
-            /*
-                    // Click End Trip
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).waitForEnabled();
-                
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).click();
 
-                    await driver.pause(4000);
-
-          // Wait for Home screen to be loaded
-          await PageObjects.clickAccountButton();
-
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("My Account")'
-          ).isDisplayed();
-          await driver.pause(2000);
-
-*/
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -307,9 +258,7 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
+
         } finally {
             // Submit test run result
             try {

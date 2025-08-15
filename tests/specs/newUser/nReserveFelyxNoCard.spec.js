@@ -130,12 +130,6 @@ class FelyxScooterActions {
     static async clickCenterOfScreen() {
         const { centerX, centerY } = await TestHelpers.getScreenCenter();
 
-        // await driver
-        //   .action("pointer")
-        //   .move({ x: centerX, y: centerY })
-        //   .down()
-        //   .up()
-        //   .perform();
 
         //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
