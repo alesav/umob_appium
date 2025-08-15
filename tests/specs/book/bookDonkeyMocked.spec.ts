@@ -169,7 +169,20 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(1000);
             console.log('before start trip button click', await umob20Button1.isDisplayed());
             console.log('App package:', await driver.getCurrentPackage());
-            await umob20Button1.click();
+
+            const location = await umob20Button1.getLocation();
+            const size = await umob20Button1.getSize();
+
+            console.log('Button location:', location);
+            console.log('Button size:', size);
+
+            await driver.touchAction({
+                action: 'longPress',
+                x: location.x + size.width / 2,
+                y: location.y + size.height / 2,
+                duration: 1500
+            });
+
             console.log('after start trip button click', await umob20Button1.isDisplayed());
             console.log('Current activity:', await driver.getCurrentActivity());
             console.log('App package:', await driver.getCurrentPackage());
