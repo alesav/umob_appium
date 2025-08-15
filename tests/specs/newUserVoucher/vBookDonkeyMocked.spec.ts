@@ -224,6 +224,9 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             const umob20Button1 = await driver.$(
                 '-android uiautomator:new UiSelector().text("START TRIP")',
             );
+            await expect(umob20Button1).toBeDisplayed();
+            await driver.pause(1000);
+            await expect(umob20Button1).toBeEnabled();
             await umob20Button1.click();
 
             const umobText1 = await driver.$(

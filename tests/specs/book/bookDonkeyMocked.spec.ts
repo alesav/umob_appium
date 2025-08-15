@@ -161,6 +161,7 @@ describe("Donkey Bike Booking Test", () => {
             );
             await expect(umob20Button1).toBeDisplayed();
             await driver.pause(1000);
+            await expect(umob20Button1).toBeEnabled();
             await umob20Button1.click();
 
             const umobText1 = await driver.$(
