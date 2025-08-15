@@ -167,14 +167,11 @@ describe("Donkey Bike Booking Test", () => {
             await expect(umob20Button1).toBeDisplayed();
             await expect(umob20Button1).toBeEnabled();
             await driver.pause(1000);
-            console.log('before start trip button click');
-            console.log('Platform:', await driver.getPlatform());
-            console.log('Device info:', await driver.getDeviceInfo());
+            console.log('before start trip button click', await umob20Button1.isDisplayed());
             console.log('App package:', await driver.getCurrentPackage());
             await umob20Button1.click();
-            console.log('after start trip button click');
-            console.log('Platform:', await driver.getPlatform());
-            console.log('Device info:', await driver.getDeviceInfo());
+            console.log('after start trip button click', await umob20Button1.isDisplayed());
+            console.log('Current activity:', await driver.getCurrentActivity());
             console.log('App package:', await driver.getCurrentPackage());
 
             const umobText1 = await driver.$(
