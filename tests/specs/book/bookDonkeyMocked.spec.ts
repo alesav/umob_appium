@@ -159,14 +159,24 @@ describe("Donkey Bike Booking Test", () => {
             const umob20Button1 = await driver.$(
                 '-android uiautomator:new UiSelector().text("START TRIP")',
             );
+            await umob20Button1.waitForDisplayed({
+                timeout: 15000,
+                timeoutMsg: 'start trip button not found after 15 seconds'
+            });
+
             await expect(umob20Button1).toBeDisplayed();
-            await driver.pause(1000);
             await expect(umob20Button1).toBeEnabled();
+            await driver.pause(1000);
             await umob20Button1.click();
 
             const umobText1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("Use the handle to open the lock")',
+                '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
             );
+            await umobText1.waitForDisplayed({
+                timeout: 10000,
+                timeoutMsg: 'Lock instruction text not found after 10 seconds'
+            });
+
             await expect(umobText1).toBeDisplayed();
 
             const umobText2 = await driver.$(
