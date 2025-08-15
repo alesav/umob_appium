@@ -168,6 +168,8 @@ describe("Donkey Bike Booking Test", () => {
             await expect(umob20Button1).toBeEnabled();
             await driver.pause(1000);
             await umob20Button1.click();
+            await driver.pause(1000);
+            await umob20Button1.click();
 
             const umobText1 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
