@@ -131,9 +131,9 @@ class TestHelpers {
  * Scooter Booking Actions
  */
 class ScooterBookingActions {
-    // static async selectPaymentMethod() {
-    //     await PageObjects.selectPaymentMethod();
-    // }
+    static async selectPaymentMethod() {
+        await PageObjects.selectPaymentMethod();
+    }
 
     static async startTrip() {
         await PageObjects.startTrip();
