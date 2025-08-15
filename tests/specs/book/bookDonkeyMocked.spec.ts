@@ -167,16 +167,22 @@ describe("Donkey Bike Booking Test", () => {
             await expect(umob20Button1).toBeDisplayed();
             await expect(umob20Button1).toBeEnabled();
             await driver.pause(1000);
+            console.log('before start trip button click');
+            console.log('Platform:', await driver.getPlatform());
+            console.log('Device info:', await driver.getDeviceInfo());
+            console.log('App package:', await driver.getCurrentPackage());
             await umob20Button1.click();
-            await driver.pause(1000);
-            await umob20Button1.click();
+            console.log('after start trip button click');
+            console.log('Platform:', await driver.getPlatform());
+            console.log('Device info:', await driver.getDeviceInfo());
+            console.log('App package:', await driver.getCurrentPackage());
 
             const umobText1 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
             );
             await umobText1.waitForDisplayed({
                 timeout: 10000,
-                timeoutMsg: 'Lock instruction text not found after 10 seconds'
+                timeoutMsg: 'text Use the handle to open the lock not found after 10 seconds'
             });
 
             await expect(umobText1).toBeDisplayed();

@@ -133,9 +133,9 @@ export const config: WebdriverIO.Config = {
                 "../tests/specs/book/bookTaxi.spec.ts",
                 "../tests/specs/book/bookDonkeyMocked.spec.ts",
                 "../tests/specs/book/failedPaymentNoBooking.spec.ts",
-                "../tests/specs/book/bookUmobScooters.spec.js", //js file
+                //"../tests/specs/book/bookUmobScooters.spec.js", //js file temporarily excluded because of blocking user after runs
                 "../tests/specs/book/bookUmobBike.spec.ts",
-                "../tests/specs/book/bookUmobMoped.spec.ts",
+                //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded because of blocking user after runs
                 "../tests/specs/book/reserveCheck.spec.ts",
                 "../tests/specs/book/reserveFelyx.spec.ts",
         */
