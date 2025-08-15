@@ -170,6 +170,8 @@ describe("Donkey Bike Booking Test", () => {
             console.log('before start trip button click', await umob20Button1.isDisplayed());
             console.log('App package:', await driver.getCurrentPackage());
 
+            //click on start trip button using long press
+
             const location = await umob20Button1.getLocation();
             const size = await umob20Button1.getSize();
 
