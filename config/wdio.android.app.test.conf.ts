@@ -51,7 +51,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-        "../tests/specs/book/bookDonkeyMocked.spec.ts"
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts"
         //"../tests/specs/newUser/deleteCard.spec.ts"
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
