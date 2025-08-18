@@ -355,6 +355,9 @@ describe("Umob Scooter Booking Tests", () => {
         );
     });
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     it("Negative Scenario: Trip Geo Error", async () => {
         const targetScooter = TestHelpers.findScooterById(
             scooters,
@@ -392,8 +395,8 @@ describe("Umob Scooter Booking Tests", () => {
 
                 await PageObjects.gotItButton.waitForEnabled();
                 await PageObjects.gotItButton.click();
-                await PageObjects.notNowButton.waitForEnabled();
-                await PageObjects.notNowButton.click();
+                //await PageObjects.notNowButton.waitForEnabled();
+                //await PageObjects.notNowButton.click();
 
                 await ScooterBookingActions.navigateToMyRides();
                 await ScooterBookingActions.verifyRideDetails();
@@ -401,4 +404,5 @@ describe("Umob Scooter Booking Tests", () => {
             targetScooter,
         );
     });
+
 });

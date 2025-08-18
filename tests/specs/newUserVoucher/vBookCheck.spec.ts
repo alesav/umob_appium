@@ -224,6 +224,12 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
             await driver.pause(3000);
 
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€")',
+            );
+            await expect(euroSimbol).toBeDisplayed();
+
             //verify that multi voucher is visible
             const vaucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
@@ -408,11 +414,11 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await gotIt.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
 
             //verify that main map screen is displayed
             await PageObjects.clickAccountButton();

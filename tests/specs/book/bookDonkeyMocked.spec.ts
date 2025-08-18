@@ -170,8 +170,12 @@ describe("Donkey Bike Booking Test", () => {
             console.log('before start trip button click', await umob20Button1.isDisplayed());
             console.log('App package:', await driver.getCurrentPackage());
 
+            //click start trip button
+            await umob20Button1.click();
+
             //click on start trip button using long press
 
+            /*
             const location = await umob20Button1.getLocation();
             const size = await umob20Button1.getSize();
 
@@ -184,6 +188,7 @@ describe("Donkey Bike Booking Test", () => {
                 y: location.y + size.height / 2,
                 duration: 1500
             });
+            */
 
             console.log('after start trip button click', await umob20Button1.isDisplayed());
             console.log('Current activity:', await driver.getCurrentActivity());
@@ -256,11 +261,12 @@ describe("Donkey Bike Booking Test", () => {
             await gotButton.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
+
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

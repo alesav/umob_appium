@@ -316,11 +316,11 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await gotIt.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
 
             //verify that main map screen is displayed
             await PageObjects.clickAccountButton();

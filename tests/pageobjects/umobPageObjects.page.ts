@@ -53,9 +53,9 @@ class PageObjects extends Page {
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("GOT IT!")');
     }
-    get notNowButton() {
-        return $('-android uiautomator:new UiSelector().text("NOT NOW")');
-    }
+    // get notNowButton() {
+    //     return $('-android uiautomator:new UiSelector().text("NOT NOW")');
+    // }
     get retryButton() {
         return $('-android uiautomator:new UiSelector().text("RETRY")');
     }

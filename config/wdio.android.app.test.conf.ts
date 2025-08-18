@@ -47,11 +47,11 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
-        //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
+        "c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-        "../tests/specs/book/bookDonkeyMocked.spec.ts"
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts"
         //"../tests/specs/newUser/deleteCard.spec.ts"
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",

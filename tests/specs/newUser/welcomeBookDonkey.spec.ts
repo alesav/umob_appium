@@ -284,11 +284,11 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             await gotIt.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
 
             // Click on Account button
             await PageObjects.clickAccountButton();

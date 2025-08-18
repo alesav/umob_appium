@@ -175,6 +175,12 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             await driver.pause(3000);
 
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€")',
+            );
+            await expect(euroSimbol).toBeDisplayed();
+
             //verify that limitless multi user's vaucher is visible
             const vaucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
@@ -298,13 +304,23 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(photoInstruction).toBeDisplayed();
 
-            //take a picture
-            const photoButton = await driver.$("~endTrip");
+            //take a picture (first option)
+            // const photoButton = await driver.$("~endTrip");
+            // await expect(photoButton).toBeDisplayed();
+            // await driver.pause(2000);
+            // await photoButton.click();
+            // Tap a button for taking photo
+
+            //take a picture (second option)
+            const photoButton = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
+            );
             await expect(photoButton).toBeDisplayed();
             await driver.pause(2000);
             await photoButton.click();
 
             await driver.pause(4000);
+
             //verify confirmation for using a picture
             const pictureHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use this picture?")',
@@ -342,12 +358,12 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await gotIt.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
-            await driver.pause(2000);
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
+            // await driver.pause(2000);
 
             //verify that main map screen is displayed
             await PageObjects.clickAccountButton();

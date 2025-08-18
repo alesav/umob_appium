@@ -75,7 +75,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
 
         //"../tests/specs/book/bookUmobMoped.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts", //more
+        //"../tests/specs/book/bookPublicTransport.spec.ts", //more
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
@@ -87,7 +87,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
-        "../tests/specs/book/bookDonkeyMocked.spec.ts",
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
 
@@ -95,7 +95,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobScooters.spec.js",
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //taking photo crashed app. Cant stop active booking for new37 user!
-        "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
+        //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
@@ -135,7 +135,7 @@ export const config: WebdriverIO.Config = {
                 "../tests/specs/book/failedPaymentNoBooking.spec.ts",
                 //"../tests/specs/book/bookUmobScooters.spec.js", //js file temporarily excluded because of blocking user after runs
                 //"../tests/specs/book/bookUmobBike.spec.ts",
-                //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded because of blocking user after runs
+                "../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded because of blocking user after runs
                 "../tests/specs/book/reserveCheck.spec.ts",
                 "../tests/specs/book/reserveFelyx.spec.ts",
         */
