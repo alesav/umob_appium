@@ -760,10 +760,9 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Verify Pounds (GBP) currancy is displayed
-            await driver.$(
-                '-android uiautomator:new UiSelector().textContains("CHF")'
-            ).waitForDisplayed();
+            // Verify CHF currancy is displayed
+            const CHF = await driver.$('-android uiautomator:new UiSelector().textContains("CHF")');
+            await expect(CHF).toBeDisplayed();
 
             /*
             //choose card payment
