@@ -301,8 +301,8 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver.pause(3000);
 
             //there is no google pay in github actions emulated mobile device
-            const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            await expect(googlePay).toBeDisplayed();
+            //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+            //await expect(googlePay).toBeDisplayed();
 
             const payPal = await driver.$(
                 '-android uiautomator:new UiSelector().text("PayPal")',
