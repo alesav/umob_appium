@@ -47,7 +47,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
-        "c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
+        //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
@@ -92,12 +92,12 @@ export const config: WebdriverIO.Config = {
 */
 
         //tests for accept version of app
-        // "../tests/specs/login/login.negative.spec.ts",
-        // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
-        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        // "../tests/specs/newUser/deleteCard.spec.ts" //newUser (new48/test@gmail.com)
+        "../tests/specs/login/login.negative.spec.ts",
+        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        "../tests/specs/newUser/deleteCard.spec.ts" //newUser (new48/test@gmail.com)
 
 
     ],
