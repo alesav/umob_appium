@@ -72,8 +72,6 @@ describe("Add Payment Method through popup for the New User", () => {
             username: credentials.username,
             password: credentials.password,
         });
-
-
     });
 
     beforeEach(async () => {
@@ -136,7 +134,6 @@ describe("Add Payment Method through popup for the New User", () => {
                 .click();
             await driver.pause(6000);
 
-
             //CLick Cards
             await driver
                 .$('-android uiautomator:new UiSelector().text("Cards")')
@@ -176,7 +173,6 @@ describe("Add Payment Method through popup for the New User", () => {
             );
             await removeBtn.waitForDisplayed();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -186,7 +182,6 @@ describe("Add Payment Method through popup for the New User", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

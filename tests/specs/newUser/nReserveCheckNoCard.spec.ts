@@ -198,13 +198,10 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
         let error = null;
 
         try {
-
             const { centerX, centerY } = await getScreenCenter();
-
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
 
             await driver.pause(6000);
 
@@ -213,7 +210,6 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
                 '-android uiautomator:new UiSelector().text("New User Check")',
             );
             await expect(vaucher).toBeDisplayed();
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
@@ -247,7 +243,6 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver
                 .$('-android uiautomator:new UiSelector().text("RESERVE")')
                 .waitForEnabled();
-
 
             await driver.pause(5000);
 
@@ -312,8 +307,6 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             const closeBtn = await driver.$("accessibility id:Close");
             await expect(closeBtn).toBeDisplayed();
             await closeBtn.click();
-
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -323,7 +316,6 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

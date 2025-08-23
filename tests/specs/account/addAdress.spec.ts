@@ -98,7 +98,6 @@ describe("Add address for any user", () => {
             await driver.pause(5000);
             const { width, height } = await driver.getWindowSize();
 
-
             await driver.executeScript("mobile: scrollGesture", [
                 {
                     left: 100,
@@ -125,7 +124,6 @@ describe("Add address for any user", () => {
             //await zip code Section.click();
             await codeSection.clearValue();
             await codeSection.addValue("3014");
-
 
             const countryDropdown = await driver.$(
                 '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]',
@@ -228,7 +226,6 @@ describe("Add address for any user", () => {
             screenshotPath = testId + ".png";
             console.log("Screenshot saved to", screenshotPath);
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
