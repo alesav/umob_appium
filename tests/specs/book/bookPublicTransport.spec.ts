@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new35";
+const USER = process.env.TEST_USER || "new56";
 
 describe("Book Public Transport", () => {
     before(async () => {
@@ -123,7 +123,6 @@ describe("Book Public Transport", () => {
                 },
             ]);
             await driver.pause(2000);
-
 
             // Click to choose public transport
             const ptButton = await driver.$(
@@ -716,7 +715,6 @@ describe("Book Public Transport", () => {
                 '-android uiautomator:new UiSelector().text("Vehicle type")',
             );
             await expect(vehicleType).toBeDisplayed();
-
 
             // Check booking number is displayed
             const bookingNo = await driver.$(

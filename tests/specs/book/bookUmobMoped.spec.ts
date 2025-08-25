@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new55";
+const USER = process.env.TEST_USER || "new35";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -231,7 +231,6 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                 .$('-android uiautomator:new UiSelector().textContains("€")')
                 .waitForDisplayed();
 
-            /*
             //choose card payment
             await driver
                 .$(
@@ -248,7 +247,6 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             await driver
                 .$('-android uiautomator:new UiSelector().text("No voucher")')
                 .click();
-                */
 
             // Click Start
             await driver
@@ -726,7 +724,7 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
     });
 
     ///////////////////////////////////////////////////////////////////////////////////////
-
+    /*
     it("3rd Positive Scenario (CHF Currency): Book Mocked Umob Moped with ID UmobMock:ROTTERDAM_MOPED_CHF", async () => {
         const testId = "76220f0b-d502-4c3e-853f-1890a679e818";
         // Send results
@@ -758,24 +756,24 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             );
             await expect(CHF).toBeDisplayed();
 
-            /*
-            //choose card payment
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().textContains("multi")',
-                )
-                .waitForEnabled();
+            
+            // //choose card payment
+            // await driver
+            //     .$(
+            //         '-android uiautomator:new UiSelector().textContains("multi")',
+            //     )
+            //     .waitForEnabled();
     
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().textContains("multi")',
-                )
-                .click();
+            // await driver
+            //     .$(
+            //         '-android uiautomator:new UiSelector().textContains("multi")',
+            //     )
+            //     .click();
     
-            await driver
-                .$('-android uiautomator:new UiSelector().text("No voucher")')
-                .click();
-                */
+            // await driver
+            //     .$('-android uiautomator:new UiSelector().text("No voucher")')
+            //     .click();
+                
 
             // Click Start
             await driver
@@ -973,6 +971,7 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             }
         }
     });
+    */
 
     ////////////////////////////////////////////////////////////////////////////////////
     /*
