@@ -78,7 +78,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts" //new37 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
-        "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+        //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
@@ -91,7 +91,6 @@ export const config: WebdriverIO.Config = {
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
     "../tests/specs/newUser/deleteCard.spec.ts"
 */
-
         //tests for accept version of app
         // "../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
