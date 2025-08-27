@@ -67,7 +67,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
         //"../tests/specs/book/bookUmobMoped.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts", //more
+        //"../tests/specs/book/bookPublicTransport.spec.ts", //more
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
@@ -82,7 +82,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
-        "../tests/specs/account/addAdress.spec.ts",
+        //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //taking photo crashed app. Cant stop active booking for new37 user!
@@ -98,7 +98,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts", //taking photo crashed app. Cant stop active booking for new32 user!
         //"../tests/specs/login/login.negative.spec.ts",
-        "../tests/specs/login/login.positive.spec.ts",
+        //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
         /*
         //night run
