@@ -121,13 +121,12 @@ describe("Add address for any user", () => {
             const codeSection = await driver.$(
                 '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(2)',
             );
+
             //await zip code Section.click();
             await codeSection.clearValue();
             await codeSection.addValue("3014");
 
-            const countryDropdown = await driver.$(
-                '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]',
-            );
+            const countryDropdown = await driver.$("accessibility id:Country");
             await expect(countryDropdown).toBeDisplayed();
             await countryDropdown.click();
             await driver.pause(2000);
