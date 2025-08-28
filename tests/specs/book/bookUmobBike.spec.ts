@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new51";
+const USER = process.env.TEST_USER || "new57";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -109,7 +109,6 @@ const applyFilters = async () => {
     await driver
         .$('-android uiautomator:new UiSelector().text("Scooter")')
         .click();
-
 
     // Click Openbaar vervoer to unselect it
     await driver
@@ -198,7 +197,6 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             targetScooter.coordinates.latitude,
         );
 
-
         // Check Account button is present
     });
 
@@ -217,15 +215,12 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
         let error = null;
 
         try {
-
             await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
 
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
 
             //choose card payment
             await driver
@@ -293,7 +288,6 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
                 },
             ]);
 
-
             // Click GOT IT
             await driver
                 .$('-android uiautomator:new UiSelector().text("GOT IT!")')
@@ -346,7 +340,6 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             ).length;
             expect(addressCount).toBe(2);
 
-
             const travelCostElement = await driver.$(
                 '//*[@text="Travel cost"]',
             );
@@ -383,7 +376,6 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             await driver
                 .$('-android uiautomator:new UiSelector().text("GOT IT")')
                 .click();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -393,7 +385,6 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
