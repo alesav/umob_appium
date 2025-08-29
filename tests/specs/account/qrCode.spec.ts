@@ -333,6 +333,8 @@ describe("Test for the QR feature", () => {
             //click back button to go on previous screen
             await backButton.click();
             await driver.pause(1500);
+            await backButton.click();
+            await driver.pause(1500);
 
             //verify that screen changed
             const textId = await driver.$(
