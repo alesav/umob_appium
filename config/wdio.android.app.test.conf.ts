@@ -79,7 +79,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-        //"../tests/specs/account/qrCode.spec.ts", //new12
+        "../tests/specs/account/qrCode.spec.ts", //new12
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
@@ -93,7 +93,7 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/deleteCard.spec.ts"
 */
         //tests for accept version of app
-        "../tests/specs/login/login.negative.spec.ts",
+        //"../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
