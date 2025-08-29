@@ -69,7 +69,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-
         const longitude = 4.4734301;
         const latitude = 51.9145956;
 
@@ -90,18 +89,14 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
         let error = null;
 
         try {
-
             await driver.pause(5000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
@@ -143,6 +138,13 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await expect(selectPayment).toBeDisplayed();
             await expect(multiVoucher).toBeDisplayed();
 
+            await driver.pause(3000);
+
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("15 minutes")',
+            );
+            await expect(euroSimbol).toBeDisplayed();
 
             await driver.pause(2000);
             await driver.performActions([
@@ -191,7 +193,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(3000);
-
 
             // await driver.pause(2000);
             await driver.performActions([
@@ -280,7 +281,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             );
             await endTripButton.click();
 
-
             await driver.pause(2000);
             await driver.performActions([
                 {
@@ -331,7 +331,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             );
             await expect(myRides).toBeDisplayed();
 
-
             //click on my rides and tickets
             await myRides.click();
 
@@ -350,7 +349,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -371,7 +369,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             }
         }
     });
-
 
     afterEach(async () => {
         await driver.terminateApp("com.umob.umob");

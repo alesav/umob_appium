@@ -94,7 +94,6 @@ describe("Donkey Bike Booking Test", () => {
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
@@ -104,6 +103,13 @@ describe("Donkey Bike Booking Test", () => {
             );
             await umob20Button.click();
 
+            await driver.pause(3000);
+
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€")',
+            );
+            await expect(euroSimbol).toBeDisplayed();
 
             // Click continue button
             await driver.pause(5000);
@@ -123,7 +129,6 @@ describe("Donkey Bike Booking Test", () => {
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(2000);
-
 
             await driver.pause(2000);
 
@@ -152,7 +157,6 @@ describe("Donkey Bike Booking Test", () => {
                 },
             ]);
 
-
             await driver.pause(3000);
 
             //click to start and unlock the bike
@@ -161,14 +165,17 @@ describe("Donkey Bike Booking Test", () => {
             );
             await umob20Button1.waitForDisplayed({
                 timeout: 15000,
-                timeoutMsg: 'start trip button not found after 15 seconds'
+                timeoutMsg: "start trip button not found after 15 seconds",
             });
 
             await expect(umob20Button1).toBeDisplayed();
             await expect(umob20Button1).toBeEnabled();
             await driver.pause(1000);
-            console.log('before start trip button click', await umob20Button1.isDisplayed());
-            console.log('App package:', await driver.getCurrentPackage());
+            console.log(
+                "before start trip button click",
+                await umob20Button1.isDisplayed(),
+            );
+            console.log("App package:", await driver.getCurrentPackage());
 
             //click start trip button
             await umob20Button1.click();
@@ -190,16 +197,20 @@ describe("Donkey Bike Booking Test", () => {
             });
             */
 
-            console.log('after start trip button click', await umob20Button1.isDisplayed());
-            console.log('Current activity:', await driver.getCurrentActivity());
-            console.log('App package:', await driver.getCurrentPackage());
+            console.log(
+                "after start trip button click",
+                await umob20Button1.isDisplayed(),
+            );
+            console.log("Current activity:", await driver.getCurrentActivity());
+            console.log("App package:", await driver.getCurrentPackage());
 
             const umobText1 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
             );
             await umobText1.waitForDisplayed({
                 timeout: 10000,
-                timeoutMsg: 'text Use the handle to open the lock not found after 10 seconds'
+                timeoutMsg:
+                    "text Use the handle to open the lock not found after 10 seconds",
             });
 
             await expect(umobText1).toBeDisplayed();
@@ -252,7 +263,6 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(2000);
 
-
             // Click got it button
             const gotButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("GOT IT!")',
@@ -266,7 +276,6 @@ describe("Donkey Bike Booking Test", () => {
             // );
             // await expect(notNowButton).toBeDisplayed();
             // await notNowButton.click();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -276,7 +285,6 @@ describe("Donkey Bike Booking Test", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

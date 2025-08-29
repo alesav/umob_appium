@@ -185,7 +185,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-
         const longitude = 4.47446;
         const latitude = 51.92084;
 
@@ -208,7 +207,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
         let error = null;
 
         try {
-
             const targetScooter = scooters.find((scooter) =>
                 scooter.id.includes("Check"),
             );
@@ -220,7 +218,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await driver.pause(2000);
             await AppiumHelpers.clickCenterOfScreen();
-
 
             await driver.pause(3000);
 
@@ -251,7 +248,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(noVaucher).toBeDisplayed();
 
-
             const multiVaucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
             );
@@ -267,7 +263,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await driver
                 .$('-android uiautomator:new UiSelector().text("START TRIP")')
                 .click();
-
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -300,7 +295,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(continueB).toBeDisplayed();
             await continueB.click();
-
 
             //verify pause button
             const pauseButton = await driver.$(
@@ -374,6 +368,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
             );
             await expect(photoButton).toBeDisplayed();
+            await driver.pause(2000);
             await photoButton.click();
 
             await driver.pause(4000);
@@ -405,7 +400,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
             await driver.pause(2000);
 
-
             //click got it button
             const gotIt = await driver.$(
                 '-android uiautomator:new UiSelector().text("GOT IT!")',
@@ -429,7 +423,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(myRides).toBeDisplayed();
 
-
             //click on my rides and tickets
             await myRides.click();
 
@@ -438,7 +431,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -448,7 +440,6 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
