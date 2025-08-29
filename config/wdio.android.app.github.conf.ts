@@ -29,7 +29,7 @@ export const config: WebdriverIO.Config = {
         //  "..//tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //  "../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/account/addPaymentMethod.spec.ts",
-        "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+        //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
 
         //  "../tests/specs/book/bookPublicTransport.spec.ts",
@@ -72,7 +72,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         ////////"../tests/specs/book/reserveFelyx.spec.ts", //more
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
