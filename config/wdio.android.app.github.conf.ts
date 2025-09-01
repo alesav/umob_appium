@@ -111,6 +111,7 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
         "../tests/specs/newUser/deleteCard.spec.ts",
+        "../tests/specs/book/bookPublicTransport.spec.ts",
         /*
         //night run
 
