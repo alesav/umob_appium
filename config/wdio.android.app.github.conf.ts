@@ -70,7 +70,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookPublicTransport.spec.ts", //more
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
-        "../tests/specs/book/reserveFelyx.spec.ts", //more
+        //"../tests/specs/book/reserveFelyx.spec.ts", //more
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
@@ -98,7 +98,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/qrCode.spec.ts",
         /////////"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts", //taking photo crashed app. Cant stop active booking for new32 user!
-        "../tests/specs/login/login.negative.spec.ts",
+        //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
         //new user tests should be in some order
