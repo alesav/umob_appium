@@ -39,9 +39,9 @@ export const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.462106198945384,
-                latitude: 51.916836099571086,
-                radius: 200.6137310913994,
+                longitude: 4.4743720514863075,
+                latitude: 51.91731373726902,
+                radius: 150.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
