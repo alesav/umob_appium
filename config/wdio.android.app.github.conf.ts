@@ -111,7 +111,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts",
-        /*
+
         //night run
 
         "../tests/specs/account/*.spec.ts",
@@ -140,7 +140,6 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded negative scenario because of blocking user after runs
         "../tests/specs/book/reserveCheck.spec.ts",
         "../tests/specs/book/reserveFelyx.spec.ts",
-        */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
