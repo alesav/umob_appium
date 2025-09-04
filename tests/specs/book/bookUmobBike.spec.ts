@@ -335,8 +335,11 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             await expect(route).toBeDisplayed();
 
             //verifying that there re starting and departure addresses
+            // const addressCount = await driver.$$(
+            //     '-android uiautomator:new UiSelector().textContains("Weena 10, 3012 CM Rotterdam, Netherlands")',
+            // ).length;
             const addressCount = await driver.$$(
-                '-android uiautomator:new UiSelector().textContains("Weena 10, 3012 CM Rotterdam, Netherlands")',
+                '-android uiautomator:new UiSelector().textContains("Coolsingel 5, 3012 AA Rotterdam, Netherlands")',
             ).length;
             expect(addressCount).toBe(2);
 

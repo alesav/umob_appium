@@ -82,7 +82,6 @@ class DonkeyBikeActions {
     static async clickCenterOfScreen() {
         const { centerX, centerY } = await TestHelpers.getScreenCenter();
 
-
         //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
 
@@ -249,7 +248,10 @@ describe("Donkey Bike Booking - New User Without Card", () => {
             "a66df007-2bfa-4531-af52-87e3eec81280",
             async () => {
                 // Set specific location for the bike
-                await TestHelpers.setLocationAndRestartApp(4.474431, 51.91564);
+                await TestHelpers.setLocationAndRestartApp(
+                    4.47442934,
+                    51.91558006,
+                );
 
                 await DonkeyBikeActions.clickFinishLater();
 
