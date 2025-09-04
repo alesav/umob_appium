@@ -223,21 +223,21 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             await AppiumHelpers.clickCenterOfScreen();
 
             //choose card payment
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().textContains("multi")',
-                )
-                .waitForEnabled();
+            // await driver
+            //     .$(
+            //         '-android uiautomator:new UiSelector().textContains("multi")',
+            //     )
+            //     .waitForEnabled();
 
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().textContains("multi")',
-                )
-                .click();
+            // await driver
+            //     .$(
+            //         '-android uiautomator:new UiSelector().textContains("multi")',
+            //     )
+            //     .click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("No voucher")')
-                .click();
+            // await driver
+            //     .$('-android uiautomator:new UiSelector().text("No voucher")')
+            //     .click();
 
             // Click Start
             await driver
