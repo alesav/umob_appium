@@ -158,7 +158,7 @@ export default class AppiumHelpers {
     }
 
     static async clickCenterOfScreen() {
-        await driver.pause(2000);
+        await driver.pause(4000);
         const middleScreen = await driver.$(
             '-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")',
         );

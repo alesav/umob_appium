@@ -80,6 +80,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/account/qrCode.spec.ts", //new12
+        "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
