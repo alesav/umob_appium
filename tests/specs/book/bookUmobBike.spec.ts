@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new58";
+const USER = process.env.TEST_USER || "new59";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -189,7 +189,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
 
         const targetScooter = scooters.find(
             (scooter) =>
-                scooter.id === "UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE",
+                scooter.id === "UmobMock:QZGKL2BP2CI25_ROTTERDAM_EBIKE",
         );
 
         await AppiumHelpers.setLocationAndRestartApp(
@@ -206,7 +206,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
     });
 
     ////////////////////////////////////////////////////////////////////////////////
-    it("Positive Scenario: Book Mocked Umob Bike with ID UmobMock:QZGKL2BP2CI45_ROTTERDAM_EBIKE", async () => {
+    it("Positive Scenario: Book Mocked Umob Bike with ID UmobMock:QZGKL2BP2CI25_ROTTERDAM_EBIKE", async () => {
         const testId = "bcc7fe09-7a38-4ae4-a952-35020cd08cf7";
         // Send results
         let testStatus = "Pass";
