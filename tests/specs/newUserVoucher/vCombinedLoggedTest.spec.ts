@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment: string = "test", userKey: string | null = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -57,7 +60,7 @@ function getCredentials(environment: string = "test", userKey: string | null = n
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new";
+const USER = process.env.TEST_USER || "new60";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -74,7 +77,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             username: credentials.username,
             password: credentials.password,
         });
-
     });
 
     it("should display key navigation elements on the main screen", async () => {
@@ -86,7 +88,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         let error = null;
 
         try {
-
             await PageObjects.planTripBtn.waitForExist();
 
             await PageObjects.promosBtn.waitForExist();
@@ -111,7 +112,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -142,10 +142,8 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         let error = null;
 
         try {
-
             await PageObjects.promosBtn.waitForExist();
             await PageObjects.promosBtn.click();
-
 
             await driver.pause(1000);
 
@@ -154,7 +152,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().textContains("multi")',
             );
             await expect(multiVoucher).toBeDisplayed();
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -236,7 +233,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -272,7 +268,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             await driver.pause(2000);
 
-
             // Verify account menu items
             const accountMenuItems = [
                 "Invite friends",
@@ -288,7 +283,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 );
                 await expect(menuElement).toBeDisplayed();
             }
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -330,7 +324,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 );
                 await expect(menuElement).toBeDisplayed();
             }
-
 
             await driver.performActions([
                 {
@@ -387,7 +380,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -422,7 +414,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await PageObjects.clickAccountButton();
             await driver.pause(4000);
 
-
             // Navigate to My Rides & Tickets ("My rides" is a new version)
             const myRidesAndTicketsButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("My rides")',
@@ -445,7 +436,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(backButton).toBeDisplayed();
 
-
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
                 '-android uiautomator:new UiSelector().textContains("€")',
@@ -454,7 +444,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify at least one previous payment exists
             await expect(previousPaymentsList.length).toBeGreaterThan(1);
-
 
             // back to common list of account menu
             await backButton.click();
@@ -468,7 +457,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -502,7 +490,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -550,7 +537,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(backButton).toBeDisplayed();
 
-
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
                 '-android uiautomator:new UiSelector().textContains("€")',
@@ -572,7 +558,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -633,7 +618,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(emailQuestion).toBeDisplayed();
 
-
             // Verify Edit button for email
             const emailEditButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Edit")',
@@ -646,13 +630,11 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-
             // Verify Name Section
             const nameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your name?")',
             );
             await expect(nameQuestion).toBeDisplayed();
-
 
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
@@ -660,13 +642,11 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(lastNameQuestion).toBeDisplayed();
 
-
             // Verify Address Section
             const addressQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your address?")',
             );
             await expect(addressQuestion).toBeDisplayed();
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -694,7 +674,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 },
             ]);
 
-
             // Verify Save button
             const saveButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("SAVE")',
@@ -710,7 +689,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // click back button to main acount menu
             await backButton.click();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -720,7 +698,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -755,7 +732,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -815,7 +791,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(promotionalCodeDescription).toBeDisplayed();
 
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -853,7 +828,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
-
             //verify that limitless user's voucher is visible
             const limitlessVoucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
@@ -863,7 +837,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // click back button to main acount menu
             await backButton.click();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -873,7 +846,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -922,7 +894,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(backButton).toBeDisplayed();
 
-
             const screenTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite your friends")',
             );
@@ -944,7 +915,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().text("Your code")',
             );
             await expect(yourCodeLabel).toBeDisplayed();
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -972,7 +942,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 },
             ]);
 
-
             const shareCodeButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
             );
@@ -986,7 +955,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // click back button to main acount menu
             await backButton.click();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1085,7 +1053,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // click back button to main acount menu
             await backButton.click();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1095,7 +1062,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1215,7 +1181,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             );
             await expect(categoryAM).toBeDisplayed();
 
-
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -1242,14 +1207,11 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 },
             ]);
 
-
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("CHANGE DOCUMENT")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
-
-
 
             await driver.performActions([
                 {
@@ -1286,7 +1248,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().description("IdDocumentContainer")',
             );
             await expect(idDocumentContainer).toBeDisplayed();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1296,7 +1257,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1331,7 +1291,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1443,7 +1402,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             //click cancel button
             await cancelButton.click();
             await driver.pause(1000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1453,7 +1411,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1488,7 +1445,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1578,7 +1534,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1611,7 +1566,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         try {
             await PageObjects.clickAccountButton();
             await driver.pause(4000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1688,8 +1642,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             //click the back button
             await backButton.click();
             await driver.pause(2000);
-
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1699,7 +1651,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1730,11 +1681,9 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         let error = null;
 
         try {
-
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1821,7 +1770,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 );
                 await expect(element).toBeDisplayed();
             }
-
 
             await driver.performActions([
                 {
@@ -1928,7 +1876,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 );
                 await expect(element3).toBeDisplayed();
             }
-
 
             await driver.performActions([
                 {
@@ -2081,7 +2028,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
             */
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -2091,7 +2037,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -2125,8 +2070,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2199,7 +2142,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().text("REGISTER")',
             );
             await expect(register).toBeDisplayed();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -2209,7 +2151,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
