@@ -254,7 +254,7 @@ describe("Test for the Nearby Assets feature", () => {
                     if (
                         elementError.message.includes("Feature is not working")
                     ) {
-                        throw elementError; // ythis is our error - we are going further
+                        throw elementError; // this is our error - we are going further
                     }
                 }
             }
@@ -262,6 +262,12 @@ describe("Test for the Nearby Assets feature", () => {
             console.log(
                 "✓ All checks passed - nearby assets feature is working correctly",
             );
+
+            //verify that distance to the most close asset is displayed
+            const distance = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("meter")',
+            );
+            await expect(distance).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
