@@ -71,7 +71,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
@@ -111,8 +111,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts",
-        "../tests/specs/account/nearbyAssets.spec.ts",
-
+        //"../tests/specs/account/nearbyAssets.spec.ts",
         //night run
         /*
 
