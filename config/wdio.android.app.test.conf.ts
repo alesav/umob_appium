@@ -81,7 +81,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/account/qrCode.spec.ts", //new12
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
-        "../tests/specs/account/nearbyAssets.spec.ts", //new12
+        //"../tests/specs/account/nearbyAssets.spec.ts", //new12
 
         /*
 //new user tests should be in some order 
@@ -94,7 +94,7 @@ export const config: WebdriverIO.Config = {
     //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
     "../tests/specs/newUser/deleteCard.spec.ts"
-*/ /*
+*/
         //tests for accept version of app
         "../tests/specs/login/login.negative.spec.ts",
         "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
@@ -102,7 +102,6 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
         "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
         "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
-        */
     ],
     capabilities: [
         {
