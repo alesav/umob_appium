@@ -63,7 +63,7 @@ export const config: WebdriverIO.Config = {
         //  "../tests/specs/book/bookUmobMoped.spec.ts",
         // "../tests/specs/book/bookUmobBike.spec.ts"
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
-        "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+        //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
         //"../tests/specs/book/bookUmobMoped.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts", //more
@@ -71,21 +71,21 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-        "../tests/specs/book/bookTaxi.spec.ts",
+        //"../tests/specs/book/bookTaxi.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
-        //"../tests/specs/book/bookDonkeyMocked.spec.ts",
+        "../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
-        "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
-        //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
+        //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
+        "../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
@@ -95,7 +95,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/account/qrCode.spec.ts",
-        //"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
+        "../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts", //taking photo crashed app. Cant stop active booking for new32 user!
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
@@ -103,15 +103,15 @@ export const config: WebdriverIO.Config = {
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
 
-        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
+        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
-        "../tests/specs/newUser/deleteCard.spec.ts",
-        "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-        "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/newUser/deleteCard.spec.ts",
+        //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+        //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
         //night run
         /*
