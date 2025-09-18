@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -128,12 +132,10 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
         try {
             await driver.pause(7000);
 
-
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
                 targetScooter.coordinates.latitude,
             );
-
 
             await driver.pause(5000);
 
@@ -141,12 +143,10 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
             await driver.pause(7000);
-
 
             // get window size
             const windowSize = await driver.getWindowSize();
@@ -195,16 +195,12 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             );
             await expect(failNotification).toBeDisplayed();
 
-            // Click continue button
+            // Click start trip button
             await driver.pause(5000);
-            const continueButton = await driver.$(
-                'android=new UiSelector().textContains("START TRIP")',
-            );
-            await expect(continueButton).toBeDisplayed();
-            await expect(continueButton).toBeEnabled();
+            await PageObjects.startTripButton.waitForDisplayed();
             await driver.pause(2000);
 
-            await continueButton.click();
+            await PageObjects.startTripButton.click();
             await driver.pause(3000);
 
             // scroll
@@ -233,7 +229,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
                 },
             ]);
 
-
             //verify that we are on payment detail screen for the previous unpaid ride
             const paymentDetail = await driver.$(
                 'android=new UiSelector().text("Payment detail")',
@@ -245,7 +240,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
                 'android=new UiSelector().textContains("Failed")',
             );
             await expect(status).toBeDisplayed();
-
 
             // scroll
             await driver.performActions([
@@ -275,11 +269,9 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
 
             //verify pay now button
             const payNow = await driver.$(
-                'android=new UiSelector().textContains("PAY NOW")',
+                'android=new UiSelector().textContains("Pay Now")',
             );
             await expect(payNow).toBeDisplayed();
-
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -289,7 +281,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

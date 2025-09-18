@@ -110,16 +110,11 @@ describe("Donkey Bike Booking Test", () => {
                 '-android uiautomator:new UiSelector().textContains("€")',
             );
             await expect(euroSimbol).toBeDisplayed();
-
-            // Click continue button
             await driver.pause(5000);
-            const continueButton = await driver.$(
-                'android=new UiSelector().text("START TRIP")',
-            );
-            await expect(continueButton).toBeDisplayed();
-            await expect(continueButton).toBeEnabled();
 
-            await continueButton.click();
+            // Click Start Trip button
+            await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
             // Handle allow permissions
 
@@ -161,7 +156,7 @@ describe("Donkey Bike Booking Test", () => {
 
             //click to start and unlock the bike
             const umob20Button1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
+                '-android uiautomator:new UiSelector().text("Start Trip")',
             );
             await umob20Button1.waitForDisplayed({
                 timeout: 15000,
@@ -247,7 +242,7 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(2000);
 
             const continueBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("CONTINUE")',
+                '-android uiautomator:new UiSelector().textContains("Continue")',
             );
             await expect(continueBtn).toBeDisplayed();
             await continueBtn.click();
@@ -264,11 +259,9 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(2000);
 
             // Click got it button
-            const gotButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotButton).toBeDisplayed();
-            await gotButton.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
+           
 
             // Click not now button
             // const notNowButton = await driver.$(

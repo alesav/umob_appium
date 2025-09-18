@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -78,7 +82,6 @@ const getScreenCenter = async () => {
     };
 };
 
-
 const fetchScooterCoordinates = async () => {
     try {
         const response = await fetch(API_URL, {
@@ -139,7 +142,6 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             password: credentials.password,
         });
 
-
         const longitude = 4.474984046128891;
         const latitude = 51.91638293318269;
 
@@ -162,7 +164,6 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
         let error = null;
 
         try {
-
             const targetScooter = scooters.find((scooter) =>
                 scooter.id.includes("Felyx"),
             );
@@ -170,9 +171,9 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             // Set location to specific scooter coordinates
             console.log(
                 "Long: " +
-                targetScooter.coordinates.longitude +
-                " Lat: " +
-                targetScooter.coordinates.latitude,
+                    targetScooter.coordinates.longitude +
+                    " Lat: " +
+                    targetScooter.coordinates.latitude,
             );
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
@@ -180,13 +181,10 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             );
             await driver.pause(3000);
 
-
             const { centerX, centerY } = await getScreenCenter();
-
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
 
             await driver.pause(3000);
 
@@ -198,16 +196,11 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
                 .waitForDisplayed();
 
             // Click Reserve
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
+            await PageObjects.reserveButton.waitForDisplayed();
 
             await driver.pause(5000);
 
-            const button = await driver.$(
-                '-android uiautomator:new UiSelector().text("RESERVE")',
-            );
-            await button.click();
+            await PageObjects.reserveButton.click();
             await driver.pause(2000);
 
             //verify id add screen header
@@ -234,13 +227,13 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             await expect(homeAddress).toBeDisplayed;
 
             const addressAdd = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD")',
+                '-android uiautomator:new UiSelector().text("Add")',
             );
             await expect(addressAdd).toBeDisplayed;
 
             //verify that there is add button for driver's licence
             const docAdd = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD ID DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Add Id Document")',
             );
             await expect(docAdd).toBeDisplayed;
         } catch (e) {
@@ -252,7 +245,6 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

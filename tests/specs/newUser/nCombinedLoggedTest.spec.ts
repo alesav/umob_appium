@@ -124,7 +124,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -155,12 +154,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             // Click on Account button
             await PageObjects.clickAccountButton();
 
             await driver.pause(2000);
-
 
             // Verify account menu items
             const accountMenuItems = [
@@ -177,7 +174,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 );
                 await expect(menuElement).toBeDisplayed();
             }
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -258,7 +254,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Log Out button
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(screenHeader).toBeDisplayed();
 
@@ -276,7 +272,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -307,7 +302,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -350,7 +344,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(yourCodeLabel).toBeDisplayed();
 
-
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -377,19 +370,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-
             // Verify Share Code button
 
             const shareCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
             await expect(shareCodeButton).toBeDisplayed();
 
             const viewStats = await driver.$(
-                '-android uiautomator:new UiSelector().text("VIEW YOUR STATS")',
+                '-android uiautomator:new UiSelector().text("View Your Stats")',
             );
             await expect(viewStats).toBeDisplayed();
-
 
             // click back button to main acount menu
             await backButton.click();
@@ -403,7 +394,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -434,7 +424,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -464,7 +453,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(emailQuestion).toBeDisplayed();
 
-
             // Verify Edit button for email
             const emailEditButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Edit")',
@@ -477,20 +465,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-
             // Verify Name Section
             const nameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your name?")',
             );
             await expect(nameQuestion).toBeDisplayed();
 
-
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your last name?")',
             );
             await expect(lastNameQuestion).toBeDisplayed();
-
 
             // Verify Address Section
             const addressQuestion = await driver.$(
@@ -544,7 +529,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(countryLabel).toBeDisplayed();
 
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -585,7 +569,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
@@ -607,7 +591,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -638,7 +621,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
@@ -675,10 +657,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Add adress button
             const addButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD")',
+                '-android uiautomator:new UiSelector().text("Add")',
             );
             await expect(verifiedStatus).toBeDisplayed();
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -708,10 +689,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD ID DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Add Id Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
-
 
             const helpButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Help")',
@@ -753,7 +733,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(text2).toBeDisplayed();
 
             const startVerification = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("START ID VERIFICATION")',
+                '-android uiautomator:new UiSelector().textContains("Start Id Verification")',
             );
             await expect(startVerification).toBeDisplayed();
 
@@ -766,7 +746,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(2000);
-
 
             const allowBut = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("While using")',
@@ -847,7 +826,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -878,7 +856,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -909,7 +886,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastRideSection).toBeDisplayed();
 
-
             // back to common list of account menu
             await backButton.click();
             await driver.pause(2000);
@@ -922,7 +898,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -953,7 +928,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
@@ -1050,7 +1024,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify "SUBMIT PROMOTIONAL CODE" button
             const submitPromotionalCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SUBMIT PROMOTIONAL CODE")',
+                '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
@@ -1078,7 +1052,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1109,7 +1082,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
@@ -1166,7 +1138,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastPaymentSection).toBeDisplayed();
 
-
             // back to common list of account menu
             await backButton.click();
             await driver.pause(2000);
@@ -1179,7 +1150,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1210,11 +1180,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1291,8 +1259,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             //click the back button to the account screen
             await backButton.click();
             await driver.pause(2000);
-
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1302,7 +1268,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1333,12 +1298,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             //go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1366,7 +1329,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-
             // Click on Map theme settings option
             const mapThemeOption = await driver.$(
                 '-android uiautomator:new UiSelector().text("Map theme settings")',
@@ -1392,11 +1354,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -1429,7 +1387,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1460,12 +1417,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             //go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1554,7 +1509,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 await expect(element).toBeDisplayed();
             }
 
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1602,7 +1556,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(2000);
 
             const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("OPEN CHAT")`,
+                `-android uiautomator:new UiSelector().text("Open Chat")`,
             );
             await expect(openChat).toBeDisplayed();
             await openChat.click();
@@ -1660,7 +1614,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 await expect(element3).toBeDisplayed();
             }
 
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1696,7 +1649,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
             );
             await expect(text2).toBeDisplayed();
-
 
             /*
             //go to where tab
@@ -1846,7 +1798,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
             */
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1856,7 +1807,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -2008,12 +1958,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             //go to account
             await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2100,7 +2048,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             const cancelButtonText = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("DeleteAccountDetailsCancel-text")',
             );
-            await expect(await cancelButtonText.getText()).toBe("CANCEL");
+            await expect(await cancelButtonText.getText()).toBe("Cancel");
             // Verify CANCEL button is enabled
             await expect(await cancelButton.isEnabled()).toBe(true);
 
@@ -2155,11 +2103,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2216,20 +2162,20 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
 
             // verify Login button appeared
             const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
             // verify Register button appeared
             const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
         } catch (e) {
@@ -2241,7 +2187,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

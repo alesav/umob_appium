@@ -130,7 +130,6 @@ class FelyxScooterActions {
     static async clickCenterOfScreen() {
         const { centerX, centerY } = await TestHelpers.getScreenCenter();
 
-
         //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
 
@@ -145,12 +144,10 @@ class FelyxScooterActions {
     }
 
     static async clickReserveButton() {
-        const reserveButton = await driver.$(
-            '-android uiautomator:new UiSelector().text("RESERVE")',
-        );
-        await reserveButton.waitForEnabled();
+        await PageObjects.reserveButton.waitForEnabled();
+
         await driver.pause(5000);
-        await reserveButton.click();
+        await PageObjects.reserveButton.click();
     }
 
     static async verifyPaymentMethodsScreen() {
@@ -183,11 +180,9 @@ class FelyxScooterActions {
     }
 
     static async clickStartTripButton() {
-        const startTripButton = await driver.$(
-            '-android uiautomator:new UiSelector().text("START TRIP")',
-        );
-        await startTripButton.waitForEnabled();
-        await startTripButton.click();
+        await PageObjects.startTripButton.waitForEnabled();
+        await driver.pause(2000);
+        await PageObjects.startTripButton.click();
     }
 
     static async verifyStartTripPaymentOptions() {

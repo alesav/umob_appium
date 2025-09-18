@@ -51,8 +51,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             username: credentials.username,
             password: credentials.password,
         });
-
-
     });
 
     it("should display key navigation elements on the main screen", async () => {
@@ -81,7 +79,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.planTripBtn.waitForExist();
             await PageObjects.promosBtn.waitForExist();
 
-
             //click PLAN TRIP button to verify taxi and public transport options
             //await planTrip.click();
             await PageObjects.planTripBtn.click();
@@ -106,10 +103,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(taxiButton).toBeDisplayed();
 
-            const publicTransportButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PUBLIC TRANSPORT")',
-            );
-            await expect(publicTransportButton).toBeDisplayed();
+            await PageObjects.publicTransportButton.waitForExist();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -119,7 +113,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -154,7 +147,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
-
 
             // Verify account menu items
             const accountMenuItems = [
@@ -236,7 +228,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-
             // Verify account menu items after second scrolling
             const accountMenuItems3 = ["Support", "Delete account"];
 
@@ -249,7 +240,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify Log Out button
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(screenHeader).toBeDisplayed();
 
@@ -267,7 +258,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -325,13 +315,11 @@ describe("Combined test for the logged in old user with rides history", () => {
             await myRidesAndTicketsButton.click();
             await driver.pause(1000);
 
-
             // Verify back button is present
             const backButton = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("back_button")',
             );
             await expect(backButton).toBeDisplayed();
-
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
@@ -356,7 +344,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -440,7 +427,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(backButton).toBeDisplayed();
 
-
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
                 '-android uiautomator:new UiSelector().textContains("€")',
@@ -462,7 +448,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -522,7 +507,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(emailQuestion).toBeDisplayed();
 
-
             // Verify Edit button for email
             const emailEditButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Edit")',
@@ -535,20 +519,17 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-
             // Verify Name Section
             const nameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your name?")',
             );
             await expect(nameQuestion).toBeDisplayed();
 
-
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your last name?")',
             );
             await expect(lastNameQuestion).toBeDisplayed();
-
 
             // Verify Address Section
             const addressQuestion = await driver.$(
@@ -588,7 +569,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(countryLabel).toBeDisplayed();
 
-
             // Verify Zip Code field
             const zipCode = await driver.$(
                 '-android uiautomator:new UiSelector().text("3014")',
@@ -603,7 +583,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
@@ -625,7 +605,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -745,7 +724,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify "SUBMIT PROMOTIONAL CODE" button
             const submitPromotionalCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SUBMIT PROMOTIONAL CODE")',
+                '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
@@ -837,7 +816,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(yourCodeLabel).toBeDisplayed();
 
-
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -852,19 +830,17 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(2000);
 
-
             // Verify Share Code button
 
             const shareCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
             await expect(shareCodeButton).toBeDisplayed();
 
             const viewStats = await driver.$(
-                '-android uiautomator:new UiSelector().text("VIEW YOUR STATS")',
+                '-android uiautomator:new UiSelector().text("View Your Stats")',
             );
             await expect(viewStats).toBeDisplayed();
-
 
             // click back button to main acount menu
             await backButton.click();
@@ -878,7 +854,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -933,7 +908,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(backButton).toBeDisplayed();
 
-
             const cardType = await driver.$(
                 '-android uiautomator:new UiSelector().text("MasterCard")',
             );
@@ -951,7 +925,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify action buttons
             const removeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await expect(removeButton).toBeDisplayed();
 
@@ -978,7 +952,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1130,7 +1103,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CHANGE DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Change Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
 
@@ -1167,7 +1140,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1277,7 +1249,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             const cancelButtonText = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("DeleteAccountDetailsCancel-text")',
             );
-            await expect(await cancelButtonText.getText()).toBe("CANCEL");
+            await expect(await cancelButtonText.getText()).toBe("Cancel");
             // Verify CANCEL button is enabled
             await expect(await cancelButton.isEnabled()).toBe(true);
 
@@ -1297,7 +1269,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1348,7 +1319,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(2000);
 
-
             // Click on Map theme settings option
             const mapThemeOption = await driver.$(
                 '-android uiautomator:new UiSelector().text("Map theme settings")',
@@ -1374,11 +1344,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -1411,7 +1377,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1461,7 +1426,6 @@ describe("Combined test for the logged in old user with rides history", () => {
                 },
             ]);
             await driver.pause(2000);
-
 
             // Click on Language option to navigate to language screen
             const languageOption = await driver.$(
@@ -1520,7 +1484,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify LogOut button
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
         } catch (e) {
@@ -1532,7 +1496,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -1585,20 +1548,20 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
 
             // verify Login button appeared
             const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
             // verify Register button appeared
             const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
         } catch (e) {
@@ -1610,7 +1573,6 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

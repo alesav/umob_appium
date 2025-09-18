@@ -190,11 +190,11 @@ class ScooterBookingActions {
         await expect(statusElement).toBeDisplayed();
 
         await driver
-            .$('-android uiautomator:new UiSelector().text("GOT IT")')
+            .$('-android uiautomator:new UiSelector().text("Got It")')
             .waitForEnabled();
 
         await driver
-            .$('-android uiautomator:new UiSelector().text("GOT IT")')
+            .$('-android uiautomator:new UiSelector().text("Got It")')
             .click();
     }
 
@@ -357,7 +357,6 @@ describe("Umob Scooter Booking Tests", () => {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     it("Negative Scenario: Trip Geo Error", async () => {
         const targetScooter = TestHelpers.findScooterById(
             scooters,
@@ -404,5 +403,4 @@ describe("Umob Scooter Booking Tests", () => {
             targetScooter,
         );
     });
-
 });

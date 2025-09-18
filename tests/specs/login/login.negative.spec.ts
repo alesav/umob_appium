@@ -21,7 +21,7 @@ describe("Login Negative Scenarios", () => {
 
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
+                '-android uiautomator:new UiSelector().text("Log In")',
             );
             await logInBtn.isClickable();
             await driver.pause(2000);
@@ -87,7 +87,6 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -128,7 +127,7 @@ describe("Login Negative Scenarios", () => {
 
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
+                '-android uiautomator:new UiSelector().text("Log In")',
             );
             await logInBtn.click();
 
@@ -182,7 +181,6 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -215,7 +213,7 @@ describe("Login Negative Scenarios", () => {
         try {
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
+                '-android uiautomator:new UiSelector().text("Log In")',
             );
             await logInBtn.click();
 
@@ -235,7 +233,6 @@ describe("Login Negative Scenarios", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

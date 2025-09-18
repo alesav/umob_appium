@@ -205,7 +205,7 @@ describe("Add address for any user", () => {
 
             //click on Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
             await saveButton.click();

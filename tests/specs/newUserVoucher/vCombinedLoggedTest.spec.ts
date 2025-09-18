@@ -188,7 +188,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             //verify "invite friends" button
             const friends = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().textContains("Invite Friends")',
             );
             await expect(friends).toBeDisplayed();
             await friends.click();
@@ -214,14 +214,14 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             //click invite friends button
             const friends2 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().textContains("Invite Friends")',
             );
             await expect(friends2).toBeDisplayed();
             await friends2.click();
 
             //verify share code button
             const shareCodeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("SEND YOUR CODE")',
+                '-android uiautomator:new UiSelector().textContains("Send Your Code")',
             );
             await expect(shareCodeBtn).toBeDisplayed();
         } catch (e) {
@@ -362,7 +362,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify Log Out button
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(screenHeader).toBeDisplayed();
 
@@ -676,7 +676,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
@@ -824,7 +824,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify "SUBMIT PROMOTIONAL CODE" button
             const submitPromotionalCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SUBMIT PROMOTIONAL CODE")',
+                '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
@@ -943,12 +943,12 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             ]);
 
             const shareCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
             await expect(shareCodeButton).toBeDisplayed();
 
             const viewStats = await driver.$(
-                '-android uiautomator:new UiSelector().text("VIEW YOUR STATS")',
+                '-android uiautomator:new UiSelector().text("View Your Stats")',
             );
             await expect(viewStats).toBeDisplayed();
 
@@ -1035,7 +1035,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify action buttons
             const removeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await expect(removeButton).toBeDisplayed();
 
@@ -1209,7 +1209,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CHANGE DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Change Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
 
@@ -1389,7 +1389,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             const cancelButtonText = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("DeleteAccountDetailsCancel-text")',
             );
-            await expect(await cancelButtonText.getText()).toBe("CANCEL");
+            await expect(await cancelButtonText.getText()).toBe("Cancel");
             // Verify CANCEL button is enabled
             await expect(await cancelButton.isEnabled()).toBe(true);
 
@@ -1497,11 +1497,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -1818,7 +1814,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             await driver.pause(2000);
 
             const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("OPEN CHAT")`,
+                `-android uiautomator:new UiSelector().text("Open Chat")`,
             );
             await expect(openChat).toBeDisplayed();
             await openChat.click();
@@ -2126,20 +2122,20 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Oot")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
 
             // verify Login button appeared
             const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
             // verify Register button appeared
             const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
         } catch (e) {

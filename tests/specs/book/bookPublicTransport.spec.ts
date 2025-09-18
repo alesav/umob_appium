@@ -125,11 +125,8 @@ describe("Book Public Transport", () => {
             await driver.pause(2000);
 
             // Click to choose public transport
-            const ptButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PUBLIC TRANSPORT")',
-            );
-            await expect(ptButton).toBeDisplayed();
-            await ptButton.click();
+            await PageObjects.publicTransportButton.waitForDisplayed();
+            await PageObjects.publicTransportButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -209,7 +206,7 @@ describe("Book Public Transport", () => {
 
             // Verify Continue button
             const continueButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueButton).toBeDisplayed();
 
@@ -294,7 +291,7 @@ describe("Book Public Transport", () => {
 
             // Verify the continue button becomes enabled after adding destination
             const continuePress = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continuePress).toBeDisplayed();
             await continuePress.click();
@@ -430,7 +427,7 @@ describe("Book Public Transport", () => {
 
             // Check "buy e-tickets" button is enabled and click it
             const buyButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("BUY E-TICKETS")',
+                '-android uiautomator:new UiSelector().text("Buy E-Tickets")',
             );
             await buyButton.click();
             await driver.pause(7000);
@@ -539,8 +536,9 @@ describe("Book Public Transport", () => {
 
             // Click on enabled confirm button and wait 10seconds
             const confirmButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONFIRM")',
+                '-android uiautomator:new UiSelector().text("Confirm")',
             );
+            await expect(confirmButton).toBeDisplayed();
             await confirmButton.click();
             await driver.pause(15000);
         } catch (e) {
@@ -618,8 +616,9 @@ describe("Book Public Transport", () => {
 
             // Button "show e-tickets" is enabled and click the button
             const showButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SHOW E-TICKETS")',
+                '-android uiautomator:new UiSelector().text("Show E-Tickets")',
             );
+            await expect(showButton).toBeDisplayed();
             await showButton.click();
             await driver.pause(10000);
         } catch (e) {
@@ -782,7 +781,7 @@ describe("Book Public Transport", () => {
             // Click GOT IT button using multiple fallback strategies
             try {
                 const gotItButton = await driver.$(
-                    'android=new UiSelector().text("GOT IT").resourceId("ride-details-primary-button-text")',
+                    'android=new UiSelector().text("Got It").resourceId("ride-details-primary-button-text")',
                 );
                 await gotItButton.waitForDisplayed({ timeout: 5000 });
                 await gotItButton.click();

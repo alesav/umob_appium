@@ -77,7 +77,6 @@ const getScreenCenter = async () => {
     };
 };
 
-
 const fetchScooterCoordinates = async () => {
     try {
         const response = await fetch(API_URL, {
@@ -146,7 +145,6 @@ describe("Check Reservation Tests", () => {
             targetScooter.coordinates.longitude,
             targetScooter.coordinates.latitude,
         );
-
     });
 
     beforeEach(async () => {
@@ -171,7 +169,6 @@ describe("Check Reservation Tests", () => {
             await driver.pause(4000);
             //await applyFilters();
             const { centerX, centerY } = await getScreenCenter();
-
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -210,20 +207,13 @@ describe("Check Reservation Tests", () => {
             ]);
             await driver.pause(2000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .click();
+            await PageObjects.reserveButton.waitForDisplayed();
+            await driver.pause(4000);
+            await PageObjects.reserveButton.click();
 
-            await driver.pause(2000);
-            await driver
-                .$('-android uiautomator:new UiSelector().text("CANCEL")')
-                .waitForEnabled();
-            await driver
-                .$('-android uiautomator:new UiSelector().text("CANCEL")')
-                .click();
+            await driver.pause(5000);
+            await PageObjects.cancelButton.waitForDisplayed();
+            await PageObjects.cancelButton.click();
 
             await driver.pause(4000);
 
@@ -245,7 +235,6 @@ describe("Check Reservation Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

@@ -249,25 +249,16 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                 .click();
 
             // Click Start
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .waitForEnabled();
+            await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .click();
             await driver.pause(10000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
-
+            await PageObjects.endTripButton.waitForDisplayed();
             await driver.pause(10000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(5000);
 
@@ -316,13 +307,13 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(7000);
@@ -331,13 +322,9 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             await driver.pause(8000);
 
             // Click GOT IT
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .waitForEnabled();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .click();
             // Click not now button
             // const notNowButton = await driver.$(
             //     '-android uiautomator:new UiSelector().text("NOT NOW")',
@@ -413,11 +400,11 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             await expect(statusElement).toBeDisplayed();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .waitForEnabled();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .click();
         } catch (e) {
             error = e;
@@ -522,25 +509,17 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                 .waitForDisplayed();
 
             // Click Start
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .waitForEnabled();
+            await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .click();
             await driver.pause(10000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
+            await PageObjects.endTripButton.waitForDisplayed();
 
             await driver.pause(10000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(5000);
 
@@ -584,13 +563,13 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(7000);
@@ -598,13 +577,9 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             await driver.pause(8000);
             // Click GOT IT
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .waitForEnabled();
+            await PageObjects.gotItButton.waitForDisplayed();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .click();
+            await PageObjects.gotItButton.click();
 
             //click on account button
             await PageObjects.accountButton.waitForDisplayed();
@@ -684,11 +659,11 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             // Click GOT IT
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .waitForEnabled();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .click();
         } catch (e) {
             error = e;
@@ -776,25 +751,17 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                 
 
             // Click Start
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .waitForEnabled();
+           await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .click();
             await driver.pause(10000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
+           await PageObjects.endTripButton.waitForDisplayed();
 
             await driver.pause(10000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(5000);
 
@@ -843,13 +810,13 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(7000);
@@ -858,13 +825,9 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             await driver.pause(8000);
 
             // Click GOT IT
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .waitForEnabled();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .click();
             // Click not now button
             // const notNowButton = await driver.$(
             //     '-android uiautomator:new UiSelector().text("NOT NOW")',
@@ -940,7 +903,7 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                 .waitForEnabled();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .click();
         } catch (e) {
             error = e;
@@ -1025,13 +988,9 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
                  
  
              // Click Start
-             await driver
-                 .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                 .waitForEnabled();
- 
-             await driver
-                 .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                 .click();
+             await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
+
  
              // Wait for Vehicle Not Operational error message
              await driver

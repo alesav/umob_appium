@@ -74,7 +74,6 @@ describe("Add Payment Method", () => {
         });
     });
 
-
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
         // Wait for screen to be loaded
@@ -113,7 +112,7 @@ describe("Add Payment Method", () => {
             // looking for "REMOVE PAYMENT METHOD"
             try {
                 const removeButton = await driver.$(
-                    '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Remove Payment Method")',
                 );
 
                 // short timeout
@@ -129,16 +128,15 @@ describe("Add Payment Method", () => {
             // anyway looking for the "ADD PAYMENT METHOD" button and click it
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .waitForDisplayed();
             await driver.pause(2000);
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .click();
-
 
             //CLick Cards
             await driver
@@ -170,15 +168,15 @@ describe("Add Payment Method", () => {
             await el4.addValue("Test Account");
             const el5 = await driver.$("id:com.umob.umob:id/payButton");
             await el5.click();
+            await driver.pause(5000);
 
             //Assert Remove payment method button is displayed
             const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await removeBtn.waitForDisplayed();
             await driver.pause(2000);
             await removeBtn.click();
-
 
             //CLick Payment Settings
             await driver
@@ -195,7 +193,7 @@ describe("Add Payment Method", () => {
             //Verify Add payment method
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .waitForDisplayed();
         } catch (e) {
@@ -207,7 +205,6 @@ describe("Add Payment Method", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

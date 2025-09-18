@@ -240,16 +240,11 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver.pause(3000);
 
             // Click Reserve
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
+            await PageObjects.reserveButton.waitForDisplayed();
 
             await driver.pause(5000);
 
-            const button = await driver.$(
-                '-android uiautomator:new UiSelector().text("RESERVE")',
-            );
-            await button.click();
+            await PageObjects.reserveButton.click();
             await driver.pause(3000);
 
             //verify header and offer for choosing payment method

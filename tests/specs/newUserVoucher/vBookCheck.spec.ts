@@ -255,14 +255,10 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await multiVaucher.click();
 
             // Click for booking
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .waitForEnabled();
+            await PageObjects.startTripButton.waitForEnabled();
 
             await driver.pause(2000);
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .click();
+            await PageObjects.startTripButton.click();
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -284,33 +280,29 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
             //verify open helmet case button
             const openCase = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(openCase).toBeDisplayed();
 
             //verify continue button
             await driver.pause(3000);
             const continueB = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB).toBeDisplayed();
             await continueB.click();
 
             //verify pause button
             const pauseButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PAUSE")',
+                '-android uiautomator:new UiSelector().text("Pause")',
             );
             await expect(pauseButton).toBeDisplayed();
             await driver.pause(3000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
+            await PageObjects.endTripButton.waitForEnabled();
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(3000);
 
@@ -328,14 +320,14 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
             //verify open case button for the helmet
             const helmetButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(helmetButton).toBeDisplayed();
             await driver.pause(4000);
 
             //verify and click continue button
             const continueB2 = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
@@ -386,13 +378,13 @@ describe("Check Booking Test with unlimited multi voucher", () => {
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(3000);
@@ -401,11 +393,8 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await driver.pause(2000);
 
             //click got it button
-            const gotIt = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotIt).toBeDisplayed();
-            await gotIt.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
             // const notNowButton = await driver.$(

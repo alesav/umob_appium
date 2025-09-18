@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -146,7 +150,6 @@ describe("Reserve Felyx Test", () => {
             targetScooter.coordinates.latitude,
         );
         await driver.pause(3000);
-
     });
 
     beforeEach(async () => {
@@ -164,13 +167,10 @@ describe("Reserve Felyx Test", () => {
         let error = null;
 
         try {
-
             await driver.pause(5000);
-
 
             const { centerX, centerY } = await getScreenCenter();
             await driver.pause(2000);
-
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -205,26 +205,18 @@ describe("Reserve Felyx Test", () => {
             ]);
             await driver.pause(2000);
 
-            // Click Reserve
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
+            // Click Reserve button
+            await PageObjects.reserveButton.waitForDisplayed();
             await driver.pause(7000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .click();
+            await PageObjects.reserveButton.click();
 
-            // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("CANCEL")')
-                .waitForEnabled();
+            // Click cancel button
+            await PageObjects.cancelButton.waitForDisplayed();
 
             await driver.pause(7000);
 
-            await driver
-                .$('-android uiautomator:new UiSelector().text("CANCEL")')
-                .click();
+            await PageObjects.cancelButton.click();
 
             await driver.pause(4000);
 
@@ -247,7 +239,6 @@ describe("Reserve Felyx Test", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

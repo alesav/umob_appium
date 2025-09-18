@@ -73,8 +73,6 @@ describe("Book a Taxi", () => {
         const longitude = 4.4744301;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
-
-
     });
 
     it("test key elements for book a taxi, add destination", async () => {
@@ -90,14 +88,12 @@ describe("Book a Taxi", () => {
             await driver.activateApp("com.umob.umob");
             await driver.pause(7000);
 
-
             await PageObjects.planTripBtn.waitForExist();
 
             //click PLAN TRIP button to verify taxi and public transport options
 
             await PageObjects.planTripBtn.click();
             await driver.pause(2000);
-
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -124,12 +120,9 @@ describe("Book a Taxi", () => {
                     ],
                 },
             ]);
-
-            const taxiButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GRAB TAXI")',
-            );
-            await expect(taxiButton).toBeDisplayed();
-            await taxiButton.click();
+            //tap grab taxi button
+            await PageObjects.grabTaxiButton.waitForDisplayed();
+            await PageObjects.grabTaxiButton.click();
 
             await driver.pause(2000);
             // Verify screen header
@@ -144,7 +137,6 @@ describe("Book a Taxi", () => {
             );
             await expect(departureDestinationLabel).toBeDisplayed();
             await driver.pause(2000);
-
 
             // Click on destination and text
             const el1 = await driver.$(
@@ -170,7 +162,7 @@ describe("Book a Taxi", () => {
 
             // click the continue button after adding destination
             const continueButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueButton).toBeDisplayed();
             await continueButton.click();
@@ -184,7 +176,6 @@ describe("Book a Taxi", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -307,7 +298,7 @@ describe("Book a Taxi", () => {
             await driver.pause(1000);
 
             const selectButton = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("SELECT")',
+                '-android uiautomator:new UiSelector().textContains("Select")',
             );
             await expect(selectButton).toBeDisplayed();
             await selectButton.click();
@@ -321,7 +312,6 @@ describe("Book a Taxi", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -353,7 +343,6 @@ describe("Book a Taxi", () => {
         let error = null;
 
         try {
-
             //check data for payment card is displayed
             await driver.pause(5000);
             const card = await driver.$(
@@ -367,13 +356,11 @@ describe("Book a Taxi", () => {
             );
             await expect(travelDetails).toBeDisplayed();
 
-
             //check driver note is displayed
             const driverNote = await driver.$(
                 '-android uiautomator:new UiSelector().text("Add a note to the driver (optional)")',
             );
             await expect(driverNote).toBeDisplayed();
-
 
             // check if price in euro
             const firstRoutePrice = await driver.$(
@@ -415,12 +402,11 @@ describe("Book a Taxi", () => {
 
             //check destination is displayed
             const confirmButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONFIRM YOUR RIDE")',
+                '-android uiautomator:new UiSelector().text("Confirm Your Ride")',
             );
             await expect(confirmButton).toBeDisplayed();
             await confirmButton.click();
             await driver.pause(7000);
-
 
             // Verify and click Cancel trip button
             await driver.pause(7000);
@@ -434,7 +420,7 @@ describe("Book a Taxi", () => {
             // Wait for confirmation dialog and confirm cancellation
             //await driver.pause(2000);
             const confirmCancelButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CANCEL MY BOOKING")',
+                '-android uiautomator:new UiSelector().text("Cancel My Booking")',
             );
             await expect(confirmCancelButton).toBeDisplayed();
             await confirmCancelButton.click();
@@ -449,7 +435,6 @@ describe("Book a Taxi", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

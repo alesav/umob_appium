@@ -22,12 +22,10 @@ describe("Combined Not Logged User Tests", () => {
             await expect(popupDescription).toBeDisplayed();
 
             // Click the "EXPLORE MAP" button
-            const exploreMapButton = await driver.$(
-                'android=new UiSelector().text("EXPLORE MAP")',
-            );
-            await expect(exploreMapButton).toBeDisplayed();
+            await PageObjects.exploreMapButton.waitForEnabled();
+
             await driver.pause(5000);
-            await exploreMapButton.click();
+            await PageObjects.exploreMapButton.click();
             await driver.pause(2000);
         } catch (error) {
             console.log("Popup not found or already handled:", error);
@@ -71,7 +69,6 @@ describe("Combined Not Logged User Tests", () => {
 
             await PageObjects.planTripBtn.click();
 
-
             //scroll to bottom
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
@@ -87,17 +84,8 @@ describe("Combined Not Logged User Tests", () => {
             ]);
             await driver.pause(1000);
 
-            const taxiButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GRAB TAXI")',
-            );
-            await expect(taxiButton).toBeDisplayed();
-
-            const publicTransportButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PUBLIC TRANSPORT")',
-            );
-            await expect(publicTransportButton).toBeDisplayed();
-
-
+            await PageObjects.grabTaxiButton.waitForEnabled();
+            await PageObjects.publicTransportButton.waitForEnabled();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -107,7 +95,6 @@ describe("Combined Not Logged User Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -138,7 +125,6 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-
             const qButton = await driver.$("accessibility id:home_help_button");
             await expect(qButton).toBeDisplayed();
             await driver.pause(2000);
@@ -198,7 +184,6 @@ describe("Combined Not Logged User Tests", () => {
                 );
                 await expect(element).toBeDisplayed();
             }
-
 
             // Get window size
             const { width, height } = await driver.getWindowSize();
@@ -280,7 +265,7 @@ describe("Combined Not Logged User Tests", () => {
             await driver.pause(2000);
 
             const clickForChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("OPEN CHAT")`,
+                `-android uiautomator:new UiSelector().text("Open Chat")`,
             );
             await expect(clickForChat).toBeDisplayed();
             await clickForChat.click();
@@ -512,7 +497,6 @@ describe("Combined Not Logged User Tests", () => {
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
             */
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -522,7 +506,6 @@ describe("Combined Not Logged User Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -553,7 +536,6 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-
             const accountBtn = await driver.$(
                 "accessibility id:menu_account_button",
             );
@@ -561,14 +543,13 @@ describe("Combined Not Logged User Tests", () => {
             await accountBtn.click();
             await driver.pause(2000);
 
-
             // Verify LOGIN and REGISTER button
             const logButton = await driver.$(
-                'android=new UiSelector().text("LOGIN")',
+                'android=new UiSelector().text("Login")',
             );
             await expect(logButton).toBeDisplayed();
             const register = await driver.$(
-                'android=new UiSelector().text("REGISTER")',
+                'android=new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
 
@@ -596,7 +577,6 @@ describe("Combined Not Logged User Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -627,7 +607,6 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-
             const accountBtn = await driver.$(
                 "accessibility id:menu_account_button",
             );
@@ -656,11 +635,7 @@ describe("Combined Not Logged User Tests", () => {
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -684,7 +659,6 @@ describe("Combined Not Logged User Tests", () => {
             // click back button to go to the app settings
             await backButton.click();
             await driver.pause(2000);
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -694,7 +668,6 @@ describe("Combined Not Logged User Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -725,7 +698,6 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-
             //await PageObjects.clickAccountButton();
             const accountBtn = await driver.$(
                 "accessibility id:menu_account_button",
@@ -797,16 +769,15 @@ describe("Combined Not Logged User Tests", () => {
 
             // Verify Login button
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(logoutButton).toBeDisplayed();
 
             // Verify sign up button
             const signUp = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(signUp).toBeDisplayed();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -816,7 +787,6 @@ describe("Combined Not Logged User Tests", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

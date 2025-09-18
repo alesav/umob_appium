@@ -73,7 +73,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
@@ -94,12 +93,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
                 '-android uiautomator:new UiSelector().text("**** **** 1115")',
             );
             await expect(selectPayment).toBeDisplayed();
-
-
-            //verify that we are on a booking screen and limitless voucher selected
-            await expect(selectPayment).toBeDisplayed();
-            await expect(multiVoucher).toBeDisplayed();
-
 
             await driver.performActions([
                 {
@@ -125,17 +118,14 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
                     ],
                 },
             ]);
-            await driver.pause(1000);
+            await driver.pause(3000);
 
-            // Click continue button
+            // Click start trip button
+
+            await PageObjects.startTripButton.waitForEnabled();
             await driver.pause(2000);
-            const continueButton = await driver.$(
-                'android=new UiSelector().text("START TRIP")',
-            );
-            await expect(continueButton).toBeDisplayed();
-            await expect(continueButton).toBeEnabled();
 
-            await continueButton.click();
+            await PageObjects.startTripButton.click();
 
             await driver.pause(2000);
 
@@ -146,7 +136,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(3000);
-
 
             await driver.performActions([
                 {
@@ -176,7 +165,7 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
 
             //click to start and unlock the bike
             const umob20Button1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
+                '-android uiautomator:new UiSelector().text("Start Trip")',
             );
             await expect(umob20Button1).toBeDisplayed();
             await umob20Button1.click();
@@ -218,7 +207,7 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             await driver.pause(2000);
 
             const continueBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("CONTINUE")',
+                '-android uiautomator:new UiSelector().textContains("Continue")',
             );
             await expect(continueBtn).toBeDisplayed();
             await continueBtn.click();
@@ -234,22 +223,23 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             await endTripButton.click();
             await driver.pause(3000);
 
-
-
             //verify used voucher is dispayed
-            const multiVoucher1 = await driver.$('-android uiautomator:new UiSelector().textContains("New User")');
+            const multiVoucher1 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("New User")',
+            );
             await expect(multiVoucher1).toBeDisplayed();
 
             //Scroll to bottom
-            await driver.executeScript('mobile: scrollGesture', [{
-                left: 100,
-                top: 1500,
-                width: 200,
-                height: 100,
-                direction: 'down',
-                percent: 100
-            }]);
-
+            await driver.executeScript("mobile: scrollGesture", [
+                {
+                    left: 100,
+                    top: 1500,
+                    width: 200,
+                    height: 100,
+                    direction: "down",
+                    percent: 100,
+                },
+            ]);
 
             await driver.performActions([
                 {
@@ -277,11 +267,8 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             ]);
 
             //click got it button
-            const gotIt = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotIt).toBeDisplayed();
-            await gotIt.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
             // const notNowButton = await driver.$(
@@ -301,7 +288,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             );
             await expect(myRides).toBeDisplayed();
 
-
             //click on my rides and tickets
             await myRides.click();
 
@@ -310,7 +296,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -320,7 +305,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {
@@ -341,7 +325,6 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             }
         }
     });
-
 
     afterEach(async () => {
         await driver.terminateApp("com.umob.umob");

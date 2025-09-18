@@ -42,31 +42,62 @@ class PageObjects extends Page {
     get myRidesButton() {
         return $('-android uiautomator:new UiSelector().text("My rides")');
     }
+    get publicTransportButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Public Transport")',
+        );
+    }
+    get grabTaxiButton() {
+        return $('-android uiautomator:new UiSelector().text("Grab Taxi")');
+    }
 
     // Trip related elements
+    get reserveButton() {
+        return $('-android uiautomator:new UiSelector().text("Reserve")');
+    }
+    get cancelButton() {
+        return $('-android uiautomator:new UiSelector().text("Cancel")');
+    }
     get startTripButton() {
-        return $('-android uiautomator:new UiSelector().text("START TRIP")');
+        return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
     get endTripButton() {
-        return $('-android uiautomator:new UiSelector().text("END TRIP")');
+        return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
     get gotItButton() {
-        return $('-android uiautomator:new UiSelector().text("GOT IT!")');
+        return $('-android uiautomator:new UiSelector().text("Got It!")');
     }
     // get notNowButton() {
     //     return $('-android uiautomator:new UiSelector().text("NOT NOW")');
     // }
     get retryButton() {
-        return $('-android uiautomator:new UiSelector().text("RETRY")');
+        return $('-android uiautomator:new UiSelector().text("Retry")');
     }
     get inviteFriendsButton() {
         return $(
-            '-android uiautomator:new UiSelector().text("INVITE FRIENDS NOW!")',
+            '-android uiautomator:new UiSelector().text("Invite Friends Now!")',
         );
     }
     get backButton() {
         return $(
             '-android uiautomator:new UiSelector().resourceId("back_button")',
+        );
+    }
+
+    //map related buttons when first time open app
+    get exploreMapButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("Explore Map")',
+        );
+    }
+    get startRegistrationButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("Start Registration")',
+        );
+    }
+    get logInButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("Log In")',
         );
     }
 
@@ -98,7 +129,7 @@ class PageObjects extends Page {
             );
             await driver.pause(3000);
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
+                '-android uiautomator:new UiSelector().text("Log In")',
             );
             await logInBtn.waitForDisplayed({ timeout: 200000 });
             await logInBtn.waitForEnabled();

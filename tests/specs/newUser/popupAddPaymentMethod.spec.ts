@@ -100,14 +100,14 @@ describe("Add Payment Method through popup for the New User", () => {
             );
             await expect(notification).toBeDisplayed();
             const finishLater = await driver.$(
-                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+                '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             await expect(finishLater).toBeDisplayed();
             await driver.pause(5000);
 
             //click on Continue button
             const contButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(contButton).toBeDisplayed();
             await driver.pause(5000);
@@ -123,13 +123,13 @@ describe("Add Payment Method through popup for the New User", () => {
             //CLick Add payment method
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .waitForDisplayed();
             await driver.pause(6000);
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .click();
             await driver.pause(6000);
@@ -169,7 +169,7 @@ describe("Add Payment Method through popup for the New User", () => {
 
             //Assert Remove payment method button is displayed
             const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await removeBtn.waitForDisplayed();
             await driver.pause(2000);

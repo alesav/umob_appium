@@ -92,7 +92,7 @@ class DonkeyBikeActions {
         await driver.pause(2000);
         try {
             const finishLater = await driver.$(
-                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+                '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             if (await finishLater.isDisplayed()) {
                 await driver.pause(2000);
@@ -127,7 +127,7 @@ class DonkeyBikeActions {
     static async clickContinueButton() {
         await driver.pause(5000);
         const continueButton = await driver.$(
-            'android=new UiSelector().text("START TRIP")',
+            'android=new UiSelector().text("Start Trip")',
         );
         await expect(continueButton).toBeDisplayed();
         await expect(continueButton).toBeEnabled();

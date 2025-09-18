@@ -223,7 +223,7 @@ describe("Test for the QR feature", () => {
 
             //press continue button
             const continueBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueBtn).toBeDisplayed();
             await continueBtn.click();
@@ -231,7 +231,7 @@ describe("Test for the QR feature", () => {
 
             //should start trip button be available
             const srartTrip = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
+                '-android uiautomator:new UiSelector().text("Start Trip")',
             );
             await expect(srartTrip).toBeDisplayed();
 
@@ -298,7 +298,7 @@ describe("Test for the QR feature", () => {
             await driver.pause(1000);
 
             const scanBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("SCAN VEHICLE")',
+                '-android uiautomator:new UiSelector().text("Scan Vehicle")',
             );
             await expect(scanBtn).toBeDisplayed();
             await scanBtn.click();

@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -165,13 +169,10 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
         try {
             await driver.pause(2000);
 
-
             const { centerX, centerY } = await getScreenCenter();
-
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
 
             await driver.pause(3000);
 
@@ -194,16 +195,11 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(selectPayment).toBeDisplayed();
 
             //verify start trip button is enabled AND CLICK
-            const startTrip = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
-            );
-            await startTrip.waitForDisplayed();
-            await startTrip.waitForEnabled();
+            await PageObjects.startTripButton.waitForEnabled();
             await driver.pause(8000);
-            await startTrip.click();
+            await PageObjects.startTripButton.click();
 
             await driver.pause(8000);
-
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -225,33 +221,28 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify open helmet case button
             const openCase = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(openCase).toBeDisplayed();
 
             //verify continue button
             await driver.pause(2000);
             const continueB = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB).toBeDisplayed();
             await continueB.click();
 
             //verify pause button
             const pauseButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PAUSE")',
+                '-android uiautomator:new UiSelector().text("Pause")',
             );
             await expect(pauseButton).toBeDisplayed();
             await driver.pause(10000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
-
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.waitForDisplayed();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(3000);
 
@@ -269,14 +260,14 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify open case button for the helmet
             const helmetButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(helmetButton).toBeDisplayed();
             await driver.pause(3000);
 
             //verify and click continue button
             const continueB2 = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
@@ -335,13 +326,13 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(2000);
@@ -349,13 +340,9 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             await driver.pause(2000);
 
-
             //click got it button
-            const gotIt = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotIt).toBeDisplayed();
-            await gotIt.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
             // const notNowButton = await driver.$(
@@ -374,7 +361,6 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(myRides).toBeDisplayed();
 
-
             //click on my rides and tickets
             await driver.pause(2000);
             await myRides.click();
@@ -384,8 +370,6 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
-
-
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -395,7 +379,6 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-
         } finally {
             // Submit test run result
             try {

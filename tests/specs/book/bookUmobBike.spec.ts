@@ -240,25 +240,12 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             //     .click();
 
             // Click Start
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .waitForEnabled();
-
-            await driver
-                .$('-android uiautomator:new UiSelector().text("START TRIP")')
-                .click();
-            await driver.pause(10000);
+            await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
-
-            await driver.pause(10000);
-
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.waitForDisplayed();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(10000);
 
@@ -289,13 +276,8 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             ]);
 
             // Click GOT IT
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .waitForEnabled();
-
-            await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT!")')
-                .click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
             // const notNowButton = await driver.$(
@@ -373,11 +355,11 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             await expect(statusElement).toBeDisplayed();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .waitForEnabled();
 
             await driver
-                .$('-android uiautomator:new UiSelector().text("GOT IT")')
+                .$('-android uiautomator:new UiSelector().text("Got It")')
                 .click();
         } catch (e) {
             error = e;
