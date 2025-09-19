@@ -88,6 +88,10 @@ describe("Donkey Bike Booking Test", () => {
         let error = null;
 
         try {
+            //await driver.terminateApp("com.umob.umob");
+            await driver.activateApp("com.umob.umob");
+            //await PageObjects.accountButton.waitForExist();
+            //await driver.pause(1000);
             await driver.pause(4000);
 
             // Get screen dimensions for click positioning
@@ -98,7 +102,7 @@ describe("Donkey Bike Booking Test", () => {
                 '-android uiautomator:new UiSelector().resourceId("home_location_button")',
             );
             await locationButton.click();
-            await driver.pause(3000);
+            await driver.pause(5000);
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
