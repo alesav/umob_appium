@@ -139,6 +139,41 @@ describe("Add Payment Method through popup for the New User", () => {
             await expect(finishLater).toBeDisplayed();
             await driver.pause(5000);
 
+            //verify that there is no error message
+
+            const errorMessages = [
+                "Error adding payment",
+                "We couldn't add your payment",
+            ];
+
+            for (const message of errorMessages) {
+                const errorElement = await driver.$(
+                    `-android uiautomator:new UiSelector().textContains("${message}")`,
+                );
+
+                try {
+                    const isDisplayed = await errorElement.isDisplayed();
+                    if (isDisplayed) {
+                        throw new Error(
+                            `Problem with adding payment card: Found error message when card is not added "${message}"`,
+                        );
+                    }
+                } catch (elementError) {
+                    // if element is not found then it is good, we continue our checks
+                    if (
+                        elementError.message.includes(
+                            "Problem with adding payment card",
+                        )
+                    ) {
+                        throw elementError; // this is our error - we are going further
+                    }
+                }
+            }
+
+            console.log(
+                "✓ All checks passed - no error message found when card is not added yet",
+            );
+
             //click on Continue button
             const contButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Continue")',
