@@ -89,11 +89,22 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
         let error = null;
 
         try {
+            //await driver.terminateApp("com.umob.umob");
+            await driver.activateApp("com.umob.umob");
+            //await PageObjects.accountButton.waitForExist();
+            //await driver.pause(1000);
+
             await driver.pause(5000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
+
+            const locationButton = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+            );
+            await locationButton.click();
+            await driver.pause(5000);
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -307,7 +318,6 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             //click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
-
 
             // Click not now button
             // const notNowButton = await driver.$(
