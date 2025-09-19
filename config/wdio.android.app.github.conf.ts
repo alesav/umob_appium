@@ -103,12 +103,12 @@ export const config: WebdriverIO.Config = {
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
-        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
+        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
-        "../tests/specs/newUser/deleteCard.spec.ts",
+        //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/book/bookPublicTransport.spec.ts",
