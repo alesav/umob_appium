@@ -94,6 +94,12 @@ describe("Donkey Bike Booking Test", () => {
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
+            const locationButton = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+            );
+            await locationButton.click();
+            await driver.pause(3000);
+
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
@@ -261,7 +267,6 @@ describe("Donkey Bike Booking Test", () => {
             // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
-           
 
             // Click not now button
             // const notNowButton = await driver.$(

@@ -387,7 +387,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
-            await driver.pause(3000);
+            await driver.pause(4000);
             await useButton.click();
 
             await driver.pause(2000);

@@ -99,7 +99,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(1000);
 
             const taxiButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GRAB TAXI")',
+                '-android uiautomator:new UiSelector().text("Grab Taxi")',
             );
             await expect(taxiButton).toBeDisplayed();
 

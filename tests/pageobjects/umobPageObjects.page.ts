@@ -87,17 +87,17 @@ class PageObjects extends Page {
     //map related buttons when first time open app
     get exploreMapButton() {
         return $(
-            '-android uiautomator:new UiSelector().resourceId("Explore Map")',
+            '-android uiautomator:new UiSelector().textContains("Explore Map")',
         );
     }
     get startRegistrationButton() {
         return $(
-            '-android uiautomator:new UiSelector().resourceId("Start Registration")',
+            '-android uiautomator:new UiSelector().textContains("Start Registration")',
         );
     }
     get logInButton() {
         return $(
-            '-android uiautomator:new UiSelector().resourceId("Log In")',
+            '-android uiautomator:new UiSelector().textContains("Log In")',
         );
     }
 

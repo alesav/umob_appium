@@ -2122,7 +2122,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Oot")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
