@@ -84,7 +84,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
-        //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
+        "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
@@ -97,7 +97,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/qrCode.spec.ts",
         //"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts", //taking photo crashed app. Cant stop active booking for new32 user!
-        //"../tests/specs/login/login.negative.spec.ts",
+        "../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,10 +111,10 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
-        //"../tests/specs/book/bookPublicTransport.spec.ts",
+        "../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
         ////////////////////////////////////////////////////////////////////////////////////////
-
+        /*
         //night run
         "../tests/specs/account/*.spec.ts",
         "../tests/specs/login/*.spec.ts",
@@ -142,6 +142,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded negative scenario because of blocking user after runs
         "../tests/specs/book/reserveCheck.spec.ts",
         "../tests/specs/book/reserveFelyx.spec.ts",
+        */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
