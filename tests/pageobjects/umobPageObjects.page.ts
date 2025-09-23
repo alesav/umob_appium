@@ -48,7 +48,7 @@ class PageObjects extends Page {
         );
     }
     get grabTaxiButton() {
-        return $('-android uiautomator:new UiSelector().text("Grab Taxi")');
+        return $('-android uiautomator:new UiSelector().text("Book now")');
     }
 
     // Trip related elements

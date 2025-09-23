@@ -120,6 +120,13 @@ describe("Book a Taxi", () => {
                     ],
                 },
             ]);
+
+            //about taxi
+            const taxiHeader = await driver.$(
+                '-android uiautomator:new UiSelector().text("Need a taxi?")',
+            );
+            await expect(taxiHeader).toBeDisplayed();
+
             //tap grab taxi button
             await PageObjects.grabTaxiButton.waitForDisplayed();
             await PageObjects.grabTaxiButton.click();
