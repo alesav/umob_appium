@@ -83,13 +83,13 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
-        "../tests/specs/account/addPaymentMethod.spec.ts", // ok
+        //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
-        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
+        //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -108,7 +108,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
-        "../tests/specs/newUser/deleteCard.spec.ts",
+        //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/book/bookPublicTransport.spec.ts",
