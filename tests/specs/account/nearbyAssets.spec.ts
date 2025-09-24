@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
-import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
+import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
@@ -57,13 +57,13 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new25";
+const USER = process.env.TEST_USER || "new12";
 
-//////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
 const AUTH_TOKEN =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiJiMzI0ZDRlNy01OGNmLTRkZTMtOWE2Yi04N2YxYzcyYzM0ZjUiLCJ1bmlxdWVfbmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJBbGVrcyIsImZhbWlseV9uYW1lIjoiU2F2IiwiZW1haWwiOiI0YmlnZm9vdCsxOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwicGhvbmVfbnVtYmVyIjoiKzMxOTcwMTA1ODc3MjQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjRkYTQ1MTk2LTA2OTEtYjg4MC04MTM2LTNhMTZlNTk4OWY2NSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiIyYTlhNjMwNS1hMjYxLTgwMjQtOTQ5Yy0zYTE2ZTU5ODlmN2EiLCJhdWQiOiJ1TW9iIiwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyB1TW9iIiwianRpIjoiY2QyM2VlMzktMTE2Mi00ZDhmLTkyMDgtZDgxMDdiZTc2MGYxIiwiaXNzIjoiaHR0cHM6Ly9iYWNrZW5kLXRlc3QudW1vYmFwcC5jb20vIiwiZXhwIjoxNzQyMTk0ODc2LCJpYXQiOjE3MzQ0MTg4NzZ9.u6ndZq46MDie48o9UNmzjTzAmSpyEJcHEmgKWkKB_UT0EC6vQXSIifrrD3KtFy9gD_Y0DFa3k043uRvEp7Cp1Gnu1OEWl6BKjIi0FOZ4yHTHPgTLhSQWSFfxJx_0yjtanvmC5aFg-t6kGvA76S8QMlbNYOKJf9R3mv3fPmnC1jIRMlZeIuikzHBJ1D3czlx1Pk3lFjsWoQcdZbWEpsRY4PEv28uLfh46COq2myEHDA_mk9WG-V7ocPuNRYiHamHcjttHem5Y_yNNUfoXDPwsQSlehtAuZnB6dyIL1C5OrNl5ZfyFiD1p6XWuBAFUmh5wOSWE23Fmm8fruD2UXSPPWg";
+    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDY2MTAyMTgsImlhdCI6MTczODgzNDIxOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjE2ZWUzZjRjLTQzYzktNGE3Ni1iOTdhLTYxMGI0NmU0MGM3ZCIsInN1YiI6IjRhNGRkZmRhLTNmMWYtNDEyMS1iNzU1LWZmY2ZjYTQwYzg3MiIsInNlc3Npb25faWQiOiIzNGU4NDZmOC02MmI3LTRiMzgtODkxYS01NjE4NWM4ZDdhOGEiLCJ1bmlxdWVfbmFtZSI6Im5ld0BnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXdAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldyIsImZhbWlseV9uYW1lIjoiTmV3IiwiZW1haWwiOiJuZXdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOiJGYWxzZSIsInBob25lX251bWJlciI6IiszMTk3MDEwNTg2NTU2IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjoiVHJ1ZSIsIm9pX3Byc3QiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfYXVfaWQiOiI0ODZkYTI1OS05ZGViLTJmMDQtYmM2OS0zYTE3ZWNjNTY1YTEiLCJjbGllbnRfaWQiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfdGtuX2lkIjoiMTQzZGNiNGUtZTFjYi01MmU0LWU5ZWUtM2ExN2VjYzU2NWI5In0.4slYA6XbzRDTNdPJSOmxGlsuetx1IywPojVVMooyyL8Whu4Go6I2V-wspetKGptQnG85X75lg6gWAOYwV5ES5mJQJ4unZuCUW82sDPMNZwEhw_Hzl6UyO5vd3pYJOzry07RcskSwonVKZqipiAEusiYRCvo0AjUx33g5NaRAhXUCE8p_9vdTgSMVjtQkFGpsXih-Hw8rcy7N_HH_LWz-C2ZIA9i2sV3tEHNpTgVhs9Z0WTISirTXdmSolv6JvlqkGETsq0CSFa-0xmhjWU036KB2C5nKBLpUP6AUwibcLDEc0_RoUka-Ia-a4QNVZuzME3pMxIaGOToYf1WLEHPeIQ";
 
 const getScreenCenter = async () => {
     // Get screen dimensions
@@ -87,18 +87,18 @@ const fetchScooterCoordinates = async () => {
                 Authorization: AUTH_TOKEN,
                 "Accept-Language": "en",
                 "X-Requested-With": "XMLHttpRequest",
-                "App-Version": "1.22959.3.22959",
+                "App-Version": "1.23776.3.23776",
                 "App-Platform": "android",
             },
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.47395,
-                latitude: 51.9217,
-                radius: 200.6137310913994,
+                longitude: 4.481574296951294,
+                latitude: 51.92120617890777,
+                radius: 1166.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
-                assetClasses: [23],
+                assetClasses: [23, 24, 17],
                 operatorAvailabilities: [2, 1, 3],
                 showEmptyStations: false,
                 skipCount: 0,
@@ -121,9 +121,10 @@ const fetchScooterCoordinates = async () => {
         throw error;
     }
 };
+
 /////////////////////////////////////////////////////////////////////////////////
 
-describe("Check Reservation Tests", () => {
+describe("Test for the Nearby Assets feature", () => {
     let scooters;
 
     before(async () => {
@@ -137,50 +138,59 @@ describe("Check Reservation Tests", () => {
             password: credentials.password,
         });
 
-        const targetScooter = scooters.find((scooter) =>
-            scooter.id.includes("Check"),
+        const targetScooter = scooters.find(
+            (scooter) => scooter.id === "UmobMock:ROTTERDAM_MOPED_1",
         );
 
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
             targetScooter.coordinates.latitude,
         );
+
+        // Check Account is presented
     });
 
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
+        // Wait for screen to be loaded
     });
 
-    it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
-        const testId = "a803283c-c3ca-419e-b25c-6eb20254e186";
+    it("Verify that nearby assets feature is shown", async () => {
+        const testId = "ad2a8dc9-1b8b-44ab-b7c4-9f24066a360b";
+
+        // Send results
         let testStatus = "Pass";
         let screenshotPath = "";
         let testDetails = "";
         let error = null;
 
         try {
-            const targetScooter = scooters.find((scooter) =>
-                scooter.id.includes("Check"),
+            // Check for map root element
+            const mapRoot = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("map_root")',
             );
-            await AppiumHelpers.setLocationAndRestartApp(
-                targetScooter.coordinates.longitude,
-                targetScooter.coordinates.latitude,
-            );
-            await driver.pause(4000);
-            //await applyFilters();
-            const { centerX, centerY } = await getScreenCenter();
+            await expect(mapRoot).toBeDisplayed();
 
-            //Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            // Verify navigation menu item
+            await PageObjects.planTripBtn.waitForExist();
 
-            await driver.pause(4000);
-            const prices = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("to start")',
-            );
-            await expect(prices).toBeDisplayed();
+            //click PLAN TRIP button to verify nearby assets is on display
+            await PageObjects.planTripBtn.click();
+
+            await driver.pause(5000);
+
+            //possibly "while using the app" button required to be clicked
+            // await driver.pause(3000);
+            // const permissionsPopup = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("hile using the app")',
+            // );
+
+            // await permissionsPopup.isDisplayed();
+            // await permissionsPopup.click();
+
+            //scroll to be everything on display
 
             const { width, height } = await driver.getWindowSize();
-            await driver.pause(2000);
             await driver.performActions([
                 {
                     type: "pointer",
@@ -191,7 +201,7 @@ describe("Check Reservation Tests", () => {
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
-                            y: height * 0.7,
+                            y: height * 0.8,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
@@ -205,27 +215,59 @@ describe("Check Reservation Tests", () => {
                     ],
                 },
             ]);
-            await driver.pause(2000);
+            await driver.pause(3000);
 
-            await PageObjects.reserveButton.waitForDisplayed();
-            await driver.pause(4000);
-            await PageObjects.reserveButton.click();
+            //verify that nearby feature exists in general
+            const instruction = await driver.$(
+                '-android uiautomator:new UiSelector().text("Nearby assets")',
+            );
+            await expect(instruction).toBeDisplayed();
 
-            await driver.pause(5000);
-            await PageObjects.cancelButton.waitForDisplayed();
-            await PageObjects.cancelButton.click();
+            //verify that refresh button for nearby assets feature exists
+            const refresh = await driver.$(
+                '-android uiautomator:new UiSelector().text("Refresh")',
+            );
+            await expect(instruction).toBeDisplayed();
 
-            await driver.pause(4000);
+            //verify that there is no sentence NO VEHICLES NEARBY RIGHT NOW
 
-            await PageObjects.clickAccountButton();
-            await driver.pause(2000);
+            const errorMessages = [
+                "No vehicles nearby right now",
+                "NO VEHICLES NEARBY",
+                "No vehicles nearby",
+            ];
 
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Personal info")',
-                )
-                .isDisplayed();
-            await driver.pause(2000);
+            for (const message of errorMessages) {
+                const errorElement = await driver.$(
+                    `-android uiautomator:new UiSelector().textContains("${message}")`,
+                );
+
+                try {
+                    const isDisplayed = await errorElement.isDisplayed();
+                    if (isDisplayed) {
+                        throw new Error(
+                            `Feature is not working: Found error message "${message}"`,
+                        );
+                    }
+                } catch (elementError) {
+                    // if element is not found then it is good, we continue our checks
+                    if (
+                        elementError.message.includes("Feature is not working")
+                    ) {
+                        throw elementError; // this is our error - we are going further
+                    }
+                }
+            }
+
+            console.log(
+                "✓ All checks passed - nearby assets feature is working correctly",
+            );
+
+            //verify that distance to the most close asset is displayed
+            const distance = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("meter")',
+            );
+            await expect(distance).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -257,6 +299,10 @@ describe("Check Reservation Tests", () => {
     });
 
     afterEach(async () => {
-        await driver.terminateApp("com.umob.umob");
+        try {
+            await driver.terminateApp("com.umob.umob");
+        } catch (error) {
+            console.log("Error terminating app:", error);
+        }
     });
 });

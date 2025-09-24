@@ -39,9 +39,9 @@ export const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.46893572807312,
-                latitude: 51.91743146298927,
-                radius: 116.6137310913994,
+                longitude: 4.4743720514863075,
+                latitude: 51.91731373726902,
+                radius: 101.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
@@ -75,7 +75,10 @@ export const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
  * @returns Scooter object if found
  * @throws Error if no scooter matches the pattern
  */
-export const findScooterById = (scooters: Scooter[], idPattern: string): Scooter => {
+export const findScooterById = (
+    scooters: Scooter[],
+    idPattern: string,
+): Scooter => {
     const targetScooter = scooters.find((scooter) =>
         scooter.id.includes(idPattern),
     );

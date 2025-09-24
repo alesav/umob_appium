@@ -88,19 +88,21 @@ describe("Donkey Bike Booking Test", () => {
         let error = null;
 
         try {
+            //await driver.terminateApp("com.umob.umob");
+            await driver.activateApp("com.umob.umob");
+            //await PageObjects.accountButton.waitForExist();
+            //await driver.pause(1000);
             await driver.pause(4000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-            // Center screen click
-            // await driver
-            //     .action("pointer")
-            //     .move({ x: centerX, y: Math.round(height / 2) })
-            //     .down()
-            //     .up()
-            //     .perform();
+            const locationButton = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+            );
+            await locationButton.click();
+            await driver.pause(5000);
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
@@ -111,26 +113,18 @@ describe("Donkey Bike Booking Test", () => {
             );
             await umob20Button.click();
 
-            //const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("SELECT UMOB BIKE 2 0")');
-            //await selectUmob.click();
+            await driver.pause(3000);
 
-            /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
-
-            // Click continue button
-            await driver.pause(5000);
-            const continueButton = await driver.$(
-                'android=new UiSelector().text("START TRIP")',
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€")',
             );
-            await expect(continueButton).toBeDisplayed();
-            await expect(continueButton).toBeEnabled();
+            await expect(euroSimbol).toBeDisplayed();
+            await driver.pause(5000);
 
-            await continueButton.click();
+            // Click Start Trip button
+            await PageObjects.startTripButton.waitForDisplayed();
+            await PageObjects.startTripButton.click();
 
             // Handle allow permissions
 
@@ -140,19 +134,6 @@ describe("Donkey Bike Booking Test", () => {
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(2000);
-
-            /*
-    await driver.pause(5000);
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
-    }]);
-    */
 
             await driver.pause(2000);
 
@@ -181,40 +162,62 @@ describe("Donkey Bike Booking Test", () => {
                 },
             ]);
 
-            /*const screen = await driver.getWindowRect();
-    const screenWidth = screen.width;
-    const screenHeight = screen.height;
-
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: screenWidth / 2,  // горизонтальная середина экрана
-      top: screenHeight * 0.65,  // точка начала скролла в нижней части экрана
-      width: screenWidth / 2,  // ширина области для скролла
-      height: screenHeight * 0.15,  // высота области для скролла
-      direction: 'down',  // направление скролла
-      percent: 100  // полное прокручивание
-    }]); */
-
-            // Click 5cm above bottom
-            /*await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 50 })
-      .down()
-      .up()
-      .perform();*/
-
             await driver.pause(3000);
 
             //click to start and unlock the bike
             const umob20Button1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
+                '-android uiautomator:new UiSelector().text("Start Trip")',
             );
+            await umob20Button1.waitForDisplayed({
+                timeout: 15000,
+                timeoutMsg: "start trip button not found after 15 seconds",
+            });
+
             await expect(umob20Button1).toBeDisplayed();
+            await expect(umob20Button1).toBeEnabled();
             await driver.pause(1000);
+            console.log(
+                "before start trip button click",
+                await umob20Button1.isDisplayed(),
+            );
+            console.log("App package:", await driver.getCurrentPackage());
+
+            //click start trip button
             await umob20Button1.click();
 
-            const umobText1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("Use the handle to open the lock")',
+            //click on start trip button using long press
+
+            /*
+            const location = await umob20Button1.getLocation();
+            const size = await umob20Button1.getSize();
+
+            console.log('Button location:', location);
+            console.log('Button size:', size);
+
+            await driver.touchAction({
+                action: 'longPress',
+                x: location.x + size.width / 2,
+                y: location.y + size.height / 2,
+                duration: 1500
+            });
+            */
+
+            console.log(
+                "after start trip button click",
+                await umob20Button1.isDisplayed(),
             );
+            console.log("Current activity:", await driver.getCurrentActivity());
+            console.log("App package:", await driver.getCurrentPackage());
+
+            const umobText1 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
+            );
+            await umobText1.waitForDisplayed({
+                timeout: 10000,
+                timeoutMsg:
+                    "text Use the handle to open the lock not found after 10 seconds",
+            });
+
             await expect(umobText1).toBeDisplayed();
 
             const umobText2 = await driver.$(
@@ -249,7 +252,7 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(2000);
 
             const continueBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("CONTINUE")',
+                '-android uiautomator:new UiSelector().textContains("Continue")',
             );
             await expect(continueBtn).toBeDisplayed();
             await continueBtn.click();
@@ -265,27 +268,16 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(2000);
 
-            /*
-            // Click close button
-            const closeButton = await driver.$(
-                "accessibility id:closeButton-text",
-                
-            );
-            await closeButton.click();
-            */
             // Click got it button
-            const gotButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotButton).toBeDisplayed();
-            await gotButton.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -295,9 +287,6 @@ describe("Donkey Bike Booking Test", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

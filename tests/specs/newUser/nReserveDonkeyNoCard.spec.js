@@ -82,13 +82,6 @@ class DonkeyBikeActions {
     static async clickCenterOfScreen() {
         const { centerX, centerY } = await TestHelpers.getScreenCenter();
 
-        // await driver
-        //   .action("pointer")
-        //   .move({ x: centerX, y: centerY })
-        //   .down()
-        //   .up()
-        //   .perform();
-
         //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
 
@@ -99,7 +92,7 @@ class DonkeyBikeActions {
         await driver.pause(2000);
         try {
             const finishLater = await driver.$(
-                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+                '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             if (await finishLater.isDisplayed()) {
                 await driver.pause(2000);
@@ -134,7 +127,7 @@ class DonkeyBikeActions {
     static async clickContinueButton() {
         await driver.pause(5000);
         const continueButton = await driver.$(
-            'android=new UiSelector().text("START TRIP")',
+            'android=new UiSelector().text("Start Trip")',
         );
         await expect(continueButton).toBeDisplayed();
         await expect(continueButton).toBeEnabled();
@@ -255,7 +248,10 @@ describe("Donkey Bike Booking - New User Without Card", () => {
             "a66df007-2bfa-4531-af52-87e3eec81280",
             async () => {
                 // Set specific location for the bike
-                await TestHelpers.setLocationAndRestartApp(4.474431, 51.91564);
+                await TestHelpers.setLocationAndRestartApp(
+                    4.47442934,
+                    51.91558006,
+                );
 
                 await DonkeyBikeActions.clickFinishLater();
 

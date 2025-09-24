@@ -99,14 +99,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify bottom navigation menu items and click Promos button
             await PageObjects.planTripBtn.waitForExist();
-            //const planTrip = await driver.$('-android uiautomator:new UiSelector().text("Plan Trip")');
-            //await expect(planTrip).toBeDisplayed();
+
             await PageObjects.promosBtn.waitForExist();
             await PageObjects.promosBtn.click();
             await driver.pause(1000);
-            // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-            // await expect(promos).toBeDisplayed();
-            // await promos.click();
 
             //verify welcome vouchers
 
@@ -128,9 +124,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -161,75 +154,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
             // Click on Account button
             await PageObjects.clickAccountButton();
 
             await driver.pause(2000);
-
-            // Verify screen header
-            //const screenHeader = await driver.$("-android uiautomator:new UiSelector().resourceId(\"MyAccountContainer-header-title\")");
-            //await expect(screenHeader).toBeDisplayed();
-            //await expect(await screenHeader.getText()).toBe("My Account");
-
-            // Verify user welcome message
-            //const welcomeText = await driver.$("-android uiautomator:new UiSelector().text(\"Welcome back,\")");
-            //await expect(welcomeText).toBeDisplayed();
-
-            // Verify not completed registration (payment method not added)
-            //const notRegist = await driver.$("-android uiautomator:new UiSelector().text(\"Continue registration\")");
-            //await expect(notRegist).toBeDisplayed();
-            //await driver.pause(2000);
-
-            /*
-    //verify that add payment screen is displayed after clicking PAYMENT
-    const payment = await driver.$("-android uiautomator:new UiSelector().text(\"PAYMENT\")");
-    await expect(payment).toBeDisplayed();
-    await (payment).click();
-
-    const paymentButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD PAYMENT METHOD\")");
-    await expect(paymentButton).toBeDisplayed();
-    await (paymentButton).click(); 
-    
-    */
-
-            //const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
-            //await expect(paymentHeader).toBeDisplayed();
-
-            /*
-    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-    await expect(paymentHeader).toBeDisplayed();
-
-    const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-    await expect(cards).toBeDisplayed();
-
-    const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-    await expect(bancontactCard).toBeDisplayed();
-
-    const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-    await expect(googlePay).toBeDisplayed();
-
-    const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-    await expect(payPal).toBeDisplayed();
-
-    //close popup
-    const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
-    await closePopup.click();
-
-    //click back button
-    const backButton1 = await driver.$("accessibility id:back_button");
-    await backButton1.click();
-
-    */
-
-            //or click it this way
-            //const backButton2 = await driver.$("-android uiautomator:new UiSelector().resourceId(\"back_button\")");
-            //await expect(backButton2).toBeDisplayed();
-            //await backButton2.click();
 
             // Verify account menu items
             const accountMenuItems = [
@@ -247,28 +175,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 await expect(menuElement).toBeDisplayed();
             }
 
-            /*
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100, 
-      top: 1000, 
-      width: 200, 
-      height: 800, 
-      direction: 'down',
-      percent: 10.0
-    }]);
-    */
-
-            /*
-      //scroll to verify other account options
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100, 
-      top: 1000, 
-      width: 200, 
-      height: 800, 
-      direction: 'down',
-      percent: 100.0
-    }]);
-*/
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -348,7 +254,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Log Out button
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(screenHeader).toBeDisplayed();
 
@@ -366,9 +272,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -399,15 +302,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            // await accountButton.click();
-            // await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -426,7 +320,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(backButton).toBeDisplayed();
 
             // Verify screen title
-            //const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
+
             const screenTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite your friends")',
             );
@@ -438,7 +332,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(descriptionHeader).toBeDisplayed();
 
             // Verify screen description
-            //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
+
             const screenDescription = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invite a friend to join umob, and")',
             );
@@ -449,24 +343,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().text("Your code")',
             );
             await expect(yourCodeLabel).toBeDisplayed();
-
-            /* Verify the actual referral code
-    const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-    await expect(referralCode).toBeDisplayed(); */
-
-            /*
-    await driver.pause(3000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(2000);
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -494,33 +370,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-            // Verify usage count
-            //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-            //await expect(usageCount).toBeDisplayed();
-
             // Verify Share Code button
-            //const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
+
             const shareCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
             await expect(shareCodeButton).toBeDisplayed();
 
             const viewStats = await driver.$(
-                '-android uiautomator:new UiSelector().text("VIEW YOUR STATS")',
+                '-android uiautomator:new UiSelector().text("View Your Stats")',
             );
             await expect(viewStats).toBeDisplayed();
-
-            /*
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: width/2,
-      top: 0,
-      width: 0,
-      height: height*0.8,
-      direction: 'up',
-      percent: 2
-     }]);
-     await driver.pause(2000);
-*/
 
             // click back button to main acount menu
             await backButton.click();
@@ -534,9 +394,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -567,15 +424,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            // await accountButton.click();
-            // await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -605,9 +453,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(emailQuestion).toBeDisplayed();
 
-            /*const emailValue = await driver.$("-android uiautomator:new UiSelector().text(\"new@gmail.com\")");
-    await expect(emailValue).toBeDisplayed(); */
-
             // Verify Edit button for email
             const emailEditButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Edit")',
@@ -620,26 +465,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-            /*const phoneValue = await driver.$("-android uiautomator:new UiSelector().text(\"+3197010586556\")");
-    await expect(phoneValue).toBeDisplayed(); */
-
             // Verify Name Section
             const nameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your name?")',
             );
             await expect(nameQuestion).toBeDisplayed();
 
-            /*const nameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(nameValue).toBeDisplayed(); */
-
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your last name?")',
             );
             await expect(lastNameQuestion).toBeDisplayed();
-
-            /*const lastNameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(lastNameValue).toBeDisplayed(); */
 
             // Verify Address Section
             const addressQuestion = await driver.$(
@@ -693,20 +529,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(countryLabel).toBeDisplayed();
 
-            /*
-  
-      //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100.0
-  }]); 
-  await driver.pause(5000);
-  */
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -747,7 +569,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
@@ -769,9 +591,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -802,14 +621,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Navigate to Account screen first
-            // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            // await accountButton.click();
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
@@ -846,61 +657,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify Add adress button
             const addButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD")',
+                '-android uiautomator:new UiSelector().text("Add")',
             );
             await expect(verifiedStatus).toBeDisplayed();
-
-            /*
-
-    // Verify Document Type section
-    const documentTypeTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Document type\")");
-    await expect(documentTypeTitle).toBeDisplayed();
-
-    const driverLicenseText = await driver.$("-android uiautomator:new UiSelector().text(\"Driver license\")");
-    await expect(driverLicenseText).toBeDisplayed();
-
-    // Verify Status section
-    const statusTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Status\")");
-    await expect(statusTitle).toBeDisplayed();
-
-    const statusVerifiedText = await driver.$("-android uiautomator:new UiSelector().description(\"IdDocumentStatusIdDocumentItemContent\")");
-    await expect(statusVerifiedText).toBeDisplayed();
-
-    // Verify Expiration Date section
-    const expirationTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Expiration date\")");
-    await expect(expirationTitle).toBeDisplayed();
-
-    const expirationDate = await driver.$("-android uiautomator:new UiSelector().text(\"28 May 2031\")");
-    await expect(expirationDate).toBeDisplayed();
-
-    // Verify Categories section
-    const categoriesTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Categories\")");
-    await expect(categoriesTitle).toBeDisplayed();
-
-    // Verify all license categories
-    const categoryB = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentB\")");
-    await expect(categoryB).toBeDisplayed();
-
-    const categoryA = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentA\")");
-    await expect(categoryA).toBeDisplayed();
-
-    const categoryB1 = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentB1\")");
-    await expect(categoryB1).toBeDisplayed();
-
-    const categoryAM = await driver.$("-android uiautomator:new UiSelector().description(\"undefinedIdDocumentItemContentAM\")");
-    await expect(categoryAM).toBeDisplayed();
-
-    // Verify Home Address section
-    // const homeAddressStreet = await driver.$("-android uiautomator:new UiSelector().textContains(\"Bloemstraat 80\")");
-    // await expect(homeAddressStreet).toBeDisplayed();
-
-    // const homeAddressZip = await driver.$("-android uiautomator:new UiSelector().textContains(\"3014\")");
-    // await expect(homeAddressZip).toBeDisplayed();
-
-    // const homeAddressCity = await driver.$("-android uiautomator:new UiSelector().textContains(\"Rotterdam\")");
-    // await expect(homeAddressCity).toBeDisplayed();
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -930,28 +689,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD ID DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Add Id Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
-
-            // Verify bottom buttons
-            //const changeDocumentButton = await driver.$("-android uiautomator:new UiSelector().text(\"CHANGE DOCUMENT\")");
-            //await expect(changeDocumentButton).toBeDisplayed();
-
-            /*
-
-     //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
-  await driver.pause(3000);
-
-  */
 
             const helpButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Help")',
@@ -993,7 +733,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(text2).toBeDisplayed();
 
             const startVerification = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("START ID VERIFICATION")',
+                '-android uiautomator:new UiSelector().textContains("Start Id Verification")',
             );
             await expect(startVerification).toBeDisplayed();
 
@@ -1006,11 +746,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(permission).toBeDisplayed();
             await permission.click();
             await driver.pause(2000);
-
-            //allow permission for mobile
-            // const permission2 = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-            // await expect(permission2).toBeDisplayed();
-            // await permission2.click();
 
             const allowBut = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("While using")',
@@ -1091,9 +826,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1124,14 +856,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            //  const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            //  await accountButton.click();
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
@@ -1162,13 +886,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastRideSection).toBeDisplayed();
 
-            // Check previous payments list
-            //const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
-            //console.log("previousPaymentsList" + previousPaymentsList.length)
-
-            // Verify at least one previous payment exists
-            //await expect(previousPaymentsList.length).toBeGreaterThan(1);
-
             // back to common list of account menu
             await backButton.click();
             await driver.pause(2000);
@@ -1181,9 +898,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1214,15 +928,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            // await accountButton.click();
-            // await driver.pause(2000);
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
@@ -1319,7 +1024,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify "SUBMIT PROMOTIONAL CODE" button
             const submitPromotionalCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SUBMIT PROMOTIONAL CODE")',
+                '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
@@ -1347,9 +1052,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1380,15 +1082,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            // const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            // await accountButton.click();
-            // await driver.pause(2000);
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
@@ -1445,17 +1138,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastPaymentSection).toBeDisplayed();
 
-            // // Verify "Previous payments" section header
-            // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-            // await expect(previousPaymentsHeader).toBeDisplayed();
-
-            // // Check previous payments list
-            // const previousPaymentsList = await driver.$$("-android uiautomator:new UiSelector().textContains(\"€\")");
-            // console.log("previousPaymentsList" + previousPaymentsList.length)
-
-            // // Verify at least one previous payment exists
-            // await expect(previousPaymentsList.length).toBeGreaterThan(1);
-
             // back to common list of account menu
             await backButton.click();
             await driver.pause(2000);
@@ -1468,9 +1150,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1501,32 +1180,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            //const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            //await settingsButton.click();
-            //await driver.pause(2000);
-
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-    // Scroll down to make Language button visible
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1603,27 +1259,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             //click the back button to the account screen
             await backButton.click();
             await driver.pause(2000);
-
-            /*
-
-
-    // Verify "App settings" header is present
-    const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"App settings\")");
-    await expect(appSettingsHeader).toBeDisplayed();
-
-    // Verify Support section header
-    const supportHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
-    await expect(supportHeader).toBeDisplayed();
-
-    // Verify Privacy & Legal section
-    const privacyLegalButton = await driver.$("-android uiautomator:new UiSelector().text(\"Privacy & Legal\")");
-    await expect(privacyLegalButton).toBeDisplayed();
-
-    // Verify LogOut button
-    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
-    await expect(logoutButton).toBeDisplayed();
-
-    */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -1633,9 +1268,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1666,29 +1298,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
             //go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-     // Scroll down to map theme settings
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1716,11 +1329,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-            // Click on Settings button to navigate to settings
-            //const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            //await settingsButton.click();
-            //await driver.pause(2000);
-
             // Click on Map theme settings option
             const mapThemeOption = await driver.$(
                 '-android uiautomator:new UiSelector().text("Map theme settings")',
@@ -1746,11 +1354,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -1783,9 +1387,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1816,36 +1417,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            //await driver.activateApp("com.umob.umob");
-            //await driver.pause(7000);
-            // const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(2)");
-            // await expect(qButton).toBeDisplayed();
-            // await driver.pause(2000);
-            // await qButton.click();
-
             //go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
-
-            /*
-     // Scroll down to support option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1902,11 +1477,13 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().text("About")',
             );
             await expect(about).toBeDisplayed();
+            /*
 
             const where = await driver.$(
                 '-android uiautomator:new UiSelector().text("Where")',
             );
             await expect(where).toBeDisplayed();
+            */
 
             // Click on "FAQ" to be sure you are in the right place
             await driver.pause(2000);
@@ -1931,20 +1508,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 );
                 await expect(element).toBeDisplayed();
             }
-
-            /*
-      //Scroll to bottom
-  await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
-  await driver.pause(6000);
-
-  */
 
             await driver.performActions([
                 {
@@ -1993,13 +1556,13 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(2000);
 
             const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("OPEN CHAT")`,
+                `-android uiautomator:new UiSelector().text("Open Chat")`,
             );
             await expect(openChat).toBeDisplayed();
             await openChat.click();
 
             //send test message to chat
-            //const textField = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").instance(58)");
+
             const welcomeMessage = await driver.$(
                 `-android uiautomator:new UiSelector().text("Start typing here")`,
             );
@@ -2027,10 +1590,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Press the device back button (this method works on mobile)
             await driver.back();
-            //option 2 for clicking back
-            // const backButton = await driver.$('~back_button');
-            // await expect(backButton).toBeDisplayed();
-            // await backButton.click();
 
             //go to about tab
             await driver.pause(5000);
@@ -2054,19 +1613,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 );
                 await expect(element3).toBeDisplayed();
             }
-
-            /*
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-    }]); 
-    await driver.pause(6000);
-    */
 
             await driver.performActions([
                 {
@@ -2104,9 +1650,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(text2).toBeDisplayed();
 
-            //const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
-            //await expect(text3).toBeDisplayed();
-
+            /*
             //go to where tab
             await where.click();
             await driver.pause(2000);
@@ -2117,10 +1661,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(availability).toBeDisplayed();
 
-            //languages check
-            // const tick = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(10)");
-            // await tick.click();
-            // await driver.pause(2000);
 
             const netherlands = await driver.$(
                 '-android uiautomator:new UiSelector().text("Netherlands")',
@@ -2172,18 +1712,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(stepProviders).toBeDisplayed();
 
-            /*
-    //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-   }]); 
-    await driver.pause(6000);
-    */
 
             await driver.performActions([
                 {
@@ -2269,6 +1797,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             //quit support screen
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
+            */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -2278,9 +1807,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -2432,34 +1958,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Account button
-            //const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-            //await accountButton.click();
-            //await driver.pause(2000);
-
             //go to account
             await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-     // Scroll down to delete account option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2546,7 +2048,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             const cancelButtonText = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("DeleteAccountDetailsCancel-text")',
             );
-            await expect(await cancelButtonText.getText()).toBe("CANCEL");
+            await expect(await cancelButtonText.getText()).toBe("Cancel");
             // Verify CANCEL button is enabled
             await expect(await cancelButton.isEnabled()).toBe(true);
 
@@ -2601,33 +2103,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
         let error = null;
 
         try {
-            //click on finish later button to avoid payment method registration
-            // const finishLater = await driver.$("-android uiautomator:new UiSelector().text(\"FINISH LATER\")");
-            // await expect(finishLater).toBeDisplayed();
-            // await finishLater.click();
-
-            // Click on Settings button to navigate to settings
-            // const settingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Settings\")");
-            // await settingsButton.click();
-            // await driver.pause(2000);
-
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
-
-            /*
-     // Scroll down to Log Out option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1000,
-      width: 200,
-      height: 800,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2684,20 +2162,20 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
 
             // verify Login button appeared
             const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
             // verify Register button appeared
             const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
         } catch (e) {
@@ -2709,9 +2187,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

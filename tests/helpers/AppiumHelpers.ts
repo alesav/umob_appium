@@ -58,7 +58,7 @@ export default class AppiumHelpers {
         execSync(
             `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`,
         );
-        await driver.pause(1000);
+        await driver.pause(2000);
         try {
             execSync(`adb emu geo fix ${longitude} ${latitude}`);
         } catch (error) {
@@ -77,7 +77,7 @@ export default class AppiumHelpers {
         await driver.pause(1000);
         await locationButton.click();
 
-        await driver.pause(3000);
+        await driver.pause(5000);
     }
 
     /**
@@ -158,7 +158,7 @@ export default class AppiumHelpers {
     }
 
     static async clickCenterOfScreen() {
-        await driver.pause(2000);
+        await driver.pause(4000);
         const middleScreen = await driver.$(
             '-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")',
         );

@@ -98,7 +98,7 @@ describe("Remove payment card for the new user", () => {
 
             //verify remove button is dispayed
             const removeButton = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().textContains("Remove Payment Method")',
             );
             await expect(removeButton).toBeDisplayed();
             await driver.pause(1000);
@@ -117,9 +117,6 @@ describe("Remove payment card for the new user", () => {
             screenshotPath = testId + ".png";
             console.log("Screenshot saved to", screenshotPath);
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

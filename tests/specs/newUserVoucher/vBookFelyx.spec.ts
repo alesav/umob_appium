@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -165,38 +169,18 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
         try {
             await driver.pause(2000);
 
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
-
             const { centerX, centerY } = await getScreenCenter();
-
-            // Click exactly in the center
-            // await driver
-            //     .action("pointer")
-            //     .move({ x: centerX, y: centerY })
-            //     .down()
-            //     .up()
-            //     .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
-
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).click();
             await driver.pause(3000);
+
+            //verify that Euro simbol is displayed
+            const euroSimbol = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€")',
+            );
+            await expect(euroSimbol).toBeDisplayed();
 
             //verify that limitless multi user's vaucher is visible
             const vaucher = await driver.$(
@@ -211,42 +195,11 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(selectPayment).toBeDisplayed();
 
             //verify start trip button is enabled AND CLICK
-            const startTrip = await driver.$(
-                '-android uiautomator:new UiSelector().text("START TRIP")',
-            );
-            await startTrip.waitForDisplayed();
-            await startTrip.waitForEnabled();
+            await PageObjects.startTripButton.waitForEnabled();
             await driver.pause(8000);
-            await startTrip.click();
+            await PageObjects.startTripButton.click();
 
             await driver.pause(8000);
-
-            //verify that ride unlocked (UI changed)
-            // const unlockHeader = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("Ride unlocked")',
-            // );
-            // await expect(unlockHeader).toBeDisplayed();
-
-            //verify ride status
-            // const rideStatus = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("Ride successfully unlocked.")',
-            // );
-            // await expect(rideStatus).toBeDisplayed();
-
-            //verify operator Felyx
-            // const operator = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("Felyx")',
-            // );
-            // await expect(operator).toBeDisplayed();
-
-            //click start riding button
-            // await driver.pause(13000);
-            // const startButton = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("START RIDING!")',
-            // );
-            // await expect(startButton).toBeDisplayed();
-            // await startButton.click();
-            //await driver.pause(5000);
 
             //verify grab helmet header
             const grabHelmet = await driver.$(
@@ -268,33 +221,28 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify open helmet case button
             const openCase = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(openCase).toBeDisplayed();
 
             //verify continue button
             await driver.pause(2000);
             const continueB = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB).toBeDisplayed();
             await continueB.click();
 
             //verify pause button
             const pauseButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PAUSE")',
+                '-android uiautomator:new UiSelector().text("Pause")',
             );
             await expect(pauseButton).toBeDisplayed();
             await driver.pause(10000);
 
             // Click End Trip
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .waitForEnabled();
-
-            await driver
-                .$('-android uiautomator:new UiSelector().text("END TRIP")')
-                .click();
+            await PageObjects.endTripButton.waitForDisplayed();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(3000);
 
@@ -312,14 +260,14 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify open case button for the helmet
             const helmetButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("OPEN HELMET CASE")',
+                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(helmetButton).toBeDisplayed();
             await driver.pause(3000);
 
             //verify and click continue button
             const continueB2 = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
@@ -347,12 +295,23 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(photoInstruction).toBeDisplayed();
 
-            //take a picture
-            const photoButton = await driver.$("~endTrip");
+            //take a picture (first option)
+            // const photoButton = await driver.$("~endTrip");
+            // await expect(photoButton).toBeDisplayed();
+            // await driver.pause(2000);
+            // await photoButton.click();
+            // Tap a button for taking photo
+
+            //take a picture (second option)
+            const photoButton = await driver.$(
+                '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
+            );
             await expect(photoButton).toBeDisplayed();
+            await driver.pause(2000);
             await photoButton.click();
 
-            await driver.pause(5000);
+            await driver.pause(4000);
+
             //verify confirmation for using a picture
             const pictureHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use this picture?")',
@@ -367,13 +326,13 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             //verify retake picture button
             const retakeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("RETAKE")',
+                '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
             //verify use picture button
             const useButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("USE PICTURE")',
+                '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(2000);
@@ -381,116 +340,17 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             await driver.pause(2000);
 
-            /*
-            //verify end screen for the ride
-            const thanks = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Thanks")',
-            );
-            await expect(thanks).toBeDisplayed();
-
-            const felyxName = await driver.$(
-                '-android uiautomator:new UiSelector().text("Felyx")',
-            );
-            await expect(felyxName).toBeDisplayed();
-
-            const euro = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("€")',
-            );
-            await expect(euro).toBeDisplayed();
-
-            const closeB = await driver.$(
-                '-android uiautomator:new UiSelector().text("CLOSE")',
-            );
-            await expect(closeB).toBeDisplayed();
-
-            const details = await driver.$(
-                '-android uiautomator:new UiSelector().text("DETAILS")',
-            );
-            await expect(details).toBeDisplayed();
-            await details.click();
-            await driver.pause(5000);
-
-            //verify details ride screen
-            //verify header Ride
-            const header = await driver.$(
-                '-android uiautomator:new UiSelector().text("Ride")',
-            );
-            await expect(header).toBeDisplayed();
-
-            //verify that there is 0euro price
-            const zeroEuro = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("€0.")',
-            );
-            await expect(zeroEuro).toBeDisplayed();
-
-            //verify used voucher is dispayed
-            const usedVoucher = await driver.$(
-                '-android uiautomator:new UiSelector().text("Used voucher")',
-            );
-            await expect(usedVoucher).toBeDisplayed();
-
-            //verify used voucher is dispayed
-            const multiVoucher1 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("multi")',
-            );
-            await expect(multiVoucher1).toBeDisplayed();
-
-            /*
-//Scroll to bottom
-await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
-  top: 1500,
-  width: 200,
-  height: 100,
-  direction: 'down',
-  percent: 100
-}]);
-*/
-
-            /*
-            const { width, height } = await driver.getWindowSize();
-            await driver.pause(2000);
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger1",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height * 0.7,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: height * 0.2,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
-            await driver.pause(2000);
-            */
-
             //click got it button
-            const gotIt = await driver.$(
-                '-android uiautomator:new UiSelector().text("GOT IT!")',
-            );
-            await expect(gotIt).toBeDisplayed();
-            await gotIt.click();
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
 
             // Click not now button
-            const notNowButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("NOT NOW")',
-            );
-            await expect(notNowButton).toBeDisplayed();
-            await notNowButton.click();
-            await driver.pause(2000);
+            // const notNowButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
+            // );
+            // await expect(notNowButton).toBeDisplayed();
+            // await notNowButton.click();
+            // await driver.pause(2000);
 
             //verify that main map screen is displayed
             await PageObjects.clickAccountButton();
@@ -501,10 +361,6 @@ await driver.executeScript('mobile: scrollGesture', [{
             );
             await expect(myRides).toBeDisplayed();
 
-            //verify that payment is visible in my account and it is 0 Euro
-            // const lastRide = await driver.$('-android uiautomator:new UiSelector().textContains("€0")');
-            // await expect(lastRide).toBeDisplayed();
-
             //click on my rides and tickets
             await driver.pause(2000);
             await myRides.click();
@@ -514,28 +370,6 @@ await driver.executeScript('mobile: scrollGesture', [{
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
-
-            /*
-                    // Click End Trip
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).waitForEnabled();
-
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).click();
-
-                    await driver.pause(4000);
-
-          // Wait for Home screen to be loaded
-          await PageObjects.clickAccountButton();
-
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("My Account")'
-          ).isDisplayed();
-          await driver.pause(2000);
-
-*/
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -545,9 +379,6 @@ await driver.executeScript('mobile: scrollGesture', [{
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
