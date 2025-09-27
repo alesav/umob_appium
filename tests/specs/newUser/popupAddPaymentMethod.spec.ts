@@ -72,51 +72,6 @@ describe("Add Payment Method through popup for the New User", () => {
             username: credentials.username,
             password: credentials.password,
         });
-
-        /*
-
-      // Find and click LOG IN button
-      const logInBtn = await driver.$('-android uiautomator:new UiSelector().text("LOG IN")');
-      await logInBtn.isClickable();
-      await driver.pause(2000);
-      await logInBtn.click();
-
-      // Login form elements
-      const usernameField = await driver.$("accessibility id:login_username_field");
-      await expect(usernameField).toBeDisplayed();
-      await usernameField.addValue("new20@gmail.com");
-
-      const passwordField = await driver.$("accessibility id:login_password_field");
-      await expect(passwordField).toBeDisplayed();
-      await passwordField.addValue("123Qwerty!");
-
-      const loginButtonText = await driver.$("accessibility id:login_button-text");
-      await expect(loginButtonText).toBeDisplayed();
-      await loginButtonText.click();
-
-      const loginButton = await driver.$("accessibility id:login_button");
-      await expect(loginButton).toBeDisplayed();
-      await loginButton.click();
-
-      // Handle permissions
-      const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-      await expect(allowPermissionBtn).toBeDisplayed();
-      await allowPermissionBtn.click();
-
-      // Wait for welcome message
-      //const welcomeMessage = await driver.$('-android uiautomator:new UiSelector().text("Welcome back!")');
-      //await welcomeMessage.waitForEnabled({ timeout: 10000 });
-
-      // Handle location permissions
-      const allowForegroundPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-      await expect(allowForegroundPermissionBtn).toBeDisplayed();
-      await allowForegroundPermissionBtn.click();
-
-
-        
-        // Check Account is presented
-
-        */
     });
 
     beforeEach(async () => {
@@ -145,14 +100,14 @@ describe("Add Payment Method through popup for the New User", () => {
             );
             await expect(notification).toBeDisplayed();
             const finishLater = await driver.$(
-                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+                '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             await expect(finishLater).toBeDisplayed();
             await driver.pause(5000);
 
             //click on Continue button
             const contButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(contButton).toBeDisplayed();
             await driver.pause(5000);
@@ -168,30 +123,16 @@ describe("Add Payment Method through popup for the New User", () => {
             //CLick Add payment method
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .waitForDisplayed();
             await driver.pause(6000);
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
                 )
                 .click();
             await driver.pause(6000);
-            //second click on button because it looks like it is required
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-            // ).click();
-
-            //CLick Remove payment method
-            /*
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")'
-          ).click();          
-          */
 
             //CLick Cards
             await driver
@@ -228,32 +169,10 @@ describe("Add Payment Method through popup for the New User", () => {
 
             //Assert Remove payment method button is displayed
             const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await removeBtn.waitForDisplayed();
             await driver.pause(2000);
-            //await removeBtn.click();
-
-            //  await driver.pause(5000);
-            //  const el6 = await driver.$("accessibility id:back_button");
-            //  await el6.click();
-
-            /*
-
-           //CLick Payment Settings
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).waitForDisplayed();
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Payment settings")'
-          ).click();
-
-           //Verify Add payment method
-           await driver.$(
-            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")'
-          ).waitForDisplayed();
-
-          */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -263,9 +182,6 @@ describe("Add Payment Method through popup for the New User", () => {
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

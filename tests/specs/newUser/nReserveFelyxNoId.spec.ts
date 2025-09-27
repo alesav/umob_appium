@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -78,54 +82,6 @@ const getScreenCenter = async () => {
     };
 };
 
-/*
-  // Filter mopeds and stations 
-  const applyFilters = async () => {
-    // Click ? icon
-    await driver.$(
-      '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")'
-    ).waitForEnabled();
-
-    await driver.$(
-      '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")'
-    ).click();
-
-        // Click Moped to unselect it
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Scooter")'
-        ).waitForEnabled();
-    
-        await driver.$(
-          '-android uiautomator:new UiSelector().text("Scooter")'
-        ).click();
-
-          // Click Bike to unselect it
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Bike")'
-          ).waitForEnabled();
-      
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("Bike")'
-          ).click();
-
-          // Click Openbaar vervoer to unselect it
-  await driver.$(
-    '-android uiautomator:new UiSelector().text("Openbaar vervoer")'
-  ).waitForEnabled();
-
-  await driver.$(
-    '-android uiautomator:new UiSelector().text("Openbaar vervoer")'
-  ).click();
-
-            // Minimize drawer
-            await driver.$(
-              '-android uiautomator:new UiSelector().className("com.horcrux.svg.PathView").instance(10)'
-            ).click();
-
-  };
-
-*/
-
 const fetchScooterCoordinates = async () => {
     try {
         const response = await fetch(API_URL, {
@@ -142,9 +98,9 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.474777685709118,
-                latitude: 51.91625362101655,
-                radius: 200.6137310913994,
+                longitude: 4.474984046128891,
+                latitude: 51.91638293318269,
+                radius: 50.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
                 assetClasses: [23],
@@ -186,10 +142,8 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             password: credentials.password,
         });
 
-        //await PageObjects.login({ username:'new20@gmail.com', password: '123Qwerty!' });
-
-        const longitude = 4.474777685709118;
-        const latitude = 51.91625362101655;
+        const longitude = 4.474984046128891;
+        const latitude = 51.91638293318269;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
@@ -210,9 +164,6 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
         let error = null;
 
         try {
-            // const targetScooter = scooters.find(
-            //   scooter => scooter.id === 'Check:b76ce2d0-7fe5-4914-9d1b-580928859efd'
-            // );
             const targetScooter = scooters.find((scooter) =>
                 scooter.id.includes("Felyx"),
             );
@@ -230,57 +181,26 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             );
             await driver.pause(3000);
 
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
-
             const { centerX, centerY } = await getScreenCenter();
-
-            // Click exactly in the center
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
-
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).click();
             await driver.pause(3000);
 
             //verify that driver's licence is not added
             await driver
                 .$(
-                    '-android uiautomator:new UiSelector().textContains("Add your driver\'s license or Id")',
+                    '-android uiautomator:new UiSelector().textContains("Add a driver license for mopeds, or")',
                 )
                 .waitForDisplayed();
 
             // Click Reserve
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
+            await PageObjects.reserveButton.waitForDisplayed();
 
             await driver.pause(5000);
 
-            const button = await driver.$(
-                '-android uiautomator:new UiSelector().text("RESERVE")',
-            );
-            await button.click();
+            await PageObjects.reserveButton.click();
             await driver.pause(2000);
 
             //verify id add screen header
@@ -307,13 +227,13 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             await expect(homeAddress).toBeDisplayed;
 
             const addressAdd = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD")',
+                '-android uiautomator:new UiSelector().text("Add")',
             );
             await expect(addressAdd).toBeDisplayed;
 
             //verify that there is add button for driver's licence
             const docAdd = await driver.$(
-                '-android uiautomator:new UiSelector().text("ADD ID DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Add Id Document")',
             );
             await expect(docAdd).toBeDisplayed;
         } catch (e) {
@@ -325,9 +245,6 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

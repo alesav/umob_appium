@@ -57,7 +57,7 @@ function getCredentials(
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new35";
+const USER = process.env.TEST_USER || "new56";
 
 describe("Book Public Transport", () => {
     before(async () => {
@@ -96,35 +96,7 @@ describe("Book Public Transport", () => {
             await PageObjects.planTripBtn.click();
 
             await driver.pause(2000);
-            /*
-            const { width, height } = await driver.getWindowSize();
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger1",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height / 2 + 200,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: 10,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
 
-            await driver.pause(1000);
-            */
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -151,27 +123,10 @@ describe("Book Public Transport", () => {
                 },
             ]);
             await driver.pause(2000);
-            /*
-            //scroll to bottom
-await driver.pause(2000);
-const { width, height } = await driver.getWindowSize();
-await driver.executeScript('mobile: scrollGesture', [{
- left: width/2,
- top: 0,
- width: 0,
- height: height*0.8,
- direction: 'down',
- percent: 2
-}]);
-await driver.pause(1000);
-*/
 
             // Click to choose public transport
-            const ptButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("PUBLIC TRANSPORT")',
-            );
-            await expect(ptButton).toBeDisplayed();
-            await ptButton.click();
+            await PageObjects.publicTransportButton.waitForDisplayed();
+            await PageObjects.publicTransportButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -251,7 +206,7 @@ await driver.pause(1000);
 
             // Verify Continue button
             const continueButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueButton).toBeDisplayed();
 
@@ -336,7 +291,7 @@ await driver.pause(1000);
 
             // Verify the continue button becomes enabled after adding destination
             const continuePress = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continuePress).toBeDisplayed();
             await continuePress.click();
@@ -472,7 +427,7 @@ await driver.pause(1000);
 
             // Check "buy e-tickets" button is enabled and click it
             const buyButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("BUY E-TICKETS")',
+                '-android uiautomator:new UiSelector().text("Buy E-Tickets")',
             );
             await buyButton.click();
             await driver.pause(7000);
@@ -581,8 +536,9 @@ await driver.pause(1000);
 
             // Click on enabled confirm button and wait 10seconds
             const confirmButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONFIRM")',
+                '-android uiautomator:new UiSelector().text("Confirm")',
             );
+            await expect(confirmButton).toBeDisplayed();
             await confirmButton.click();
             await driver.pause(15000);
         } catch (e) {
@@ -660,8 +616,9 @@ await driver.pause(1000);
 
             // Button "show e-tickets" is enabled and click the button
             const showButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SHOW E-TICKETS")',
+                '-android uiautomator:new UiSelector().text("Show E-Tickets")',
             );
+            await expect(showButton).toBeDisplayed();
             await showButton.click();
             await driver.pause(10000);
         } catch (e) {
@@ -757,7 +714,6 @@ await driver.pause(1000);
                 '-android uiautomator:new UiSelector().text("Vehicle type")',
             );
             await expect(vehicleType).toBeDisplayed();
-            
 
             // Check booking number is displayed
             const bookingNo = await driver.$(
@@ -825,7 +781,7 @@ await driver.pause(1000);
             // Click GOT IT button using multiple fallback strategies
             try {
                 const gotItButton = await driver.$(
-                    'android=new UiSelector().text("GOT IT").resourceId("ride-details-primary-button-text")',
+                    'android=new UiSelector().text("Got It").resourceId("ride-details-primary-button-text")',
                 );
                 await gotItButton.waitForDisplayed({ timeout: 5000 });
                 await gotItButton.click();

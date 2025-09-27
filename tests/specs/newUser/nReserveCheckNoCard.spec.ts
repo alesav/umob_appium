@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to get fixed credentials for the newUser from credentials file
+// Function to get fixed credentials for the User from credentials file
 function getCredentials() {
     try {
         const credentialsPath = path.resolve(
@@ -26,7 +26,7 @@ function getCredentials() {
             throw new Error("newUser not found in test environment");
         }
 
-        // Return the newUser credentials
+        // Return the User credentials
         return {
             username: credentials.test.newUser.username,
             password: credentials.test.newUser.password,
@@ -198,51 +198,18 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
         let error = null;
 
         try {
-            // Filter not needed results
-            //await applyFilters();
-
-            // Click on scooter marker
-            // await driver
-            //   .$(
-            //     '-android uiautomator:new UiSelector().className("android.view.ViewGroup").instance(15)'
-            //   )
-            //   .click();
-
             const { centerX, centerY } = await getScreenCenter();
-
-            // Click exactly in the center
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: centerY })
-            //   .down()
-            //   .up()
-            //   .perform();
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click Understood
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).waitForEnabled();
-
-            // await driver.$(
-            //   '-android uiautomator:new UiSelector().text("UNDERSTOOD")'
-            // ).click();
             await driver.pause(6000);
-
-            // const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
-            // await laterButton.click();
 
             //verify that new user vaucher is visible
             const vaucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Check")',
             );
             await expect(vaucher).toBeDisplayed();
-
-            //verify that select payment method is displayed
-            // const selectPayment = await driver.$('-android uiautomator:new UiSelector().text("Select payment method")');
-            // await expect (selectPayment).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
@@ -273,18 +240,11 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver.pause(3000);
 
             // Click Reserve
-            await driver
-                .$('-android uiautomator:new UiSelector().text("RESERVE")')
-                .waitForEnabled();
-
-            // await driver.$('-android uiautomator:new UiSelector().text("RESERVE")').click();
+            await PageObjects.reserveButton.waitForDisplayed();
 
             await driver.pause(5000);
 
-            const button = await driver.$(
-                '-android uiautomator:new UiSelector().text("RESERVE")',
-            );
-            await button.click();
+            await PageObjects.reserveButton.click();
             await driver.pause(3000);
 
             //verify header and offer for choosing payment method
@@ -331,8 +291,8 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver.pause(3000);
 
             //there is no google pay in github actions emulated mobile device
-            // const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            // await expect(googlePay).toBeDisplayed();
+            //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+            //await expect(googlePay).toBeDisplayed();
 
             const payPal = await driver.$(
                 '-android uiautomator:new UiSelector().text("PayPal")',
@@ -342,81 +302,6 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             const closeBtn = await driver.$("accessibility id:Close");
             await expect(closeBtn).toBeDisplayed();
             await closeBtn.click();
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            //looks like the rest of the code is not required because there is no google pay on emulated mobile in github actions
-
-            /*
-    const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
-await closePopup.click();
-
-
-
-//verify start trip button is enabled AND CLICK
-await driver.$(
-  '-android uiautomator:new UiSelector().text("START TRIP")'
-).waitForEnabled();
-
-await driver.$(
-  '-android uiautomator:new UiSelector().text("START TRIP")'
-).click();
-
-//verify header and offer for choosing payment method
-//const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
-await expect(paymentHeader).toBeDisplayed();
-
-//const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-await expect(cards).toBeDisplayed();
-
-//const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-await expect(bancontactCard).toBeDisplayed();
-
-await driver.pause(2000);
-await driver.performActions([
-  {
-      type: 'pointer',
-      id: 'finger3',
-      parameters: { pointerType: 'touch' },
-      actions: [
-          { type: 'pointerMove', duration: 0, x: width/2, y: height*0.7 },
-          { type: 'pointerDown', button: 0 },
-          { type: 'pause', duration: 100 },
-          { type: 'pointerMove', duration: 1000, x: width/2, y: height*0.2 },
-          { type: 'pointerUp', button: 0 },
-      ],
-  },]);
-  await driver.pause(2000);
-
-  */
-
-            //there is no google pay in github actions emulated mobile device
-            //const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-            //await expect(googlePay).toBeDisplayed();
-
-            //const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-            //await expect(payPal).toBeDisplayed();
-
-            /*
-                    // Click End Trip
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).waitForEnabled();
-                
-                    await driver.$(
-                      '-android uiautomator:new UiSelector().text("CANCEL")'
-                    ).click();
-
-                    await driver.pause(4000);
-
-          // Wait for Home screen to be loaded
-          await PageObjects.clickAccountButton();
-
-          await driver.$(
-            '-android uiautomator:new UiSelector().text("My Account")'
-          ).isDisplayed();
-          await driver.pause(2000);
-
-*/
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -426,9 +311,6 @@ await driver.performActions([
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

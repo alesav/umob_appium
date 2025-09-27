@@ -2,7 +2,11 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -128,63 +132,21 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
         try {
             await driver.pause(7000);
 
-            //  const laterButton = await driver.$('-android uiautomator:new UiSelector().text("FINISH LATER")');
-            //  await laterButton.click();
-
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
                 targetScooter.coordinates.latitude,
             );
 
-            //execSync("adb -P 5555 -s emulator-5554 emu geo fix 56.37827115375647 21.789664775133134")
             await driver.pause(5000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
             const centerX = Math.round(width / 2);
 
-            // Center screen click
-            // await driver
-            //   .action("pointer")
-            //   .move({ x: centerX, y: Math.round(height / 2) })
-            //   .down()
-            //   .up()
-            //   .perform();
-            //   await driver.pause(3000);
-
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
-            // Click UMOB Bike 20 button
-            // const umob20Button = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 0")');
-            // await umob20Button.click();
             await driver.pause(7000);
-
-            // const selectUmob = await driver.$('-android uiautomator:new UiSelector().text("UMOB Bike 2 1")');
-            // await selectUmob.click();
-
-            /* Click 2cm above bottom edge
-    await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 20 })
-      .down()
-      .up()
-      .perform(); */
-            /*
-      await driver.performActions([
-        {
-            type: 'pointer',
-            id: 'finger1',
-            parameters: { pointerType: 'touch' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: 16, y: 450 },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pause', duration: 100 },
-                { type: 'pointerMove', duration: 1000, x: 160, y: 10 },
-                { type: 'pointerUp', button: 0 },
-            ],
-        },]);
-*/
 
             // get window size
             const windowSize = await driver.getWindowSize();
@@ -233,16 +195,12 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             );
             await expect(failNotification).toBeDisplayed();
 
-            // Click continue button
+            // Click start trip button
             await driver.pause(5000);
-            const continueButton = await driver.$(
-                'android=new UiSelector().textContains("START TRIP")',
-            );
-            await expect(continueButton).toBeDisplayed();
-            await expect(continueButton).toBeEnabled();
+            await PageObjects.startTripButton.waitForDisplayed();
             await driver.pause(2000);
 
-            await continueButton.click();
+            await PageObjects.startTripButton.click();
             await driver.pause(3000);
 
             // scroll
@@ -271,11 +229,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
                 },
             ]);
 
-            // // Handle permissions
-            // const allowPermissionBtn = await driver.$("id:com.android.permissioncontroller:id/permission_allow_button");
-            // await expect(allowPermissionBtn).toBeDisplayed();
-            // await allowPermissionBtn.click();
-
             //verify that we are on payment detail screen for the previous unpaid ride
             const paymentDetail = await driver.$(
                 'android=new UiSelector().text("Payment detail")',
@@ -287,19 +240,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
                 'android=new UiSelector().textContains("Failed")',
             );
             await expect(status).toBeDisplayed();
-
-            /*
-    await driver.pause(2000);
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 1500,
-      width: 200,
-      height: 100,
-      direction: 'down',
-      percent: 100
-    }]); 
-    */
 
             // scroll
             await driver.performActions([
@@ -329,30 +269,9 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
 
             //verify pay now button
             const payNow = await driver.$(
-                'android=new UiSelector().textContains("PAY NOW")',
+                'android=new UiSelector().textContains("Pay Now")',
             );
             await expect(payNow).toBeDisplayed();
-
-            /*const screen = await driver.getWindowRect();
-    const screenWidth = screen.width;
-    const screenHeight = screen.height;
-    
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: screenWidth / 2,  // горизонтальная середина экрана
-      top: screenHeight * 0.65,  // точка начала скролла в нижней части экрана
-      width: screenWidth / 2,  // ширина области для скролла
-      height: screenHeight * 0.15,  // высота области для скролла
-      direction: 'down',  // направление скролла
-      percent: 100  // полное прокручивание
-    }]); */
-
-            // Click 5cm above bottom
-            /*await driver
-      .action("pointer")
-      .move({ x: centerX, y: height - 50 })
-      .down()
-      .up()
-      .perform();*/
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -362,9 +281,6 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

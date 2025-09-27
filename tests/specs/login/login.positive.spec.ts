@@ -67,20 +67,11 @@ describe("Login positive scenarios", () => {
             );
             await expect(signUpDescription).toBeDisplayed();
 
-            const startRegistrationBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("START REGISTRATION")',
-            );
-            await expect(startRegistrationBtn).toBeDisplayed();
+            await PageObjects.startRegistrationButton.waitForDisplayed;
 
-            const exploreMapBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("EXPLORE MAP")',
-            );
-            await expect(exploreMapBtn).toBeDisplayed();
+            await PageObjects.exploreMapButton.waitForDisplayed();
 
-            const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
-            );
-            await expect(logInBtn).toBeDisplayed();
+            await PageObjects.logInButton.waitForDisplayed();
         });
     });
 
@@ -88,10 +79,8 @@ describe("Login positive scenarios", () => {
         const testId = "0dcfc86c-c4da-41ca-93ec-2836b814721a";
 
         await handleTestResult(testId, async () => {
-            const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG IN")',
-            );
-            await logInBtn.click();
+            await PageObjects.logInButton.waitForDisplayed();
+            await PageObjects.logInButton.click();
 
             const usernameField = await driver.$(
                 "accessibility id:login_username_field",

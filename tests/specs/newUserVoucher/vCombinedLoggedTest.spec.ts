@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Function to load credentials based on environment and user
-function getCredentials(environment: string = "test", userKey: string | null = null) {
+function getCredentials(
+    environment: string = "test",
+    userKey: string | null = null,
+) {
     try {
         const credentialsPath = path.resolve(
             __dirname,
@@ -57,7 +60,7 @@ function getCredentials(environment: string = "test", userKey: string | null = n
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new";
+const USER = process.env.TEST_USER || "new60";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -74,7 +77,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             username: credentials.username,
             password: credentials.password,
         });
-        //await PageObjects.login({ username:'new6@gmail.com', password: '123Qwerty!' });
     });
 
     it("should display key navigation elements on the main screen", async () => {
@@ -86,12 +88,8 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         let error = null;
 
         try {
-            // Verify bottom navigation menu items
-            // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-            // await expect(planTrip).toBeDisplayed();
             await PageObjects.planTripBtn.waitForExist();
-            // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-            // await expect(promos).toBeDisplayed();
+
             await PageObjects.promosBtn.waitForExist();
 
             // Verify filter button is displayed
@@ -114,9 +112,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -147,22 +142,9 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
         let error = null;
 
         try {
-            // verify promos item is present and click promos
-            // const promos = await driver.$('-android uiautomator:new UiSelector().text("PROMOS")');
-            // await expect(promos).toBeDisplayed();
-            // await promos.click();
             await PageObjects.promosBtn.waitForExist();
             await PageObjects.promosBtn.click();
 
-            /*//scroll to bottom
- await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
-  top: 1000,
-  width: 200,
-  height: 800,
-  direction: 'down',
-  percent: 100.0
-}]);*/
             await driver.pause(1000);
 
             //verify multi voucher is present
@@ -170,23 +152,6 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
                 '-android uiautomator:new UiSelector().textContains("multi")',
             );
             await expect(multiVoucher).toBeDisplayed();
-
-            /*
-
-//scroll to bottom for github actions
-await driver.pause(2000);
-const { width, height } = await driver.getWindowSize();
-await driver.executeScript('mobile: scrollGesture', [{
- left: width/2,
- top: 0,
- width: 0,
- height: height*0.8,
- direction: 'down',
- percent: 2
-}]);
-await driver.pause(1000);
-
-*/
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -223,7 +188,7 @@ await driver.pause(1000);
 
             //verify "invite friends" button
             const friends = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().textContains("Invite Friends")',
             );
             await expect(friends).toBeDisplayed();
             await friends.click();
@@ -249,14 +214,14 @@ await driver.pause(1000);
 
             //click invite friends button
             const friends2 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().textContains("Invite Friends")',
             );
             await expect(friends2).toBeDisplayed();
             await friends2.click();
 
             //verify share code button
             const shareCodeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("SEND YOUR CODE")',
+                '-android uiautomator:new UiSelector().textContains("Send Your Code")',
             );
             await expect(shareCodeBtn).toBeDisplayed();
         } catch (e) {
@@ -268,9 +233,6 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -306,24 +268,6 @@ await driver.pause(1000);
 
             await driver.pause(2000);
 
-            // // Verify screen header
-            // const screenHeader = await driver.$("-android uiautomator:new UiSelector().resourceId(\"MyAccountContainer-header-title\")");
-            // await expect(screenHeader).toBeDisplayed();
-            // await expect(await screenHeader.getText()).toBe("My Account");
-
-            // // Verify user welcome message
-            // const welcomeText = await driver.$("-android uiautomator:new UiSelector().text(\"Welcome back,\")");
-            // await expect(welcomeText).toBeDisplayed();
-
-            // // Verify last ride section
-            // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-            // await expect(lastRideSection).toBeDisplayed();
-            // await driver.pause(2000);
-
-            // // Check last ride amount (flexible verification)
-            // const lastRideAmount = await driver.$("-android uiautomator:new UiSelector().textContains(\"€\")");
-            // await expect(lastRideAmount).toBeDisplayed();
-
             // Verify account menu items
             const accountMenuItems = [
                 "Invite friends",
@@ -339,15 +283,6 @@ await driver.pause(1000);
                 );
                 await expect(menuElement).toBeDisplayed();
             }
-
-            // await driver.executeScript('mobile: scrollGesture', [{
-            //   left: 100,
-            //   top: 1000,
-            //   width: 200,
-            //   height: 800,
-            //   direction: 'down',
-            //   percent: 100.0
-            // }]);
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -390,36 +325,6 @@ await driver.pause(1000);
                 await expect(menuElement).toBeDisplayed();
             }
 
-            /*
-
-  // Second scroll using same width/height variables
-await driver.pause(2000);
-await driver.executeScript('mobile: scrollGesture', [{
-  left: width/2,
-  top: height * 0.1,
-  width: width * 0.85,
-  height: height * 0.99,
-  direction: 'down',
-  percent: 100
-}]);
-await driver.pause(1000);
-
-// Scroll fully down to make visible Log Out option
-
-await driver.pause(3000);
-    
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(1000);
-
-    */
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -457,7 +362,7 @@ await driver.pause(3000);
 
             // Verify Log Out button
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(screenHeader).toBeDisplayed();
 
@@ -475,9 +380,6 @@ await driver.pause(3000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -512,39 +414,6 @@ await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(4000);
 
-            /*
-
-   await driver.pause(2000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.5,
-     direction: 'down',
-     percent: .25
-    }]);
-    await driver.pause(2000);
-
-    */
-
-            /*
-    const { width, height } = await driver.getWindowSize();
-    await driver.performActions([
-      {
-          type: 'pointer',
-          id: 'finger1',
-          parameters: { pointerType: 'touch' },
-          actions: [
-              { type: 'pointerMove', duration: 0, x: width/2, y: 500 },
-              { type: 'pointerDown', button: 0 },
-              { type: 'pause', duration: 100 },
-              { type: 'pointerMove', duration: 1000, x: width/2, y: 10 },
-              { type: 'pointerUp', button: 0 },
-          ],
-      },]);
-    */
-
             // Navigate to My Rides & Tickets ("My rides" is a new version)
             const myRidesAndTicketsButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("My rides")',
@@ -567,10 +436,6 @@ await driver.pause(3000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify last ride section
-            // const lastRideSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last ride\")");
-            // await expect(lastRideSection).toBeDisplayed();
-
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
                 '-android uiautomator:new UiSelector().textContains("€")',
@@ -579,11 +444,6 @@ await driver.pause(3000);
 
             // Verify at least one previous payment exists
             await expect(previousPaymentsList.length).toBeGreaterThan(1);
-
-            // Verify "Previous rides" section header
-            // const previousRidesHeader = await driver.$("-android uiautomator:new UiSelector().textContains(\"Previous rides\")");
-            // await expect(previousRidesHeader).toBeDisplayed();
-            // await driver.pause(3000);
 
             // back to common list of account menu
             await backButton.click();
@@ -597,9 +457,6 @@ await driver.pause(3000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -633,22 +490,6 @@ await driver.pause(3000);
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-    //scroll
-    await driver.pause(2000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 0.5
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -696,14 +537,6 @@ await driver.pause(3000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify last payment section
-            //const lastPaymentSection = await driver.$("-android uiautomator:new UiSelector().text(\"Your last payment\")");
-            //await expect(lastPaymentSection).toBeDisplayed();
-
-            // Verify "Previous payments" section header
-            // const previousPaymentsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Previous payments\")");
-            // await expect(previousPaymentsHeader).toBeDisplayed();
-
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
                 '-android uiautomator:new UiSelector().textContains("€")',
@@ -725,9 +558,6 @@ await driver.pause(3000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -788,9 +618,6 @@ await driver.pause(3000);
             );
             await expect(emailQuestion).toBeDisplayed();
 
-            /*const emailValue = await driver.$("-android uiautomator:new UiSelector().text(\"new@gmail.com\")");
-    await expect(emailValue).toBeDisplayed(); */
-
             // Verify Edit button for email
             const emailEditButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Edit")',
@@ -803,17 +630,11 @@ await driver.pause(3000);
             );
             await expect(phoneQuestion).toBeDisplayed();
 
-            /*const phoneValue = await driver.$("-android uiautomator:new UiSelector().text(\"+3197010586556\")");
-    await expect(phoneValue).toBeDisplayed(); */
-
             // Verify Name Section
             const nameQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your name?")',
             );
             await expect(nameQuestion).toBeDisplayed();
-
-            /*const nameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(nameValue).toBeDisplayed(); */
 
             // Verify Last Name Section
             const lastNameQuestion = await driver.$(
@@ -821,31 +642,11 @@ await driver.pause(3000);
             );
             await expect(lastNameQuestion).toBeDisplayed();
 
-            /*const lastNameValue = await driver.$("-android uiautomator:new UiSelector().text(\"New\")");
-    await expect(lastNameValue).toBeDisplayed(); */
-
             // Verify Address Section
             const addressQuestion = await driver.$(
                 '-android uiautomator:new UiSelector().text("What is your address?")',
             );
             await expect(addressQuestion).toBeDisplayed();
-
-            /*
-    // Verify Street field
-    const streetLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Bloemstraat\")");
-    await expect(streetLabel).toBeDisplayed();
-
-
-    // Verify Number field
-    const numberLabel = await driver.$("-android uiautomator:new UiSelector().text(\"80\")");
-    await expect(numberLabel).toBeDisplayed();
-
-    
-    // Verify Country field
-    const countryLabel = await driver.$("-android uiautomator:new UiSelector().text(\"Netherlands\")");
-    await expect(countryLabel).toBeDisplayed();
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -873,36 +674,9 @@ await driver.pause(3000);
                 },
             ]);
 
-            /*
-      //Scroll to bottom
-   
-      await driver.pause(2000);
-      const { width, height } = await driver.getWindowSize();
-      await driver.executeScript('mobile: scrollGesture', [{
-       left: width/2,
-       top: 0,
-       width: 0,
-       height: height*0.8,
-       direction: 'down',
-       percent: 2
-      }]);
-      await driver.pause(1000);
-*/
-
-            /*
-   // Verify Zip Code field
-   const zipCode = await driver.$("-android uiautomator:new UiSelector().text(\"3014\")");
-   await expect(zipCode).toBeDisplayed();
-
-    // Verify City field
-   const city = await driver.$("-android uiautomator:new UiSelector().text(\"Rotterdam\")");
-   await expect(city).toBeDisplayed();
-
-   */
-
             // Verify Save button
             const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SAVE")',
+                '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
@@ -924,9 +698,6 @@ await driver.pause(3000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -961,28 +732,6 @@ await driver.pause(3000);
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-
-     // Get window size 
-const { width, height } = await driver.getWindowSize();
-
-// scroll
-for (let i = 0; i < 2; i++) {
-await driver.pause(2000);
-await driver.executeScript('mobile: scrollGesture', [{
-  left: width/2,
-  top: height * 0.2, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. then more close to 0 then more scroll you get 
-  width: width * 0.8,
-  height: height * 0.4, //width of the scrolling area
-  direction: 'down',
-  percent: 0.9
-}]);
-await driver.pause(2000);
-};
- await driver.pause(2000);
-
- */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1042,20 +791,6 @@ await driver.pause(2000);
             );
             await expect(promotionalCodeDescription).toBeDisplayed();
 
-            /*
-    await driver.pause(1000);
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: width/2,
-      top: 0,
-      width: 0,
-      height: height*0.4,
-      direction: 'down',
-      percent: 0.9
-     }]);
- await driver.pause(1000);
-
- */
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1089,17 +824,9 @@ await driver.pause(2000);
 
             // Verify "SUBMIT PROMOTIONAL CODE" button
             const submitPromotionalCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("SUBMIT PROMOTIONAL CODE")',
+                '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
-
-            // //verify that new user vaucher is visible
-            // const checkVaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Check")');
-            // await expect (checkVaucher).toBeDisplayed();
-
-            // //verify that new user voucher is visible
-            // const donkeyVaucher = await driver.$('-android uiautomator:new UiSelector().text("New User Donkey Republic")');
-            // await expect (donkeyVaucher).toBeDisplayed();
 
             //verify that limitless user's voucher is visible
             const limitlessVoucher = await driver.$(
@@ -1119,9 +846,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1170,8 +894,6 @@ await driver.pause(2000);
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify screen title
-            //const screenTitle = await driver.$("-android uiautomator:new UiSelector().text(\"Invite friends and earn €10 for each one!\")");
             const screenTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite your friends")',
             );
@@ -1183,7 +905,6 @@ await driver.pause(2000);
             await expect(descriptionHeader).toBeDisplayed();
 
             // Verify screen description
-            //const screenDescription = await driver.$("-android uiautomator:new UiSelector().textContains(\"Make a friend ride with umob - both get €10,- ride credit. Make them all ride and enjoy!\")");
             const screenDescription = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invite a friend to join umob, and")',
             );
@@ -1194,10 +915,6 @@ await driver.pause(2000);
                 '-android uiautomator:new UiSelector().text("Your code")',
             );
             await expect(yourCodeLabel).toBeDisplayed();
-
-            //  Verify the actual referral code
-            //  const referralCode = await driver.$("-android uiautomator:new UiSelector().text(\"QYI-S50\")");
-            //  await expect(referralCode).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1225,19 +942,13 @@ await driver.pause(2000);
                 },
             ]);
 
-            // Verify usage count
-            //const usageCount = await driver.$("-android uiautomator:new UiSelector().text(\"Your code has been used 0 out of 5 times\")");
-            //await expect(usageCount).toBeDisplayed();
-
-            // Verify Share Code button
-            //const shareCodeButton = await driver.$("-android uiautomator:new UiSelector().text(\"SHARE CODE\")");
             const shareCodeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("INVITE FRIENDS")',
+                '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
             await expect(shareCodeButton).toBeDisplayed();
 
             const viewStats = await driver.$(
-                '-android uiautomator:new UiSelector().text("VIEW YOUR STATS")',
+                '-android uiautomator:new UiSelector().text("View Your Stats")',
             );
             await expect(viewStats).toBeDisplayed();
 
@@ -1307,9 +1018,6 @@ await driver.pause(2000);
             await expect(backButton).toBeDisplayed();
 
             // Verify card information
-            //const releaseText = await driver.$("-android uiautomator:new UiSelector().text(\"NEW\")");
-            //await expect(releaseText).toBeDisplayed();
-
             const cardType = await driver.$(
                 '-android uiautomator:new UiSelector().text("MasterCard")',
             );
@@ -1327,7 +1035,7 @@ await driver.pause(2000);
 
             // Verify action buttons
             const removeButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await expect(removeButton).toBeDisplayed();
 
@@ -1354,9 +1062,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1476,22 +1181,6 @@ await driver.pause(2000);
             );
             await expect(categoryAM).toBeDisplayed();
 
-            /*
-
-    await driver.pause(2000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(2000);
-
-    */
-
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -1518,39 +1207,11 @@ await driver.pause(2000);
                 },
             ]);
 
-            /*
-
-    // Verify Home Address section
-    const homeAddressStreet = await driver.$("-android uiautomator:new UiSelector().textContains(\"Bloemstraat 80\")");
-    await expect(homeAddressStreet).toBeDisplayed();
-
-    const homeAddressZip = await driver.$("-android uiautomator:new UiSelector().textContains(\"3014\")");
-    await expect(homeAddressZip).toBeDisplayed();
-
-    const homeAddressCity = await driver.$("-android uiautomator:new UiSelector().textContains(\"Rotterdam\")");
-    await expect(homeAddressCity).toBeDisplayed();
-
-    */
-
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CHANGE DOCUMENT")',
+                '-android uiautomator:new UiSelector().text("Change Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
-
-            /*
-     //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
-  await driver.pause(3000);
-
-  */
 
             await driver.performActions([
                 {
@@ -1596,9 +1257,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1633,23 +1291,6 @@ await driver.pause(2000);
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-
-    // Scroll down to make Delete account button visible
-    await driver.pause(3000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(1000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1748,7 +1389,7 @@ await driver.pause(2000);
             const cancelButtonText = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("DeleteAccountDetailsCancel-text")',
             );
-            await expect(await cancelButtonText.getText()).toBe("CANCEL");
+            await expect(await cancelButtonText.getText()).toBe("Cancel");
             // Verify CANCEL button is enabled
             await expect(await cancelButton.isEnabled()).toBe(true);
 
@@ -1770,9 +1411,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1807,23 +1445,6 @@ await driver.pause(2000);
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-
-    // Scroll down to make Delete account button visible
-    await driver.pause(3000);
-    const { width, height } = await driver.getWindowSize();
-    await driver.executeScript('mobile: scrollGesture', [{
-     left: width/2,
-     top: 0,
-     width: 0,
-     height: height*0.8,
-     direction: 'down',
-     percent: 2
-    }]);
-    await driver.pause(2000);
-
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -1876,11 +1497,7 @@ await driver.pause(2000);
             await expect(mapPreviewImage).toBeDisplayed();
 
             // Verify all theme options are displayed and check their properties
-            const themeOptions = [
-                { name: "Dark" },
-                { name: "Light" },
-                { name: "Terrain" },
-            ];
+            const themeOptions = [{ name: "Dark" }, { name: "Light" }];
 
             for (const theme of themeOptions) {
                 // Verify the theme text using UiSelector
@@ -1913,9 +1530,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -1948,20 +1562,6 @@ await driver.pause(2000);
         try {
             await PageObjects.clickAccountButton();
             await driver.pause(4000);
-
-            /*
-  // Scroll down to make Language button visible
-  await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1000,
-    width: 200,
-    height: 800,
-    direction: 'down',
-    percent: 100.0
-  }]);
-  await driver.pause(1000);
-
-  */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2038,25 +1638,6 @@ await driver.pause(2000);
             //click the back button
             await backButton.click();
             await driver.pause(2000);
-
-            /*
-    // Verify main menu option is present
-    const appSettingsHeader = await driver.$("-android uiautomator:new UiSelector().text(\"My payments\")");
-    await expect(appSettingsHeader).toBeDisplayed();
-
-    // Verify Support section header
-    const supportHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Support\")");
-    await expect(supportHeader).toBeDisplayed();
-
-    // Verify Privacy & Legal section
-    const privacyLegalButton = await driver.$("-android uiautomator:new UiSelector().text(\"Privacy & Legal\")");
-    await expect(privacyLegalButton).toBeDisplayed();
-
-    // Verify LogOut button
-    const logoutButton = await driver.$("-android uiautomator:new UiSelector().text(\"LOG OUT\")");
-    await expect(logoutButton).toBeDisplayed();
-
-    */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -2066,9 +1647,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -2099,29 +1677,9 @@ await driver.pause(2000);
         let error = null;
 
         try {
-            //await driver.activateApp("com.umob.umob");
-            //await driver.pause(7000);
-            // const qButton = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(2)");
-            // await expect(qButton).toBeDisplayed();
-            // await driver.pause(2000);
-            // await qButton.click();
-
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
-     // Scroll down to support option
-    await driver.executeScript('mobile: scrollGesture', [{
-      left: 100,
-      top: 500,
-      width: 200,
-      height: 480,
-      direction: 'down',
-      percent: 100.0
-    }]);
-    await driver.pause(1000);
-    */
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2178,11 +1736,13 @@ await driver.pause(2000);
                 '-android uiautomator:new UiSelector().text("About")',
             );
             await expect(about).toBeDisplayed();
+            /*
 
             const where = await driver.$(
                 '-android uiautomator:new UiSelector().text("Where")',
             );
             await expect(where).toBeDisplayed();
+            */
 
             // Click on "FAQ" to be sure you are in the right place
             await faq.click();
@@ -2206,20 +1766,6 @@ await driver.pause(2000);
                 );
                 await expect(element).toBeDisplayed();
             }
-
-            /*
-      //Scroll to bottom
-  await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-  }]); 
-  await driver.pause(6000);
-
-  */
 
             await driver.performActions([
                 {
@@ -2268,18 +1814,18 @@ await driver.pause(2000);
             await driver.pause(2000);
 
             const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("OPEN CHAT")`,
+                `-android uiautomator:new UiSelector().text("Open Chat")`,
             );
             await expect(openChat).toBeDisplayed();
             await openChat.click();
 
             //send test message to chat
-            //const textField = await driver.$("-android uiautomator:new UiSelector().className(\"android.view.ViewGroup\").instance(58)");
+
             const welcomeMessage = await driver.$(
                 `-android uiautomator:new UiSelector().text("Start typing here")`,
             );
             await expect(welcomeMessage).toBeDisplayed();
-            //await expect(textField).toBeDisplayed();
+
             await welcomeMessage.addValue("test");
             await driver.pause(2000);
 
@@ -2327,20 +1873,6 @@ await driver.pause(2000);
                 await expect(element3).toBeDisplayed();
             }
 
-            /*
-    //Scroll to bottom
-    await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-    }]); 
-    await driver.pause(6000);
-
-    */
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -2376,9 +1908,8 @@ await driver.pause(2000);
                 '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
             );
             await expect(text2).toBeDisplayed();
+            /*
 
-            //const text3 = await driver.$("-android uiautomator:new UiSelector().text(\"We're shaping a better world.\")");
-            //await expect(text3).toBeDisplayed();
 
             //go to where tab
             await where.click();
@@ -2391,9 +1922,7 @@ await driver.pause(2000);
             await expect(availability).toBeDisplayed();
 
             //languages check
-            // const tick = await driver.$("-android uiautomator:new UiSelector().className(\"com.horcrux.svg.PathView\").instance(10)");
-            // await tick.click();
-            // await driver.pause(2000);
+
 
             const netherlands = await driver.$(
                 '-android uiautomator:new UiSelector().text("Netherlands")',
@@ -2402,19 +1931,6 @@ await driver.pause(2000);
             await netherlands.click();
             await driver.pause(2000);
 
-            /* //cant see countries in a drop box after click
-    const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
-    await expect(Portugal).toBeDisplayed();
-
-    const Spain = await driver.$("-android uiautomator:new UiSelector().text(\"Spain\")");
-    await expect(Spain).toBeDisplayed();
-
-    const unitedKingdom = await driver.$("-android uiautomator:new UiSelector().text(\"United Kingdom\")");
-    await expect(unitedKingdom).toBeDisplayed();
-
-    const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
-    await expect(France).toBeDisplayed();
-    */
 
             //checking amount of providers
             const bicycle = await driver.$(
@@ -2447,19 +1963,7 @@ await driver.pause(2000);
             );
             await expect(stepProviders).toBeDisplayed();
 
-            /*
-    //Scroll to bottom
-   await driver.executeScript('mobile: scrollGesture', [{
-    left: 100,
-    top: 1500,
-    width: 200,
-    height: 100,
-    direction: 'down',
-    percent: 100
-   }]); 
-    await driver.pause(6000);
 
-    */
             await driver.pause(2000);
             await driver.performActions([
                 {
@@ -2519,6 +2023,7 @@ await driver.pause(2000);
             //quit support screen
             const quit = await driver.$("class name:com.horcrux.svg.RectView");
             await quit.click();
+            */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -2528,9 +2033,6 @@ await driver.pause(2000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -2564,20 +2066,6 @@ await driver.pause(2000);
             //go to account
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
-
-            /*
- // Scroll down to Log Out option
-await driver.executeScript('mobile: scrollGesture', [{
-  left: 100,
-  top: 1000,
-  width: 200,
-  height: 800,
-  direction: 'down',
-  percent: 100.0
-}]);
-await driver.pause(1000);
-
-*/
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -2634,20 +2122,20 @@ await driver.pause(1000);
 
             // Click on LogOut option
             const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOG OUT")',
+                '-android uiautomator:new UiSelector().text("Log Out")',
             );
             await expect(logoutButton).toBeDisplayed();
             await logoutButton.click();
 
             // verify Login button appeared
             const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("LOGIN")',
+                '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
             // verify Register button appeared
             const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("REGISTER")',
+                '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
         } catch (e) {
@@ -2659,9 +2147,6 @@ await driver.pause(1000);
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

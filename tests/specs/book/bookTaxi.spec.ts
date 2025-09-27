@@ -73,12 +73,6 @@ describe("Book a Taxi", () => {
         const longitude = 4.4744301;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
-
-        /*
-
-         await PageObjects.login({ username:'4bigfoot+10@gmail.com', password: '123Qwerty!' });
-
-   */
     });
 
     it("test key elements for book a taxi, add destination", async () => {
@@ -94,25 +88,12 @@ describe("Book a Taxi", () => {
             await driver.activateApp("com.umob.umob");
             await driver.pause(7000);
 
-            // const planTrip = await driver.$('-android uiautomator:new UiSelector().text("PLAN TRIP")');
-            // await expect(planTrip).toBeDisplayed();
             await PageObjects.planTripBtn.waitForExist();
 
             //click PLAN TRIP button to verify taxi and public transport options
-            //await planTrip.click();
+
             await PageObjects.planTripBtn.click();
             await driver.pause(2000);
-
-            /*//scroll to bottom for mobile
- await driver.executeScript('mobile: scrollGesture', [{
-   left: 100,
-   top: 1000,
-   width: 200,
-   height: 800,
-   direction: 'down',
-   percent: 100.0
- }]);
- await driver.pause(1000);*/
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -140,11 +121,15 @@ describe("Book a Taxi", () => {
                 },
             ]);
 
-            const taxiButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("GRAB TAXI")',
+            //about taxi
+            const taxiHeader = await driver.$(
+                '-android uiautomator:new UiSelector().text("Need a taxi?")',
             );
-            await expect(taxiButton).toBeDisplayed();
-            await taxiButton.click();
+            await expect(taxiHeader).toBeDisplayed();
+
+            //tap grab taxi button
+            await PageObjects.grabTaxiButton.waitForDisplayed();
+            await PageObjects.grabTaxiButton.click();
 
             await driver.pause(2000);
             // Verify screen header
@@ -159,33 +144,6 @@ describe("Book a Taxi", () => {
             );
             await expect(departureDestinationLabel).toBeDisplayed();
             await driver.pause(2000);
-
-            /*
-  // continue test with filling destination adress
-  const el1 = await driver.$("-android uiautomator:new UiSelector().className(\"android.widget.EditText\").instance(1)");
-  await el1.click();
-  await el1.addValue("Blaak 31");
-  await driver.pause(4000);
-
-
-
-// First get the element's location and size
-const location = await el1.getLocation();
-const size = await el1.getSize();
-
-
-// Create a touch action to tap 50 pixels below the element
-await browser.action('pointer', { parameters: { pointerType: 'touch' }})
-    .move({
-        x: location.x +100,
-        y: location.y + size.height + 160
-    })
-    .down()
-    .up()
-    .perform();
-
-    await driver.hideKeyboard();
-    */
 
             // Click on destination and text
             const el1 = await driver.$(
@@ -211,7 +169,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             // click the continue button after adding destination
             const continueButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueButton).toBeDisplayed();
             await continueButton.click();
@@ -225,9 +183,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -350,7 +305,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             await driver.pause(1000);
 
             const selectButton = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("SELECT")',
+                '-android uiautomator:new UiSelector().textContains("Select")',
             );
             await expect(selectButton).toBeDisplayed();
             await selectButton.click();
@@ -364,9 +319,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {
@@ -398,11 +350,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
         let error = null;
 
         try {
-            //allow permissions for github actions
-            //     const permission1 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW\")");
-            // await expect(permission1).toBeDisplayed();
-            // await permission1.click();
-
             //check data for payment card is displayed
             await driver.pause(5000);
             const card = await driver.$(
@@ -416,19 +363,11 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             );
             await expect(travelDetails).toBeDisplayed();
 
-            //check destination is displayed
-            // const destRotter = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
-            // await expect(destRotter).toBeDisplayed();
-
             //check driver note is displayed
             const driverNote = await driver.$(
                 '-android uiautomator:new UiSelector().text("Add a note to the driver (optional)")',
             );
             await expect(driverNote).toBeDisplayed();
-
-            //permission for github actions
-            // const permission3 = await driver.$("-android uiautomator:new UiSelector().text(\"ALLOW)\")");
-            // await permission3.click();
 
             // check if price in euro
             const firstRoutePrice = await driver.$(
@@ -470,23 +409,11 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
 
             //check destination is displayed
             const confirmButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONFIRM YOUR RIDE")',
+                '-android uiautomator:new UiSelector().text("Confirm Your Ride")',
             );
             await expect(confirmButton).toBeDisplayed();
             await confirmButton.click();
             await driver.pause(7000);
-
-            // Verify booking confirmation header
-            //const bookingConfirmedText = await driver.$('-android uiautomator:new UiSelector().text("Booking confirmed")');
-            //await expect(bookingConfirmedText).toBeDisplayed();
-
-            // Verify operator acceptance message
-            //const operatorMessage = await driver.$('-android uiautomator:new UiSelector().textContains("Operator has accepted your booking")');
-            //await expect(operatorMessage).toBeDisplayed();
-
-            // Verify destination location
-            //  const destinationLocation = await driver.$("-android uiautomator:new UiSelector().textContains(\"Zoo\")");
-            //  await expect(destinationLocation).toBeDisplayed();
 
             // Verify and click Cancel trip button
             await driver.pause(7000);
@@ -500,7 +427,7 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             // Wait for confirmation dialog and confirm cancellation
             //await driver.pause(2000);
             const confirmCancelButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CANCEL MY BOOKING")',
+                '-android uiautomator:new UiSelector().text("Cancel My Booking")',
             );
             await expect(confirmCancelButton).toBeDisplayed();
             await confirmCancelButton.click();
@@ -515,9 +442,6 @@ await browser.action('pointer', { parameters: { pointerType: 'touch' }})
             // Capture screenshot on failure
             screenshotPath = "./screenshots/" + testId + ".png";
             await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
         } finally {
             // Submit test run result
             try {

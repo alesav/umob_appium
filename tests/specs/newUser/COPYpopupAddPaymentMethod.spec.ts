@@ -64,11 +64,11 @@ const USER = process.env.TEST_USER || "newUser";
 async function addPaymentMethod() {
     //CLick Add payment method
     await driver
-        .$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")')
+        .$('-android uiautomator:new UiSelector().text("Add Payment Method")')
         .waitForDisplayed();
     await driver.pause(6000);
     await driver
-        .$('-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")')
+        .$('-android uiautomator:new UiSelector().text("Add Payment Method")')
         .click();
     await driver.pause(6000);
 
@@ -134,14 +134,49 @@ describe("Add Payment Method through popup for the New User", () => {
             );
             await expect(notification).toBeDisplayed();
             const finishLater = await driver.$(
-                '-android uiautomator:new UiSelector().text("FINISH LATER")',
+                '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             await expect(finishLater).toBeDisplayed();
             await driver.pause(5000);
 
+            //verify that there is no error message
+
+            const errorMessages = [
+                "Error adding payment",
+                "We couldn't add your payment",
+            ];
+
+            for (const message of errorMessages) {
+                const errorElement = await driver.$(
+                    `-android uiautomator:new UiSelector().textContains("${message}")`,
+                );
+
+                try {
+                    const isDisplayed = await errorElement.isDisplayed();
+                    if (isDisplayed) {
+                        throw new Error(
+                            `Problem with adding payment card: Found error message when card is not added "${message}"`,
+                        );
+                    }
+                } catch (elementError) {
+                    // if element is not found then it is good, we continue our checks
+                    if (
+                        elementError.message.includes(
+                            "Problem with adding payment card",
+                        )
+                    ) {
+                        throw elementError; // this is our error - we are going further
+                    }
+                }
+            }
+
+            console.log(
+                "✓ All checks passed - no error message found when card is not added yet",
+            );
+
             //click on Continue button
             const contButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("CONTINUE")',
+                '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(contButton).toBeDisplayed();
             await driver.pause(5000);
@@ -170,12 +205,12 @@ describe("Add Payment Method through popup for the New User", () => {
                     // First click on ADD PAYMENT METHOD to go to payment method page
                     await driver
                         .$(
-                            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                            '-android uiautomator:new UiSelector().text("Add Payment Method")',
                         )
                         .waitForDisplayed();
                     await driver
                         .$(
-                            '-android uiautomator:new UiSelector().text("ADD PAYMENT METHOD")',
+                            '-android uiautomator:new UiSelector().text("Add Payment Method")',
                         )
                         .click();
                     await driver.pause(2000);
@@ -190,7 +225,7 @@ describe("Add Payment Method through popup for the New User", () => {
 
             //Assert Remove payment method button is displayed (success scenario)
             const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("REMOVE PAYMENT METHOD")',
+                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
             );
             await removeBtn.waitForDisplayed();
             await driver.pause(2000);

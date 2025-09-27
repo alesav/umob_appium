@@ -28,15 +28,15 @@ class TestHelpers {
                 fs.readFileSync(credentialsPath, "utf8"),
             );
 
-            if (!credentials.test?.User12) {
+            if (!credentials.test?.new43) {
                 throw new Error(
                     "User12 (new42) user credentials not found in test environment",
                 );
             }
 
             return {
-                username: credentials.test.User12.username,
-                password: credentials.test.User12.password,
+                username: credentials.test.new43.username,
+                password: credentials.test.new43.password,
             };
         } catch (error) {
             console.error("Error loading credentials:", error);
@@ -190,11 +190,11 @@ class ScooterBookingActions {
         await expect(statusElement).toBeDisplayed();
 
         await driver
-            .$('-android uiautomator:new UiSelector().text("GOT IT")')
+            .$('-android uiautomator:new UiSelector().text("Got It")')
             .waitForEnabled();
 
         await driver
-            .$('-android uiautomator:new UiSelector().text("GOT IT")')
+            .$('-android uiautomator:new UiSelector().text("Got It")')
             .click();
     }
 
@@ -355,6 +355,8 @@ describe("Umob Scooter Booking Tests", () => {
         );
     });
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     it("Negative Scenario: Trip Geo Error", async () => {
         const targetScooter = TestHelpers.findScooterById(
             scooters,
@@ -392,8 +394,8 @@ describe("Umob Scooter Booking Tests", () => {
 
                 await PageObjects.gotItButton.waitForEnabled();
                 await PageObjects.gotItButton.click();
-                await PageObjects.notNowButton.waitForEnabled();
-                await PageObjects.notNowButton.click();
+                //await PageObjects.notNowButton.waitForEnabled();
+                //await PageObjects.notNowButton.click();
 
                 await ScooterBookingActions.navigateToMyRides();
                 await ScooterBookingActions.verifyRideDetails();
