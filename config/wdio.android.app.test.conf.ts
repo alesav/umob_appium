@@ -13,7 +13,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
-        "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
         // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
@@ -79,7 +79,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-        //"../tests/specs/account/qrCode.spec.ts", //new12
+        "../tests/specs/account/qrCode.spec.ts", //new12
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         //"../tests/specs/account/nearbyAssets.spec.ts", //new12
         /*

@@ -1,14 +1,14 @@
 import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { 
-    getCredentials, 
-    fetchScooterCoordinates, 
+import {
+    getCredentials,
+    fetchScooterCoordinates,
     executeTest,
-    ENV, 
-    USER, 
+    ENV,
+    USER,
     TARGET_SCOOTER_ID,
-    TEST_VEHICLE_ID
+    TEST_VEHICLE_ID,
 } from "../../helpers/TestHelpers.js";
 
 describe("Test for the QR feature", () => {
@@ -17,7 +17,7 @@ describe("Test for the QR feature", () => {
     before(async () => {
         scooters = await fetchScooterCoordinates();
         const credentials = getCredentials(ENV, USER);
-        
+
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
@@ -46,16 +46,22 @@ describe("Test for the QR feature", () => {
 
             // Verify that side control buttons container is loaded
             await expect(PageObjects.sideControlButtons).toBeDisplayed();
+            await driver.pause(2000);
 
             // Verify QR code button is displayed and click it
             await PageObjects.qrCodeButton.click();
+            await driver.pause(2000);
+
+            //test for permission
+            await expect(PageObjects.whileUsingAppPermission).toBeDisplayed();
+            await PageObjects.whileUsingAppPermission.click();
 
             // Handle location permissions if they appear
             await PageObjects.handleLocationPermissions();
 
             // Enter vehicle ID manually and verify flow
             await PageObjects.enterVehicleIdManually(TEST_VEHICLE_ID);
-            
+
             await driver.pause(2000);
 
             // Verify start trip button is available
