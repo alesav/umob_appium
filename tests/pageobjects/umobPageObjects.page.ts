@@ -126,6 +126,57 @@ class PageObjects extends Page {
         );
     }
 
+    // Account Menu Elements
+    get assetFilterToggle() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
+        );
+    }
+    get grabTaxiButton() {
+        return $('-android uiautomator:new UiSelector().text("Grab Taxi")');
+    }
+    get personalInfoButton() {
+        return $('-android uiautomator:new UiSelector().text("Personal info")');
+    }
+    get paymentMethodsButton() {
+        return $('-android uiautomator:new UiSelector().text("Payment methods")');
+    }
+    get idDocumentButton() {
+        return $('-android uiautomator:new UiSelector().text("ID Document")');
+    }
+    get vouchersButton() {
+        return $('-android uiautomator:new UiSelector().text("Vouchers")');
+    }
+    get myPaymentsButton() {
+        return $('-android uiautomator:new UiSelector().text("My payments")');
+    }
+    get languageButton() {
+        return $('-android uiautomator:new UiSelector().text("Language")');
+    }
+    get mapThemeSettingsButton() {
+        return $('-android uiautomator:new UiSelector().text("Map theme settings")');
+    }
+    get supportButton() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get deleteAccountButton() {
+        return $('-android uiautomator:new UiSelector().text("Delete account")');
+    }
+    get logOutButton() {
+        return $('-android uiautomator:new UiSelector().text("Log Out")');
+    }
+    get privacyLegalButton() {
+        return $('-android uiautomator:new UiSelector().text("Privacy & Legal")');
+    }
+
+    // Authentication Screen Elements (for not logged in state)
+    get loginButton() {
+        return $('-android uiautomator:new UiSelector().text("Login")');
+    }
+    get registerButton() {
+        return $('-android uiautomator:new UiSelector().text("Register")');
+    }
+
     // Nearby Assets Elements
     get nearbyAssetsText() {
         return $('-android uiautomator:new UiSelector().text("Nearby assets")');
@@ -232,6 +283,19 @@ class PageObjects extends Page {
                 }
                 // Element not found is good - continue checking
             }
+        }
+    }
+
+    /**
+     * Verify multiple menu items are displayed
+     * @param {string[]} menuItems - Array of menu item texts to verify
+     */
+    async verifyMenuItems(menuItems: string[]) {
+        for (const menuItem of menuItems) {
+            const menuElement = await driver.$(
+                `-android uiautomator:new UiSelector().text("${menuItem}")`,
+            );
+            await expect(menuElement).toBeDisplayed();
         }
     }
 
