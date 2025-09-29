@@ -32,11 +32,35 @@ export interface APIResponse {
     assets: ScooterAsset[];
 }
 
-// API Configuration
-export const API_CONFIG = {
-    URL: "https://backend-test.umobapp.com/api/tomp/mapboxmarkers",
-    AUTH_TOKEN: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDY2MTAyMTgsImlhdCI6MTczODgzNDIxOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjE2ZWUzZjRjLTQzYzktNGE3Ni1iOTdhLTYxMGI0NmU0MGM3ZCIsInN1YiI6IjRhNGRkZmRhLTNmMWYtNDEyMS1iNzU1LWZmY2ZjYTQwYzg3MiIsInNlc3Npb25faWQiOiIzNGU4NDZmOC02MmI3LTRiMzgtODkxYS01NjE4NWM4ZDdhOGEiLCJ1bmlxdWVfbmFtZSI6Im5ld0BnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXdAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldyIsImZhbWlseV9uYW1lIjoiTmV3IiwiZW1haWwiOiJuZXdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOiJGYWxzZSIsInBob25lX251bWJlciI6IiszMTk3MDEwNTg2NTU2IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjoiVHJ1ZSIsIm9pX3Byc3QiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfYXVfaWQiOiI0ODZkYTI1OS05ZGViLTJmMDQtYmM2OS0zYTE3ZWNjNTY1YTEiLCJjbGllbnRfaWQiOiJ1TW9iX0FwcF9PcGVuSWRkaWN0Iiwib2lfdGtuX2lkIjoiMTQzZGNiNGUtZTFjYi01MmU0LWU5ZWUtM2ExN2VjYzU2NWI5In0.4slYA6XbzRDTNdPJSOmxGlsuetx1IywPojVVMooyyL8Whu4Go6I2V-wspetKGptQnG85X75lg6gWAOYwV5ES5mJQJ4unZuCUW82sDPMNZwEhw_Hzl6UyO5vd3pYJOzry07RcskSwonVKZqipiAEusiYRCvo0AjUx33g5NaRAhXUCE8p_9vdTgSMVjtQkFGpsXih-Hw8rcy7N_HH_LWz-C2ZIA9i2sV3tEHNpTgVhs9Z0WTISirTXdmSolv6JvlqkGETsq0CSFa-0xmhjWU036KB2C5nKBLpUP6AUwibcLDEc0_RoUka-Ia-a4QNVZuzME3pMxIaGOToYf1WLEHPeIQ"
-};
+/**
+ * Get API configuration (URL and AUTH_TOKEN) for the current environment
+ */
+export function getApiConfig(environment: string = "test") {
+    try {
+        const credentialsPath = path.resolve(
+            __dirname,
+            "../../config/credentials.json",
+        );
+        const credentials = JSON.parse(
+            fs.readFileSync(credentialsPath, "utf8"),
+        );
+
+        if (!credentials[environment]) {
+            console.warn(
+                `Environment '${environment}' not found. Using 'test' environment.`,
+            );
+            environment = "test";
+        }
+
+        return {
+            URL: credentials[environment].apiUrl,
+            AUTH_TOKEN: credentials[environment].authToken,
+        };
+    } catch (error) {
+        console.error("Error loading API config:", error);
+        throw new Error("Failed to load API configuration");
+    }
+}
 /**
  * Function to load credentials based on environment and user
  * @param environment - Environment name (default: "test")
@@ -109,12 +133,14 @@ export const getScreenCenter = async (): Promise<ScreenDimensions> => {
  */
 export const fetchScooterCoordinates = async (): Promise<ScooterAsset[]> => {
     try {
-        const response = await fetch(API_CONFIG.URL, {
+        const apiConfig = getApiConfig(ENV);
+        
+        const response = await fetch(apiConfig.URL, {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: API_CONFIG.AUTH_TOKEN,
+                Authorization: apiConfig.AUTH_TOKEN,
                 "Accept-Language": "en",
                 "X-Requested-With": "XMLHttpRequest",
                 "App-Version": "1.23776.3.23776",
