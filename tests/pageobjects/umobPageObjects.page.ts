@@ -397,7 +397,7 @@ class PageObjects extends Page {
 
             // Handle location permissions
             await this.allowPermissionButton.click();
-            //await this.handleLocationPermissions();
+            await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
         } catch (e) {
