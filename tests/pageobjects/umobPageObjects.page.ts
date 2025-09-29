@@ -110,7 +110,7 @@ class PageObjects extends Page {
         );
     }
 
-    // QR Code and Vehicle Elements  
+    // QR Code and Vehicle Elements
     get qrCodeButton() {
         return $("accessibility id:scan-to-ride-button");
     }
@@ -139,7 +139,9 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Personal info")');
     }
     get paymentMethodsButton() {
-        return $('-android uiautomator:new UiSelector().text("Payment methods")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Payment methods")',
+        );
     }
     get idDocumentButton() {
         return $('-android uiautomator:new UiSelector().text("ID Document")');
@@ -154,19 +156,25 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Language")');
     }
     get mapThemeSettingsButton() {
-        return $('-android uiautomator:new UiSelector().text("Map theme settings")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Map theme settings")',
+        );
     }
     get supportButton() {
         return $('-android uiautomator:new UiSelector().text("Support")');
     }
     get deleteAccountButton() {
-        return $('-android uiautomator:new UiSelector().text("Delete account")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Delete account")',
+        );
     }
     get logOutButton() {
         return $('-android uiautomator:new UiSelector().text("Log Out")');
     }
     get privacyLegalButton() {
-        return $('-android uiautomator:new UiSelector().text("Privacy & Legal")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Privacy & Legal")',
+        );
     }
 
     // Authentication Screen Elements (for not logged in state)
@@ -195,9 +203,7 @@ class PageObjects extends Page {
 
     // Permission Elements
     get allowPermissionButton() {
-        return $(
-            '-android uiautomator:new UiSelector().textContains("Allow")',
-        );
+        return $('-android uiautomator:new UiSelector().textContains("Allow")');
     }
     get whileUsingAppPermission() {
         return $(
@@ -216,22 +222,31 @@ class PageObjects extends Page {
     async handleLocationPermissions() {
         try {
             // First permission popup
-            await this.allowPermissionButton.waitForDisplayed({ timeout: 5000 });
+            await this.allowPermissionButton.waitForDisplayed({
+                timeout: 5000,
+            });
             await this.allowPermissionButton.click();
-            
+
             await driver.pause(2000);
-            
+
             // Android system permission button
-            await this.androidPermissionAllowButton.waitForDisplayed({ timeout: 5000 });
+            await this.androidPermissionAllowButton.waitForDisplayed({
+                timeout: 5000,
+            });
             await this.androidPermissionAllowButton.click();
-            
+
             await driver.pause(2000);
-            
+
             // "While using the app" permission
-            await this.whileUsingAppPermission.waitForDisplayed({ timeout: 5000 });
+            await this.whileUsingAppPermission.waitForDisplayed({
+                timeout: 5000,
+            });
             await this.whileUsingAppPermission.click();
         } catch (error) {
-            console.log("Permission handling completed or not required:", error.message);
+            console.log(
+                "Permission handling completed or not required:",
+                error.message,
+            );
         }
     }
 
@@ -251,11 +266,11 @@ class PageObjects extends Page {
     async enterVehicleIdManually(vehicleId: string) {
         await this.manualEntryInstruction.waitForDisplayed();
         await expect(this.manualEntryInstruction).toBeDisplayed();
-        
+
         await this.vehicleIdInput.waitForDisplayed();
         await this.vehicleIdInput.click();
         await this.vehicleIdInput.addValue(vehicleId);
-        
+
         await this.continueButton.waitForDisplayed();
         await this.continueButton.click();
     }
@@ -381,7 +396,8 @@ class PageObjects extends Page {
             await loginButton.click();
 
             // Handle location permissions
-            await this.handleLocationPermissions();
+            await this.allowPermissionButton.click();
+            //await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
         } catch (e) {
