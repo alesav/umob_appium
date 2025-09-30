@@ -58,6 +58,19 @@ class PageObjects extends Page {
     get startTripButton() {
         return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
+    get donkeyStartButton2() {
+        return $('-android uiautomator:new UiSelector().text("Start Trip")');
+    }
+    get donkeyLockText1() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
+        );
+    }
+    get donkeyLockText2() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
+        );
+    }
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
@@ -78,6 +91,24 @@ class PageObjects extends Page {
     get backButton() {
         return $(
             '-android uiautomator:new UiSelector().resourceId("back_button")',
+        );
+    }
+
+    // Donkey Republic Booking Elements
+    get locationButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+        );
+    }
+    get endTripText() {
+        return $("accessibility id:endTrip-text");
+    }
+    get closeButton() {
+        return $("accessibility id:Close");
+    }
+    get androidPermissionButton() {
+        return $(
+            "id:com.android.permissioncontroller:id/permission_allow_button",
         );
     }
 

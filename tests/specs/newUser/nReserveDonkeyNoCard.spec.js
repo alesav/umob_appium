@@ -80,11 +80,7 @@ class TestHelpers {
  */
 class DonkeyBikeActions {
     static async clickCenterOfScreen() {
-        const { centerX, centerY } = await TestHelpers.getScreenCenter();
-
-        //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
-
         await driver.pause(2000);
     }
 
@@ -124,6 +120,7 @@ class DonkeyBikeActions {
         );
         await expect(selectPayment).toBeDisplayed();
     }
+
     static async clickContinueButton() {
         await driver.pause(5000);
         const continueButton = await driver.$(
@@ -158,9 +155,8 @@ class DonkeyBikeActions {
         );
         await expect(payPal).toBeDisplayed();
 
-        const closeBtn = await driver.$("accessibility id:Close");
-        await expect(closeBtn).toBeDisplayed();
-        await closeBtn.click();
+        await expect(PageObjects.closeButton).toBeDisplayed();
+        await PageObjects.closeButton.click();
     }
 }
 
