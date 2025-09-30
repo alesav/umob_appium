@@ -132,9 +132,7 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
         );
     }
-    get grabTaxiButton() {
-        return $('-android uiautomator:new UiSelector().text("Grab Taxi")');
-    }
+
     get personalInfoButton() {
         return $('-android uiautomator:new UiSelector().text("Personal info")');
     }

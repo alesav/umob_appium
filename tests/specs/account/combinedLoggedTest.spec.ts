@@ -177,7 +177,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
-                '-android uiautomator:new UiSelector().textContains("в‚¬")',
+                '-android uiautomator:new UiSelector().textContains("€")',
             );
             console.log("previousPaymentsList" + previousPaymentsList.length);
 
@@ -247,7 +247,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
-                '-android uiautomator:new UiSelector().textContains("в‚¬")',
+                '-android uiautomator:new UiSelector().textContains("€")',
             );
             console.log("previousPaymentsList" + previousPaymentsList.length);
 
@@ -478,7 +478,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Verify screen elements
             const screenElements = [
                 "Invite your friends",
-                "Give в‚¬10, Get в‚¬10",
+                "Give €10, Get €10",
                 "Your code",
             ];
 
@@ -665,11 +665,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Verify Home Address section
-            const homeAddressFields = [
-                "Bloemstraat 80",
-                "3014",
-                "Rotterdam",
-            ];
+            const homeAddressFields = ["Bloemstraat 80", "3014", "Rotterdam"];
 
             for (const field of homeAddressFields) {
                 const fieldElement = await driver.$(
@@ -914,10 +910,10 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Verify all language options are displayed
             const languageOptions = [
                 { name: "English", selected: true },
-                { name: "FranГ§ais", selected: false },
+                { name: "Français", selected: false },
                 { name: "Dutch", selected: false },
                 { name: "Deutsche", selected: false },
-                { name: "EspaГ±ol", selected: false },
+                { name: "Español", selected: false },
             ];
 
             for (const language of languageOptions) {
