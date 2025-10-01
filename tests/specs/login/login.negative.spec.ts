@@ -1,4 +1,7 @@
 import submitTestRun from "../../helpers/SendResults.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 describe("Login Negative Scenarios", () => {
     beforeEach(async () => {
@@ -171,7 +174,78 @@ describe("Login Negative Scenarios", () => {
             const errorMessage = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invalid username or password")',
             );
+
             await expect(errorMessage).toBeDisplayed();
+
+            // Verify PostHog event
+            try {
+                // 1. get Welcome screen
+                const welcomeEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "$screen",
+                        screenName: "Welcome",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // 2. get Login screen
+                const loginEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "$screen",
+                        screenName: "Login",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // 3. get menu screen
+                const menuEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "$screen",
+                        screenName: "Menu",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // now assertions for each event
+
+                // verify Welcome event
+                expect(welcomeEvent.event).toBe("$screen");
+                expect(welcomeEvent.properties?.$screen_name).toBe("Welcome");
+                expect(welcomeEvent.person?.is_identified).toBe(false);
+
+                // verify login event
+                expect(loginEvent.event).toBe("$screen");
+                expect(loginEvent.properties?.$screen_name).toBe("Login");
+                expect(loginEvent.person?.is_identified).toBe(false);
+
+                // verify menu event
+                expect(menuEvent.event).toBe("$screen");
+                expect(menuEvent.properties?.$screen_name).toBe("Menu");
+                expect(menuEvent.person?.is_identified).toBe(false);
+
+                // logs
+                console.log("✅ Welcome event found:", welcomeEvent.id);
+                console.log("✅ Login event found:", loginEvent.id);
+                console.log("✅ Menu event found:", menuEvent.id);
+            } catch (e) {
+                console.error("PostHog validation failed:", e);
+                throw e;
+            }
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -224,6 +298,67 @@ describe("Login Negative Scenarios", () => {
             //await expect(loginButtonText).toBeFalsy();
             console.log(loginButtonText);
             await expect(loginButtonText).toBeFalsy();
+            /*
+            // Verify PostHog event
+
+            const event = await posthog.waitForEvent(
+                {
+                    eventName: "$screen",
+                    Identified: "false",
+                    screenName: "Welcome",
+                },
+                {
+                    maxRetries: 10,
+                    retryDelayMs: 2000,
+                    searchLimit: 20,
+                },
+            );
+            await posthog.waitForEvent(
+                {
+                    eventName: "$screen",
+                    Identified: "false",
+                    screenName: "Login",
+
+                    maxAgeMinutes: 5,
+                },
+                {
+                    maxRetries: 10,
+                    retryDelayMs: 2000,
+                    searchLimit: 20,
+                },
+            );
+            await posthog.waitForEvent(
+                {
+                    eventName: "$screen",
+                    Identified: "false",
+                    screenName: "Menu",
+
+                    maxAgeMinutes: 5,
+                },
+                {
+                    maxRetries: 10,
+                    retryDelayMs: 2000,
+                    searchLimit: 20,
+                },
+            );
+
+            // If we got here, event was found with all criteria matching
+            posthog.printEventSummary(event);
+
+            // Assert key properties for clarity
+            expect(event.event).toBe("$screen");
+            // expect(event.properties.$set?.email).toBe("4bigfoot+10@gmail.com");
+            // expect(event.person?.properties?.email).toBe(
+            //     "4bigfoot+10@gmail.com",
+            // );
+            expect(event.person?.is_identified).toBe(false);
+            // expect(event.event).toBe("$screen");
+            // expect(event.properties?.$screen_name).toBe("Welcome");
+            expect(event.event).toBe("$screen");
+            expect(event.properties?.$screen_name).toBe("Login");
+            // expect(event.event).toBe("$screen");
+            // expect(event.properties?.$screen_name).toBe("Menu");
+            */
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

@@ -10,6 +10,9 @@ import {
     TARGET_SCOOTER_ID,
     TEST_VEHICLE_ID,
 } from "../../helpers/TestHelpers.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 describe("Test for the QR feature", () => {
     let scooters;
@@ -131,6 +134,77 @@ describe("Test for the QR feature", () => {
 
             // Verify that we're back to the scan vehicle screen
             await expect(PageObjects.scanVehicleButton).toBeDisplayed();
+
+            // Verify PostHog event
+            try {
+                // 1. get Welcome screen
+                const Scan2REvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Scan2R card pressed",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // 2. get Login screen
+                const MSIEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Menu Snap Interaction",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // 3. get menu screen
+                const PTEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "$screen",
+                        screenName: "PlanTrip",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 2000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // now assertions for each event
+
+                // verify event name
+                expect(Scan2REvent.event).toBe("Scan2R card pressed");
+
+                expect(Scan2REvent.person?.is_identified).toBe(true);
+
+                // verify Menu Snap Interaction event
+                expect(MSIEvent.event).toBe("Menu Snap Interaction");
+
+                expect(MSIEvent.person?.is_identified).toBe(true);
+
+                // verify Plan Trip screen name in $screen event
+                expect(PTEvent.event).toBe("$screen");
+                expect(PTEvent.properties?.$screen_name).toBe("PlanTrip");
+                expect(PTEvent.person?.is_identified).toBe(true);
+
+                // logs
+                console.log("✅ Event name:", Scan2REvent.id);
+                console.log("✅ MSI event found:", MSIEvent.id);
+                console.log(
+                    "✅ PlanTrip screen name in $screen event found:",
+                    PTEvent.id,
+                );
+            } catch (e) {
+                console.error("PostHog validation failed:", e);
+                throw e;
+            }
         });
     });
 
