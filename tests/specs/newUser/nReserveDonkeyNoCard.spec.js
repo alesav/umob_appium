@@ -5,6 +5,7 @@ import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { driver } from "@wdio/globals";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -115,6 +116,7 @@ class DonkeyBikeActions {
     }
 
     static async verifySelectPaymentMethod() {
+        await driver.pause(2000);
         const selectPayment = await driver.$(
             '-android uiautomator:new UiSelector().text("Select payment method")',
         );
