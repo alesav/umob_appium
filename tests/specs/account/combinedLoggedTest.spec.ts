@@ -1,39 +1,10 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to get fixed credentials for the new12 user from credentials file
-function getCredentials() {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Always use the new12 user from test environment
-        if (!credentials.test || !credentials.test.new12) {
-            throw new Error("new12 user not found in test environment");
-        }
-
-        // Return the new12 user credentials
-        return {
-            username: credentials.test.new12.username,
-            password: credentials.test.new12.password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
+import {
+    getCredentials,
+    executeTest,
+    ENV,
+    USER,
+} from "../../helpers/TestHelpers.js";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -44,9 +15,7 @@ describe("Combined test for the logged in old user with rides history", () => {
     });
 
     before(async () => {
-        const credentials = getCredentials();
-
-        // await PageObjects.login(credentials);
+        const credentials = getCredentials(ENV, USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
@@ -56,34 +25,21 @@ describe("Combined test for the logged in old user with rides history", () => {
     it("should display key navigation elements on the main screen", async () => {
         const testId = "31a93ea8-49f3-4081-8f57-db2a10623f4f";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Verify filter button is displayed
-            const assetFilterToggle = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
-            );
-            await expect(assetFilterToggle).toBeDisplayed();
+            await expect(PageObjects.assetFilterToggle).toBeDisplayed();
 
             // Check for map root element
-            const mapRoot = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("map_root")',
-            );
-            await expect(mapRoot).toBeDisplayed();
+            await expect(PageObjects.mapRoot).toBeDisplayed();
 
             // Verify bottom navigation menu items
             await PageObjects.planTripBtn.waitForExist();
             await PageObjects.promosBtn.waitForExist();
 
-            //click PLAN TRIP button to verify taxi and public transport options
-            //await planTrip.click();
+            // Click PLAN TRIP button to verify taxi and public transport options
             await PageObjects.planTripBtn.click();
 
-            //scroll to bottom
+            // Scroll to bottom - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -98,52 +54,15 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-            const taxiButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Grab Taxi")',
-            );
-            await expect(taxiButton).toBeDisplayed();
-
+            await expect(PageObjects.grabTaxiButton).toBeDisplayed();
             await PageObjects.publicTransportButton.waitForExist();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key account screen elements", async () => {
         const testId = "17271a71-6625-448f-bb11-0faa97fd7ef9";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
@@ -156,26 +75,20 @@ describe("Combined test for the logged in old user with rides history", () => {
                 "ID Document",
                 "My rides",
             ];
-
-            for (const menuItem of accountMenuItems) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
+            await PageObjects.verifyMenuItems(accountMenuItems);
 
             // Get window size
             const { width, height } = await driver.getWindowSize();
 
-            // First scroll
+            // First scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             for (let i = 0; i < 2; i++) {
                 await driver.pause(2000);
                 await driver.executeScript("mobile: scrollGesture", [
                     {
                         left: width / 2,
-                        top: height * 0.3, // 0.5 to begin with the middle of the screen or 0.3 to begin from the upper side of the screen. Than More close to 0 more scroll you get
+                        top: height * 0.3,
                         width: width * 0.8,
-                        height: height * 0.4, //width of the scrolling area
+                        height: height * 0.4,
                         direction: "down",
                         percent: 0.9,
                     },
@@ -190,15 +103,9 @@ describe("Combined test for the logged in old user with rides history", () => {
                 "Language",
                 "Map theme settings",
             ];
+            await PageObjects.verifyMenuItems(accountMenuItems2);
 
-            for (const menuItem of accountMenuItems2) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
-
-            // Second scroll using same width/height variables
+            // Second scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -212,10 +119,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-            // Scroll fully down to make visible Log Out option
-
+            // Scroll fully down to make visible Log Out option - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(3000);
-
             await driver.executeScript("mobile: scrollGesture", [
                 {
                     left: width / 2,
@@ -230,68 +135,24 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify account menu items after second scrolling
             const accountMenuItems3 = ["Support", "Delete account"];
-
-            for (const menuItem of accountMenuItems3) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
+            await PageObjects.verifyMenuItems(accountMenuItems3);
 
             // Verify Log Out button
-            const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Out")',
-            );
-            await expect(screenHeader).toBeDisplayed();
+            await expect(PageObjects.logOutButton).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+            await expect(PageObjects.backButton).toBeDisplayed();
+        });
     });
 
     it("should display all key My Rides & Tickets screen elements", async () => {
         const testId = "cd0053ae-be33-4cf1-856b-50f573c880c8";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
+            // Scroll to My Rides - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -307,19 +168,12 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Navigate to My Rides & Tickets
-            const myRidesAndTicketsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("My rides")',
-            );
-            await driver.pause(1000);
-            await expect(myRidesAndTicketsButton).toBeDisplayed();
-            await myRidesAndTicketsButton.click();
+            await expect(PageObjects.myRidesButton).toBeDisplayed();
+            await PageObjects.myRidesButton.click();
             await driver.pause(1000);
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButton).toBeDisplayed();
 
             // Check previous payments list
             const previousPaymentsList = await driver.$$(
@@ -332,52 +186,20 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             await driver.pause(3000);
 
-            // back to common list of account menu
-            await backButton.click();
+            // Back to common list of account menu
+            await PageObjects.backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key My Payments screen elements", async () => {
         const testId = "854b2200-5a0d-4516-a8fd-b6094e19fbd9";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
+            // Scroll to My Payments - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -407,12 +229,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(1000);
 
             // Navigate to My Payments
-            const myPaymentsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("My payments")',
-            );
-            await driver.pause(1000);
-            await expect(myPaymentsButton).toBeDisplayed();
-            await myPaymentsButton.click();
+            await expect(PageObjects.myPaymentsButton).toBeDisplayed();
+            await PageObjects.myPaymentsButton.click();
             await driver.pause(3000);
 
             // Verify screen header
@@ -436,58 +254,22 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Verify at least one previous payment exists
             await expect(previousPaymentsList.length).toBeGreaterThan(1);
 
-            // back to common list of account menu
+            // Back to common list of account menu
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Personal Info screen elements", async () => {
         const testId = "8553a675-1b49-4cf4-b838-6bee6574d8a1";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button with robust retry mechanism
             await PageObjects.clickAccountButton(5, 3000);
 
             // Navigate to personal info
-            const personalInfo = await driver.$(
-                '-android uiautomator:new UiSelector().text("Personal info")',
-            );
-            await expect(personalInfo).toBeDisplayed();
-            await personalInfo.click();
+            await expect(PageObjects.personalInfoButton).toBeDisplayed();
+            await PageObjects.personalInfoButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -501,11 +283,21 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify Email Section
-            const emailQuestion = await driver.$(
-                '-android uiautomator:new UiSelector().text("What is your email?")',
-            );
-            await expect(emailQuestion).toBeDisplayed();
+            // Verify form sections
+            const formSections = [
+                "What is your email?",
+                "What is your phone number?",
+                "What is your name?",
+                "What is your last name?",
+                "What is your address?",
+            ];
+
+            for (const section of formSections) {
+                const sectionElement = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${section}")`,
+                );
+                await expect(sectionElement).toBeDisplayed();
+            }
 
             // Verify Edit button for email
             const emailEditButton = await driver.$(
@@ -513,36 +305,16 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(emailEditButton).toBeDisplayed();
 
-            // Verify Phone Number Section
-            const phoneQuestion = await driver.$(
-                '-android uiautomator:new UiSelector().text("What is your phone number?")',
-            );
-            await expect(phoneQuestion).toBeDisplayed();
+            // Verify address fields
+            const addressFields = ["Bloemstraat", "80"];
+            for (const field of addressFields) {
+                const fieldElement = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${field}")`,
+                );
+                await expect(fieldElement).toBeDisplayed();
+            }
 
-            // Verify Name Section
-            const nameQuestion = await driver.$(
-                '-android uiautomator:new UiSelector().text("What is your name?")',
-            );
-            await expect(nameQuestion).toBeDisplayed();
-
-            // Verify Last Name Section
-            const lastNameQuestion = await driver.$(
-                '-android uiautomator:new UiSelector().text("What is your last name?")',
-            );
-            await expect(lastNameQuestion).toBeDisplayed();
-
-            // Verify Address Section
-            const addressQuestion = await driver.$(
-                '-android uiautomator:new UiSelector().text("What is your address?")',
-            );
-            await expect(addressQuestion).toBeDisplayed();
-
-            // Verify Street field
-            const streetLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Bloemstraat")',
-            );
-            await expect(streetLabel).toBeDisplayed();
-
+            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -557,85 +329,36 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-            // Verify Number field
-            const numberLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("80")',
-            );
-            await expect(numberLabel).toBeDisplayed();
+            // Verify remaining address fields
+            const moreAddressFields = ["Argentina", "3014", "Rotterdam"];
+            for (const field of moreAddressFields) {
+                const fieldElement = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${field}")`,
+                );
+                await expect(fieldElement).toBeDisplayed();
+            }
 
-            // Verify Country field
-            const countryLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Argentina")',
-            );
-            await expect(countryLabel).toBeDisplayed();
-
-            // Verify Zip Code field
-            const zipCode = await driver.$(
-                '-android uiautomator:new UiSelector().text("3014")',
-            );
-            await expect(zipCode).toBeDisplayed();
-
-            // Verify City field
-            const city = await driver.$(
-                '-android uiautomator:new UiSelector().text("Rotterdam")',
-            );
-            await expect(city).toBeDisplayed();
-
-            // Verify Save button
+            // Verify action buttons
             const saveButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Save")',
             );
             await expect(saveButton).toBeDisplayed();
 
-            // Verify Help button
             const helpButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Help")',
             );
             await expect(helpButton).toBeDisplayed();
 
-            // click back button to main acount menu
+            // Click back button to main account menu
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Ride Credit screen elements", async () => {
         const testId = "f2f940e9-2844-4cbe-9e44-05d010f962be";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
@@ -643,8 +366,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Get window size
             const { width, height } = await driver.getWindowSize();
 
-            // scroll
-
+            // Scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -671,12 +393,9 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(2000);
 
-            // Navigate to Ride Credit/Vouchers (new version of text)
-            const rideCreditButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Vouchers")',
-            );
-            await expect(rideCreditButton).toBeDisplayed();
-            await rideCreditButton.click();
+            // Navigate to Ride Credit/Vouchers
+            await expect(PageObjects.vouchersButton).toBeDisplayed();
+            await PageObjects.vouchersButton.click();
             await driver.pause(3000);
 
             // Verify screen header
@@ -703,6 +422,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(promotionalCodeDescription).toBeDisplayed();
 
+            // Scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(1000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -728,52 +448,16 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
-            // click back button to main acount menu
+            // Click back button to main account menu
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Invite Friends screen elements", async () => {
         const testId = "42115ac8-017c-48a6-9484-b4ffb776cca3";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
@@ -791,31 +475,27 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(backButton).toBeDisplayed();
 
-            // Verify screen title
+            // Verify screen elements
+            const screenElements = [
+                "Invite your friends",
+                "Give €10, Get €10",
+                "Your code",
+            ];
 
-            const screenTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Invite your friends")',
-            );
-            await expect(screenTitle).toBeDisplayed();
-
-            const descriptionHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Give €10, Get €10")',
-            );
-            await expect(descriptionHeader).toBeDisplayed();
+            for (const element of screenElements) {
+                const elementSelector = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${element}")`,
+                );
+                await expect(elementSelector).toBeDisplayed();
+            }
 
             // Verify screen description
-
             const screenDescription = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invite a friend to join umob, and")',
             );
             await expect(screenDescription).toBeDisplayed();
 
-            // Verify Your Code section
-            const yourCodeLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Your code")',
-            );
-            await expect(yourCodeLabel).toBeDisplayed();
-
+            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -830,8 +510,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(2000);
 
-            // Verify Share Code button
-
+            // Verify action buttons
             const shareCodeButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
@@ -842,59 +521,23 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(viewStats).toBeDisplayed();
 
-            // click back button to main acount menu
+            // Click back button to main account menu
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Payment Settings screen elements", async () => {
         const testId = "9f816dbf-35ef-4828-9a85-1fd9a0fafc07";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
             // Navigate to Payment Settings screen
-            const paymentSettingsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Payment methods")',
-            );
-            await expect(paymentSettingsButton).toBeDisplayed();
-            await paymentSettingsButton.click();
+            await expect(PageObjects.paymentMethodsButton).toBeDisplayed();
+            await PageObjects.paymentMethodsButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -908,20 +551,19 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(backButton).toBeDisplayed();
 
-            const cardType = await driver.$(
-                '-android uiautomator:new UiSelector().text("MasterCard")',
-            );
-            await expect(cardType).toBeDisplayed();
+            // Verify payment card details
+            const cardDetails = [
+                "MasterCard",
+                "**** **** **** 1115",
+                "03/2030",
+            ];
 
-            const cardNumber = await driver.$(
-                '-android uiautomator:new UiSelector().text("**** **** **** 1115")',
-            );
-            await expect(cardNumber).toBeDisplayed();
-
-            const expiryDate = await driver.$(
-                '-android uiautomator:new UiSelector().text("03/2030")',
-            );
-            await expect(expiryDate).toBeDisplayed();
+            for (const detail of cardDetails) {
+                const detailElement = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${detail}")`,
+                );
+                await expect(detailElement).toBeDisplayed();
+            }
 
             // Verify action buttons
             const removeButton = await driver.$(
@@ -940,58 +582,22 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(paymentDetailsContainer).toBeDisplayed();
 
-            // click back button to main acount menu
+            // Click back button to main account menu
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key ID Document screen elements", async () => {
         const testId = "27935f3e-8bd9-43c1-a070-05d786254932";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
             // Navigate to ID Document screen
-            const idDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ID Document")',
-            );
-            await expect(idDocumentButton).toBeDisplayed();
-            await idDocumentButton.click();
+            await expect(PageObjects.idDocumentButton).toBeDisplayed();
+            await PageObjects.idDocumentButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -1011,66 +617,39 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(verifiedStatus).toBeDisplayed();
 
-            // Verify Document Type section
-            const documentTypeTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Document type")',
-            );
-            await expect(documentTypeTitle).toBeDisplayed();
+            // Verify document sections
+            const documentSections = [
+                "Document type",
+                "Driver license",
+                "Status",
+                "Expiration date",
+                "28 May 2031",
+                "Categories",
+            ];
 
-            const driverLicenseText = await driver.$(
-                '-android uiautomator:new UiSelector().text("Driver license")',
-            );
-            await expect(driverLicenseText).toBeDisplayed();
+            for (const section of documentSections) {
+                const sectionElement = await driver.$(
+                    `-android uiautomator:new UiSelector().text("${section}")`,
+                );
+                await expect(sectionElement).toBeDisplayed();
+            }
 
             // Verify Status section
-            const statusTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Status")',
-            );
-            await expect(statusTitle).toBeDisplayed();
-
             const statusVerifiedText = await driver.$(
                 '-android uiautomator:new UiSelector().description("IdDocumentStatusIdDocumentItemContent")',
             );
             await expect(statusVerifiedText).toBeDisplayed();
 
-            // Verify Expiration Date section
-            const expirationTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Expiration date")',
-            );
-            await expect(expirationTitle).toBeDisplayed();
-
-            const expirationDate = await driver.$(
-                '-android uiautomator:new UiSelector().text("28 May 2031")',
-            );
-            await expect(expirationDate).toBeDisplayed();
-
-            // Verify Categories section
-            const categoriesTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Categories")',
-            );
-            await expect(categoriesTitle).toBeDisplayed();
-
             // Verify all license categories
-            const categoryB = await driver.$(
-                '-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContentB")',
-            );
-            await expect(categoryB).toBeDisplayed();
+            const categories = ["B", "A", "B1", "AM"];
+            for (const category of categories) {
+                const categoryElement = await driver.$(
+                    `-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContent${category}")`,
+                );
+                await expect(categoryElement).toBeDisplayed();
+            }
 
-            const categoryA = await driver.$(
-                '-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContentA")',
-            );
-            await expect(categoryA).toBeDisplayed();
-
-            const categoryB1 = await driver.$(
-                '-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContentB1")',
-            );
-            await expect(categoryB1).toBeDisplayed();
-
-            const categoryAM = await driver.$(
-                '-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContentAM")',
-            );
-            await expect(categoryAM).toBeDisplayed();
-
+            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -1086,20 +665,14 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Verify Home Address section
-            const homeAddressStreet = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Bloemstraat 80")',
-            );
-            await expect(homeAddressStreet).toBeDisplayed();
+            const homeAddressFields = ["Bloemstraat 80", "3014", "Rotterdam"];
 
-            const homeAddressZip = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("3014")',
-            );
-            await expect(homeAddressZip).toBeDisplayed();
-
-            const homeAddressCity = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Rotterdam")',
-            );
-            await expect(homeAddressCity).toBeDisplayed();
+            for (const field of homeAddressFields) {
+                const fieldElement = await driver.$(
+                    `-android uiautomator:new UiSelector().textContains("${field}")`,
+                );
+                await expect(fieldElement).toBeDisplayed();
+            }
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
@@ -1107,7 +680,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(changeDocumentButton).toBeDisplayed();
 
-            //Scroll to bottom
+            // Scroll to bottom - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -1131,54 +704,19 @@ describe("Combined test for the logged in old user with rides history", () => {
                 '-android uiautomator:new UiSelector().description("IdDocumentContainer")',
             );
             await expect(idDocumentContainer).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key delete account screen elements", async () => {
         const testId = "03a01117-d3e5-413b-8fc1-bbd1e4048f0e";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
-            // Scroll down to make Delete account button visible
+            // Scroll down to make Delete account button visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
-
-            // Looks like this methood is working on Emulator
             await driver.executeScript("mobile: scrollGesture", [
                 {
                     left: width / 2,
@@ -1192,11 +730,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(1000);
 
             // Click on Delete account button
-            const deleteAccountButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Delete account")',
-            );
-            await expect(deleteAccountButton).toBeDisplayed();
-            await deleteAccountButton.click();
+            await expect(PageObjects.deleteAccountButton).toBeDisplayed();
+            await PageObjects.deleteAccountButton.click();
             await driver.pause(2000);
 
             // Verify delete account screen title
@@ -1260,51 +795,18 @@ describe("Combined test for the logged in old user with rides history", () => {
             await expect(helpButton).toBeDisplayed();
             await cancelButton.click();
             await driver.pause(1000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key map theme settings screen elements", async () => {
         const testId = "ce67b5e4-8e1c-4b2c-95c0-0d73a71a7449";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make Delete account button visible
+            // Scroll down to make Map theme settings visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -1320,11 +822,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Click on Map theme settings option
-            const mapThemeOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Map theme settings")',
-            );
-            await expect(mapThemeOption).toBeDisplayed();
-            await mapThemeOption.click();
+            await expect(PageObjects.mapThemeSettingsButton).toBeDisplayed();
+            await PageObjects.mapThemeSettingsButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -1357,7 +856,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                 const themeContainer = await driver.$(`~${theme.name}`);
                 await expect(themeContainer).toBeDisplayed();
 
-                // If it's the Light theme (which appears selected in the XML), verify the selection indicator
+                // If it's the Light theme (which appears selected), verify the selection indicator
                 if (theme.name === "Light") {
                     const container = await driver.$(
                         `-android uiautomator:new UiSelector().text("${theme.name}").fromParent(new UiSelector().className("com.horcrux.svg.SvgView"))`,
@@ -1365,54 +864,22 @@ describe("Combined test for the logged in old user with rides history", () => {
                     await expect(container).toBeDisplayed();
                 }
             }
-            // click back button to go to the app settings
+
+            // Click back button to go to the app settings
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key language screen elements", async () => {
         const testId = "af01144c-675b-43d7-8b35-019d9a52ead1";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make Delete account button visible
+            // Scroll down to make Language visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(1000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -1428,11 +895,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Click on Language option to navigate to language screen
-            const languageOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Language")',
-            );
-            await expect(languageOption).toBeDisplayed();
-            await languageOption.click();
+            await expect(PageObjects.languageButton).toBeDisplayed();
+            await PageObjects.languageButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -1472,66 +936,27 @@ describe("Combined test for the logged in old user with rides history", () => {
                 }
             }
 
-            //click the back button to the app settings screen
+            // Click the back button to the app settings screen
             await backButton.click();
             await driver.pause(2000);
 
             // Verify Privacy & Legal section
-            const privacyLegalButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Privacy & Legal")',
-            );
-            await expect(privacyLegalButton).toBeDisplayed();
+            await expect(PageObjects.privacyLegalButton).toBeDisplayed();
 
             // Verify LogOut button
-            const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Out")',
-            );
-            await expect(logoutButton).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+            await expect(PageObjects.logOutButton).toBeDisplayed();
+        });
     });
 
     it("should successfully logout from the app", async () => {
         const testId = "a9238177-4f15-4730-8b59-6c07b4e5d155";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make Delete account button visible
+            // Scroll down to make LogOut visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -1547,51 +972,15 @@ describe("Combined test for the logged in old user with rides history", () => {
             await driver.pause(2000);
 
             // Click on LogOut option
-            const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Out")',
-            );
-            await expect(logoutButton).toBeDisplayed();
-            await logoutButton.click();
+            await expect(PageObjects.logOutButton).toBeDisplayed();
+            await PageObjects.logOutButton.click();
 
-            // verify Login button appeared
-            const signUpButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Login")',
-            );
-            await expect(signUpButton).toBeDisplayed();
+            // Verify Login button appeared
+            await expect(PageObjects.loginButton).toBeDisplayed();
 
-            // verify Register button appeared
-            const register = await driver.$(
-                '-android uiautomator:new UiSelector().text("Register")',
-            );
-            await expect(register).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+            // Verify Register button appeared
+            await expect(PageObjects.registerButton).toBeDisplayed();
+        });
     });
 
     afterEach(async () => {

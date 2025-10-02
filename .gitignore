@@ -25,3 +25,9 @@ scripts/local.sh
 scripts/local-accept.sh
 
 .github/workflows/umob-appium-action.yml
+
+.env
+.env.local
+.env.*.local
+
+scripts/posthog.cjs

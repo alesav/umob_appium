@@ -1,61 +1,7 @@
-import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "new45";
 
@@ -63,7 +9,6 @@ describe("Donkey Bike Booking Test", () => {
     before(async () => {
         const credentials = getCredentials(ENV, USER);
 
-        // await PageObjects.login(credentials);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
@@ -81,30 +26,18 @@ describe("Donkey Bike Booking Test", () => {
 
     it("Book Donkey UMOB Bike 20", async () => {
         const testId = "4421c5ee-46d9-40d9-867c-0ea5c0a5ddce";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            //await driver.terminateApp("com.umob.umob");
+        await executeTest(testId, async () => {
             await driver.activateApp("com.umob.umob");
-            //await PageObjects.accountButton.waitForExist();
-            //await driver.pause(1000);
             await driver.pause(4000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
-            const centerX = Math.round(width / 2);
 
-            const locationButton = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("home_location_button")',
-            );
-            await locationButton.click();
+            await PageObjects.locationButton.click();
             await driver.pause(5000);
 
-            //Click on middle of the screen
+            // Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
             // Click UMOB Bike 20 button
@@ -115,11 +48,11 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(3000);
 
-            //verify that Euro simbol is displayed
-            const euroSimbol = await driver.$(
+            // Verify that Euro symbol is displayed
+            const euroSymbol = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€")',
             );
-            await expect(euroSimbol).toBeDisplayed();
+            await expect(euroSymbol).toBeDisplayed();
             await driver.pause(5000);
 
             // Click Start Trip button
@@ -127,16 +60,12 @@ describe("Donkey Bike Booking Test", () => {
             await PageObjects.startTripButton.click();
 
             // Handle allow permissions
-
-            const permission = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_button",
-            );
-            await expect(permission).toBeDisplayed();
-            await permission.click();
+            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            await PageObjects.androidPermissionButton.click();
             await driver.pause(2000);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.pause(2000);
-
             await driver.performActions([
                 {
                     type: "pointer",
@@ -164,67 +93,43 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(3000);
 
-            //click to start and unlock the bike
-            const umob20Button1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("Start Trip")',
-            );
-            await umob20Button1.waitForDisplayed({
+            // Click to start and unlock the bike
+
+            await PageObjects.donkeyStartButton2.waitForDisplayed({
                 timeout: 15000,
                 timeoutMsg: "start trip button not found after 15 seconds",
             });
 
-            await expect(umob20Button1).toBeDisplayed();
-            await expect(umob20Button1).toBeEnabled();
+            await expect(PageObjects.donkeyStartButton2).toBeDisplayed();
+            await expect(PageObjects.donkeyStartButton2).toBeEnabled();
             await driver.pause(1000);
             console.log(
                 "before start trip button click",
-                await umob20Button1.isDisplayed(),
+                await PageObjects.donkeyStartButton2.isDisplayed(),
             );
             console.log("App package:", await driver.getCurrentPackage());
 
-            //click start trip button
-            await umob20Button1.click();
-
-            //click on start trip button using long press
-
-            /*
-            const location = await umob20Button1.getLocation();
-            const size = await umob20Button1.getSize();
-
-            console.log('Button location:', location);
-            console.log('Button size:', size);
-
-            await driver.touchAction({
-                action: 'longPress',
-                x: location.x + size.width / 2,
-                y: location.y + size.height / 2,
-                duration: 1500
-            });
-            */
+            // Click start trip button
+            await PageObjects.donkeyStartButton2.click();
 
             console.log(
                 "after start trip button click",
-                await umob20Button1.isDisplayed(),
+                await PageObjects.donkeyStartButton2.isDisplayed(),
             );
             console.log("Current activity:", await driver.getCurrentActivity());
             console.log("App package:", await driver.getCurrentPackage());
 
-            const umobText1 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
-            );
-            await umobText1.waitForDisplayed({
+            await PageObjects.donkeyLockText1.waitForDisplayed({
                 timeout: 10000,
                 timeoutMsg:
                     "text Use the handle to open the lock not found after 10 seconds",
             });
 
-            await expect(umobText1).toBeDisplayed();
+            await expect(PageObjects.donkeyLockText1).toBeDisplayed();
 
-            const umobText2 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
-            );
-            await expect(umobText2).toBeDisplayed();
+            await expect(PageObjects.donkeyLockText2).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -251,61 +156,21 @@ describe("Donkey Bike Booking Test", () => {
             ]);
             await driver.pause(2000);
 
-            const continueBtn = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Continue")',
-            );
-            await expect(continueBtn).toBeDisplayed();
-            await continueBtn.click();
+            await expect(PageObjects.continueButton).toBeDisplayed();
+            await PageObjects.continueButton.click();
 
-            //pause for ride duration
+            // Pause for ride duration
             await driver.pause(8000);
 
             // Click end trip button
-            const endTripButton = await driver.$(
-                "accessibility id:endTrip-text",
-            );
-            await endTripButton.click();
+            await PageObjects.endTripText.click();
 
             await driver.pause(2000);
 
             // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
-
-            // Click not now button
-            // const notNowButton = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
-            // );
-            // await expect(notNowButton).toBeDisplayed();
-            // await notNowButton.click();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     afterEach(async () => {

@@ -12,7 +12,7 @@ class PageObjects extends Page {
         }
     }
 
-    // Element selectors
+    // Element selectors - Core Authentication
     get username() {
         return $("#username");
     }
@@ -25,11 +25,8 @@ class PageObjects extends Page {
     get flash() {
         return $("#flash");
     }
-    // get accountButton() {
-    //     return $(
-    //         '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)',
-    //     );
-    // }
+
+    // Navigation Elements
     get accountButton() {
         return $("accessibility id:menu_account_button");
     }
@@ -61,17 +58,30 @@ class PageObjects extends Page {
     get startTripButton() {
         return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
+    get donkeyStartButton2() {
+        return $('-android uiautomator:new UiSelector().text("Start Trip")');
+    }
+    get donkeyLockText1() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
+        );
+    }
+    get donkeyLockText2() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
+        );
+    }
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("Got It!")');
     }
-    // get notNowButton() {
-    //     return $('-android uiautomator:new UiSelector().text("NOT NOW")');
-    // }
     get retryButton() {
         return $('-android uiautomator:new UiSelector().text("Retry")');
+    }
+    get continueButton() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
     }
     get inviteFriendsButton() {
         return $(
@@ -84,12 +94,42 @@ class PageObjects extends Page {
         );
     }
 
-    //map related buttons when first time open app
+    // Donkey Republic Booking Elements
+    get locationButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+        );
+    }
+    get endTripText() {
+        return $("accessibility id:endTrip-text");
+    }
+    get closeButton() {
+        return $("accessibility id:Close");
+    }
+    get androidPermissionButton() {
+        return $(
+            "id:com.android.permissioncontroller:id/permission_allow_button",
+        );
+    }
+
+    // Map and Location Elements
+    get mapRoot() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("map_root")',
+        );
+    }
     get exploreMapButton() {
         return $(
             '-android uiautomator:new UiSelector().textContains("Explore Map")',
         );
     }
+    get sideControlButtons() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home-controls")',
+        );
+    }
+
+    // Authentication Elements
     get startRegistrationButton() {
         return $(
             '-android uiautomator:new UiSelector().textContains("Start Registration")',
@@ -101,12 +141,238 @@ class PageObjects extends Page {
         );
     }
 
+    // QR Code and Vehicle Elements
+    get qrCodeButton() {
+        return $("accessibility id:scan-to-ride-button");
+    }
+    get scanVehicleButton() {
+        return $('-android uiautomator:new UiSelector().text("Scan Vehicle")');
+    }
+    get vehicleIdInput() {
+        return $("class name:android.widget.EditText");
+    }
+    get manualEntryInstruction() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Enter the vehicle ID manually")',
+        );
+    }
+
+    // Account Menu Elements
+    get assetFilterToggle() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
+        );
+    }
+
+    get personalInfoButton() {
+        return $('-android uiautomator:new UiSelector().text("Personal info")');
+    }
+    get paymentMethodsButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Payment methods")',
+        );
+    }
+    get idDocumentButton() {
+        return $('-android uiautomator:new UiSelector().text("ID Document")');
+    }
+    get vouchersButton() {
+        return $('-android uiautomator:new UiSelector().text("Vouchers")');
+    }
+    get myPaymentsButton() {
+        return $('-android uiautomator:new UiSelector().text("My payments")');
+    }
+    get languageButton() {
+        return $('-android uiautomator:new UiSelector().text("Language")');
+    }
+    get mapThemeSettingsButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Map theme settings")',
+        );
+    }
+    get supportButton() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get deleteAccountButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Delete account")',
+        );
+    }
+    get logOutButton() {
+        return $('-android uiautomator:new UiSelector().text("Log Out")');
+    }
+    get privacyLegalButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Privacy & Legal")',
+        );
+    }
+
+    // Authentication Screen Elements (for not logged in state)
+    get loginButton() {
+        return $('-android uiautomator:new UiSelector().text("Login")');
+    }
+    get registerButton() {
+        return $('-android uiautomator:new UiSelector().text("Register")');
+    }
+
+    // Nearby Assets Elements
+    get nearbyAssetsText() {
+        return $('-android uiautomator:new UiSelector().text("Nearby assets")');
+    }
+    get refreshButton() {
+        return $('-android uiautomator:new UiSelector().text("Refresh")');
+    }
+
     // Payment elements
     get multiPaymentOption() {
         return $('-android uiautomator:new UiSelector().textContains("multi")');
     }
     get noRideCreditOption() {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
+    }
+
+    // Permission Elements
+    get allowPermissionButton() {
+        return $('-android uiautomator:new UiSelector().textContains("Allow")');
+    }
+    get whileUsingAppPermission() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("hile using the app")',
+        );
+    }
+    get androidPermissionAllowButton() {
+        return $(
+            "id:com.android.permissioncontroller:id/permission_allow_button",
+        );
+    }
+
+    /**
+     * Handle location permissions that appear after login
+     */
+    async handleLocationPermissions() {
+        try {
+            // First permission popup
+            await this.allowPermissionButton.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.allowPermissionButton.click();
+
+            await driver.pause(2000);
+
+            // Android system permission button
+            await this.androidPermissionAllowButton.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.androidPermissionAllowButton.click();
+
+            await driver.pause(2000);
+
+            // "While using the app" permission
+            await this.whileUsingAppPermission.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.whileUsingAppPermission.click();
+        } catch (error) {
+            console.log(
+                "Permission handling completed or not required:",
+                error.message,
+            );
+        }
+    }
+
+    /**
+     * Wait for and verify map is loaded
+     */
+    async waitForMapToLoad() {
+        await this.mapRoot.waitForDisplayed({ timeout: 20000 });
+        await expect(this.mapRoot).toBeDisplayed();
+        await this.planTripBtn.waitForExist({ timeout: 10000 });
+    }
+
+    /**
+     * Enter vehicle ID manually
+     * @param {string} vehicleId - The vehicle ID to enter
+     */
+    async enterVehicleIdManually(vehicleId: string) {
+        await this.manualEntryInstruction.waitForDisplayed();
+        await expect(this.manualEntryInstruction).toBeDisplayed();
+
+        await this.vehicleIdInput.waitForDisplayed();
+        await this.vehicleIdInput.click();
+        await this.vehicleIdInput.addValue(vehicleId);
+
+        await this.continueButton.waitForDisplayed();
+        await this.continueButton.click();
+    }
+
+    /**
+     * Check for error messages indicating feature not working
+     * @param {string[]} errorMessages - Array of error messages to check for
+     */
+    async checkForErrorMessages(errorMessages: string[]) {
+        for (const message of errorMessages) {
+            const errorElement = await driver.$(
+                `-android uiautomator:new UiSelector().textContains("${message}")`,
+            );
+
+            try {
+                const isDisplayed = await errorElement.isDisplayed();
+                if (isDisplayed) {
+                    throw new Error(
+                        `Feature is not working: Found error message "${message}"`,
+                    );
+                }
+            } catch (elementError) {
+                if (elementError.message.includes("Feature is not working")) {
+                    throw elementError;
+                }
+                // Element not found is good - continue checking
+            }
+        }
+    }
+
+    /**
+     * Verify multiple menu items are displayed
+     * @param {string[]} menuItems - Array of menu item texts to verify
+     */
+    async verifyMenuItems(menuItems: string[]) {
+        for (const menuItem of menuItems) {
+            const menuElement = await driver.$(
+                `-android uiautomator:new UiSelector().text("${menuItem}")`,
+            );
+            await expect(menuElement).toBeDisplayed();
+        }
+    }
+
+    /**
+     * Perform scroll down action
+     */
+    async scrollDown() {
+        const { width, height } = await driver.getWindowSize();
+        await driver.performActions([
+            {
+                type: "pointer",
+                id: "finger1",
+                parameters: { pointerType: "touch" },
+                actions: [
+                    {
+                        type: "pointerMove",
+                        duration: 0,
+                        x: width / 2,
+                        y: height * 0.8,
+                    },
+                    { type: "pointerDown", button: 0 },
+                    { type: "pause", duration: 100 },
+                    {
+                        type: "pointerMove",
+                        duration: 1000,
+                        x: width / 2,
+                        y: height * 0.2,
+                    },
+                    { type: "pointerUp", button: 0 },
+                ],
+            },
+        ]);
+        await driver.pause(1000);
     }
 
     async login({
@@ -158,39 +424,9 @@ class PageObjects extends Page {
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
 
-            const permissionsPopup = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Allow")',
-            );
-            await permissionsPopup.isDisplayed();
-            await expect(permissionsPopup).toBeDisplayed();
-            await permissionsPopup.click();
-
-            console.log("deviceInfo " + deviceCapabilities);
-            // if (deviceCapabilities.includes("Local")) {
-            //     const enableNotifications = await driver.$(
-            //         "id:com.android.permissioncontroller:id/permission_allow_button",
-            //     );
-            //     await expect(enableNotifications).toBeDisplayed();
-            //     await enableNotifications.click();
-            // }
-
-            await driver.pause(5000);
-            // const permissionsPopup2 = await driver.$(
-            //     '-android uiautomator:new UiSelector().textContains("hile using the app")',
-            // );
-            const permissionsPopup2 = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_button",
-            );
-            await permissionsPopup2.isDisplayed();
-            await permissionsPopup2.click();
-
-            await driver.pause(5000);
-            const permissionsPopup3 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("hile using the app")',
-            );
-
-            await permissionsPopup3.isDisplayed();
-            await permissionsPopup3.click();
+            // Handle location permissions
+            await this.allowPermissionButton.click();
+            await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
         } catch (e) {
