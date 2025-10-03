@@ -9,6 +9,9 @@ import {
     ENV,
     USER,
 } from "../../helpers/TestHelpers.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -140,6 +143,64 @@ describe("Test for the Nearby Assets feature", () => {
                 '-android uiautomator:new UiSelector().textContains("meter")',
             );
             await expect(distance).toBeDisplayed();
+
+            await driver.pause(2000);
+
+            // Verify PostHog event
+            try {
+                /*  // 1. get email and event name on $screen even
+                const loggedinEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged In",
+                        email: "new12@gmail.com",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+*/
+                const nearbyEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Nearby vehicles loaded",
+                        personEmail: "new12@gmail.com",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(nearbyEvent);
+
+                // now assertions for each event
+
+                // verify event name
+                expect(nearbyEvent.event).toBe("Nearby vehicles loaded");
+                //expect(loggedinEvent.event).toBe("Logged In");
+
+                //verify email for each even
+                expect(nearbyEvent.person?.is_identified).toBe(true);
+                expect(nearbyEvent.person?.properties?.email).toBe(
+                    "new12@gmail.com",
+                );
+
+                // expect(loggedinEvent.person?.is_identified).toBe(true);
+                // expect(loggedinEvent.person?.properties?.email).toBe(
+                //     "new12@gmail.com",
+                // );
+
+                // logs
+                //console.log("✅ Event name:", loggedinEvent.id);
+                console.log("✅ Event name:", nearbyEvent.id);
+            } catch (e) {
+                console.error("PostHog validation failed:", e);
+                throw e;
+            }
         });
     });
 

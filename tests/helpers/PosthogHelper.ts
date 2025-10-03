@@ -225,7 +225,7 @@ class PostHogHelper {
         const {
             maxRetries = 10,
             retryDelayMs = 3000,
-            searchLimit = 10,
+            searchLimit = 20,
         } = options;
 
         for (let attempt = 1; attempt <= maxRetries; attempt++) {

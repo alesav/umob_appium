@@ -172,6 +172,16 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().text("Payment methods")',
         );
     }
+    get addPaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Add Payment Method")',
+        );
+    }
+    get removePaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Remove Payment Method")',
+        );
+    }
     get idDocumentButton() {
         return $('-android uiautomator:new UiSelector().text("ID Document")');
     }
