@@ -93,6 +93,11 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().resourceId("back_button")',
         );
     }
+    get backButtonAccessibility() {
+        return $(
+            '-android uiautomator:new UiSelector().description("back_button")',
+        );
+    }
 
     // Donkey Republic Booking Elements
     get locationButton() {
@@ -164,6 +169,9 @@ class PageObjects extends Page {
         );
     }
 
+    get inviteFriendsMenuItem() {
+        return $('-android uiautomator:new UiSelector().text("Invite friends")');
+    }
     get personalInfoButton() {
         return $('-android uiautomator:new UiSelector().text("Personal info")');
     }

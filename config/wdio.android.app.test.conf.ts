@@ -40,7 +40,8 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
-        //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoCard.spec.js"
+
+        "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts" //Umob Boke 23
@@ -50,7 +51,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
-        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts"
         //"../tests/specs/newUser/deleteCard.spec.ts"
         ///////////////////////////////////////////////////////////////////////////////////
@@ -70,14 +71,14 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/login/NEW.login.positive.spec.ts", //ok
         //////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
-        "../tests/specs/newUser/deleteCard.spec.ts",
+        //"../tests/specs/newUser/deleteCard.spec.ts",
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
         ///////"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts", //new25 //ok/
         // "c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts",  //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         ////////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //new61 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts"
+        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/account/qrCode.spec.ts", //new12
         //"../tests/specs/account/combinedLoggedTest.spec.ts", //new12
