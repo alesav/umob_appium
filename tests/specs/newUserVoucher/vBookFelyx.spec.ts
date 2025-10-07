@@ -5,7 +5,13 @@ import {
     executeTest,
     getApiConfig,
 } from "../../helpers/TestHelpers.js";
-import { findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+import {
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "new15";
@@ -13,7 +19,7 @@ const USER = process.env.TEST_USER || "new15";
 // Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
 const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
     const apiConfig = getApiConfig(ENV);
-    
+
     try {
         const response = await fetch(apiConfig.apiUrl, {
             method: "POST",
@@ -259,6 +265,51 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
+
+            /*
+            // Verify PostHog events
+            try {
+                // Get Logged In event
+                const loggedInEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged In",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                const loggedOutEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged Out",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(loggedInEvent);
+                posthog.printEventSummary(loggedOutEvent);
+
+                // Verify Logged In event
+                expect(loggedInEvent.event).toBe("Logged In");
+                expect(loggedInEvent.person?.is_identified).toBe(true);
+
+                // Verify Logged Out event
+                expect(loggedOutEvent.event).toBe("Logged Out");
+                expect(loggedOutEvent.person?.is_identified).toBe(true);
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
+            }
+                */
         });
     });
 

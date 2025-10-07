@@ -454,7 +454,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify bottom buttons
             const changeDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Add ID Document")',
+                '-android uiautomator:new UiSelector().text("Add Id Document")',
             );
             await expect(changeDocumentButton).toBeDisplayed();
 
