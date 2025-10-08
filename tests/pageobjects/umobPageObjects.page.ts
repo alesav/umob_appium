@@ -59,7 +59,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
     get donkeyStartButton2() {
-        return $('-android uiautomator:new UiSelector().text("Start Trip")');
+        return $('-android uiautomator:new UiSelector().text("Start Trip")'); //await driver.$("accessibility id:continue");
     }
     get donkeyLockText1() {
         return $(
@@ -170,7 +170,9 @@ class PageObjects extends Page {
     }
 
     get inviteFriendsMenuItem() {
-        return $('-android uiautomator:new UiSelector().text("Invite friends")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Invite friends")',
+        );
     }
     get personalInfoButton() {
         return $('-android uiautomator:new UiSelector().text("Personal info")');

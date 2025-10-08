@@ -37,7 +37,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"/// umknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
-        //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts" //problem, a lot of manual work
+        //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", //problem, a lot of manual work
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
@@ -51,13 +51,13 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobScooters.spec.js" //JS file. new43(blocked) stop booking after night run
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts"
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
-        //"../tests/specs/book/bookDonkeyMocked.spec.ts"
+        //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts"
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //morning run
-        //"../tests/specs/book/reserveFelyx.spec.ts",
+        "../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
@@ -100,10 +100,10 @@ export const config: WebdriverIO.Config = {
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
-        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        /////////"../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        //"../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
     ],
     capabilities: [
         {
