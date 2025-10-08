@@ -40,6 +40,7 @@ describe("Book a Taxi", () => {
             await driver.pause(2000);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
+
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -51,7 +52,7 @@ describe("Book a Taxi", () => {
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
-                            y: 400,
+                            y: height * 0.95,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
@@ -59,12 +60,13 @@ describe("Book a Taxi", () => {
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: 10,
+                            y: height * 0.1,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
                 },
             ]);
+            await driver.pause(2000);
 
             //about taxi
             const taxiHeader = await driver.$(
