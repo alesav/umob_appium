@@ -250,6 +250,17 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
     }
 
+    // Voucher/Ride Credit Screen Elements
+    get voucherCodeLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Code")');
+    }
+    get voucherCodeInput() {
+        return $('-android uiautomator:new UiSelector().className("android.widget.EditText")');
+    }
+    get submitPromotionalCodeButton() {
+        return $('-android uiautomator:new UiSelector().text("Submit Promotional Code")');
+    }
+
     // Permission Elements
     get allowPermissionButton() {
         return $('-android uiautomator:new UiSelector().textContains("Allow")');
@@ -263,6 +274,36 @@ class PageObjects extends Page {
         return $(
             "id:com.android.permissioncontroller:id/permission_allow_button",
         );
+    }
+
+    // Help/Support button on home screen (for not logged users)
+    get homeHelpButton() {
+        return $('accessibility id:home_help_button');
+    }
+
+    // Support Screen Elements
+    get supportScreenHeader() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get supportFaqTab() {
+        return $('-android uiautomator:new UiSelector().text("FAQ")');
+    }
+    get supportChatTab() {
+        return $('-android uiautomator:new UiSelector().text("Chat")');
+    }
+    get supportAboutTab() {
+        return $('-android uiautomator:new UiSelector().text("About")');
+    }
+
+    // Chat Elements
+    get openChatButton() {
+        return $('-android uiautomator:new UiSelector().text("Open Chat")');
+    }
+    get chatInputField() {
+        return $('-android uiautomator:new UiSelector().text("Start typing here")');
+    }
+    get chatSendButton() {
+        return $('-android uiautomator:new UiSelector().description("Send")');
     }
 
     /**

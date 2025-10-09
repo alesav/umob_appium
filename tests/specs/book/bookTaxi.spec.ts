@@ -313,6 +313,7 @@ describe("Book a Taxi", () => {
                 '-android uiautomator:new UiSelector().text("Cancel My Booking")',
             );
             await expect(confirmCancelButton).toBeDisplayed();
+            await driver.pause(2000);
             await confirmCancelButton.click();
 
             //check main screen is displayed

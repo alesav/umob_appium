@@ -1093,31 +1093,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await PageObjects.supportButton.click();
 
             // Verify screen header
-            const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Support")',
-            );
-            await expect(screenHeader).toBeDisplayed();
-            await screenHeader.waitForDisplayed({ timeout: 4000 });
+            await expect(PageObjects.supportScreenHeader).toBeDisplayed();
+            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
 
             // Verify tabs
-            const faq = await driver.$(
-                '-android uiautomator:new UiSelector().text("FAQ")',
-            );
-            await expect(faq).toBeDisplayed();
-
-            const chat = await driver.$(
-                '-android uiautomator:new UiSelector().text("Chat")',
-            );
-            await expect(chat).toBeDisplayed();
-
-            const about = await driver.$(
-                '-android uiautomator:new UiSelector().text("About")',
-            );
-            await expect(about).toBeDisplayed();
+            await expect(PageObjects.supportFaqTab).toBeDisplayed();
+            await expect(PageObjects.supportChatTab).toBeDisplayed();
+            await expect(PageObjects.supportAboutTab).toBeDisplayed();
 
             // Click on "FAQ" to be sure you are in the right place
             await driver.pause(2000);
-            await faq.click();
+            await PageObjects.supportFaqTab.click();
 
             // Verify main content headers and text
             const contentElements = [
@@ -1184,29 +1170,20 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             }
 
             // Go to chat tab
-            await chat.click();
+            await PageObjects.supportChatTab.click();
             await driver.pause(2000);
 
-            const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("Open Chat")`,
-            );
-            await expect(openChat).toBeDisplayed();
-            await openChat.click();
+            await expect(PageObjects.openChatButton).toBeDisplayed();
+            await PageObjects.openChatButton.click();
 
             // Send test message to chat
-            const welcomeMessage = await driver.$(
-                `-android uiautomator:new UiSelector().text("Start typing here")`,
-            );
-            await expect(welcomeMessage).toBeDisplayed();
-            await welcomeMessage.addValue("test");
+            await expect(PageObjects.chatInputField).toBeDisplayed();
+            await PageObjects.chatInputField.addValue("test");
             await driver.pause(2000);
 
             // Click on send button
-            const sendButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("Send")',
-            );
-            await expect(sendButton).toBeDisplayed();
-            await sendButton.click();
+            await expect(PageObjects.chatSendButton).toBeDisplayed();
+            await PageObjects.chatSendButton.click();
 
             // Check if message was sent
             const messageCheck = await driver.$(
@@ -1215,15 +1192,15 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(messageCheck).toBeDisplayed();
 
             // If the message is sent then after seeing "test" you should see welcome message again: "Start typing here"
-            await expect(welcomeMessage).toBeDisplayed();
+            await expect(PageObjects.chatInputField).toBeDisplayed();
 
             // Press the device back button
             await driver.back();
 
             // Go to about tab
             await driver.pause(5000);
-            await expect(about).toBeDisplayed();
-            await about.click();
+            await expect(PageObjects.supportAboutTab).toBeDisplayed();
+            await PageObjects.supportAboutTab.click();
             await driver.pause(2000);
 
             // Check for text on about tab

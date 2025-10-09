@@ -33,9 +33,9 @@ export const config: WebdriverIO.Config = {
         ////"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",
-        //"../tests/specs/newUser/addVoucher.spec.ts"
+        //"../tests/specs/newUser/addVoucher.spec.ts",
         //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
-        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts"/// umknown timeout problem
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", //problem, a lot of manual work
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
@@ -57,13 +57,13 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //morning run
-        "../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok. not in center of the map, verification in progress could be after nreservechecknocard
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
-        // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok. looks like no card but card is!!! check on screenshot.
+        //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts", // new //ok. looks like no card but card is!!! check on screenshot.
         //"c:/dev/umob_appium/tests/specs/book/bookDonkeyMocked.spec.ts", //   new36  //Umob Bike 24/ not in center. bike FAIL (bike 22 is missing)
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //   new17  //bike23  /location problem FAIL (something wrong with finger str197, index.js 1488 20, 1559 14). fully ok
         ///////////////////"c:/dev/umob_appium/tests/specs/account/AddAdress.spec.ts",
