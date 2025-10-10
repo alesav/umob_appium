@@ -12,7 +12,7 @@ const USER = process.env.TEST_USER || "newUser";
 // Fetch scooter coordinates from API (specific to this test location)
 const fetchScooterCoordinates = async () => {
     const apiConfig = getApiConfig(ENV);
-    
+
     try {
         const response = await fetch(apiConfig.apiUrl, {
             method: "POST",
@@ -151,10 +151,20 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
                     id: "finger1",
                     parameters: { pointerType: "touch" },
                     actions: [
-                        { type: "pointerMove", duration: 0, x: width / 2, y: height * 0.7 },
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.7,
+                        },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
-                        { type: "pointerMove", duration: 1000, x: width / 2, y: height * 0.2 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.2,
+                        },
                         { type: "pointerUp", button: 0 },
                     ],
                 },
@@ -168,10 +178,7 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
             await driver.pause(3000);
 
             // Verify header and offer for choosing payment method
-            const paymentHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
-            );
-            await expect(paymentHeader).toBeDisplayed();
+            await PageObjects.paymentHeader.waitForDisplayed();
 
             const cards = await driver.$(
                 '-android uiautomator:new UiSelector().text("Cards")',
@@ -191,10 +198,20 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
                     id: "finger2",
                     parameters: { pointerType: "touch" },
                     actions: [
-                        { type: "pointerMove", duration: 0, x: width / 2, y: height * 0.8 },
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.8,
+                        },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
-                        { type: "pointerMove", duration: 1000, x: width / 2, y: height * 0.2 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.2,
+                        },
                         { type: "pointerUp", button: 0 },
                     ],
                 },

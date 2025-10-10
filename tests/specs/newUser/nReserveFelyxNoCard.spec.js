@@ -172,10 +172,7 @@ class FelyxScooterActions {
     }
 
     static async verifySelectPaymentMethod() {
-        const selectPayment = await driver.$(
-            '-android uiautomator:new UiSelector().text("Select payment method")',
-        );
-        await expect(selectPayment).toBeDisplayed();
+        await PageObjects.selectPayment.waitForDisplayed();
     }
 
     static async clickReserveButton() {
@@ -186,10 +183,7 @@ class FelyxScooterActions {
     }
 
     static async verifyPaymentMethodsScreen() {
-        const paymentHeader = await driver.$(
-            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
-        );
-        await expect(paymentHeader).toBeDisplayed();
+        await PageObjects.paymentHeader.waitForDisplayed();
 
         const cards = await driver.$(
             '-android uiautomator:new UiSelector().text("Cards")',

@@ -243,11 +243,21 @@ class PageObjects extends Page {
     }
 
     // Payment elements
+    get selectPayment() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Select payment method")',
+        );
+    }
     get multiPaymentOption() {
         return $('-android uiautomator:new UiSelector().textContains("multi")');
     }
     get noRideCreditOption() {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
+    }
+    get paymentHeader() {
+        return $(
+            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
+        );
     }
 
     // Voucher/Ride Credit Screen Elements
@@ -255,10 +265,14 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().textContains("Code")');
     }
     get voucherCodeInput() {
-        return $('-android uiautomator:new UiSelector().className("android.widget.EditText")');
+        return $(
+            '-android uiautomator:new UiSelector().className("android.widget.EditText")',
+        );
     }
     get submitPromotionalCodeButton() {
-        return $('-android uiautomator:new UiSelector().text("Submit Promotional Code")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
+        );
     }
 
     // Permission Elements
@@ -278,7 +292,7 @@ class PageObjects extends Page {
 
     // Help/Support button on home screen (for not logged users)
     get homeHelpButton() {
-        return $('accessibility id:home_help_button');
+        return $("accessibility id:home_help_button");
     }
 
     // Support Screen Elements
@@ -300,7 +314,9 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Open Chat")');
     }
     get chatInputField() {
-        return $('-android uiautomator:new UiSelector().text("Start typing here")');
+        return $(
+            '-android uiautomator:new UiSelector().text("Start typing here")',
+        );
     }
     get chatSendButton() {
         return $('-android uiautomator:new UiSelector().description("Send")');
