@@ -5,6 +5,9 @@ import {
     ENV,
     USER,
 } from "../../helpers/TestHelpers.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -980,6 +983,49 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify Register button appeared
             await expect(PageObjects.registerButton).toBeDisplayed();
+
+            // Verify PostHog events
+            try {
+                // Get Logged In event
+                const loggedInEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged In",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                const loggedOutEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged Out",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(loggedInEvent);
+                posthog.printEventSummary(loggedOutEvent);
+
+                // Verify Logged In event
+                expect(loggedInEvent.event).toBe("Logged In");
+                expect(loggedInEvent.person?.is_identified).toBe(true);
+
+                // Verify Logged Out event
+                expect(loggedOutEvent.event).toBe("Logged Out");
+                expect(loggedOutEvent.person?.is_identified).toBe(true);
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
+            }
         });
     });
 

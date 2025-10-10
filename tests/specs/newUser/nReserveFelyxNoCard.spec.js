@@ -5,14 +5,46 @@ import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
-const AUTH_TOKEN =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NDUxNTA0MjgsImlhdCI6MTczNzM3NDQyOCwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6ImQyM2Y2ZDY1LTQ2ZjEtNDcxZi1hMGRmLTUyOWU3ZmVlYTdiYSIsInN1YiI6IjY1NzAxOWU2LWFiMGItNGNkNS1hNTA0LTgwMjUwNmZiYzc0YyIsInVuaXF1ZV9uYW1lIjoibmV3NUBnbWFpbC5jb20iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJuZXc1QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJOZXc1IiwiZmFtaWx5X25hbWUiOiJOZXc1IiwiZW1haWwiOiJuZXc1QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjoiRmFsc2UiLCJwaG9uZV9udW1iZXIiOiIrMzE5NzAxMDU4MDM0MSIsInBob25lX251bWJlcl92ZXJpZmllZCI6IlRydWUiLCJvaV9wcnN0IjoidU1vYl9BcHBfT3BlbklkZGljdCIsIm9pX2F1X2lkIjoiYTIyZWNjMjYtMWE4ZC01NDRkLThiN2ItM2ExNzk1YzJjMzRjIiwiY2xpZW50X2lkIjoidU1vYl9BcHBfT3BlbklkZGljdCIsIm9pX3Rrbl9pZCI6IjAwMjQ4OWYyLTAzODYtZTcxZC0xNjljLTNhMTc5NWMyYzQ2MSJ9.s9l5ytG-9PwwF3CVBMJKSG0pkZ5ZBKJrJ5AzNnbYzzuo88qfg1uqv0jE1B7qriZ4qnqoCVxCHkgRxouEGIvWpOezfvSeYlik-GoJAQa20Qf8KkEpa8JTXUXImDKkrmSa7b_4mlP3m1-D8mormBxHhRh4W0O9WreMh3TD3c2NAUNM7Ecq5-3Ax9DAM4lJf-KZYVH1uEb3kD3hFcx68wFNqU5EAjJHZjC0FcA3REJDIfMRoNilpZcNHz4Y8oejcpO2P9I19g3mr0ZDdIIs-HyzASiQr1Mfj6c6lV72HKMpfmlSMO1Iy9juxAPE_wjhXcpi7F9pn3zZmGNdDcukf_feWg";
+// Get environment from env variables
+const ENV = process.env.TEST_ENV || "test";
+
+/**
+ * Get API configuration for the current environment
+ */
+function getApiConfig(environment = "test") {
+    try {
+        const credentialsPath = path.resolve(
+            __dirname,
+            "../../../config/credentials.json",
+        );
+        const credentials = JSON.parse(
+            fs.readFileSync(credentialsPath, "utf8"),
+        );
+
+        if (!credentials[environment]) {
+            console.warn(
+                `Environment '${environment}' not found. Using 'test' environment.`,
+            );
+            environment = "test";
+        }
+
+        return {
+            apiUrl: credentials[environment].apiUrl,
+            authToken: credentials[environment].authToken,
+        };
+    } catch (error) {
+        console.error("Error loading API config:", error);
+        throw new Error("Failed to load API configuration");
+    }
+}
 
 /**
  * Test Helper Functions
@@ -55,6 +87,7 @@ class TestHelpers {
             throw new Error("Failed to load credentials configuration");
         }
     }
+
     static async getScreenCenter() {
         return await AppiumHelpers.getScreenCenter();
     }
@@ -78,13 +111,15 @@ class TestHelpers {
     }
 
     static async fetchScooterCoordinates() {
+        const apiConfig = getApiConfig(ENV);
+
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(apiConfig.apiUrl, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: AUTH_TOKEN,
+                    Authorization: apiConfig.authToken,
                     "Accept-Language": "en",
                     "X-Requested-With": "XMLHttpRequest",
                     "App-Version": "1.24057.3.24057",
@@ -95,7 +130,7 @@ class TestHelpers {
                     stationId: "",
                     longitude: 4.46893572807312,
                     latitude: 51.91743146298927,
-                    radius: 1166.6137310913994,
+                    radius: 116.6137310913994,
                     zoomLevel: 15.25,
                     subOperators: [],
                     assetClasses: [23],
@@ -137,10 +172,7 @@ class FelyxScooterActions {
     }
 
     static async verifySelectPaymentMethod() {
-        const selectPayment = await driver.$(
-            '-android uiautomator:new UiSelector().text("Select payment method")',
-        );
-        await expect(selectPayment).toBeDisplayed();
+        await PageObjects.selectPayment.waitForDisplayed();
     }
 
     static async clickReserveButton() {
@@ -151,10 +183,7 @@ class FelyxScooterActions {
     }
 
     static async verifyPaymentMethodsScreen() {
-        const paymentHeader = await driver.$(
-            "id:com.umob.umob:id/payment_method_header_title",
-        );
-        await expect(paymentHeader).toBeDisplayed();
+        await PageObjects.paymentHeader.waitForDisplayed();
 
         const cards = await driver.$(
             '-android uiautomator:new UiSelector().text("Cards")',
@@ -294,6 +323,8 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
     });
 
     it("New User Tries to Reserve Felyx Scooter Without Card", async () => {
+        let targetScooter;
+
         await TestRunner.runTest(
             "f8c39b91-153c-431c-8c49-8bf1246f7416",
             async () => {
@@ -335,8 +366,33 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
 
                 // Verify payment methods screen appears again for start trip
                 await FelyxScooterActions.verifyStartTripPaymentOptions();
+
+                // Verify PostHog events
+                try {
+                    // Get Transporter Clicked event
+                    const TCEvent = await posthog.waitForEvent(
+                        {
+                            eventName: "Transporter Clicked",
+                        },
+                        {
+                            maxRetries: 10,
+                            retryDelayMs: 3000,
+                            searchLimit: 20,
+                            maxAgeMinutes: 5,
+                        },
+                    );
+
+                    // If we got here, event was found with all criteria matching
+                    posthog.printEventSummary(TCEvent);
+
+                    // Verify Transporter Clicked event
+                    expect(TCEvent.event).toBe("Transporter Clicked");
+                    expect(TCEvent.person?.is_identified).toBe(true);
+                } catch (posthogError) {
+                    console.error("PostHog verification failed:", posthogError);
+                    throw posthogError;
+                }
             },
-            targetScooter,
         );
     });
 });
