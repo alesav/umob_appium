@@ -63,6 +63,7 @@ class PostHogHelper {
                 "PostHog API key is required. Please set POSTHOG_API_KEY environment variable or pass it to the constructor.",
             );
         }
+    
 
         console.log(`Using PostHog key: ${this.apiKey}`);
 
@@ -76,6 +77,9 @@ class PostHogHelper {
      */
     async getRecentEvents(limit: number = 10): Promise<PostHogEventsResponse> {
         const url = `${this.baseUrl}/events/?limit=${limit}`;
+
+        let token = `Bearer ${this.apiKey}`
+        console.log("Posthog token: " + token)
 
         try {
             const response = await fetch(url, {
