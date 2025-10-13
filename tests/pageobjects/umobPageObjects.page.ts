@@ -59,7 +59,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
     get donkeyStartButton2() {
-        return $('-android uiautomator:new UiSelector().text("Start Trip")');
+        return $('-android uiautomator:new UiSelector().text("Start Trip")'); //await driver.$("accessibility id:continue");
     }
     get donkeyLockText1() {
         return $(
@@ -91,6 +91,11 @@ class PageObjects extends Page {
     get backButton() {
         return $(
             '-android uiautomator:new UiSelector().resourceId("back_button")',
+        );
+    }
+    get backButtonAccessibility() {
+        return $(
+            '-android uiautomator:new UiSelector().description("back_button")',
         );
     }
 
@@ -164,12 +169,27 @@ class PageObjects extends Page {
         );
     }
 
+    get inviteFriendsMenuItem() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Invite friends")',
+        );
+    }
     get personalInfoButton() {
         return $('-android uiautomator:new UiSelector().text("Personal info")');
     }
     get paymentMethodsButton() {
         return $(
             '-android uiautomator:new UiSelector().text("Payment methods")',
+        );
+    }
+    get addPaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Add Payment Method")',
+        );
+    }
+    get removePaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Remove Payment Method")',
         );
     }
     get idDocumentButton() {
@@ -223,11 +243,36 @@ class PageObjects extends Page {
     }
 
     // Payment elements
+    get selectPayment() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Select payment method")',
+        );
+    }
     get multiPaymentOption() {
         return $('-android uiautomator:new UiSelector().textContains("multi")');
     }
     get noRideCreditOption() {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
+    }
+    get paymentHeader() {
+        return $(
+            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
+        );
+    }
+
+    // Voucher/Ride Credit Screen Elements
+    get voucherCodeLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Code")');
+    }
+    get voucherCodeInput() {
+        return $(
+            '-android uiautomator:new UiSelector().className("android.widget.EditText")',
+        );
+    }
+    get submitPromotionalCodeButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
+        );
     }
 
     // Permission Elements
@@ -243,6 +288,38 @@ class PageObjects extends Page {
         return $(
             "id:com.android.permissioncontroller:id/permission_allow_button",
         );
+    }
+
+    // Help/Support button on home screen (for not logged users)
+    get homeHelpButton() {
+        return $("accessibility id:home_help_button");
+    }
+
+    // Support Screen Elements
+    get supportScreenHeader() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get supportFaqTab() {
+        return $('-android uiautomator:new UiSelector().text("FAQ")');
+    }
+    get supportChatTab() {
+        return $('-android uiautomator:new UiSelector().text("Chat")');
+    }
+    get supportAboutTab() {
+        return $('-android uiautomator:new UiSelector().text("About")');
+    }
+
+    // Chat Elements
+    get openChatButton() {
+        return $('-android uiautomator:new UiSelector().text("Open Chat")');
+    }
+    get chatInputField() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Start typing here")',
+        );
+    }
+    get chatSendButton() {
+        return $('-android uiautomator:new UiSelector().description("Send")');
     }
 
     /**

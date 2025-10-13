@@ -1,6 +1,9 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
 
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "new45";
@@ -154,6 +157,7 @@ describe("Donkey Bike Booking Test", () => {
                     ],
                 },
             ]);
+
             await driver.pause(2000);
 
             await expect(PageObjects.continueButton).toBeDisplayed();
@@ -170,6 +174,121 @@ describe("Donkey Bike Booking Test", () => {
             // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
+
+            // Verify PostHog events
+            try {
+                // Get Transporter Ride Started event
+                const trsEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Ride Started",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Bluetooth Lock Initialized Attempt event
+                const bliaEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Bluetooth Lock Initialized Attempt",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Bluetooth Unlock Attempt event
+                const buaEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Bluetooth Unlock Attempt",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Start Finishing ride event
+                const sfrEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Start Finishing ride",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Bluetooth Lock Attempt event
+                const blaEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Bluetooth Lock Attempt",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(trsEvent);
+                posthog.printEventSummary(bliaEvent);
+                posthog.printEventSummary(buaEvent);
+                posthog.printEventSummary(sfrEvent);
+                posthog.printEventSummary(blaEvent);
+
+                // Verify Transporter Ride Started event
+                expect(trsEvent.event).toBe("Transporter Ride Started");
+                expect(trsEvent.person?.is_identified).toBe(true);
+                expect(trsEvent.person?.properties?.email).toBe(
+                    "new45@gmail.com",
+                );
+
+                // Verify Bluetooth Lock Initialized Attempt event
+                expect(bliaEvent.event).toBe(
+                    "Bluetooth Lock Initialized Attempt",
+                );
+                expect(bliaEvent.person?.is_identified).toBe(true);
+                expect(bliaEvent.person?.properties?.email).toBe(
+                    "new45@gmail.com",
+                );
+
+                // Verify Bluetooth Unlock Attempt event
+                expect(buaEvent.event).toBe("Bluetooth Unlock Attempt");
+                expect(buaEvent.person?.is_identified).toBe(true);
+                expect(buaEvent.person?.properties?.email).toBe(
+                    "new45@gmail.com",
+                );
+
+                // Verify Start Finishing ride event
+                expect(sfrEvent.event).toBe("Start Finishing ride");
+                expect(sfrEvent.person?.is_identified).toBe(true);
+                expect(sfrEvent.person?.properties?.email).toBe(
+                    "new45@gmail.com",
+                );
+
+                // Verify Bluetooth Lock Attempt event
+                expect(blaEvent.event).toBe("Bluetooth Lock Attempt");
+                expect(blaEvent.person?.is_identified).toBe(true);
+                expect(blaEvent.person?.properties?.email).toBe(
+                    "new45@gmail.com",
+                );
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
+            }
         });
     });
 

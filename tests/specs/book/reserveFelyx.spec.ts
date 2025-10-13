@@ -1,82 +1,22 @@
-import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import {
+    getCredentials,
+    executeTest,
+    getScreenCenter,
+} from "../../helpers/TestHelpers.js";
 import {
     fetchScooterCoordinates,
     findFelyxScooter,
     type Scooter,
 } from "../../helpers/ScooterCoordinates.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
+const posthog = new PostHogHelper();
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "new18";
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
-const getScreenCenter = async () => {
-    // Get screen dimensions
-    const { width, height } = await driver.getWindowSize();
-
-    return {
-        centerX: Math.round(width / 2),
-        centerY: Math.round(height / 2),
-        screenWidth: width,
-        screenHeight: height,
-    };
-};
 
 // Filter mopeds and stations
 const applyFilters = async () => {
@@ -137,7 +77,6 @@ describe("Reserve Felyx Test", () => {
 
         const credentials = getCredentials(ENV, USER);
 
-        // await PageObjects.login(credentials);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
@@ -157,16 +96,10 @@ describe("Reserve Felyx Test", () => {
         // Wait for main screen to be loaded
     });
 
-    ////////////////////////////////////////////////////////////////////////////////
     it("Positive Scenario: Reserve Felyx moped", async () => {
         const testId = "4820ba79-0e15-4d1e-88f7-61e204392233";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
@@ -177,6 +110,7 @@ describe("Reserve Felyx Test", () => {
 
             await driver.pause(4000);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
             await driver.performActions([
@@ -224,40 +158,101 @@ describe("Reserve Felyx Test", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Personal info")',
-                )
-                .isDisplayed();
+            await PageObjects.personalInfoButton.waitForDisplayed();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
 
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
+            // Verify PostHog events
             try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
+                // Get Transporter Ride Started event
+                const trsEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Ride Started",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
                 );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
 
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
+                // Get Transporter Clicked event
+                const tcEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Clicked",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Transporter Reservation Created event
+                const trcEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Reservation Created",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Transporter Ride Verified event
+                const trvEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Ride Verified",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(trsEvent);
+                posthog.printEventSummary(tcEvent);
+                posthog.printEventSummary(trcEvent);
+                posthog.printEventSummary(trvEvent);
+
+                // Verify Transporter Ride Started event
+                expect(trsEvent.event).toBe("Transporter Ride Started");
+                expect(trsEvent.person?.is_identified).toBe(true);
+                expect(trsEvent.person?.properties?.email).toBe(
+                    "new18@gmail.com",
+                );
+
+                // Verify Transporter Clicked event
+                expect(tcEvent.event).toBe("Transporter Clicked");
+                expect(tcEvent.person?.is_identified).toBe(true);
+                expect(tcEvent.person?.properties?.email).toBe(
+                    "new18@gmail.com",
+                );
+
+                // Verify Transporter Reservation Created event
+                expect(trcEvent.event).toBe("Transporter Reservation Created");
+                expect(trcEvent.person?.is_identified).toBe(true);
+                expect(trcEvent.person?.properties?.email).toBe(
+                    "new18@gmail.com",
+                );
+
+                // Verify Transporter Ride Verified event
+                expect(trvEvent.event).toBe("Transporter Ride Verified");
+                expect(trvEvent.person?.is_identified).toBe(true);
+                expect(trvEvent.person?.properties?.email).toBe(
+                    "new18@gmail.com",
+                );
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
             }
-        }
+        });
     });
 
     afterEach(async () => {

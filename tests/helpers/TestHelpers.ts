@@ -53,8 +53,8 @@ export function getApiConfig(environment: string = "test") {
         }
 
         return {
-            URL: credentials[environment].apiUrl,
-            AUTH_TOKEN: credentials[environment].authToken,
+            apiUrl: credentials[environment].apiUrl,
+            authToken: credentials[environment].authToken,
         };
     } catch (error) {
         console.error("Error loading API config:", error);
@@ -135,12 +135,12 @@ export const fetchScooterCoordinates = async (): Promise<ScooterAsset[]> => {
     try {
         const apiConfig = getApiConfig(ENV);
         
-        const response = await fetch(apiConfig.URL, {
+        const response = await fetch(apiConfig.apiUrl, {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: apiConfig.AUTH_TOKEN,
+                Authorization: apiConfig.authToken,
                 "Accept-Language": "en",
                 "X-Requested-With": "XMLHttpRequest",
                 "App-Version": "1.23776.3.23776",
