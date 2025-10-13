@@ -16,7 +16,7 @@ jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
         # Only run on the main repository, not on forks
-        if: github.repository == 'alekswhim/umob_appium'
+        # if: github.repository == 'alekswhim/umob_appium'
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
