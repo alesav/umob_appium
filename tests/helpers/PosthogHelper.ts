@@ -64,6 +64,8 @@ class PostHogHelper {
             );
         }
 
+        console.log(`Using PostHog key: ${this.apiKey}`);
+
         this.projectId = projectId;
         this.host = host;
         this.baseUrl = `${host}/api/projects/${projectId}`;
@@ -91,6 +93,9 @@ class PostHogHelper {
             }
 
             const data: PostHogEventsResponse = await response.json();
+            console.log(
+                `Fetched Posthog ${JSON.stringify(data)} events from PostHog`,
+            );
             return data;
         } catch (error) {
             console.error("Error fetching PostHog events:", error);
