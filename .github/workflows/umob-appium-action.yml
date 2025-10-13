@@ -59,8 +59,7 @@ jobs:
                       adb shell settings put system show_touches 1
 
                       mkdir screenshots
-                      # sh ./scripts/download_apk.sh
-                      echo "Test Posthog token: ${{ secrets.POSTHOG_API_KEY }} <- token."
+                      sh ./scripts/download_apk.sh
                       npm run android.app.github
 
             - name: Last actions
