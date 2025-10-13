@@ -64,6 +64,8 @@ class PostHogHelper {
             );
         }
 
+        console.log(`Using PostHog key: ${this.apiKey}`);
+
         this.projectId = projectId;
         this.host = host;
         this.baseUrl = `${host}/api/projects/${projectId}`;
