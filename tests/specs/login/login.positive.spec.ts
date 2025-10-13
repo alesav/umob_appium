@@ -155,7 +155,7 @@ describe("Login positive scenarios", () => {
             );
 
             // If we got here, event was found with all criteria matching
-            posthog.printEventSummary(event);
+            posthog.printEventSummary(event); //
 
             // Assert key properties for clarity
             expect(event.event).toBe("$identify");
