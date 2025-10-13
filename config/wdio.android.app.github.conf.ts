@@ -5,7 +5,7 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-        "/Users/alesav/Dev/umob/umob_appium/tests/specs/login/login.positive.spec.ts",
+        "../tests/specs/login/login.positive.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         // "../tests/specs/book/bookTaxi.spec.ts"
