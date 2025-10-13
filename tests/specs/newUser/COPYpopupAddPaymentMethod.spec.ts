@@ -1,107 +1,58 @@
-import { execSync } from "child_process";
-import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const posthog = new PostHogHelper();
 
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "newUser";
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Function to add payment method (extracted for reusability)
+// Function to add payment method
 async function addPaymentMethod() {
-    //CLick Add payment method
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Add Payment Method")')
-        .waitForDisplayed();
+    // Click Add payment method
+    await PageObjects.addPaymentMethodButton.waitForDisplayed();
     await driver.pause(6000);
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Add Payment Method")')
-        .click();
+    await PageObjects.addPaymentMethodButton.click();
     await driver.pause(6000);
 
-    //CLick Cards
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Cards")')
-        .waitForDisplayed();
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Cards")')
-        .click();
+    // Click Cards
+    const cardsBtn = await driver.$(
+        '-android uiautomator:new UiSelector().text("Cards")',
+    );
+    await cardsBtn.waitForDisplayed();
+    await cardsBtn.click();
 
-    const el1 = await driver.$("id:com.umob.umob:id/editText_cardNumber");
-    await el1.click();
-    await el1.addValue("5555341244441115");
-    const el2 = await driver.$("id:com.umob.umob:id/editText_expiryDate");
-    await el2.click();
-    await el2.addValue("0330");
-    const el3 = await driver.$("id:com.umob.umob:id/editText_securityCode");
-    await el3.click();
-    await el3.addValue("737");
-    const el4 = await driver.$("id:com.umob.umob:id/editText_cardHolder");
-    await el4.click();
-    await el4.addValue("Test Account");
-    const el5 = await driver.$("id:com.umob.umob:id/payButton");
-    await el5.click();
+    const cardNumber = await driver.$(
+        "id:com.umob.umob:id/editText_cardNumber",
+    );
+    await cardNumber.click();
+    await cardNumber.addValue("5555341244441115");
+
+    const expiryDate = await driver.$(
+        "id:com.umob.umob:id/editText_expiryDate",
+    );
+    await expiryDate.click();
+    await expiryDate.addValue("0330");
+
+    const securityCode = await driver.$(
+        "id:com.umob.umob:id/editText_securityCode",
+    );
+    await securityCode.click();
+    await securityCode.addValue("737");
+
+    const cardHolder = await driver.$(
+        "id:com.umob.umob:id/editText_cardHolder",
+    );
+    await cardHolder.click();
+    await cardHolder.addValue("Test Account");
+
+    const payButton = await driver.$("id:com.umob.umob:id/payButton");
+    await payButton.click();
 
     await driver.pause(2000);
 }
 
-/////////////////////////////////////////////////////////////////////////////////
 describe("Add Payment Method through popup for the New User", () => {
-    let scooters;
-
     before(async () => {
         const credentials = getCredentials(ENV, USER);
         await PageObjects.login({
@@ -115,32 +66,25 @@ describe("Add Payment Method through popup for the New User", () => {
         await driver.activateApp("com.umob.umob");
     });
 
-    ////////////////////////////////////////////////////////////////////////////////
     it("Add credit card through popup", async () => {
         const testId = "490ea927-eebf-452a-9227-4f4098cac232";
 
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
-
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(2000);
 
-            //verify that popup is present
+            // Verify that popup is present
             const notification = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("You have not finished your registration")',
             );
             await expect(notification).toBeDisplayed();
+
             const finishLater = await driver.$(
                 '-android uiautomator:new UiSelector().text("Finish Later")',
             );
             await expect(finishLater).toBeDisplayed();
             await driver.pause(5000);
 
-            //verify that there is no error message
-
+            // Verify that there is no error message
             const errorMessages = [
                 "Error adding payment",
                 "We couldn't add your payment",
@@ -159,13 +103,13 @@ describe("Add Payment Method through popup for the New User", () => {
                         );
                     }
                 } catch (elementError) {
-                    // if element is not found then it is good, we continue our checks
+                    // If element is not found then it is good, we continue our checks
                     if (
                         elementError.message.includes(
                             "Problem with adding payment card",
                         )
                     ) {
-                        throw elementError; // this is our error - we are going further
+                        throw elementError;
                     }
                 }
             }
@@ -174,7 +118,7 @@ describe("Add Payment Method through popup for the New User", () => {
                 "✓ All checks passed - no error message found when card is not added yet",
             );
 
-            //click on Continue button
+            // Click on Continue button
             const contButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Continue")',
             );
@@ -182,7 +126,7 @@ describe("Add Payment Method through popup for the New User", () => {
             await driver.pause(5000);
             await contButton.click();
 
-            //verify header
+            // Verify header
             const headerPayment = await driver.$(
                 '-android uiautomator:new UiSelector().text("Payment method")',
             );
@@ -203,16 +147,8 @@ describe("Add Payment Method through popup for the New User", () => {
                     );
 
                     // First click on ADD PAYMENT METHOD to go to payment method page
-                    await driver
-                        .$(
-                            '-android uiautomator:new UiSelector().text("Add Payment Method")',
-                        )
-                        .waitForDisplayed();
-                    await driver
-                        .$(
-                            '-android uiautomator:new UiSelector().text("Add Payment Method")',
-                        )
-                        .click();
+                    await PageObjects.addPaymentMethodButton.waitForDisplayed();
+                    await PageObjects.addPaymentMethodButton.click();
                     await driver.pause(2000);
 
                     // Then execute the payment method addition flow
@@ -223,40 +159,64 @@ describe("Add Payment Method through popup for the New User", () => {
                 console.log("No verification in progress, continuing...");
             }
 
-            //Assert Remove payment method button is displayed (success scenario)
-            const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
-            );
-            await removeBtn.waitForDisplayed();
+            // Assert Remove payment method button is displayed (success scenario)
+            await PageObjects.removePaymentMethodButton.waitForDisplayed();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
 
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
+            // Verify PostHog events
             try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
+                // Get Adyen paymentmethod registration started event
+                const adyenStartedEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Adyen paymentmethod registration started",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
                 );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
 
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
+                // Get Adyen paymentmethod registration completed event
+                const adyenCompletedEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Adyen paymentmethod registration completed",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(adyenStartedEvent);
+                posthog.printEventSummary(adyenCompletedEvent);
+
+                // Verify Adyen paymentmethod registration started event
+                expect(adyenStartedEvent.event).toBe(
+                    "Adyen paymentmethod registration started",
+                );
+                expect(adyenStartedEvent.person?.is_identified).toBe(true);
+                expect(adyenStartedEvent.person?.properties?.email).toBe(
+                    "new48@gmail.com",
+                );
+
+                // Verify Adyen paymentmethod registration completed event
+                expect(adyenCompletedEvent.event).toBe(
+                    "Adyen paymentmethod registration completed",
+                );
+                expect(adyenCompletedEvent.person?.is_identified).toBe(true);
+                expect(adyenCompletedEvent.person?.properties?.email).toBe(
+                    "new48@gmail.com",
+                );
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
             }
-        }
+        });
     });
 
     afterEach(async () => {

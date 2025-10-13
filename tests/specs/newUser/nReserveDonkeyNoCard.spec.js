@@ -5,6 +5,7 @@ import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { driver } from "@wdio/globals";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -80,11 +81,7 @@ class TestHelpers {
  */
 class DonkeyBikeActions {
     static async clickCenterOfScreen() {
-        const { centerX, centerY } = await TestHelpers.getScreenCenter();
-
-        //Click on middle of the screen
         await AppiumHelpers.clickCenterOfScreen();
-
         await driver.pause(2000);
     }
 
@@ -119,27 +116,20 @@ class DonkeyBikeActions {
     }
 
     static async verifySelectPaymentMethod() {
-        const selectPayment = await driver.$(
-            '-android uiautomator:new UiSelector().text("Select payment method")',
-        );
-        await expect(selectPayment).toBeDisplayed();
+        await driver.pause(2000);
+        await PageObjects.selectPayment.waitForDisplayed();
     }
+
     static async clickContinueButton() {
         await driver.pause(5000);
-        const continueButton = await driver.$(
-            'android=new UiSelector().text("Start Trip")',
-        );
-        await expect(continueButton).toBeDisplayed();
-        await expect(continueButton).toBeEnabled();
-        await continueButton.click();
-        await driver.pause(2000);
+        await PageObjects.startTripButton.waitForDisplayed();
+        await driver.pause(3000);
+        await PageObjects.startTripButton.click();
+        await driver.pause(3000);
     }
 
     static async verifyPaymentMethodsScreen() {
-        const paymentHeader = await driver.$(
-            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
-        );
-        await expect(paymentHeader).toBeDisplayed();
+        await PageObjects.paymentHeader.waitForDisplayed();
 
         const cards = await driver.$(
             '-android uiautomator:new UiSelector().text("Cards")',
@@ -158,9 +148,8 @@ class DonkeyBikeActions {
         );
         await expect(payPal).toBeDisplayed();
 
-        const closeBtn = await driver.$("accessibility id:Close");
-        await expect(closeBtn).toBeDisplayed();
-        await closeBtn.click();
+        await expect(PageObjects.closeButton).toBeDisplayed();
+        await PageObjects.closeButton.click();
     }
 }
 

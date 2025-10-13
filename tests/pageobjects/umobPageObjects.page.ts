@@ -12,7 +12,7 @@ class PageObjects extends Page {
         }
     }
 
-    // Element selectors
+    // Element selectors - Core Authentication
     get username() {
         return $("#username");
     }
@@ -25,11 +25,8 @@ class PageObjects extends Page {
     get flash() {
         return $("#flash");
     }
-    // get accountButton() {
-    //     return $(
-    //         '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(0)',
-    //     );
-    // }
+
+    // Navigation Elements
     get accountButton() {
         return $("accessibility id:menu_account_button");
     }
@@ -61,17 +58,30 @@ class PageObjects extends Page {
     get startTripButton() {
         return $('-android uiautomator:new UiSelector().text("Start Trip")');
     }
+    get donkeyStartButton2() {
+        return $('-android uiautomator:new UiSelector().text("Start Trip")'); //await driver.$("accessibility id:continue");
+    }
+    get donkeyLockText1() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Use the handle to open the lock")',
+        );
+    }
+    get donkeyLockText2() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
+        );
+    }
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("Got It!")');
     }
-    // get notNowButton() {
-    //     return $('-android uiautomator:new UiSelector().text("NOT NOW")');
-    // }
     get retryButton() {
         return $('-android uiautomator:new UiSelector().text("Retry")');
+    }
+    get continueButton() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
     }
     get inviteFriendsButton() {
         return $(
@@ -83,54 +93,48 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().resourceId("back_button")',
         );
     }
-
-    // Personal Info / Address elements
-    get personalInfoButton() {
-        return $('-android uiautomator:new UiSelector().textContains("Personal info")');
-    }
-    get zipCodeLabel() {
-        return $('-android uiautomator:new UiSelector().textContains("Zip Code")');
-    }
-    get zipCodeField() {
-        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(2)');
-    }
-    get countryDropdown() {
-        return $("accessibility id:Country");
-    }
-    get argentinaNCountry() {
-        return $('-android uiautomator:new UiSelector().textContains("Argentina")');
-    }
-    get cityLabel() {
-        return $('-android uiautomator:new UiSelector().textContains("City")');
-    }
-    get cityField() {
-        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(3)');
-    }
-    get streetLabel() {
-        return $('-android uiautomator:new UiSelector().textContains("Street")');
-    }
-    get streetField() {
-        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(0)');
-    }
-    get numberLabel() {
-        return $('-android uiautomator:new UiSelector().textContains("Number")');
-    }
-    get numberField() {
-        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)');
-    }
-    get saveButton() {
-        return $('-android uiautomator:new UiSelector().text("Save")');
-    }
-    get idDocumentLabel() {
-        return $('-android uiautomator:new UiSelector().textContains("ID Document")');
+    get backButtonAccessibility() {
+        return $(
+            '-android uiautomator:new UiSelector().description("back_button")',
+        );
     }
 
-    //map related buttons when first time open app
+    // Donkey Republic Booking Elements
+    get locationButton() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_location_button")',
+        );
+    }
+    get endTripText() {
+        return $("accessibility id:endTrip-text");
+    }
+    get closeButton() {
+        return $("accessibility id:Close");
+    }
+    get androidPermissionButton() {
+        return $(
+            "id:com.android.permissioncontroller:id/permission_allow_button",
+        );
+    }
+
+    // Map and Location Elements
+    get mapRoot() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("map_root")',
+        );
+    }
     get exploreMapButton() {
         return $(
             '-android uiautomator:new UiSelector().textContains("Explore Map")',
         );
     }
+    get sideControlButtons() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home-controls")',
+        );
+    }
+
+    // Authentication Elements
     get startRegistrationButton() {
         return $(
             '-android uiautomator:new UiSelector().textContains("Start Registration")',
@@ -142,43 +146,310 @@ class PageObjects extends Page {
         );
     }
 
+    // QR Code and Vehicle Elements
+    get qrCodeButton() {
+        return $("accessibility id:scan-to-ride-button");
+    }
+    get scanVehicleButton() {
+        return $('-android uiautomator:new UiSelector().text("Scan Vehicle")');
+    }
+    get vehicleIdInput() {
+        return $("class name:android.widget.EditText");
+    }
+    get manualEntryInstruction() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Enter the vehicle ID manually")',
+        );
+    }
+
+    // Account Menu Elements
+    get assetFilterToggle() {
+        return $(
+            '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
+        );
+    }
+
+    get inviteFriendsMenuItem() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Invite friends")',
+        );
+    }
+    get personalInfoButton() {
+        return $('-android uiautomator:new UiSelector().text("Personal info")');
+    }
+    get paymentMethodsButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Payment methods")',
+        );
+    }
+    get addPaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Add Payment Method")',
+        );
+    }
+    get removePaymentMethodButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Remove Payment Method")',
+        );
+    }
+    get idDocumentButton() {
+        return $('-android uiautomator:new UiSelector().text("ID Document")');
+    }
+    get vouchersButton() {
+        return $('-android uiautomator:new UiSelector().text("Vouchers")');
+    }
+    get myPaymentsButton() {
+        return $('-android uiautomator:new UiSelector().text("My payments")');
+    }
+    get languageButton() {
+        return $('-android uiautomator:new UiSelector().text("Language")');
+    }
+    get mapThemeSettingsButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Map theme settings")',
+        );
+    }
+    get supportButton() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get deleteAccountButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Delete account")',
+        );
+    }
+    get logOutButton() {
+        return $('-android uiautomator:new UiSelector().text("Log Out")');
+    }
+    get privacyLegalButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Privacy & Legal")',
+        );
+    }
+
+    // Authentication Screen Elements (for not logged in state)
+    get loginButton() {
+        return $('-android uiautomator:new UiSelector().text("Login")');
+    }
+    get registerButton() {
+        return $('-android uiautomator:new UiSelector().text("Register")');
+    }
+
+    // Nearby Assets Elements
+    get nearbyAssetsText() {
+        return $('-android uiautomator:new UiSelector().text("Nearby assets")');
+    }
+    get refreshButton() {
+        return $('-android uiautomator:new UiSelector().text("Refresh")');
+    }
+
     // Payment elements
+    get selectPayment() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Select payment method")',
+        );
+    }
     get multiPaymentOption() {
         return $('-android uiautomator:new UiSelector().textContains("multi")');
     }
     get noRideCreditOption() {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
     }
-
-    // Payment Methods Page elements
-    get paymentMethodsButton() {
-        return $('-android uiautomator:new UiSelector().text("Payment methods")');
-    }
-    get addPaymentMethodButton() {
-        return $('-android uiautomator:new UiSelector().text("Add Payment Method")');
-    }
-    get removePaymentMethodButton() {
-        return $('-android uiautomator:new UiSelector().text("Remove Payment Method")');
-    }
-    get cardsButton() {
-        return $('-android uiautomator:new UiSelector().text("Cards")');
+    get paymentHeader() {
+        return $(
+            '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
+        );
     }
 
-    // Card Form elements
-    get cardNumberField() {
-        return $("id:com.umob.umob:id/editText_cardNumber");
+    // Voucher/Ride Credit Screen Elements
+    get voucherCodeLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Code")');
     }
-    get expiryDateField() {
-        return $("id:com.umob.umob:id/editText_expiryDate");
+    get voucherCodeInput() {
+        return $(
+            '-android uiautomator:new UiSelector().className("android.widget.EditText")',
+        );
     }
-    get securityCodeField() {
-        return $("id:com.umob.umob:id/editText_securityCode");
+    get submitPromotionalCodeButton() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Submit Promotional Code")',
+        );
     }
-    get cardHolderField() {
-        return $("id:com.umob.umob:id/editText_cardHolder");
+
+    // Permission Elements
+    get allowPermissionButton() {
+        return $('-android uiautomator:new UiSelector().textContains("Allow")');
     }
-    get payButton() {
-        return $("id:com.umob.umob:id/payButton");
+    get whileUsingAppPermission() {
+        return $(
+            '-android uiautomator:new UiSelector().textContains("hile using the app")',
+        );
+    }
+    get androidPermissionAllowButton() {
+        return $(
+            "id:com.android.permissioncontroller:id/permission_allow_button",
+        );
+    }
+
+    // Help/Support button on home screen (for not logged users)
+    get homeHelpButton() {
+        return $("accessibility id:home_help_button");
+    }
+
+    // Support Screen Elements
+    get supportScreenHeader() {
+        return $('-android uiautomator:new UiSelector().text("Support")');
+    }
+    get supportFaqTab() {
+        return $('-android uiautomator:new UiSelector().text("FAQ")');
+    }
+    get supportChatTab() {
+        return $('-android uiautomator:new UiSelector().text("Chat")');
+    }
+    get supportAboutTab() {
+        return $('-android uiautomator:new UiSelector().text("About")');
+    }
+
+    // Chat Elements
+    get openChatButton() {
+        return $('-android uiautomator:new UiSelector().text("Open Chat")');
+    }
+    get chatInputField() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Start typing here")',
+        );
+    }
+    get chatSendButton() {
+        return $('-android uiautomator:new UiSelector().description("Send")');
+    }
+
+    /**
+     * Handle location permissions that appear after login
+     */
+    async handleLocationPermissions() {
+        try {
+            // First permission popup
+            await this.allowPermissionButton.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.allowPermissionButton.click();
+
+            await driver.pause(2000);
+
+            // Android system permission button
+            await this.androidPermissionAllowButton.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.androidPermissionAllowButton.click();
+
+            await driver.pause(2000);
+
+            // "While using the app" permission
+            await this.whileUsingAppPermission.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.whileUsingAppPermission.click();
+        } catch (error) {
+            console.log(
+                "Permission handling completed or not required:",
+                error.message,
+            );
+        }
+    }
+
+    /**
+     * Wait for and verify map is loaded
+     */
+    async waitForMapToLoad() {
+        await this.mapRoot.waitForDisplayed({ timeout: 20000 });
+        await expect(this.mapRoot).toBeDisplayed();
+        await this.planTripBtn.waitForExist({ timeout: 10000 });
+    }
+
+    /**
+     * Enter vehicle ID manually
+     * @param {string} vehicleId - The vehicle ID to enter
+     */
+    async enterVehicleIdManually(vehicleId: string) {
+        await this.manualEntryInstruction.waitForDisplayed();
+        await expect(this.manualEntryInstruction).toBeDisplayed();
+
+        await this.vehicleIdInput.waitForDisplayed();
+        await this.vehicleIdInput.click();
+        await this.vehicleIdInput.addValue(vehicleId);
+
+        await this.continueButton.waitForDisplayed();
+        await this.continueButton.click();
+    }
+
+    /**
+     * Check for error messages indicating feature not working
+     * @param {string[]} errorMessages - Array of error messages to check for
+     */
+    async checkForErrorMessages(errorMessages: string[]) {
+        for (const message of errorMessages) {
+            const errorElement = await driver.$(
+                `-android uiautomator:new UiSelector().textContains("${message}")`,
+            );
+
+            try {
+                const isDisplayed = await errorElement.isDisplayed();
+                if (isDisplayed) {
+                    throw new Error(
+                        `Feature is not working: Found error message "${message}"`,
+                    );
+                }
+            } catch (elementError) {
+                if (elementError.message.includes("Feature is not working")) {
+                    throw elementError;
+                }
+                // Element not found is good - continue checking
+            }
+        }
+    }
+
+    /**
+     * Verify multiple menu items are displayed
+     * @param {string[]} menuItems - Array of menu item texts to verify
+     */
+    async verifyMenuItems(menuItems: string[]) {
+        for (const menuItem of menuItems) {
+            const menuElement = await driver.$(
+                `-android uiautomator:new UiSelector().text("${menuItem}")`,
+            );
+            await expect(menuElement).toBeDisplayed();
+        }
+    }
+
+    /**
+     * Perform scroll down action
+     */
+    async scrollDown() {
+        const { width, height } = await driver.getWindowSize();
+        await driver.performActions([
+            {
+                type: "pointer",
+                id: "finger1",
+                parameters: { pointerType: "touch" },
+                actions: [
+                    {
+                        type: "pointerMove",
+                        duration: 0,
+                        x: width / 2,
+                        y: height * 0.8,
+                    },
+                    { type: "pointerDown", button: 0 },
+                    { type: "pause", duration: 100 },
+                    {
+                        type: "pointerMove",
+                        duration: 1000,
+                        x: width / 2,
+                        y: height * 0.2,
+                    },
+                    { type: "pointerUp", button: 0 },
+                ],
+            },
+        ]);
+        await driver.pause(1000);
     }
 
     async login({
@@ -230,39 +501,9 @@ class PageObjects extends Page {
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
 
-            const permissionsPopup = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Allow")',
-            );
-            await permissionsPopup.isDisplayed();
-            await expect(permissionsPopup).toBeDisplayed();
-            await permissionsPopup.click();
-
-            console.log("deviceInfo " + deviceCapabilities);
-            // if (deviceCapabilities.includes("Local")) {
-            //     const enableNotifications = await driver.$(
-            //         "id:com.android.permissioncontroller:id/permission_allow_button",
-            //     );
-            //     await expect(enableNotifications).toBeDisplayed();
-            //     await enableNotifications.click();
-            // }
-
-            await driver.pause(5000);
-            // const permissionsPopup2 = await driver.$(
-            //     '-android uiautomator:new UiSelector().textContains("hile using the app")',
-            // );
-            const permissionsPopup2 = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_button",
-            );
-            await permissionsPopup2.isDisplayed();
-            await permissionsPopup2.click();
-
-            await driver.pause(5000);
-            const permissionsPopup3 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("hile using the app")',
-            );
-
-            await permissionsPopup3.isDisplayed();
-            await permissionsPopup3.click();
+            // Handle location permissions
+            await this.allowPermissionButton.click();
+            await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
         } catch (e) {
@@ -297,146 +538,6 @@ class PageObjects extends Page {
         await this.multiPaymentOption.waitForEnabled();
         await this.multiPaymentOption.click();
         await this.noRideCreditOption.click();
-    }
-
-    /**
-     * Navigates to Payment Methods section from account menu
-     */
-    async navigateToPaymentMethods() {
-        await this.clickAccountButton();
-        await driver.pause(3000);
-        
-        await this.paymentMethodsButton.waitForDisplayed();
-        await driver.pause(2000);
-        await this.paymentMethodsButton.click();
-        await driver.pause(2000);
-    }
-
-    /**
-     * Removes existing payment method if present
-     * This method doesn't throw if the button is not found
-     */
-    async removeExistingPaymentMethodIfPresent() {
-        try {
-            await this.removePaymentMethodButton.waitForDisplayed({ timeout: 5000 });
-            await this.removePaymentMethodButton.click();
-            await driver.pause(4000);
-            console.log("Existing payment method removed");
-        } catch (error) {
-            console.log("No existing payment method to remove");
-        }
-    }
-
-    /**
-     * Clicks the Add Payment Method button
-     */
-    async clickAddPaymentMethod() {
-        await this.addPaymentMethodButton.waitForDisplayed();
-        await driver.pause(2000);
-        await this.addPaymentMethodButton.click();
-        await driver.pause(2000);
-    }
-
-    /**
-     * Selects Cards as payment method type
-     */
-    async selectCardsPaymentType() {
-        await this.cardsButton.waitForDisplayed();
-        await this.cardsButton.click();
-        await driver.pause(2000);
-    }
-
-    /**
-     * Fills credit card information
-     * @param {object} cardData - Object containing card information
-     * @param {string} cardData.cardNumber - Card number
-     * @param {string} cardData.expiryDate - Expiry date (MMYY format)
-     * @param {string} cardData.securityCode - CVV/CVC code
-     * @param {string} cardData.cardHolder - Cardholder name
-     */
-    async fillCreditCardInformation({
-        cardNumber = "5555341244441115",
-        expiryDate = "0330",
-        securityCode = "737",
-        cardHolder = "Test Account"
-    }: {
-        cardNumber?: string;
-        expiryDate?: string;
-        securityCode?: string;
-        cardHolder?: string;
-    } = {}) {
-        // Fill card number
-        await this.cardNumberField.click();
-        await this.cardNumberField.addValue(cardNumber);
-
-        // Fill expiry date
-        await this.expiryDateField.click();
-        await this.expiryDateField.addValue(expiryDate);
-
-        // Fill security code
-        await this.securityCodeField.click();
-        await this.securityCodeField.addValue(securityCode);
-
-        // Fill card holder name
-        await this.cardHolderField.click();
-        await this.cardHolderField.addValue(cardHolder);
-    }
-
-    /**
-     * Submits the credit card form
-     */
-    async submitCreditCard() {
-        await this.payButton.click();
-        await driver.pause(5000);
-    }
-
-    /**
-     * Verifies that payment method was added successfully by checking for Remove Payment Method button
-     */
-    async verifyPaymentMethodAdded() {
-        await this.removePaymentMethodButton.waitForDisplayed();
-        await driver.pause(2000);
-    }
-
-    /**
-     * Removes the payment method (assumes Remove Payment Method button is visible)
-     */
-    async removePaymentMethod() {
-        await this.removePaymentMethodButton.waitForDisplayed();
-        await this.removePaymentMethodButton.click();
-        await driver.pause(2000);
-    }
-
-    /**
-     * Verifies that payment method was removed by checking for Add Payment Method button
-     */
-    async verifyPaymentMethodRemoved() {
-        // Navigate back to payment methods
-        await this.paymentMethodsButton.waitForDisplayed();
-        await this.paymentMethodsButton.click();
-        await driver.pause(2000);
-
-        // Verify Add Payment Method button is displayed
-        await this.addPaymentMethodButton.waitForDisplayed();
-    }
-
-    /**
-     * Complete workflow to add a credit card payment method
-     * @param {object} cardData - Optional card data object
-     */
-    async addCreditCardPaymentMethod(cardData?: {
-        cardNumber?: string;
-        expiryDate?: string;
-        securityCode?: string;
-        cardHolder?: string;
-    }) {
-        await this.navigateToPaymentMethods();
-        await this.removeExistingPaymentMethodIfPresent();
-        await this.clickAddPaymentMethod();
-        await this.selectCardsPaymentType();
-        await this.fillCreditCardInformation(cardData);
-        await this.submitCreditCard();
-        await this.verifyPaymentMethodAdded();
     }
 
     async startTrip() {
@@ -603,112 +704,6 @@ class PageObjects extends Page {
         await driver.pause(1000);
         await this.myRidesButton.click();
         await driver.pause(5000);
-    }
-
-    /**
-     * Navigates to Personal Info section from account menu
-     */
-    async navigateToPersonalInfo() {
-        await this.clickAccountButton();
-        await driver.pause(2000);
-        
-        await expect(this.personalInfoButton).toBeDisplayed();
-        await this.personalInfoButton.click();
-        await driver.pause(5000);
-    }
-
-    /**
-     * Scrolls down on the page
-     * @param {number} scrollPercent - Percentage to scroll (default: 1)
-     */
-    async scrollDown(scrollPercent: number = 1) {
-        const { width, height } = await driver.getWindowSize();
-        
-        await driver.executeScript("mobile: scrollGesture", [
-            {
-                left: 100,
-                top: 0,
-                width: 0,
-                height: height / 2,
-                direction: "down",
-                percent: scrollPercent,
-            },
-        ]);
-        await driver.pause(2000);
-    }
-
-    /**
-     * Fills address information in the personal info form
-     * @param {object} addressData - Object containing address information
-     * @param {string} addressData.zipCode - ZIP code
-     * @param {string} addressData.country - Country name
-     * @param {string} addressData.city - City name
-     * @param {string} addressData.street - Street name
-     * @param {string} addressData.number - Building number
-     */
-    async fillAddressInformation({
-        zipCode = "3014",
-        country = "Argentina",
-        city = "Rotterdam",
-        street = "Bloemstraat",
-        number = "80"
-    }: {
-        zipCode?: string;
-        country?: string;
-        city?: string;
-        street?: string;
-        number?: string;
-    } = {}) {
-        // Scroll to zip code section
-        await this.scrollDown();
-
-        // Fill ZIP code
-        await expect(this.zipCodeLabel).toBeDisplayed();
-        await driver.pause(1000);
-        
-        await this.zipCodeField.clearValue();
-        await this.zipCodeField.addValue(zipCode);
-
-        // Select country
-        await expect(this.countryDropdown).toBeDisplayed();
-        await this.countryDropdown.click();
-        await driver.pause(2000);
-
-        const countryElement = await driver.$(
-            `-android uiautomator:new UiSelector().textContains("${country}")`
-        );
-        await expect(countryElement).toBeDisplayed();
-        await driver.pause(2000);
-        await countryElement.click();
-        await driver.pause(2000);
-
-        // Scroll down to access city field
-        await this.scrollDown();
-
-        // Fill city
-        await expect(this.cityLabel).toBeDisplayed();
-        await this.cityField.clearValue();
-        await this.cityField.addValue(city);
-
-        // Fill street
-        await expect(this.streetLabel).toBeDisplayed();
-        await this.streetField.clearValue();
-        await this.streetField.addValue(street);
-
-        // Fill building number
-        await expect(this.numberLabel).toBeDisplayed();
-        await this.numberField.clearValue();
-        await this.numberField.addValue(number);
-
-        // Scroll to save button
-        await this.scrollDown();
-
-        // Click save button
-        await expect(this.saveButton).toBeDisplayed();
-        await this.saveButton.click();
-
-        // Verify save was successful by checking for ID Document section
-        await expect(this.idDocumentLabel).toBeDisplayed();
     }
 
     async handleTripCompletion() {

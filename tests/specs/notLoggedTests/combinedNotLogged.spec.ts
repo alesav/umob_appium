@@ -49,16 +49,10 @@ describe("Combined Not Logged User Tests", () => {
             await allowForegroundPermissionBtn.click();
 
             // Verify filter button is displayed
-            const assetFilterToggle = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
-            );
-            await expect(assetFilterToggle).toBeDisplayed();
+            await expect(PageObjects.assetFilterToggle).toBeDisplayed();
 
             // Check for map root element
-            const mapRoot = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("map_root")',
-            );
-            await expect(mapRoot).toBeDisplayed();
+            await expect(PageObjects.mapRoot).toBeDisplayed();
 
             // Verify bottom navigation menu items
             await PageObjects.planTripBtn.waitForExist();
@@ -125,33 +119,18 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-            const qButton = await driver.$("accessibility id:home_help_button");
-            await expect(qButton).toBeDisplayed();
+            await expect(PageObjects.homeHelpButton).toBeDisplayed();
             await driver.pause(2000);
-            await qButton.click();
+            await PageObjects.homeHelpButton.click();
 
             // Verify screen header
-            const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Support")',
-            );
-            await expect(screenHeader).toBeDisplayed();
-            await screenHeader.waitForDisplayed({ timeout: 4000 });
+            await expect(PageObjects.supportScreenHeader).toBeDisplayed();
+            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
 
             // Verify tabs
-            const faq = await driver.$(
-                '-android uiautomator:new UiSelector().text("FAQ")',
-            );
-            await expect(faq).toBeDisplayed();
-
-            const chat = await driver.$(
-                '-android uiautomator:new UiSelector().text("Chat")',
-            );
-            await expect(chat).toBeDisplayed();
-
-            const about = await driver.$(
-                '-android uiautomator:new UiSelector().text("About")',
-            );
-            await expect(about).toBeDisplayed();
+            await expect(PageObjects.supportFaqTab).toBeDisplayed();
+            await expect(PageObjects.supportChatTab).toBeDisplayed();
+            await expect(PageObjects.supportAboutTab).toBeDisplayed();
             /*
 
             const where = await driver.$(
@@ -161,7 +140,7 @@ describe("Combined Not Logged User Tests", () => {
             */
 
             // Click on "FAQ" to be sure you are in the right place
-            await faq.click();
+            await PageObjects.supportFaqTab.click();
 
             // Verify main content headers and text
             const contentElements = [
@@ -261,32 +240,21 @@ describe("Combined Not Logged User Tests", () => {
             }
 
             // go to chat tab
-            await chat.click();
+            await PageObjects.supportChatTab.click();
             await driver.pause(2000);
 
-            const clickForChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("Open Chat")`,
-            );
-            await expect(clickForChat).toBeDisplayed();
-            await clickForChat.click();
+            await expect(PageObjects.openChatButton).toBeDisplayed();
+            await PageObjects.openChatButton.click();
 
             //send test message to chat
-
-            const welcomeMessage = await driver.$(
-                `-android uiautomator:new UiSelector().text("Start typing here")`,
-            );
-            await expect(welcomeMessage).toBeDisplayed();
+            await expect(PageObjects.chatInputField).toBeDisplayed();
             //await expect(textField).toBeDisplayed();
-            await welcomeMessage.addValue("test");
+            await PageObjects.chatInputField.addValue("test");
             await driver.pause(2000);
 
             //click on send button
-
-            const sendButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("Send")',
-            );
-            await expect(sendButton).toBeDisplayed();
-            await sendButton.click();
+            await expect(PageObjects.chatSendButton).toBeDisplayed();
+            await PageObjects.chatSendButton.click();
             await driver.pause(1000);
 
             //check if message was sent
@@ -296,14 +264,14 @@ describe("Combined Not Logged User Tests", () => {
             await expect(messageCheck).toBeDisplayed();
 
             //if the message is sent then after seeing "test" you should see welcome message again: "Start typing here")`);
-            await expect(welcomeMessage).toBeDisplayed();
+            await expect(PageObjects.chatInputField).toBeDisplayed();
 
             //back from chat
 
             await driver.back();
 
             //go to about tab
-            await about.click();
+            await PageObjects.supportAboutTab.click();
             await driver.pause(2000);
 
             //check for text on about tab
@@ -536,38 +504,18 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-            const accountBtn = await driver.$(
-                "accessibility id:menu_account_button",
-            );
-            await accountBtn.waitForDisplayed({ timeout: 3000 });
-            await accountBtn.click();
+            await PageObjects.accountButton.waitForDisplayed({ timeout: 3000 });
+            await PageObjects.accountButton.click();
             await driver.pause(2000);
 
             // Verify LOGIN and REGISTER button
-            const logButton = await driver.$(
-                'android=new UiSelector().text("Login")',
-            );
-            await expect(logButton).toBeDisplayed();
-            const register = await driver.$(
-                'android=new UiSelector().text("Register")',
-            );
-            await expect(register).toBeDisplayed();
+            await expect(PageObjects.loginButton).toBeDisplayed();
+            await expect(PageObjects.registerButton).toBeDisplayed();
 
             // Verify listed menu options
-            const language = await driver.$(
-                'android=new UiSelector().text("Language")',
-            );
-            await expect(language).toBeDisplayed();
-
-            const mapTheme = await driver.$(
-                'android=new UiSelector().text("Map theme settings")',
-            );
-            await expect(mapTheme).toBeDisplayed();
-
-            const support = await driver.$(
-                'android=new UiSelector().text("Support")',
-            );
-            await expect(support).toBeDisplayed();
+            await expect(PageObjects.languageButton).toBeDisplayed();
+            await expect(PageObjects.mapThemeSettingsButton).toBeDisplayed();
+            await expect(PageObjects.supportButton).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
@@ -607,18 +555,12 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-            const accountBtn = await driver.$(
-                "accessibility id:menu_account_button",
-            );
-            await accountBtn.waitForDisplayed({ timeout: 3000 });
-            await accountBtn.click();
+            await PageObjects.accountButton.waitForDisplayed({ timeout: 3000 });
+            await PageObjects.accountButton.click();
             await driver.pause(2000);
 
             // Click on Map theme settings option
-            const mapThemeOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Map theme settings")',
-            );
-            await mapThemeOption.click();
+            await PageObjects.mapThemeSettingsButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -699,18 +641,12 @@ describe("Combined Not Logged User Tests", () => {
 
         try {
             //await PageObjects.clickAccountButton();
-            const accountBtn = await driver.$(
-                "accessibility id:menu_account_button",
-            );
-            await accountBtn.waitForDisplayed({ timeout: 3000 });
-            await accountBtn.click();
+            await PageObjects.accountButton.waitForDisplayed({ timeout: 3000 });
+            await PageObjects.accountButton.click();
             await driver.pause(2000);
 
             // Click on Language option to navigate to language screen
-            const languageOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Language")',
-            );
-            await languageOption.click();
+            await PageObjects.languageButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -756,28 +692,16 @@ describe("Combined Not Logged User Tests", () => {
             await driver.pause(2000);
 
             // Verify Support section header
-            const supportHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Support")',
-            );
-            await expect(supportHeader).toBeDisplayed();
+            await expect(PageObjects.supportButton).toBeDisplayed();
 
             // Verify Privacy & Legal section
-            const privacyLegalButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Privacy & Legal")',
-            );
-            await expect(privacyLegalButton).toBeDisplayed();
+            await expect(PageObjects.privacyLegalButton).toBeDisplayed();
 
             // Verify Login button
-            const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Login")',
-            );
-            await expect(logoutButton).toBeDisplayed();
+            await expect(PageObjects.loginButton).toBeDisplayed();
 
             // Verify sign up button
-            const signUp = await driver.$(
-                '-android uiautomator:new UiSelector().text("Register")',
-            );
-            await expect(signUp).toBeDisplayed();
+            await expect(PageObjects.registerButton).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

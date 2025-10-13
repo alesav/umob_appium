@@ -1,59 +1,10 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { exec, execSync } from "child_process";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import { execSync } from "child_process";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
+const posthog = new PostHogHelper();
 
 // Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
@@ -62,12 +13,12 @@ const USER = process.env.TEST_USER || "new56";
 describe("Book Public Transport", () => {
     before(async () => {
         const credentials = getCredentials(ENV, USER);
-        const { width, height } = await driver.getWindowSize();
 
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
         });
+
         execSync(
             "adb shell pm grant com.umob.umob android.permission.ACCESS_FINE_LOCATION",
         );
@@ -79,24 +30,22 @@ describe("Book Public Transport", () => {
         const longitude = 4.4744301;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
+
+        // Activate app once at the beginning
+        await driver.activateApp("com.umob.umob");
+        await driver.pause(7000);
     });
 
     it("should display all key elements on Plan Your Trip screen for Public Transport", async () => {
         const testId = "ef526412-4497-470b-bcf8-1854b13613c4";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            await driver.activateApp("com.umob.umob");
-            await driver.pause(7000);
-
+        await executeTest(testId, async () => {
             await PageObjects.planTripBtn.waitForExist();
             await PageObjects.planTripBtn.click();
 
             await driver.pause(2000);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -174,6 +123,7 @@ describe("Book Public Transport", () => {
             );
             await expect(selectClassLabel).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -215,43 +165,14 @@ describe("Book Public Transport", () => {
                 '-android uiautomator:new UiSelector().text("Help")',
             );
             await expect(helpButton).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should put in destination and book a ticket for Public Transport", async () => {
         const testId = "25c6b504-c751-443e-9092-cc33a650d19c";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -296,43 +217,13 @@ describe("Book Public Transport", () => {
             await expect(continuePress).toBeDisplayed();
             await continuePress.click();
             await driver.pause(10000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key elements and pick up the route", async () => {
         const testId = "a9cd327a-1c6c-450e-b299-48656dac1663";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Check key elements on route selection screen
             const routeHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Travel Options")',
@@ -346,43 +237,13 @@ describe("Book Public Transport", () => {
             await expect(firstRoutePrice).toBeDisplayed();
             await firstRoutePrice.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should check screen and buy e-ticket", async () => {
         const testId = "b7149cf2-3c8f-40d2-ac3b-3f4c4362fa89";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Check header is displayed
             const travelDetails = await driver.$(
                 '-android uiautomator:new UiSelector().text("Travel details")',
@@ -397,7 +258,7 @@ describe("Book Public Transport", () => {
 
             await driver.pause(2000);
 
-            // Scroll to bottom
+            // Scroll to bottom - INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -431,49 +292,20 @@ describe("Book Public Transport", () => {
             );
             await buyButton.click();
             await driver.pause(7000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("final step of confirmation for buying a ticket", async () => {
         const testId = "2923bdca-4d57-4962-94d7-09907c0068d3";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Check key elements are displayed (header)
             const header = await driver.$(
                 '-android uiautomator:new UiSelector().text("Buy e-tickets")',
             );
             await expect(header).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -541,43 +373,13 @@ describe("Book Public Transport", () => {
             await expect(confirmButton).toBeDisplayed();
             await confirmButton.click();
             await driver.pause(15000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("check key elements, scroll and click show e-tickets", async () => {
         const testId = "bf5c25a6-a863-4635-820f-5459703ccbe2";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Checking header is displayed
             const headerBooking = await driver.$(
                 '-android uiautomator:new UiSelector().text("Booking complete")',
@@ -585,7 +387,7 @@ describe("Book Public Transport", () => {
             await headerBooking.waitForDisplayed({ timeout: 15000 });
             await expect(headerBooking).toBeDisplayed();
 
-            // Scroll to bottom
+            // Scroll to bottom - INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -621,43 +423,13 @@ describe("Book Public Transport", () => {
             await expect(showButton).toBeDisplayed();
             await showButton.click();
             await driver.pause(10000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("check ticket information and click got_it button", async () => {
         const testId = "f8b9d103-0549-434c-ba15-a133b7e806b6";
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Check header is displayed
             const ticketHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Ticket")',
@@ -681,6 +453,7 @@ describe("Book Public Transport", () => {
             );
             await expect(validBetweenSection).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -721,7 +494,7 @@ describe("Book Public Transport", () => {
             );
             await expect(bookingNo).toBeDisplayed();
 
-            // Scroll to bottom
+            // Scroll to bottom - INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -742,6 +515,7 @@ describe("Book Public Transport", () => {
                 },
             ]);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -792,36 +566,143 @@ describe("Book Public Transport", () => {
                 );
                 await gotItButtonAlt.click();
             }
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
 
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
+            // Verify PostHog events
             try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
+                // Get Public transit button clciked event
+                const ptbcEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Public transit button clciked",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
                 );
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
 
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
+                // Get PT Flow Started event
+                const ptfsEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "PT Flow Started",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get PT Destination Added event
+                const ptdaEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "PT Destination Added",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get PT Option Chosen event
+                const ptdcEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "PT Option Chosen",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get PT Checkout Started event
+                const ptcsEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "PT Checkout Started",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                const pttpEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "PT Ticket Purchased",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(ptbcEvent);
+                posthog.printEventSummary(ptfsEvent);
+                posthog.printEventSummary(ptdaEvent);
+                posthog.printEventSummary(ptdcEvent);
+                posthog.printEventSummary(ptcsEvent);
+                posthog.printEventSummary(pttpEvent);
+
+                // Verify Public transit button clciked event
+                expect(ptbcEvent.event).toBe("Public transit button clciked");
+                expect(ptbcEvent.person?.is_identified).toBe(true);
+                expect(ptbcEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+
+                // Verify PT Flow Started event
+                expect(ptfsEvent.event).toBe("PT Flow Started");
+                expect(ptfsEvent.person?.is_identified).toBe(true);
+                expect(ptfsEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+
+                // Verify PT Destination Added event
+                expect(ptdaEvent.event).toBe("PT Destination Added");
+                expect(ptdaEvent.person?.is_identified).toBe(true);
+                expect(ptdaEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+
+                // Verify PT Option Chosen event
+                expect(ptdcEvent.event).toBe("PT Option Chosen");
+                expect(ptdcEvent.person?.is_identified).toBe(true);
+                expect(ptdcEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+
+                // Verify PT Checkout Started event
+                expect(ptcsEvent.event).toBe("PT Checkout Started");
+                expect(ptcsEvent.person?.is_identified).toBe(true);
+                expect(ptcsEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+
+                // Verify PT Ticket Purchased event
+                expect(pttpEvent.event).toBe("PT Ticket Purchased");
+                expect(pttpEvent.person?.is_identified).toBe(true);
+                expect(pttpEvent.person?.properties?.email).toBe(
+                    "new56@gmail.com",
+                );
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
             }
-        }
+        });
     });
 
-    // terminate the app afterAll
+    // terminate the app after all tests
     after(async () => {
         await driver.terminateApp("com.umob.umob");
     });

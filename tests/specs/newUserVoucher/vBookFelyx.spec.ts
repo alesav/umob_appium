@@ -1,134 +1,69 @@
-import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import {
-    fetchScooterCoordinates,
+    getCredentials,
+    executeTest,
+    getApiConfig,
+} from "../../helpers/TestHelpers.js";
+import {
     findFelyxScooter,
     type Scooter,
 } from "../../helpers/ScooterCoordinates.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const posthog = new PostHogHelper();
 
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new15";
+const USER = process.env.TEST_USER || "new64";
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
+const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
+    const apiConfig = getApiConfig(ENV);
 
-const getScreenCenter = async () => {
-    // Get screen dimensions
-    const { width, height } = await driver.getWindowSize();
+    try {
+        const response = await fetch(apiConfig.apiUrl, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: apiConfig.authToken,
+                "Accept-Language": "en",
+                "X-Requested-With": "XMLHttpRequest",
+                "App-Version": "1.23316.3.23316",
+                "App-Platform": "android",
+            },
+            body: JSON.stringify({
+                regionId: "",
+                stationId: "",
+                longitude: 4.4743720514863075,
+                latitude: 51.91731373726902,
+                radius: 101.6137310913994,
+                zoomLevel: 15.25,
+                subOperators: [],
+                assetClasses: [23],
+                operatorAvailabilities: [2, 1, 3],
+                showEmptyStations: false,
+                skipCount: 0,
+                sorting: "",
+                defaultMaxResultCount: 10,
+                maxMaxResultCount: 1000,
+                maxResultCount: 10,
+            }),
+        });
 
-    return {
-        centerX: Math.round(width / 2),
-        centerY: Math.round(height / 2),
-        screenWidth: width,
-        screenHeight: height,
-    };
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Fetched scooter coordinates:", JSON.stringify(data));
+        return data.assets;
+    } catch (error) {
+        console.error("Error fetching scooter coordinates:", error);
+        throw error;
+    }
 };
 
-// Filter mopeds and stations
-const applyFilters = async () => {
-    // Click ? icon
-    await driver
-        .$(
-            '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
-        )
-        .waitForEnabled();
-
-    await driver
-        .$(
-            '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
-        )
-        .click();
-
-    // Click Moped to unselect it
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Scooter")')
-        .waitForEnabled();
-
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Scooter")')
-        .click();
-
-    // Click Bike to unselect it
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Bike")')
-        .waitForEnabled();
-
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Bike")')
-        .click();
-
-    // Click Openbaar vervoer to unselect it
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Openbaar vervoer")')
-        .waitForEnabled();
-
-    await driver
-        .$('-android uiautomator:new UiSelector().text("Openbaar vervoer")')
-        .click();
-
-    // Minimize drawer
-    await driver
-        .$(
-            '-android uiautomator:new UiSelector().className("com.horcrux.svg.PathView").instance(10)',
-        )
-        .click();
-};
-
-/////////////////////////////////////////////////////////////////////////////////
 describe("Felyx Booking Test with unlimited multi voucher", () => {
     let scooters: Scooter[];
 
@@ -154,86 +89,72 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
-        // Wait for screen to be loaded
     });
 
-    ////////////////////////////////////////////////////////////////////////////////
     it("Book Felyx moped with multi voucher", async () => {
         const testId = "9a8a6f87-2ccd-42c9-9676-b1bd0b8b27a3";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(2000);
 
-            const { centerX, centerY } = await getScreenCenter();
-
-            //Click on middle of the screen
+            // Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
-
             await driver.pause(3000);
 
-            //verify that Euro simbol is displayed
-            const euroSimbol = await driver.$(
+            // Verify that Euro symbol is displayed
+            const euroSymbol = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€")',
             );
-            await expect(euroSimbol).toBeDisplayed();
+            await expect(euroSymbol).toBeDisplayed();
 
-            //verify that limitless multi user's vaucher is visible
-            const vaucher = await driver.$(
+            // Verify that limitless multi user's voucher is visible
+            const voucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
             );
-            await expect(vaucher).toBeDisplayed();
+            await expect(voucher).toBeDisplayed();
 
-            //verify that payment card is displayed
+            // Verify that payment card is displayed
             const selectPayment = await driver.$(
                 '-android uiautomator:new UiSelector().text("**** **** 1115")',
             );
             await expect(selectPayment).toBeDisplayed();
 
-            //verify start trip button is enabled AND CLICK
+            // Verify start trip button is enabled AND CLICK
             await PageObjects.startTripButton.waitForEnabled();
             await driver.pause(8000);
             await PageObjects.startTripButton.click();
-
             await driver.pause(8000);
 
-            //verify grab helmet header
+            // Verify grab helmet header
             const grabHelmet = await driver.$(
                 '-android uiautomator:new UiSelector().text("Grab the helmet")',
             );
             await expect(grabHelmet).toBeDisplayed();
 
-            //verify anouncement
-            const anouncement = await driver.$(
+            // Verify announcement
+            const announcement = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("A helmet is mandatory for this scooter.")',
             );
-            await expect(anouncement).toBeDisplayed();
+            await expect(announcement).toBeDisplayed();
 
-            //verify instruction
+            // Verify instruction
             const instruction = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
             );
             await expect(instruction).toBeDisplayed();
 
-            //verify open helmet case button
+            // Verify open helmet case button
             const openCase = await driver.$(
                 '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(openCase).toBeDisplayed();
 
-            //verify continue button
+            // Verify continue button
             await driver.pause(2000);
-            const continueB = await driver.$(
-                '-android uiautomator:new UiSelector().text("Continue")',
-            );
-            await expect(continueB).toBeDisplayed();
-            await continueB.click();
+            await expect(PageObjects.continueButton).toBeDisplayed();
+            await PageObjects.continueButton.click();
 
-            //verify pause button
+            // Verify pause button
             const pauseButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Pause")',
             );
@@ -243,161 +164,153 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             // Click End Trip
             await PageObjects.endTripButton.waitForDisplayed();
             await PageObjects.endTripButton.click();
-
             await driver.pause(3000);
 
-            //verify anouncement for return helmet
+            // Verify announcement for return helmet
             const helmetBack = await driver.$(
                 '-android uiautomator:new UiSelector().text("Return the helmet")',
             );
             await expect(helmetBack).toBeDisplayed();
 
-            //verify helmet putting back instruction
+            // Verify helmet putting back instruction
             const instruction2 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
             );
             await expect(instruction2).toBeDisplayed();
 
-            //verify open case button for the helmet
+            // Verify open case button for the helmet
             const helmetButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Open Helmet Case")',
             );
             await expect(helmetButton).toBeDisplayed();
             await driver.pause(3000);
 
-            //verify and click continue button
+            // Verify and click continue button
             const continueB2 = await driver.$(
                 '-android uiautomator:new UiSelector().text("Continue")',
             );
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
-
             await driver.pause(5000);
 
-            //allow permissions for take a photo
-
-            const permission = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
-            );
-            await expect(permission).toBeDisplayed();
-            await permission.click();
+            // Allow permissions for take a photo
+            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            await PageObjects.androidPermissionButton.click();
             await driver.pause(5000);
 
-            //verify parking photo header
+            // Verify parking photo header
             const parkingHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Parking photo required")',
             );
             await expect(parkingHeader).toBeDisplayed();
 
-            //verify photo instruction
+            // Verify photo instruction
             const photoInstruction = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Take a photo of your vehicle to end your ride")',
             );
             await expect(photoInstruction).toBeDisplayed();
 
-            //take a picture (first option)
-            // const photoButton = await driver.$("~endTrip");
-            // await expect(photoButton).toBeDisplayed();
-            // await driver.pause(2000);
-            // await photoButton.click();
-            // Tap a button for taking photo
-
-            //take a picture (second option)
+            // Take a picture
             const photoButton = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
             );
             await expect(photoButton).toBeDisplayed();
             await driver.pause(2000);
             await photoButton.click();
-
             await driver.pause(4000);
 
-            //verify confirmation for using a picture
+            // Verify confirmation for using a picture
             const pictureHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use this picture?")',
             );
             await expect(pictureHeader).toBeDisplayed();
 
-            //verify parking rules
+            // Verify parking rules
             const parkingRules = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Please check if the vehicle is parked")',
             );
             await expect(parkingRules).toBeDisplayed();
 
-            //verify retake picture button
+            // Verify retake picture button
             const retakeButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Retake")',
             );
             await expect(retakeButton).toBeDisplayed();
 
-            //verify use picture button
+            // Verify use picture button
             const useButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Use Picture")',
             );
             await expect(useButton).toBeDisplayed();
             await driver.pause(2000);
             await useButton.click();
-
             await driver.pause(2000);
 
-            //click got it button
+            // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
 
-            // Click not now button
-            // const notNowButton = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("NOT NOW")',
-            // );
-            // await expect(notNowButton).toBeDisplayed();
-            // await notNowButton.click();
-            // await driver.pause(2000);
-
-            //verify that main map screen is displayed
+            // Verify that main map screen is displayed
             await PageObjects.clickAccountButton();
 
-            //verify that my account screen is displayed
-            const myRides = await driver.$(
-                '-android uiautomator:new UiSelector().text("My rides")',
-            );
-            await expect(myRides).toBeDisplayed();
+            // Verify that my account screen is displayed
+            await expect(PageObjects.myRidesButton).toBeDisplayed();
 
-            //click on my rides and tickets
+            // Click on my rides and tickets
             await driver.pause(2000);
-            await myRides.click();
+            await PageObjects.myRidesButton.click();
 
-            //verify that payment is visible in my rides and tickets screen and it is 0 Euro
+            // Verify that payment is visible in my rides and tickets screen and it is 0 Euro
             const lastRide1 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );
             await expect(lastRide1).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
 
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
+            /*
+            // Verify PostHog events
             try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
+                // Get Logged In event
+                const loggedInEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged In",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
                 );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
 
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
+                const loggedOutEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Logged Out",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // If we got here, event was found with all criteria matching
+                posthog.printEventSummary(loggedInEvent);
+                posthog.printEventSummary(loggedOutEvent);
+
+                // Verify Logged In event
+                expect(loggedInEvent.event).toBe("Logged In");
+                expect(loggedInEvent.person?.is_identified).toBe(true);
+
+                // Verify Logged Out event
+                expect(loggedOutEvent.event).toBe("Logged Out");
+                expect(loggedOutEvent.person?.is_identified).toBe(true);
+            } catch (posthogError) {
+                console.error("PostHog verification failed:", posthogError);
+                throw posthogError;
             }
-        }
+                */
+        });
     });
 
     afterEach(async () => {

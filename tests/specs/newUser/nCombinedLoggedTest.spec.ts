@@ -1,63 +1,8 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "newUser";
-
-/////////////////////////////////////////////////////////////////////////////////
 
 describe("Combined Tests For Logged in New User Without Rides", () => {
     beforeEach(async () => {
@@ -72,30 +17,17 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             username: credentials.username,
             password: credentials.password,
         });
-
-        //await PageObjects.login({ username:'new13@gmail.com', password: '123Qwerty!' });
     });
 
     it("should verify main screen elements and welcome vouchers on PROMOS screen", async () => {
         const testId = "3ce0c6b4-2ed7-40c4-adf7-a8838233f18c";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Verify filter button is displayed
-            const assetFilterToggle = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("home_asset_filter_toggle")',
-            );
-            await expect(assetFilterToggle).toBeDisplayed();
+            await expect(PageObjects.assetFilterToggle).toBeDisplayed();
 
             // Check for map root element
-            const mapRoot = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("map_root")',
-            );
-            await expect(mapRoot).toBeDisplayed();
+            await expect(PageObjects.mapRoot).toBeDisplayed();
 
             // Verify bottom navigation menu items and click Promos button
             await PageObjects.planTripBtn.waitForExist();
@@ -104,8 +36,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await PageObjects.promosBtn.click();
             await driver.pause(1000);
 
-            //verify welcome vouchers
-
+            // Verify welcome vouchers
             const checkVoucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Check")',
             );
@@ -115,48 +46,15 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
             );
             await expect(donkeyVoucher).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key account screen elements", async () => {
         const testId = "4a6deca6-6d69-42fe-bef5-e2d9adf47398";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
-
             await driver.pause(2000);
 
             // Verify account menu items
@@ -167,15 +65,11 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 "ID Document",
                 "My rides",
             ];
-
-            for (const menuItem of accountMenuItems) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
+            await PageObjects.verifyMenuItems(accountMenuItems);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -208,14 +102,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 "Language",
                 "Map theme settings",
             ];
+            await PageObjects.verifyMenuItems(accountMenuItems2);
 
-            for (const menuItem of accountMenuItems2) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
-
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -244,83 +133,32 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify account menu items after second scrolling
             const accountMenuItems3 = ["Support", "Delete account"];
-
-            for (const menuItem of accountMenuItems3) {
-                const menuElement = await driver.$(
-                    `-android uiautomator:new UiSelector().text("${menuItem}")`,
-                );
-                await expect(menuElement).toBeDisplayed();
-            }
+            await PageObjects.verifyMenuItems(accountMenuItems3);
 
             // Verify Log Out button
-            const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Out")',
-            );
-            await expect(screenHeader).toBeDisplayed();
+            await expect(PageObjects.logOutButton).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+            await expect(PageObjects.backButton).toBeDisplayed();
+        });
     });
 
     it("should display all key Invite Friends screen elements", async () => {
         const testId = "bb19b9f3-22b4-4577-9227-29b183649e94";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             // Navigate to Invite Friends
-            const inviteFriendsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Invite friends")',
-            );
-            await expect(inviteFriendsButton).toBeDisplayed();
-            await inviteFriendsButton.click();
+            await expect(PageObjects.inviteFriendsMenuItem).toBeDisplayed();
+            await PageObjects.inviteFriendsMenuItem.click();
             await driver.pause(3000);
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButtonAccessibility).toBeDisplayed();
 
             // Verify screen title
-
             const screenTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite your friends")',
             );
@@ -332,7 +170,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(descriptionHeader).toBeDisplayed();
 
             // Verify screen description
-
             const screenDescription = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Invite a friend to join umob, and")',
             );
@@ -345,6 +182,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(yourCodeLabel).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -371,7 +210,6 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             ]);
 
             // Verify Share Code button
-
             const shareCodeButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Invite Friends")',
             );
@@ -382,58 +220,22 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(viewStats).toBeDisplayed();
 
-            // click back button to main acount menu
-            await backButton.click();
+            // Click back button to main account menu
+            await PageObjects.backButtonAccessibility.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Personal Info screen elements", async () => {
         const testId = "d224e3c1-e296-4c4c-b8ad-fc19cfe35c4f";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
-            //navigate to personal info
-
-            const personalInfo = await driver.$(
-                '-android uiautomator:new UiSelector().text("Personal info")',
-            );
-            await expect(personalInfo).toBeDisplayed();
-            await personalInfo.click();
+            // Navigate to personal info
+            await expect(PageObjects.personalInfoButton).toBeDisplayed();
+            await PageObjects.personalInfoButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -442,10 +244,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(screenHeader).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButtonAccessibility).toBeDisplayed();
 
             // Verify Email Section
             const emailQuestion = await driver.$(
@@ -484,6 +283,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(addressQuestion).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -508,27 +309,27 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                     ],
                 },
             ]);
-
             await driver.pause(1000);
 
-            // // Verify Street field
+            // Verify Street field
             const streetLabel = await driver.$(
                 '-android uiautomator:new UiSelector().text("Street")',
             );
             await expect(streetLabel).toBeDisplayed();
 
-            // // Verify Number field
+            // Verify Number field
             const numberLabel = await driver.$(
                 '-android uiautomator:new UiSelector().text("Number")',
             );
             await expect(numberLabel).toBeDisplayed();
 
-            // // Verify Country field
+            // Verify Country field
             const countryLabel = await driver.$(
                 '-android uiautomator:new UiSelector().text("Country")',
             );
             await expect(countryLabel).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -579,57 +380,22 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(helpButton).toBeDisplayed();
 
-            // click back button to main acount menu
-            await backButton.click();
+            // Click back button to main account menu
+            await PageObjects.backButtonAccessibility.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key ID Document screen elements and verify Onfido screen of document verification", async () => {
         const testId = "46893f57-5045-4d7e-8483-6c1e24ad4aed";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
             // Navigate to ID Document screen
-            const idDocumentButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("ID Document")',
-            );
-            await expect(idDocumentButton).toBeDisplayed();
-            await idDocumentButton.click();
+            await expect(PageObjects.idDocumentButton).toBeDisplayed();
+            await PageObjects.idDocumentButton.click();
 
             // Verify screen header
             const screenHeader = await driver.$(
@@ -638,10 +404,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(screenHeader).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButtonAccessibility).toBeDisplayed();
 
             // Verify status text
             const verifiedStatus = await driver.$(
@@ -649,19 +412,21 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(verifiedStatus).toBeDisplayed();
 
-            // Verify Home adress section
-            const homeAdress = await driver.$(
+            // Verify Home address section
+            const homeAddress = await driver.$(
                 '-android uiautomator:new UiSelector().text("Home address")',
             );
-            await expect(verifiedStatus).toBeDisplayed();
+            await expect(homeAddress).toBeDisplayed();
 
-            // Verify Add adress button
+            // Verify Add address button
             const addButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Add")',
             );
-            await expect(verifiedStatus).toBeDisplayed();
+            await expect(addButton).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -704,7 +469,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(idDocumentContainer).toBeDisplayed();
 
-            //verify that app is connecting with Onfido service
+            // Verify that app is connecting with Onfido service
             await changeDocumentButton.click();
 
             const idHeader = await driver.$(
@@ -736,10 +501,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().textContains("Start Id Verification")',
             );
             await expect(startVerification).toBeDisplayed();
-
             await startVerification.click();
 
-            //allow permission for mobile
+            // Allow permission for mobile
             const permission = await driver.$(
                 "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
             );
@@ -754,7 +518,86 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await allowBut.click();
             await driver.pause(2000);
 
-            //notification for onfido web page
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: 1000,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: 10,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+
+            await driver.pause(1000);
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: 1000,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: 10,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
+
+            await driver.pause(1000);
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: 1000,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: 10,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
+
+            // Notification for onfido web page
             const acceptBut = await driver.$(
                 '-android uiautomator:new UiSelector().text("Accept")',
             );
@@ -762,7 +605,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await acceptBut.click();
             await driver.pause(2000);
 
-            //verify onfido screen
+            // Verify onfido screen
             const el2 = await driver.$(
                 '-android uiautomator:new UiSelector().text("Select issuing country to see which documents we accept")',
             );
@@ -778,6 +621,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(el4).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -814,57 +658,22 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(el7).toBeDisplayed();
 
             const el5 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Driver’s license")',
+                '-android uiautomator:new UiSelector().textContains("Driver\'s license")',
             );
             await expect(el5).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key My Rides & Tickets screen elements", async () => {
         const testId = "f9801780-f8a4-48f4-8620-c99ce3c80667";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
-            // Navigate to My Rides & Tickets ("My rides" is a new version)
-            const myRidesAndTicketsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("My rides")',
-            );
-            await expect(myRidesAndTicketsButton).toBeDisplayed();
-            await myRidesAndTicketsButton.click();
+            // Navigate to My Rides & Tickets
+            await expect(PageObjects.myRidesButton).toBeDisplayed();
+            await PageObjects.myRidesButton.click();
             await driver.pause(3000);
 
             // Verify screen header
@@ -875,10 +684,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(3000);
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButton).toBeDisplayed();
 
             // Verify last ride section
             const lastRideSection = await driver.$(
@@ -886,53 +692,23 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastRideSection).toBeDisplayed();
 
-            // back to common list of account menu
-            await backButton.click();
+            // Back to common list of account menu
+            await PageObjects.backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key Ride Credit screen elements", async () => {
         const testId = "309008c8-d517-418c-b2b2-f2bff94af78f";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -959,12 +735,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             ]);
             await driver.pause(2000);
 
-            // Navigate to Ride Credit/Vouchers (new version)
-            const rideCreditButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Vouchers")',
-            );
-            await expect(rideCreditButton).toBeDisplayed();
-            await rideCreditButton.click();
+            // Navigate to Ride Credit/Vouchers
+            await expect(PageObjects.vouchersButton).toBeDisplayed();
+            await PageObjects.vouchersButton.click();
             await driver.pause(3000);
 
             // Verify screen header
@@ -974,10 +747,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(screenHeader).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButtonAccessibility).toBeDisplayed();
 
             // Verify "Your promotional code" section header
             const promotionalCodeHeader = await driver.$(
@@ -991,6 +761,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(promotionalCodeDescription).toBeDisplayed();
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1028,65 +799,35 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(submitPromotionalCodeButton).toBeDisplayed();
 
-            //verify that new user vaucher is visible
-            const checkVaucher = await driver.$(
+            // Verify that new user voucher is visible
+            const checkVoucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Check")',
             );
-            await expect(checkVaucher).toBeDisplayed();
+            await expect(checkVoucher).toBeDisplayed();
 
-            //verify that new user vaucher is visible
-            const donkeyVaucher = await driver.$(
+            // Verify that new user voucher is visible
+            const donkeyVoucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
             );
-            await expect(donkeyVaucher).toBeDisplayed();
+            await expect(donkeyVoucher).toBeDisplayed();
 
-            // click back button to main acount menu
-            await backButton.click();
+            // Click back button to main account menu
+            await PageObjects.backButtonAccessibility.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key My Payments screen elements", async () => {
         const testId = "e079b628-09f9-4125-9602-3bdf41f428de";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1113,11 +854,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             ]);
 
             // Navigate to My Payments
-            const myPaymentsButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("My payments")',
-            );
-            await expect(myPaymentsButton).toBeDisplayed();
-            await myPaymentsButton.click();
+            await expect(PageObjects.myPaymentsButton).toBeDisplayed();
+            await PageObjects.myPaymentsButton.click();
             await driver.pause(3000);
 
             // Verify screen header
@@ -1127,10 +865,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await expect(screenHeader).toBeDisplayed();
 
             // Verify back button is present
-            const backButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("back_button")',
-            );
-            await expect(backButton).toBeDisplayed();
+            await expect(PageObjects.backButtonAccessibility).toBeDisplayed();
 
             // Verify last payment section
             const lastPaymentSection = await driver.$(
@@ -1138,53 +873,23 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(lastPaymentSection).toBeDisplayed();
 
-            // back to common list of account menu
-            await backButton.click();
+            // Back to common list of account menu
+            await PageObjects.backButtonAccessibility.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key language screen elements", async () => {
         const testId = "0001c001-def2-4180-928e-16f59a412e54";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
+        await executeTest(testId, async () => {
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1212,11 +917,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(3000);
 
             // Click on Language option to navigate to language screen
-            const languageOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Language")',
-            );
-            await expect(languageOption).toBeDisplayed();
-            await languageOption.click();
+            await expect(PageObjects.languageButton).toBeDisplayed();
+            await PageObjects.languageButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -1256,54 +958,24 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 }
             }
 
-            //click the back button to the account screen
+            // Click the back button to the account screen
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should display all key map theme settings screen elements", async () => {
         const testId = "e0c819eb-052d-4163-b7d2-276069b6964d";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            //go to account
+        await executeTest(testId, async () => {
+            // Go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1330,11 +1002,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             ]);
 
             // Click on Map theme settings option
-            const mapThemeOption = await driver.$(
-                '-android uiautomator:new UiSelector().text("Map theme settings")',
-            );
-            await expect(mapThemeOption).toBeDisplayed();
-            await mapThemeOption.click();
+            await expect(PageObjects.mapThemeSettingsButton).toBeDisplayed();
+            await PageObjects.mapThemeSettingsButton.click();
             await driver.pause(2000);
 
             // Verify header elements
@@ -1375,54 +1044,25 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                     await expect(container).toBeDisplayed();
                 }
             }
-            // click back button to go to the app settings
+
+            // Click back button to go to the app settings
             await backButton.click();
             await driver.pause(2000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("it should test support screen", async () => {
         const testId = "789d3b57-8cc7-43f8-ae4c-436f141d5261";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            //go to account
+        await executeTest(testId, async () => {
+            // Go to account
             await driver.pause(3000);
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1448,46 +1088,22 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-            // click on support button
-            const supportButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Support")',
-            );
-            await expect(supportButton).toBeDisplayed();
-            await supportButton.click();
+            // Click on support button
+            await expect(PageObjects.supportButton).toBeDisplayed();
+            await PageObjects.supportButton.click();
 
             // Verify screen header
-            const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Support")',
-            );
-            await expect(screenHeader).toBeDisplayed();
-            await screenHeader.waitForDisplayed({ timeout: 4000 });
+            await expect(PageObjects.supportScreenHeader).toBeDisplayed();
+            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
 
             // Verify tabs
-            const faq = await driver.$(
-                '-android uiautomator:new UiSelector().text("FAQ")',
-            );
-            await expect(faq).toBeDisplayed();
-
-            const chat = await driver.$(
-                '-android uiautomator:new UiSelector().text("Chat")',
-            );
-            await expect(chat).toBeDisplayed();
-
-            const about = await driver.$(
-                '-android uiautomator:new UiSelector().text("About")',
-            );
-            await expect(about).toBeDisplayed();
-            /*
-
-            const where = await driver.$(
-                '-android uiautomator:new UiSelector().text("Where")',
-            );
-            await expect(where).toBeDisplayed();
-            */
+            await expect(PageObjects.supportFaqTab).toBeDisplayed();
+            await expect(PageObjects.supportChatTab).toBeDisplayed();
+            await expect(PageObjects.supportAboutTab).toBeDisplayed();
 
             // Click on "FAQ" to be sure you are in the right place
             await driver.pause(2000);
-            await faq.click();
+            await PageObjects.supportFaqTab.click();
 
             // Verify main content headers and text
             const contentElements = [
@@ -1509,6 +1125,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 await expect(element).toBeDisplayed();
             }
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1551,54 +1168,42 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 );
                 await expect(element2).toBeDisplayed();
             }
-            // go to chat tab
-            await chat.click();
+
+            // Go to chat tab
+            await PageObjects.supportChatTab.click();
             await driver.pause(2000);
 
-            const openChat = await driver.$(
-                `-android uiautomator:new UiSelector().text("Open Chat")`,
-            );
-            await expect(openChat).toBeDisplayed();
-            await openChat.click();
+            await expect(PageObjects.openChatButton).toBeDisplayed();
+            await PageObjects.openChatButton.click();
 
-            //send test message to chat
-
-            const welcomeMessage = await driver.$(
-                `-android uiautomator:new UiSelector().text("Start typing here")`,
-            );
-            await expect(welcomeMessage).toBeDisplayed();
-            //await expect(textField).toBeDisplayed();
-            await welcomeMessage.addValue("test");
+            // Send test message to chat
+            await expect(PageObjects.chatInputField).toBeDisplayed();
+            await PageObjects.chatInputField.addValue("test");
             await driver.pause(2000);
 
-            //click on send button
+            // Click on send button
+            await expect(PageObjects.chatSendButton).toBeDisplayed();
+            await PageObjects.chatSendButton.click();
 
-            const sendButton = await driver.$(
-                '-android uiautomator:new UiSelector().description("Send")',
-            );
-            await expect(sendButton).toBeDisplayed();
-            await sendButton.click();
-
-            //check if message was sent
+            // Check if message was sent
             const messageCheck = await driver.$(
                 `-android uiautomator:new UiSelector().text("test")`,
             );
             await expect(messageCheck).toBeDisplayed();
 
-            //if the message is sent then after seeing "test" you should see welcome message again: "Start typing here")`);
-            await expect(welcomeMessage).toBeDisplayed();
+            // If the message is sent then after seeing "test" you should see welcome message again: "Start typing here"
+            await expect(PageObjects.chatInputField).toBeDisplayed();
 
-            // Press the device back button (this method works on mobile)
+            // Press the device back button
             await driver.back();
 
-            //go to about tab
+            // Go to about tab
             await driver.pause(5000);
-            await expect(about).toBeDisplayed();
-            await about.click();
+            await expect(PageObjects.supportAboutTab).toBeDisplayed();
+            await PageObjects.supportAboutTab.click();
             await driver.pause(2000);
 
-            //check for text on about tab
-
+            // Check for text on about tab
             const contentElements3 = [
                 "On a mission",
                 "We're here to evolutionize mobility into seamless, accessible, and sustainable journeys.",
@@ -1614,6 +1219,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 await expect(element3).toBeDisplayed();
             }
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1639,7 +1245,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 },
             ]);
 
-            //test the text after scrolling
+            // Test the text after scrolling
             const text1 = await driver.$(
                 '-android uiautomator:new UiSelector().text("The solution")',
             );
@@ -1649,321 +1255,21 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
             );
             await expect(text2).toBeDisplayed();
-
-            /*
-            //go to where tab
-            await where.click();
-            await driver.pause(2000);
-
-            //check key elements for "where" tab
-            const availability = await driver.$(
-                '-android uiautomator:new UiSelector().text("Availability")',
-            );
-            await expect(availability).toBeDisplayed();
-
-
-            const netherlands = await driver.$(
-                '-android uiautomator:new UiSelector().text("Netherlands")',
-            );
-            await expect(netherlands).toBeDisplayed();
-            await netherlands.click();
-            await driver.pause(2000);
-
-            // const Portugal = await driver.$("-android uiautomator:new UiSelector().text(\"Portugal\")");
-            // await expect(Portugal).toBeDisplayed();
-
-            // const Spain = await driver.$("-android uiautomator:new UiSelector().text(\"Spain\")");
-            // await expect(Spain).toBeDisplayed();
-
-            // const unitedKingdom = await driver.$("-android uiautomator:new UiSelector().text(\"United Kingdom\")");
-            // await expect(unitedKingdom).toBeDisplayed();
-
-            // const France = await driver.$("-android uiautomator:new UiSelector().text(\"France\")");
-            // await expect(France).toBeDisplayed();
-
-            //checking amount of providers
-            const bicycle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Bicycle")',
-            );
-            await expect(bicycle).toBeDisplayed();
-
-            const bicycleProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("8 providers")',
-            );
-            await expect(bicycleProviders).toBeDisplayed();
-
-            const moped = await driver.$(
-                '-android uiautomator:new UiSelector().text("Moped")',
-            );
-            await expect(moped).toBeDisplayed();
-
-            const mopedProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("5 providers")',
-            );
-            await expect(mopedProviders).toBeDisplayed();
-
-            const step = await driver.$(
-                '-android uiautomator:new UiSelector().text("Step")',
-            );
-            await expect(moped).toBeDisplayed();
-
-            const stepProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("3 providers")',
-            );
-            await expect(stepProviders).toBeDisplayed();
-
-
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger4",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: 500,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: 100,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
-
-            const taxi = await driver.$(
-                '-android uiautomator:new UiSelector().text("Taxi")',
-            );
-            await expect(taxi).toBeDisplayed();
-
-            const taxiProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("5 providers")',
-            );
-            await expect(taxiProviders).toBeDisplayed();
-
-            const any = await driver.$(
-                '-android uiautomator:new UiSelector().text("Unknown")',
-            );
-            await expect(any).toBeDisplayed();
-
-            const anyProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("1 provider")',
-            );
-
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger4",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height * 0.8,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: 10,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
-
-            await expect(anyProviders).toBeDisplayed();
-
-            const publicTransport = await driver.$(
-                '-android uiautomator:new UiSelector().text("Public transport")',
-            );
-            await expect(publicTransport).toBeDisplayed();
-
-            const publicProviders = await driver.$(
-                '-android uiautomator:new UiSelector().text("1 provider")',
-            );
-            await expect(publicProviders).toBeDisplayed();
-
-            //quit support screen
-            const quit = await driver.$("class name:com.horcrux.svg.RectView");
-            await quit.click();
-            */
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
-
-    /*
-  
-  it('should display all key Payment Settings screen elements', async () => {
-
-    const testId = "d901dc5f-f20f-41d9-afbf-ba15b6a36815"
-    // Send results
-  let testStatus = "Pass";
-  let screenshotPath = "";
-  let testDetails = ""
-  let error = null;
-  
-  try {
-
-
-    // Click on Account button
-    const accountButton = await driver.$("-android uiautomator:new UiSelector().text(\"Account\")");
-    await accountButton.click();
-    await driver.pause(2000);
-    
-    // Navigate to Payment Settings screen
-    const paymentSettingsButton = await driver.$("-android uiautomator:new UiSelector().text(\"Payment settings\")");
-    await expect(paymentSettingsButton).toBeDisplayed();
-    await paymentSettingsButton.click();
-
-    // Verify screen header
-    const screenHeader = await driver.$("-android uiautomator:new UiSelector().text(\"Payment method\")");
-    await expect(screenHeader).toBeDisplayed();
-
-    // Verify back button is present
-    const backButton = await driver.$("-android uiautomator:new UiSelector().description(\"back_button\")");
-    await expect(backButton).toBeDisplayed();
-
-    // Verify card information
-    //const releaseText = await driver.$("-android uiautomator:new UiSelector().text(\"NEW\")");
-    //await expect(releaseText).toBeDisplayed();
-
-    const cardType = await driver.$("-android uiautomator:new UiSelector().text(\"Add payment method\")");
-    await expect(cardType).toBeDisplayed();
-
-    const cardNumber = await driver.$("-android uiautomator:new UiSelector().text(\"Add your paymentmethod for free.\")");
-    await expect(cardNumber).toBeDisplayed();
-
-    // const expiryDate = await driver.$("-android uiautomator:new UiSelector().text(\"03/2030\")");
-    // await expect(expiryDate).toBeDisplayed();
-
-    // Verify action buttons
-    const addButton = await driver.$("-android uiautomator:new UiSelector().text(\"ADD PAYMENT METHOD\")");
-    await expect(addButton).toBeDisplayed();
-    /*await addButton.click();
-
-    //verify header and offer for choosing payment method
-    //const paymentHeader = await driver.$("id:com.umob.umob:id/payment_method_header_title");
-    const paymentHeader = await driver.$('-android uiautomator:new UiSelector().text("PAYMENT METHODS")');
-    await expect(paymentHeader).toBeDisplayed();
-
-    const cards = await driver.$('-android uiautomator:new UiSelector().text("Cards")');
-    await expect(cards).toBeDisplayed();
-
-    const bancontactCard = await driver.$('-android uiautomator:new UiSelector().text("Bancontact card")');
-    await expect(bancontactCard).toBeDisplayed();
-
-    const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
-    await expect(googlePay).toBeDisplayed();
-
-    const payPal = await driver.$('-android uiautomator:new UiSelector().text("PayPal")');
-    await expect(payPal).toBeDisplayed();
-
-    //close the popup
-    const closePopup = await driver.$("id:com.umob.umob:id/imageView_close");
-    await closePopup.click();
-
-
-    //const helpButton = await driver.$("-android uiautomator:new UiSelector().text(\"Help\")");
-    //await expect(helpButton).toBeDisplayed();
-
-    // Optional: Verify container element
-    // const paymentDetailsContainer = await driver.$("-android uiautomator:new UiSelector().description(\"PaymentDetailsContainer\")");
-    // await expect(paymentDetailsContainer).toBeDisplayed();
-
-    
-
-    // click back button to main acount menu
-    await backButton.click();
-    await driver.pause(2000);
-
-  } catch (e) {
-    error = e;
-    console.error("Test failed:", error);
-    testStatus = "Fail";
-    testDetails = e.message;
-  
-    
-  
-    // Capture screenshot on failure
-    screenshotPath = "./screenshots/"+ testId+".png";
-    await driver.saveScreenshot(screenshotPath);
-    // execSync(
-    //   `adb exec-out screencap -p > ${screenshotPath}`
-    // );
-    
-  } finally {
-    // Submit test run result
-    try {
-       
-  
-      await submitTestRun(testId, testStatus, testDetails, screenshotPath);
-      console.log("Test run submitted successfully");
-    } catch (submitError) {
-      console.error("Failed to submit test run:", submitError);
-    }
-  
-    // If there was an error in the main try block, throw it here to fail the test
-    if (error) {
-      throw error;
-    }
-  }
-
-  });
-
-*/
 
     it("should display all key delete account screen elements", async () => {
         const testId = "9dbc289a-319f-47ee-b30e-4773e297c67a";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            //go to account
+        await executeTest(testId, async () => {
+            // Go to account
             await driver.pause(2000);
             await PageObjects.clickAccountButton();
             await driver.pause(3000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -1991,11 +1297,8 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(1000);
 
             // Click on Delete account button
-            const deleteAccountButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Delete account")',
-            );
-            await expect(deleteAccountButton).toBeDisplayed();
-            await deleteAccountButton.click();
+            await expect(PageObjects.deleteAccountButton).toBeDisplayed();
+            await PageObjects.deleteAccountButton.click();
             await driver.pause(2000);
 
             // Verify delete account screen title
@@ -2061,53 +1364,20 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Quit this delete account popup
             await cancelButton.click();
             await driver.pause(1000);
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-            // execSync(
-            //   `adb exec-out screencap -p > ${screenshotPath}`
-            // );
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     it("should successfully logout from the app", async () => {
         const testId = "87874cb4-321f-4a63-8fde-0b1d6e90ff5e";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            //go to account
+        await executeTest(testId, async () => {
+            // Go to account
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
             const { width, height } = await driver.getWindowSize();
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -2134,6 +1404,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             ]);
             await driver.pause(1000);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -2161,51 +1432,21 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(1000);
 
             // Click on LogOut option
-            const logoutButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log Out")',
-            );
-            await expect(logoutButton).toBeDisplayed();
-            await logoutButton.click();
+            await expect(PageObjects.logOutButton).toBeDisplayed();
+            await PageObjects.logOutButton.click();
 
-            // verify Login button appeared
+            // Verify Login button appeared
             const signUpButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Login")',
             );
             await expect(signUpButton).toBeDisplayed();
 
-            // verify Register button appeared
+            // Verify Register button appeared
             const register = await driver.$(
                 '-android uiautomator:new UiSelector().text("Register")',
             );
             await expect(register).toBeDisplayed();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+        });
     });
 
     afterEach(async () => {

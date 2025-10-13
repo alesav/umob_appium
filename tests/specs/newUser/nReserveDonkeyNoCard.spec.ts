@@ -1,76 +1,21 @@
-import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import {
+    getCredentials,
+    executeTest,
+} from "../../helpers/TestHelpers.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "newUser";
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 describe("Trying to Book Donkey bike by a New User Without a Card", () => {
     before(async () => {
         const credentials = getCredentials(ENV, USER);
 
-        // await PageObjects.login(credentials);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
         });
-
 
         const longitude = 4.4744301;
         const latitude = 51.9155956;
@@ -85,23 +30,16 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
 
     it("New User is Trying to Book Donkey UMOB Bike 20 Without a Card", async () => {
         const testId = "a66df007-2bfa-4531-af52-87e3eec81280";
-        // Send results
-        let testStatus = "Pass";
-        let screenshotPath = "";
-        let testDetails = "";
-        let error = null;
 
-        try {
-            // Set initial location 51.91564074928743, 4.4744318279297906
+        await executeTest(testId, async () => {
+            // Set initial location
             await AppiumHelpers.setLocationAndRestartApp(4.474431, 51.91564);
             await driver.pause(5000);
 
             // Get screen dimensions for click positioning
             const { width, height } = await driver.getWindowSize();
-            const centerX = Math.round(width / 2);
 
-
-            //Click on middle of the screen
+            // Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
 
             await driver.pause(2000);
@@ -112,19 +50,19 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             );
             await umob20Button.click();
 
-            //verify that new user vaucher is visible
-            const vaucher = await driver.$(
+            // Verify that new user voucher is visible
+            const voucher = await driver.$(
                 '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
             );
-            await expect(vaucher).toBeDisplayed();
+            await expect(voucher).toBeDisplayed();
 
-            //verify that select payment method is displayed
+            // Verify that select payment method is displayed
             const selectPayment = await driver.$(
                 '-android uiautomator:new UiSelector().text("Select payment method")',
             );
             await expect(selectPayment).toBeDisplayed();
 
-
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.pause(2000);
             await driver.performActions([
                 {
@@ -155,7 +93,7 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             // Click continue button
             await driver.pause(5000);
             const continueButton = await driver.$(
-                'android=new UiSelector().text("START TRIP")',
+                'android=new UiSelector().text("Start Trip")',
             );
             await expect(continueButton).toBeDisplayed();
             await expect(continueButton).toBeEnabled();
@@ -164,7 +102,7 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
 
             await driver.pause(2000);
 
-            //verify header and offer for choosing payment method
+            // Verify header and offer for choosing payment method
             const paymentHeader = await driver.$(
                 '-android uiautomator:new UiSelector().text("PAYMENT METHODS")',
             );
@@ -181,6 +119,7 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             await expect(bancontactCard).toBeDisplayed();
             await driver.pause(2000);
 
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
@@ -207,8 +146,10 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             ]);
             await driver.pause(2000);
 
-            //there is no google pay in github actions emulated mobile device
-            const googlePay = await driver.$('-android uiautomator:new UiSelector().text("Google Pay")');
+            // There is no google pay in github actions emulated mobile device
+            const googlePay = await driver.$(
+                '-android uiautomator:new UiSelector().text("Google Pay")',
+            );
             await expect(googlePay).toBeDisplayed();
 
             const payPal = await driver.$(
@@ -216,40 +157,10 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             );
             await expect(payPal).toBeDisplayed();
 
-            const closeBtn = await driver.$("accessibility id:Close");
-            await expect(closeBtn).toBeDisplayed();
-            await closeBtn.click();
-        } catch (e) {
-            error = e;
-            console.error("Test failed:", error);
-            testStatus = "Fail";
-            testDetails = e.message;
-
-            // Capture screenshot on failure
-            screenshotPath = "./screenshots/" + testId + ".png";
-            await driver.saveScreenshot(screenshotPath);
-
-        } finally {
-            // Submit test run result
-            try {
-                await submitTestRun(
-                    testId,
-                    testStatus,
-                    testDetails,
-                    screenshotPath,
-                );
-                console.log("Test run submitted successfully");
-            } catch (submitError) {
-                console.error("Failed to submit test run:", submitError);
-            }
-
-            // If there was an error in the main try block, throw it here to fail the test
-            if (error) {
-                throw error;
-            }
-        }
+            await expect(PageObjects.closeButton).toBeDisplayed();
+            await PageObjects.closeButton.click();
+        });
     });
-
 
     afterEach(async () => {
         await driver.terminateApp("com.umob.umob");
