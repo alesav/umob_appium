@@ -84,6 +84,47 @@ class PageObjects extends Page {
         );
     }
 
+    // Personal Info / Address elements
+    get personalInfoButton() {
+        return $('-android uiautomator:new UiSelector().textContains("Personal info")');
+    }
+    get zipCodeLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Zip Code")');
+    }
+    get zipCodeField() {
+        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(2)');
+    }
+    get countryDropdown() {
+        return $("accessibility id:Country");
+    }
+    get argentinaNCountry() {
+        return $('-android uiautomator:new UiSelector().textContains("Argentina")');
+    }
+    get cityLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("City")');
+    }
+    get cityField() {
+        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(3)');
+    }
+    get streetLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Street")');
+    }
+    get streetField() {
+        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(0)');
+    }
+    get numberLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("Number")');
+    }
+    get numberField() {
+        return $('-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)');
+    }
+    get saveButton() {
+        return $('-android uiautomator:new UiSelector().text("Save")');
+    }
+    get idDocumentLabel() {
+        return $('-android uiautomator:new UiSelector().textContains("ID Document")');
+    }
+
     //map related buttons when first time open app
     get exploreMapButton() {
         return $(
@@ -107,6 +148,37 @@ class PageObjects extends Page {
     }
     get noRideCreditOption() {
         return $('-android uiautomator:new UiSelector().text("No voucher")');
+    }
+
+    // Payment Methods Page elements
+    get paymentMethodsButton() {
+        return $('-android uiautomator:new UiSelector().text("Payment methods")');
+    }
+    get addPaymentMethodButton() {
+        return $('-android uiautomator:new UiSelector().text("Add Payment Method")');
+    }
+    get removePaymentMethodButton() {
+        return $('-android uiautomator:new UiSelector().text("Remove Payment Method")');
+    }
+    get cardsButton() {
+        return $('-android uiautomator:new UiSelector().text("Cards")');
+    }
+
+    // Card Form elements
+    get cardNumberField() {
+        return $("id:com.umob.umob:id/editText_cardNumber");
+    }
+    get expiryDateField() {
+        return $("id:com.umob.umob:id/editText_expiryDate");
+    }
+    get securityCodeField() {
+        return $("id:com.umob.umob:id/editText_securityCode");
+    }
+    get cardHolderField() {
+        return $("id:com.umob.umob:id/editText_cardHolder");
+    }
+    get payButton() {
+        return $("id:com.umob.umob:id/payButton");
     }
 
     async login({
@@ -225,6 +297,146 @@ class PageObjects extends Page {
         await this.multiPaymentOption.waitForEnabled();
         await this.multiPaymentOption.click();
         await this.noRideCreditOption.click();
+    }
+
+    /**
+     * Navigates to Payment Methods section from account menu
+     */
+    async navigateToPaymentMethods() {
+        await this.clickAccountButton();
+        await driver.pause(3000);
+        
+        await this.paymentMethodsButton.waitForDisplayed();
+        await driver.pause(2000);
+        await this.paymentMethodsButton.click();
+        await driver.pause(2000);
+    }
+
+    /**
+     * Removes existing payment method if present
+     * This method doesn't throw if the button is not found
+     */
+    async removeExistingPaymentMethodIfPresent() {
+        try {
+            await this.removePaymentMethodButton.waitForDisplayed({ timeout: 5000 });
+            await this.removePaymentMethodButton.click();
+            await driver.pause(4000);
+            console.log("Existing payment method removed");
+        } catch (error) {
+            console.log("No existing payment method to remove");
+        }
+    }
+
+    /**
+     * Clicks the Add Payment Method button
+     */
+    async clickAddPaymentMethod() {
+        await this.addPaymentMethodButton.waitForDisplayed();
+        await driver.pause(2000);
+        await this.addPaymentMethodButton.click();
+        await driver.pause(2000);
+    }
+
+    /**
+     * Selects Cards as payment method type
+     */
+    async selectCardsPaymentType() {
+        await this.cardsButton.waitForDisplayed();
+        await this.cardsButton.click();
+        await driver.pause(2000);
+    }
+
+    /**
+     * Fills credit card information
+     * @param {object} cardData - Object containing card information
+     * @param {string} cardData.cardNumber - Card number
+     * @param {string} cardData.expiryDate - Expiry date (MMYY format)
+     * @param {string} cardData.securityCode - CVV/CVC code
+     * @param {string} cardData.cardHolder - Cardholder name
+     */
+    async fillCreditCardInformation({
+        cardNumber = "5555341244441115",
+        expiryDate = "0330",
+        securityCode = "737",
+        cardHolder = "Test Account"
+    }: {
+        cardNumber?: string;
+        expiryDate?: string;
+        securityCode?: string;
+        cardHolder?: string;
+    } = {}) {
+        // Fill card number
+        await this.cardNumberField.click();
+        await this.cardNumberField.addValue(cardNumber);
+
+        // Fill expiry date
+        await this.expiryDateField.click();
+        await this.expiryDateField.addValue(expiryDate);
+
+        // Fill security code
+        await this.securityCodeField.click();
+        await this.securityCodeField.addValue(securityCode);
+
+        // Fill card holder name
+        await this.cardHolderField.click();
+        await this.cardHolderField.addValue(cardHolder);
+    }
+
+    /**
+     * Submits the credit card form
+     */
+    async submitCreditCard() {
+        await this.payButton.click();
+        await driver.pause(5000);
+    }
+
+    /**
+     * Verifies that payment method was added successfully by checking for Remove Payment Method button
+     */
+    async verifyPaymentMethodAdded() {
+        await this.removePaymentMethodButton.waitForDisplayed();
+        await driver.pause(2000);
+    }
+
+    /**
+     * Removes the payment method (assumes Remove Payment Method button is visible)
+     */
+    async removePaymentMethod() {
+        await this.removePaymentMethodButton.waitForDisplayed();
+        await this.removePaymentMethodButton.click();
+        await driver.pause(2000);
+    }
+
+    /**
+     * Verifies that payment method was removed by checking for Add Payment Method button
+     */
+    async verifyPaymentMethodRemoved() {
+        // Navigate back to payment methods
+        await this.paymentMethodsButton.waitForDisplayed();
+        await this.paymentMethodsButton.click();
+        await driver.pause(2000);
+
+        // Verify Add Payment Method button is displayed
+        await this.addPaymentMethodButton.waitForDisplayed();
+    }
+
+    /**
+     * Complete workflow to add a credit card payment method
+     * @param {object} cardData - Optional card data object
+     */
+    async addCreditCardPaymentMethod(cardData?: {
+        cardNumber?: string;
+        expiryDate?: string;
+        securityCode?: string;
+        cardHolder?: string;
+    }) {
+        await this.navigateToPaymentMethods();
+        await this.removeExistingPaymentMethodIfPresent();
+        await this.clickAddPaymentMethod();
+        await this.selectCardsPaymentType();
+        await this.fillCreditCardInformation(cardData);
+        await this.submitCreditCard();
+        await this.verifyPaymentMethodAdded();
     }
 
     async startTrip() {
@@ -391,6 +603,112 @@ class PageObjects extends Page {
         await driver.pause(1000);
         await this.myRidesButton.click();
         await driver.pause(5000);
+    }
+
+    /**
+     * Navigates to Personal Info section from account menu
+     */
+    async navigateToPersonalInfo() {
+        await this.clickAccountButton();
+        await driver.pause(2000);
+        
+        await expect(this.personalInfoButton).toBeDisplayed();
+        await this.personalInfoButton.click();
+        await driver.pause(5000);
+    }
+
+    /**
+     * Scrolls down on the page
+     * @param {number} scrollPercent - Percentage to scroll (default: 1)
+     */
+    async scrollDown(scrollPercent: number = 1) {
+        const { width, height } = await driver.getWindowSize();
+        
+        await driver.executeScript("mobile: scrollGesture", [
+            {
+                left: 100,
+                top: 0,
+                width: 0,
+                height: height / 2,
+                direction: "down",
+                percent: scrollPercent,
+            },
+        ]);
+        await driver.pause(2000);
+    }
+
+    /**
+     * Fills address information in the personal info form
+     * @param {object} addressData - Object containing address information
+     * @param {string} addressData.zipCode - ZIP code
+     * @param {string} addressData.country - Country name
+     * @param {string} addressData.city - City name
+     * @param {string} addressData.street - Street name
+     * @param {string} addressData.number - Building number
+     */
+    async fillAddressInformation({
+        zipCode = "3014",
+        country = "Argentina",
+        city = "Rotterdam",
+        street = "Bloemstraat",
+        number = "80"
+    }: {
+        zipCode?: string;
+        country?: string;
+        city?: string;
+        street?: string;
+        number?: string;
+    } = {}) {
+        // Scroll to zip code section
+        await this.scrollDown();
+
+        // Fill ZIP code
+        await expect(this.zipCodeLabel).toBeDisplayed();
+        await driver.pause(1000);
+        
+        await this.zipCodeField.clearValue();
+        await this.zipCodeField.addValue(zipCode);
+
+        // Select country
+        await expect(this.countryDropdown).toBeDisplayed();
+        await this.countryDropdown.click();
+        await driver.pause(2000);
+
+        const countryElement = await driver.$(
+            `-android uiautomator:new UiSelector().textContains("${country}")`
+        );
+        await expect(countryElement).toBeDisplayed();
+        await driver.pause(2000);
+        await countryElement.click();
+        await driver.pause(2000);
+
+        // Scroll down to access city field
+        await this.scrollDown();
+
+        // Fill city
+        await expect(this.cityLabel).toBeDisplayed();
+        await this.cityField.clearValue();
+        await this.cityField.addValue(city);
+
+        // Fill street
+        await expect(this.streetLabel).toBeDisplayed();
+        await this.streetField.clearValue();
+        await this.streetField.addValue(street);
+
+        // Fill building number
+        await expect(this.numberLabel).toBeDisplayed();
+        await this.numberField.clearValue();
+        await this.numberField.addValue(number);
+
+        // Scroll to save button
+        await this.scrollDown();
+
+        // Click save button
+        await expect(this.saveButton).toBeDisplayed();
+        await this.saveButton.click();
+
+        // Verify save was successful by checking for ID Document section
+        await expect(this.idDocumentLabel).toBeDisplayed();
     }
 
     async handleTripCompletion() {

@@ -25,3 +25,7 @@ scripts/local.sh
 scripts/local-accept.sh
 
 .github/workflows/umob-appium-action.yml
+
+# Environment variables
+.env
+.env.local

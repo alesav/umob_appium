@@ -92,110 +92,15 @@ describe("Add Payment Method", () => {
         try {
             await driver.pause(2000);
 
-            // Check Account is presented
-            await PageObjects.clickAccountButton();
-            await driver.pause(3000);
+            // Add credit card using page object method
+            await PageObjects.addCreditCardPaymentMethod();
 
-            //CLick Payment Settings
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Payment methods")',
-                )
-                .waitForDisplayed();
-            await driver.pause(2000);
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Payment methods")',
-                )
-                .click();
+            // Remove the payment method to clean up
+            await PageObjects.removePaymentMethod();
 
-            // looking for "REMOVE PAYMENT METHOD"
-            try {
-                const removeButton = await driver.$(
-                    '-android uiautomator:new UiSelector().text("Remove Payment Method")',
-                );
+            // Verify payment method was removed
+            await PageObjects.verifyPaymentMethodRemoved();
 
-                // short timeout
-                await removeButton.waitForDisplayed({ timeout: 5000 });
-
-                // if we are here then button exists and we click it
-                await removeButton.click();
-                await driver.pause(4000);
-            } catch (error) {
-                // if the button not found then go further
-            }
-
-            // anyway looking for the "ADD PAYMENT METHOD" button and click it
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
-                )
-                .waitForDisplayed();
-            await driver.pause(2000);
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
-                )
-                .click();
-
-            //CLick Cards
-            await driver
-                .$('-android uiautomator:new UiSelector().text("Cards")')
-                .waitForDisplayed();
-            await driver
-                .$('-android uiautomator:new UiSelector().text("Cards")')
-                .click();
-
-            const el1 = await driver.$(
-                "id:com.umob.umob:id/editText_cardNumber",
-            );
-            await el1.click();
-            await el1.addValue("5555341244441115");
-            const el2 = await driver.$(
-                "id:com.umob.umob:id/editText_expiryDate",
-            );
-            await el2.click();
-            await el2.addValue("0330");
-            const el3 = await driver.$(
-                "id:com.umob.umob:id/editText_securityCode",
-            );
-            await el3.click();
-            await el3.addValue("737");
-            const el4 = await driver.$(
-                "id:com.umob.umob:id/editText_cardHolder",
-            );
-            await el4.click();
-            await el4.addValue("Test Account");
-            const el5 = await driver.$("id:com.umob.umob:id/payButton");
-            await el5.click();
-            await driver.pause(5000);
-
-            //Assert Remove payment method button is displayed
-            const removeBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Remove Payment Method")',
-            );
-            await removeBtn.waitForDisplayed();
-            await driver.pause(2000);
-            await removeBtn.click();
-
-            //CLick Payment Settings
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Payment methods")',
-                )
-                .waitForDisplayed();
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Payment methods")',
-                )
-                .click();
-
-            //Verify Add payment method
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Add Payment Method")',
-                )
-                .waitForDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

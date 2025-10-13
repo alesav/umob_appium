@@ -41,6 +41,7 @@ jobs:
               uses: reactivecircus/android-emulator-runner@v2
               env:
                   AZURE_PAT: ${{ secrets.AZURE_PAT }}
+                  POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
               with:
                   api-level: 34
                   profile: pixel

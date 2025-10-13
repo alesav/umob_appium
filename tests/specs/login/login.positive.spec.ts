@@ -1,15 +1,8 @@
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-const getScreenCenter = async () => {
-    const { width, height } = await driver.getWindowSize();
-    return {
-        centerX: Math.round(width / 2),
-        centerY: Math.round(height / 2),
-        screenWidth: width,
-        screenHeight: height,
-    };
-};
+const posthog = new PostHogHelper();
 
 const handleTestResult = async (
     testId: string,
@@ -56,6 +49,7 @@ describe("Login positive scenarios", () => {
 
     it("should display all key elements on the initial screen", async () => {
         const testId = "97ad3bd3-1c89-4fbf-8f25-28c32e138a7f";
+
         await handleTestResult(testId, async () => {
             const signUpTitle = await driver.$(
                 '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
@@ -68,9 +62,7 @@ describe("Login positive scenarios", () => {
             await expect(signUpDescription).toBeDisplayed();
 
             await PageObjects.startRegistrationButton.waitForDisplayed;
-
             await PageObjects.exploreMapButton.waitForDisplayed();
-
             await PageObjects.logInButton.waitForDisplayed();
         });
     });
@@ -131,6 +123,47 @@ describe("Login positive scenarios", () => {
                 '-android uiautomator:new UiSelector().text("Personal info")',
             );
             await expect(infoButton).toBeDisplayed();
+
+            // Verify PostHog event
+            const event = await posthog.waitForEvent(
+                {
+                    eventName: "$identify",
+                    email: "4bigfoot+10@gmail.com",
+                    personEmail: "4bigfoot+10@gmail.com",
+                    maxAgeMinutes: 5,
+                },
+                {
+                    maxRetries: 10,
+                    retryDelayMs: 2000,
+                    searchLimit: 20,
+                },
+            );
+
+            await posthog.waitForEvent(
+                {
+                    eventName: "$screen",
+                    personEmail: "4bigfoot+10@gmail.com",
+                    screenName: "Welcome",
+
+                    maxAgeMinutes: 5,
+                },
+                {
+                    maxRetries: 10,
+                    retryDelayMs: 2000,
+                    searchLimit: 20,
+                },
+            );
+
+            // If we got here, event was found with all criteria matching
+            posthog.printEventSummary(event);
+
+            // Assert key properties for clarity
+            expect(event.event).toBe("$identify");
+            expect(event.properties.$set?.email).toBe("4bigfoot+10@gmail.com");
+            expect(event.person?.properties?.email).toBe(
+                "4bigfoot+10@gmail.com",
+            );
+            expect(event.person?.is_identified).toBe(true);
         });
     });
 

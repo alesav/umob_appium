@@ -84,137 +84,19 @@ describe("Add address for any user", () => {
 
         try {
             await driver.pause(2000);
-            await PageObjects.clickAccountButton();
-            await driver.pause(2000);
+            
+            // Navigate to Personal Info section using page object method
+            await PageObjects.navigateToPersonalInfo();
 
-            //go to personal info
-            const infoButton = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Personal info")',
-            );
-            await expect(infoButton).toBeDisplayed();
-            await infoButton.click();
+            // Fill address information using page object method with default values
+            await PageObjects.fillAddressInformation({
+                zipCode: "3014",
+                country: "Argentina", 
+                city: "Rotterdam",
+                street: "Bloemstraat",
+                number: "80"
+            });
 
-            // Scroll down to zip code section
-            await driver.pause(5000);
-            const { width, height } = await driver.getWindowSize();
-
-            await driver.executeScript("mobile: scrollGesture", [
-                {
-                    left: 100,
-                    top: 0,
-                    width: 0,
-                    height: height / 2,
-                    direction: "down",
-                    percent: 1,
-                },
-            ]);
-
-            await driver.pause(2000);
-
-            const zipCode = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Zip Code")',
-            );
-            await expect(zipCode).toBeDisplayed();
-            await driver.pause(1000);
-
-            //click on zip code section and add value
-            const codeSection = await driver.$(
-                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(2)',
-            );
-
-            //await zip code Section.click();
-            await codeSection.clearValue();
-            await codeSection.addValue("3014");
-
-            const countryDropdown = await driver.$("accessibility id:Country");
-            await expect(countryDropdown).toBeDisplayed();
-            await countryDropdown.click();
-            await driver.pause(2000);
-
-            //click on country
-            const nCountry = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Argentina")',
-            );
-            await expect(nCountry).toBeDisplayed();
-            await driver.pause(2000);
-            await nCountry.click();
-            await driver.pause(2000);
-
-            await driver.executeScript("mobile: scrollGesture", [
-                {
-                    left: 100,
-                    top: 0,
-                    width: 0,
-                    height: height / 2,
-                    direction: "down",
-                    percent: 1,
-                },
-            ]);
-            await driver.pause(1000);
-
-            //choosing city
-            const city = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("City")',
-            );
-            await expect(city).toBeDisplayed();
-
-            //click on city section and add value
-            const citySection = await driver.$(
-                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(3)',
-            );
-            await citySection.clearValue();
-            await citySection.addValue("Rotterdam");
-
-            //choosing street
-            const street = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Street")',
-            );
-            await expect(street).toBeDisplayed();
-
-            //click on street section and add value
-            const streetSection = await driver.$(
-                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(0)',
-            );
-            await streetSection.clearValue();
-            await streetSection.addValue("Bloemstraat");
-
-            //choosing number of building
-            const number = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Number")',
-            );
-            await expect(number).toBeDisplayed();
-
-            //click on building number section and add value
-            const numberSection = await driver.$(
-                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)',
-            );
-            await numberSection.clearValue();
-            await numberSection.addValue("80");
-
-            await driver.executeScript("mobile: scrollGesture", [
-                {
-                    left: 100,
-                    top: 0,
-                    width: 0,
-                    height: height / 2,
-                    direction: "down",
-                    percent: 1,
-                },
-            ]);
-            await driver.pause(1000);
-
-            //click on Save button
-            const saveButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Save")',
-            );
-            await expect(saveButton).toBeDisplayed();
-            await saveButton.click();
-
-            //check that save button was pressed
-            const idDocument = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("ID Document")',
-            );
-            await expect(idDocument).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
