@@ -45,6 +45,8 @@ const handleTestResult = async (
 describe("Login positive scenarios", () => {
     beforeEach(async () => {
         // Verify PostHog event
+
+        console.log("beforeEach in Posthog test");
         const event = await posthog.waitForEvent(
             {
                 eventName: "$identify",
