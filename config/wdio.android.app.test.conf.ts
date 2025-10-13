@@ -35,7 +35,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",
         //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", //problem, a lot of manual work
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
@@ -82,7 +82,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/qrCode.spec.ts", //new12
         //"../tests/specs/account/combinedLoggedTest.spec.ts", //new12
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
-        //"../tests/specs/account/nearbyAssets.spec.ts", //new12
+        "../tests/specs/account/nearbyAssets.spec.ts", //new12
         //"../tests/specs/login/login.negative.spec.ts",
         /*
 //new user tests should be in some order 
