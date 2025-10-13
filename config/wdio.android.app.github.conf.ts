@@ -5,11 +5,7 @@ export const config: WebdriverIO.Config = {
     ...baseConfig,
 
     specs: [
-<<<<<<< HEAD
-        //"../tests/specs/login/*.spec.ts",
-=======
         "../tests/specs/login/login.positive.spec.ts",
->>>>>>> 805e9fb3f569cade28d77d4eaa93be8ca732b2f2
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         // "../tests/specs/book/bookTaxi.spec.ts"
@@ -21,7 +17,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/login/login.negative.spec.ts",
         //  "../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
-        "../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
         // "../tests/specs/book/reserveCheck.spec.ts"
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //  "../tests/specs/book/bookUmobScooters.spec.js",
