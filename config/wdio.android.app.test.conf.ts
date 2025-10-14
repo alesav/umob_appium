@@ -56,6 +56,8 @@ export const config: WebdriverIO.Config = {
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
+        //"../tests/specs/account/AddAdress.spec.ts",
+        "../tests/specs/account/AddPaymentMethod.spec.ts",
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
@@ -84,7 +86,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         //"../tests/specs/account/nearbyAssets.spec.ts", //new12
         //"../tests/specs/login/login.negative.spec.ts",
-        "../tests/specs/login/login.positive.spec.ts",
+        //"../tests/specs/login/login.positive.spec.ts",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
