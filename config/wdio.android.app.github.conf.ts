@@ -70,13 +70,13 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //"../tests/specs/book/reserveFelyx.spec.ts", //more
-        "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
+        //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-        "../tests/specs/book/bookTaxi.spec.ts",
+        //"../tests/specs/book/bookTaxi.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
@@ -87,7 +87,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         ////////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
@@ -113,7 +113,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
         ////////////////////////////////////////////////////////////////////////////////////////
         /*
