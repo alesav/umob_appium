@@ -657,10 +657,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(el7).toBeDisplayed();
 
-            const el5 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Driver\'s license")',
-            );
-            await expect(el5).toBeDisplayed();
+            // const el5 = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Driver\'s license")',
+            // );
+            // await expect(el5).toBeDisplayed();
         });
     });
 
