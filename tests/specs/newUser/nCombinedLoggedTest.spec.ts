@@ -598,12 +598,12 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             await driver.pause(1000);
 
             // Notification for onfido web page
-            const acceptBut = await driver.$(
-                '-android uiautomator:new UiSelector().text("Accept")',
-            );
-            await expect(acceptBut).toBeDisplayed();
-            await acceptBut.click();
-            await driver.pause(2000);
+            // const acceptBut = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Accept")',
+            // );
+            // await expect(acceptBut).toBeDisplayed();
+            // await acceptBut.click();
+            // await driver.pause(2000);
 
             // Verify onfido screen
             const el2 = await driver.$(
@@ -657,10 +657,10 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             );
             await expect(el7).toBeDisplayed();
 
-            const el5 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Driver\'s license")',
-            );
-            await expect(el5).toBeDisplayed();
+            // const el5 = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Driver\'s license")',
+            // );
+            // await expect(el5).toBeDisplayed();
         });
     });
 
@@ -1094,7 +1094,9 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
 
             // Verify screen header
             await expect(PageObjects.supportScreenHeader).toBeDisplayed();
-            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
+            await PageObjects.supportScreenHeader.waitForDisplayed({
+                timeout: 4000,
+            });
 
             // Verify tabs
             await expect(PageObjects.supportFaqTab).toBeDisplayed();

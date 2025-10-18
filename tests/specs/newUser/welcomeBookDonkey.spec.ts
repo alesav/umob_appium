@@ -33,7 +33,7 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             await AppiumHelpers.clickCenterOfScreen();
 
             const umob20Button = await driver.$(
-                '-android uiautomator:new UiSelector().text("UMOB Bike 3 1")',
+                '-android uiautomator:new UiSelector().text("UMOB Bike 2 1")',
             );
             await umob20Button.click();
 
