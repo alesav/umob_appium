@@ -60,7 +60,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/AddPaymentMethod.spec.ts",
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok. not in center of the map, verification in progress could be after nreservechecknocard
