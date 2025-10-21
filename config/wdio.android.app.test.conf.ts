@@ -61,7 +61,7 @@ export const config: WebdriverIO.Config = {
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
+        "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveCheckNoCard.spec.ts",// doesnt click on moped manually!
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //JS file required. new39 //bike 21    ok. not in center of the map, verification in progress could be after nreservechecknocard
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",      //   new33 not in center for positive scenario. после приближения и перезапуска нужно приближение. негатвного сценария нет
