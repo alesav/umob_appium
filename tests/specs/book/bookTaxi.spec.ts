@@ -308,7 +308,7 @@ describe("Book a Taxi", () => {
             await cancelTripButton.click();
 
             // Wait for confirmation dialog and confirm cancellation
-            await driver.pause(5000);
+            await driver.pause(7000);
             const confirmCancelButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Cancel My Booking")',
             );
