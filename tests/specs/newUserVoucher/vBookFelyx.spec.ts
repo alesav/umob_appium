@@ -217,8 +217,8 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
                 '-android uiautomator:new UiSelector().textContains("Take a photo of your vehicle to end your ride")',
             );
             await expect(photoInstruction).toBeDisplayed();
-
-            // Take a picture
+            /*
+            // Take a picture in old UI
             const photoButton = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
             );
@@ -226,6 +226,13 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await driver.pause(2000);
             await photoButton.click();
             await driver.pause(4000);
+            */
+
+            //take a picture in new UI
+            const photoButton = await driver.$(
+                '-android uiautomator:new UiSelector().className("com.horcrux.svg.CircleView").instance(2)',
+            );
+            await photoButton.click();
 
             // Verify confirmation for using a picture
             const pictureHeader = await driver.$(
