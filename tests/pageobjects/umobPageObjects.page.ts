@@ -49,6 +49,9 @@ class PageObjects extends Page {
     }
 
     // Trip related elements
+    get priceButton() {
+        return $('-android uiautomator:new UiSelector().text("Price")');
+    }
     get reserveButton() {
         return $('-android uiautomator:new UiSelector().text("Reserve")');
     }
@@ -97,6 +100,33 @@ class PageObjects extends Page {
         return $(
             '-android uiautomator:new UiSelector().description("back_button")',
         );
+    }
+
+    async felyxPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Unlock")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Riding")',
+        );
+        await expect(el3).toBeDisplayed();
+        const el4 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Pausing")',
+        );
+        await expect(el4).toBeDisplayed();
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
     }
 
     // Donkey Republic Booking Elements

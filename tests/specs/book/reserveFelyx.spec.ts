@@ -139,6 +139,9 @@ describe("Reserve Felyx Test", () => {
             ]);
             await driver.pause(2000);
 
+            //verify Pricing
+            await PageObjects.felyxPriceInfo();
+
             // Click Reserve button
             await PageObjects.reserveButton.waitForDisplayed();
             await driver.pause(7000);
