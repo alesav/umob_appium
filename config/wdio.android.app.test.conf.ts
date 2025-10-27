@@ -35,7 +35,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/book/bookUmobBike.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",
         //"c:/dev/umob_appium/tests/specs/newUser/welcomeBookDonkey.spec.ts"
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", //problem, a lot of manual work
         //"c:/dev/umob_appium/tests/specs/book/bookTaxi.spec.ts",
@@ -56,6 +56,8 @@ export const config: WebdriverIO.Config = {
         ///////////////////////////////////////////////////////////////////////////////////
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
+        //"../tests/specs/account/AddAdress.spec.ts",
+        "../tests/specs/account/AddPaymentMethod.spec.ts",
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
@@ -84,6 +86,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         //"../tests/specs/account/nearbyAssets.spec.ts", //new12
         //"../tests/specs/login/login.negative.spec.ts",
+        //"../tests/specs/login/login.positive.spec.ts",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
@@ -98,12 +101,12 @@ export const config: WebdriverIO.Config = {
     
 */
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
-        //"../tests/specs/login/login.negative.spec.ts",
-        //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        /////////"../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
-        //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        //"../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        // "../tests/specs/login/login.negative.spec.ts",
+        // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
     ],
     capabilities: [
         {

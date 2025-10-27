@@ -11,6 +11,14 @@ import {
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
+console.log("=== DEBUG ENV ===");
+console.log("POSTHOG_API_KEY exists:", !!process.env.POSTHOG_API_KEY);
+console.log("POSTHOG_API_KEY length:", process.env.POSTHOG_API_KEY?.length);
+console.log(
+    "POSTHOG_API_KEY first 10 chars:",
+    process.env.POSTHOG_API_KEY?.substring(0, 10),
+);
+console.log("=================");
 const posthog = new PostHogHelper();
 
 /////////////////////////////////////////////////////////////////////////////////

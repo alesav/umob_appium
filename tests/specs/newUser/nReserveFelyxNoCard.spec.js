@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
+import { driver } from "@wdio/globals";
 
 const posthog = new PostHogHelper();
 
@@ -366,6 +367,7 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
 
                 // Verify payment methods screen appears again for start trip
                 await FelyxScooterActions.verifyStartTripPaymentOptions();
+                await driver.pause(4000);
 
                 // Verify PostHog events
                 try {

@@ -194,8 +194,8 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await driver.pause(5000);
 
             // Allow permissions for take a photo
-            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
-            await PageObjects.androidPermissionButton.click();
+            await expect(PageObjects.whileUsingAppPermission).toBeDisplayed();
+            await PageObjects.whileUsingAppPermission.click();
             await driver.pause(5000);
 
             // Verify parking photo header

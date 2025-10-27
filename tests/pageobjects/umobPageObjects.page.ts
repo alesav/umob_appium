@@ -736,6 +736,74 @@ class PageObjects extends Page {
         await this.retryButton.click();
     }
 
+    /**
+     * Add payment method with card details
+     */
+    async addPaymentMethod() {
+        // Click Add payment method
+        await this.addPaymentMethodButton.waitForDisplayed();
+        await driver.pause(6000);
+        await this.addPaymentMethodButton.click();
+        await driver.pause(6000);
+
+        // Click Cards
+        const cardsBtn = await driver.$(
+            '-android uiautomator:new UiSelector().text("Cards")',
+        );
+        await cardsBtn.waitForDisplayed();
+        await cardsBtn.click();
+
+        const cardNumber = await driver.$(
+            "id:com.umob.umob:id/editText_cardNumber",
+        );
+        await cardNumber.click();
+        await cardNumber.addValue("5555341244441115");
+
+        const expiryDate = await driver.$(
+            "id:com.umob.umob:id/editText_expiryDate",
+        );
+        await expiryDate.click();
+        await expiryDate.addValue("0330");
+
+        const securityCode = await driver.$(
+            "id:com.umob.umob:id/editText_securityCode",
+        );
+        await securityCode.click();
+        await securityCode.addValue("737");
+
+        const cardHolder = await driver.$(
+            "id:com.umob.umob:id/editText_cardHolder",
+        );
+        await cardHolder.click();
+        await cardHolder.addValue("Test Account");
+
+        const payButton = await driver.$("id:com.umob.umob:id/payButton");
+        await payButton.click();
+
+        await driver.pause(2000);
+    }
+
+    /**
+     * Navigate to Personal Info screen from account menu
+     */
+    async navigateToPersonalInfo() {
+        await this.clickAccountButton();
+        await driver.pause(2000);
+        await this.personalInfoButton.waitForDisplayed();
+        await this.personalInfoButton.click();
+    }
+
+    /**
+     * Navigate to Payment Methods screen from account menu
+     */
+    async navigateToPaymentMethods() {
+        await this.clickAccountButton();
+        await driver.pause(3000);
+        await this.paymentMethodsButton.waitForDisplayed();
+        await driver.pause(2000);
+        await this.paymentMethodsButton.click();
+    }
+
     async open(): Promise<string> {
         return super.open("login");
     }
