@@ -77,6 +77,9 @@ class PageObjects extends Page {
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
+    get markArrivalButton() {
+        return $('-android uiautomator:new UiSelector().text("Mark Arrival")');
+    }
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("Got It!")');
     }

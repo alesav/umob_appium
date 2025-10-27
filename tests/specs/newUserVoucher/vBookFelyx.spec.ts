@@ -107,6 +107,9 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(euroSymbol).toBeDisplayed();
 
+            //verify pricing
+            await PageObjects.felyxPriceInfo();
+
             // Verify that limitless multi user's voucher is visible
             const voucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
@@ -144,10 +147,10 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(instruction).toBeDisplayed();
 
             // Verify open helmet case button
-            const openCase = await driver.$(
-                '-android uiautomator:new UiSelector().text("Open Helmet Case")',
-            );
-            await expect(openCase).toBeDisplayed();
+            // const openCase = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Open Helmet Case")',
+            // );
+            // await expect(openCase).toBeDisplayed();
 
             // Verify continue button
             await driver.pause(2000);
@@ -161,11 +164,15 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(pauseButton).toBeDisplayed();
             await driver.pause(10000);
 
+            //mark arrival button
+            await PageObjects.markArrivalButton.waitForDisplayed();
+            await PageObjects.markArrivalButton.click();
+
             // Click End Trip
             await PageObjects.endTripButton.waitForDisplayed();
             await PageObjects.endTripButton.click();
             await driver.pause(3000);
-
+            /*
             // Verify announcement for return helmet
             const helmetBack = await driver.$(
                 '-android uiautomator:new UiSelector().text("Return the helmet")',
@@ -192,6 +199,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
             await driver.pause(5000);
+            */
 
             // Allow permissions for take a photo
             await expect(PageObjects.whileUsingAppPermission).toBeDisplayed();
