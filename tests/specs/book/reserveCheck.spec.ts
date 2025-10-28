@@ -174,10 +174,10 @@ describe("Check Reservation Tests", () => {
             await AppiumHelpers.clickCenterOfScreen();
 
             await driver.pause(4000);
-            const prices = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("to start")',
-            );
-            await expect(prices).toBeDisplayed();
+            // const prices = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("to start")',
+            // );
+            // await expect(prices).toBeDisplayed();
 
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
@@ -206,6 +206,9 @@ describe("Check Reservation Tests", () => {
                 },
             ]);
             await driver.pause(2000);
+
+            //verify Pricing (use Felyx from page objects because we are not checking amount of payment)
+            await PageObjects.felyxPriceInfo();
 
             await PageObjects.reserveButton.waitForDisplayed();
             await driver.pause(4000);
