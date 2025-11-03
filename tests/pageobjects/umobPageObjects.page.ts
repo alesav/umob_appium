@@ -74,6 +74,14 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
         );
     }
+
+    get dottContinueBtn() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get dottContinue2Btn() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
@@ -140,6 +148,30 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().textContains("Pausing")',
         );
         await expect(el4).toBeDisplayed();
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
+    }
+
+    async dottPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Unlock")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Riding")',
+        );
+        await expect(el3).toBeDisplayed();
+
         const el5 = await driver.$(
             '-android uiautomator:new UiSelector().textContains("Got It")',
         );
