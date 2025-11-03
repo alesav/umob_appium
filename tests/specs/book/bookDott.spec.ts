@@ -210,7 +210,7 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await expect(useButton).toBeDisplayed();
             await driver.pause(2000);
             await useButton.click();
-            await driver.pause(2000);
+            await driver.pause(3000);
 
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
