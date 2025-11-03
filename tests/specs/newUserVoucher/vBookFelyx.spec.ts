@@ -157,21 +157,59 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(PageObjects.continueButton).toBeDisplayed();
             await PageObjects.continueButton.click();
 
-            // Verify pause button
-            const pauseButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Pause")',
+            // Verify warning message
+            const helmetWarning = await driver.$(
+                '-android uiautomator:new UiSelector().text("Helmet on, safety first!")',
             );
-            await expect(pauseButton).toBeDisplayed();
+            await expect(helmetWarning).toBeDisplayed();
+
+            // Verify continue2 button
+            await driver.pause(2000);
+            await expect(PageObjects.continue2Button).toBeDisplayed();
+            await PageObjects.continue2Button.click();
+
+            // Verify pause button
+            await PageObjects.pauseButton.waitForDisplayed();
             await driver.pause(10000);
+
+            // Verify report issue button
+            await PageObjects.reportButton.waitForDisplayed();
 
             //mark arrival button
             await PageObjects.markArrivalButton.waitForDisplayed();
             await PageObjects.markArrivalButton.click();
 
+            // Verify announcement for return helmet
+            const helmetBack = await driver.$(
+                '-android uiautomator:new UiSelector().text("Return the helmet")',
+            );
+            await expect(helmetBack).toBeDisplayed();
+
+            // Verify helmet putting back instruction
+            const instruction2 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
+            );
+            await expect(instruction2).toBeDisplayed();
+
+            // Click 3rd continue button
+            await PageObjects.continue3Button.waitForDisplayed();
+            await PageObjects.continue3Button.click();
+
+            // Verify helmet return message
+            const helmetBackmsg = await driver.$(
+                '-android uiautomator:new UiSelector().text("Return helmet before you end ride")',
+            );
+            await expect(helmetBackmsg).toBeDisplayed();
+
+            // Click 4th continue button
+            await PageObjects.continue4Button.waitForDisplayed();
+            await PageObjects.continue4Button.click();
+
             // Click End Trip
-            await PageObjects.endTripButton.waitForDisplayed();
-            await PageObjects.endTripButton.click();
-            await driver.pause(3000);
+            // await PageObjects.endTripButton.waitForDisplayed();
+            // await PageObjects.endTripButton.click();
+            // await driver.pause(3000);
+
             /*
             // Verify announcement for return helmet
             const helmetBack = await driver.$(

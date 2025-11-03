@@ -80,6 +80,18 @@ class PageObjects extends Page {
     get markArrivalButton() {
         return $('-android uiautomator:new UiSelector().text("Mark Arrival")');
     }
+    get pauseButton() {
+        return $('-android uiautomator:new UiSelector().text("Pause")');
+    }
+    get reportButton() {
+        return $('-android uiautomator:new UiSelector().text("Report Issue")');
+    }
+    get continue3Button() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get continue4Button() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("Got It!")');
     }
@@ -87,6 +99,9 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Retry")');
     }
     get continueButton() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get continue2Button() {
         return $('-android uiautomator:new UiSelector().text("Continue")');
     }
     get inviteFriendsButton() {
