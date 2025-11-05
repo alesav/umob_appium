@@ -80,7 +80,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
-        "../tests/specs/account/combinedLoggedTest.spec.ts",
+        //"../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
