@@ -37,6 +37,7 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await driver.pause(5000);
 
             await AppiumHelpers.clickCenterOfScreen();
+            await driver.pause(2000);
 
             // Verify that Euro symbol is displayed
             const euroSymbol = await driver.$(

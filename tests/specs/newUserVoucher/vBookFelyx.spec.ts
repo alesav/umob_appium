@@ -14,7 +14,7 @@ import PostHogHelper from "../../helpers/PosthogHelper.js";
 const posthog = new PostHogHelper();
 
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new64";
+const USER = process.env.TEST_USER || "new67";
 
 // Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
 const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
