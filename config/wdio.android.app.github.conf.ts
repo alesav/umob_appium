@@ -87,7 +87,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         ////////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //test picked up moped from outside service area
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
@@ -115,9 +115,9 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
-        "../tests/specs/book/bookDott.spec.ts",
+        //"../tests/specs/book/bookDott.spec.ts",
         ////////////////////////////////////////////////////////////////////////////////////////
-        /*
+
         //night run
         "../tests/specs/account/*.spec.ts",
         "../tests/specs/login/*.spec.ts",
@@ -147,7 +147,6 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded negative scenario because of blocking user after runs
         "../tests/specs/book/reserveCheck.spec.ts",
         "../tests/specs/book/reserveFelyx.spec.ts",
-        */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
