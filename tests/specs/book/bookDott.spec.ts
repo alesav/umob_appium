@@ -157,7 +157,7 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await expect(PageObjects.dottContinue2Btn).toBeDisplayed();
             await PageObjects.dottContinue2Btn.click();
 
-            await driver.pause(2000);
+            await driver.pause(3000);
             await expect(PageObjects.reportButton).toBeDisplayed();
             await expect(PageObjects.markArrivalButton).toBeDisplayed();
             await PageObjects.markArrivalButton.click();
