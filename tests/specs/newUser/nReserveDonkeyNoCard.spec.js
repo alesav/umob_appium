@@ -106,6 +106,12 @@ class DonkeyBikeActions {
             `-android uiautomator:new UiSelector().text("${bikeText}")`,
         );
         await bikeButton.click();
+
+        await driver.pause(2000);
+
+        // Handle allow permissions
+        await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+        await PageObjects.androidPermissionButton.click();
     }
 
     static async verifyNewUserVoucher() {

@@ -124,7 +124,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
 
             // Verify start trip button is enabled AND CLICK
             await PageObjects.startTripButton.waitForEnabled();
-            await driver.pause(8000);
+            await driver.pause(3000);
             await PageObjects.startTripButton.click();
             await driver.pause(8000);
 
@@ -178,6 +178,10 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             //mark arrival button
             await PageObjects.markArrivalButton.waitForDisplayed();
             await PageObjects.markArrivalButton.click();
+
+            // end trip should be tapped in some UI when switching between UI
+            await PageObjects.endTripButton.waitForDisplayed();
+            await PageObjects.endTripButton.click();
 
             // Verify announcement for return helmet
             const helmetBack = await driver.$(

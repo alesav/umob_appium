@@ -179,12 +179,41 @@ class PageObjects extends Page {
         await el5.click();
     }
 
+    async donkeyPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€5.00")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("15 minutes")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("30 minutes")',
+        );
+        await expect(el3).toBeDisplayed();
+
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
+    }
+
     // Donkey Republic Booking Elements
     get locationButton() {
         return $(
             '-android uiautomator:new UiSelector().resourceId("home_location_button")',
         );
     }
+
+    get positionAllowButton() {
+        return $("com.android.permissioncontroller:id/permission_allow_button");
+    }
+
     get endTripText() {
         return $("accessibility id:endTrip-text");
     }

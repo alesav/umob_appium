@@ -117,7 +117,8 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
                 },
             ]);
             await driver.pause(3000);
-
+            /*
+            //these lock texts and continue2Btn are not in use in some UI when switching between UI
             await expect(PageObjects.donkeyLockText1).toBeDisplayed();
 
             await expect(PageObjects.donkeyLockText2).toBeDisplayed();
@@ -156,11 +157,16 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
 
             await expect(PageObjects.dottContinue2Btn).toBeDisplayed();
             await PageObjects.dottContinue2Btn.click();
-
+*/
             await driver.pause(3000);
             await expect(PageObjects.reportButton).toBeDisplayed();
             await expect(PageObjects.markArrivalButton).toBeDisplayed();
             await PageObjects.markArrivalButton.click();
+
+            //end trip should be tapped in some UI when switching between UI
+            await expect(PageObjects.endTripButton).toBeDisplayed();
+            await driver.pause(3000);
+            await PageObjects.endTripButton.click();
 
             await driver.pause(5000);
 

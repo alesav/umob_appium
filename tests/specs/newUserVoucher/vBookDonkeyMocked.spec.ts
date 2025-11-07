@@ -44,6 +44,11 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await expect(umob20Button).toBeDisplayed();
             await umob20Button.click();
 
+            // Handle allow permissions
+            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            await PageObjects.androidPermissionButton.click();
+            await driver.pause(5000);
+
             const voucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("multi")',
             );
@@ -73,10 +78,8 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             await expect(multiVoucher).toBeDisplayed();
             await driver.pause(3000);
 
-            const timeText = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("15 minutes")',
-            );
-            await expect(timeText).toBeDisplayed();
+            //verify pricing
+            await PageObjects.donkeyPriceInfo();
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.pause(2000);
@@ -106,15 +109,14 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             ]);
             await driver.pause(2000);
 
-            await driver.pause(5000);
+            // Click Start Trip button
             await PageObjects.startTripButton.waitForDisplayed();
-            await driver.pause(3000);
             await PageObjects.startTripButton.click();
-            await driver.pause(3000);
+            await driver.pause(2000);
 
-            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
-            await PageObjects.androidPermissionButton.click();
-            await driver.pause(3000);
+            // await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            // await PageObjects.androidPermissionButton.click();
+            // await driver.pause(3000);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
@@ -143,14 +145,19 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
             ]);
             await driver.pause(3000);
 
-            await expect(PageObjects.donkeyStartButton2).toBeDisplayed();
-            await driver.pause(1000);
-            await expect(PageObjects.donkeyStartButton2).toBeEnabled();
-            await PageObjects.donkeyStartButton2.click();
-
             await expect(PageObjects.donkeyLockText1).toBeDisplayed();
 
             await expect(PageObjects.donkeyLockText2).toBeDisplayed();
+
+            // Click to start and unlock the bike
+
+            await expect(PageObjects.dottContinueBtn).toBeDisplayed();
+            await PageObjects.dottContinueBtn.click();
+
+            await driver.pause(3000);
+            await expect(PageObjects.reportButton).toBeDisplayed();
+            await expect(PageObjects.markArrivalButton).toBeDisplayed();
+            await PageObjects.markArrivalButton.click();
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
@@ -177,43 +184,16 @@ describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
                     ],
                 },
             ]);
-            await driver.pause(2000);
 
-            await expect(PageObjects.continueButton).toBeDisplayed();
-            await PageObjects.continueButton.click();
-
+            // Pause for ride duration
             await driver.pause(8000);
 
-            await PageObjects.endTripText.click();
+            // Click end trip button
+            await PageObjects.endTripButton.click();
 
-            // INDIVIDUAL SCROLL (DO NOT MODIFY)
-            await driver.pause(2000);
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger1",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: height * 0.7,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: height * 0.2,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
             await driver.pause(2000);
 
+            // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
             await PageObjects.gotItButton.click();
 

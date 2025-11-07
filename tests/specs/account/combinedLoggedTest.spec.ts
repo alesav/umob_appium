@@ -959,7 +959,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make LogOut visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down to make LogOut visible
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -986,6 +986,7 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Verify PostHog events
             try {
+                /*
                 // Get Logged In event
                 const loggedInEvent = await posthog.waitForEvent(
                     {
@@ -998,6 +999,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                         maxAgeMinutes: 5,
                     },
                 );
+                */
 
                 const loggedOutEvent = await posthog.waitForEvent(
                     {

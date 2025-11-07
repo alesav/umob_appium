@@ -37,6 +37,10 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             );
             await umob20Button.click();
 
+            // Handle allow permissions
+            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            await PageObjects.androidPermissionButton.click();
+
             const voucher = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("New User Donkey")',
             );
@@ -74,14 +78,13 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             ]);
             await driver.pause(3000);
 
-            await PageObjects.startTripButton.waitForEnabled();
-            await driver.pause(2000);
+            await PageObjects.startTripButton.waitForDisplayed();
             await PageObjects.startTripButton.click();
             await driver.pause(2000);
 
-            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
-            await PageObjects.androidPermissionButton.click();
-            await driver.pause(3000);
+            // await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            // await PageObjects.androidPermissionButton.click();
+            // await driver.pause(3000);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
@@ -110,12 +113,19 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             ]);
             await driver.pause(4000);
 
-            await expect(PageObjects.donkeyStartButton2).toBeDisplayed();
-            await PageObjects.donkeyStartButton2.click();
-
             await expect(PageObjects.donkeyLockText1).toBeDisplayed();
 
             await expect(PageObjects.donkeyLockText2).toBeDisplayed();
+
+            // Click to start and unlock the bike
+
+            await expect(PageObjects.dottContinueBtn).toBeDisplayed();
+            await PageObjects.dottContinueBtn.click();
+
+            await driver.pause(3000);
+            await expect(PageObjects.reportButton).toBeDisplayed();
+            await expect(PageObjects.markArrivalButton).toBeDisplayed();
+            await PageObjects.markArrivalButton.click();
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
@@ -144,37 +154,33 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
             ]);
             await driver.pause(2000);
 
-            await expect(PageObjects.continueButton).toBeDisplayed();
-            await PageObjects.continueButton.click();
+            await PageObjects.endTripButton.click();
 
-            await driver.pause(8000);
+            await driver.pause(2000);
 
-            await expect(PageObjects.endTripText).toBeDisplayed();
-            await PageObjects.endTripText.click();
+            // Click got it button
+            await PageObjects.gotItButton.waitForDisplayed();
+            await PageObjects.gotItButton.click();
+
             await driver.pause(3000);
 
-            const multiVoucher1 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("New User")',
-            );
-            await expect(multiVoucher1).toBeDisplayed();
+            await PageObjects.clickAccountButton();
+            await driver.pause(2000);
 
-            // INDIVIDUAL SCROLL (DO NOT MODIFY)
-            await driver.executeScript("mobile: scrollGesture", [
-                {
-                    left: 100,
-                    top: 1500,
-                    width: 200,
-                    height: 100,
-                    direction: "down",
-                    percent: 100,
-                },
-            ]);
+            await expect(PageObjects.myRidesButton).toBeDisplayed();
+            await PageObjects.myRidesButton.click();
+
+            const lastRide1 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("€0")',
+            );
+            await expect(lastRide1).toBeDisplayed();
+            await lastRide1.click();
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
                     type: "pointer",
-                    id: "finger1",
+                    id: "finger6",
                     parameters: { pointerType: "touch" },
                     actions: [
                         {
@@ -195,20 +201,12 @@ describe("Donkey Bike Booking Test with Welcome voucher for the New User", () =>
                     ],
                 },
             ]);
-
-            await PageObjects.gotItButton.waitForDisplayed();
-            await PageObjects.gotItButton.click();
-
-            await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            await expect(PageObjects.myRidesButton).toBeDisplayed();
-            await PageObjects.myRidesButton.click();
-
-            const lastRide1 = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("€0")',
+            const usedVaucher = await driver.$(
+                '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
             );
-            await expect(lastRide1).toBeDisplayed();
+            await expect(usedVaucher).toBeDisplayed();
         });
     });
 
