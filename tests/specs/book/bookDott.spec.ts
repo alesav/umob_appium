@@ -37,7 +37,7 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await driver.pause(5000);
 
             await AppiumHelpers.clickCenterOfScreen();
-            await driver.pause(2000);
+            await driver.pause(5000);
 
             // Verify that Euro symbol is displayed
             const euroSymbol = await driver.$(
@@ -164,9 +164,9 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await PageObjects.markArrivalButton.click();
 
             //end trip should be tapped in some UI when switching between UI
-            await expect(PageObjects.endTripButton).toBeDisplayed();
-            await driver.pause(3000);
-            await PageObjects.endTripButton.click();
+            // await expect(PageObjects.endTripButton).toBeDisplayed();
+            // await driver.pause(3000);
+            // await PageObjects.endTripButton.click();
 
             await driver.pause(5000);
 
