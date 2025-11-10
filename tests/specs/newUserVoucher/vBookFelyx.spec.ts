@@ -180,8 +180,12 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await PageObjects.markArrivalButton.click();
 
             // end trip should be tapped in some UI when switching between UI
-            await PageObjects.endTripButton.waitForDisplayed();
-            await PageObjects.endTripButton.click();
+            // await PageObjects.endTripButton.waitForDisplayed();
+            // await PageObjects.endTripButton.click();
+
+            // continue instead of end trip button should be tapped in some UI when switching between UI
+            await PageObjects.continueInsteadEndBtn.waitForDisplayed();
+            await PageObjects.continueInsteadEndBtn.click();
 
             // Verify announcement for return helmet
             const helmetBack = await driver.$(

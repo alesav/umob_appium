@@ -112,6 +112,9 @@ class PageObjects extends Page {
     get continue2Button() {
         return $('-android uiautomator:new UiSelector().text("Continue")');
     }
+    get continueInsteadEndBtn() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
     get inviteFriendsButton() {
         return $(
             '-android uiautomator:new UiSelector().text("Invite Friends Now!")',
