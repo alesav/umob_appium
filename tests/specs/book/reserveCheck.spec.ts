@@ -223,11 +223,7 @@ describe("Check Reservation Tests", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            await driver
-                .$(
-                    '-android uiautomator:new UiSelector().text("Personal info")',
-                )
-                .isDisplayed();
+            await PageObjects.personalInfoButton.waitForDisplayed();
             await driver.pause(2000);
         } catch (e) {
             error = e;
