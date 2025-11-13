@@ -140,7 +140,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             );
             await expect(announcement).toBeDisplayed();
 
-            // Verify instruction
+            // Verify instruction not in use in some UI
             const instruction = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
             );
@@ -157,6 +157,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(PageObjects.continueButton).toBeDisplayed();
             await PageObjects.continueButton.click();
 
+            ////this part in some UI not in use
             // Verify warning message
             const helmetWarning = await driver.$(
                 '-android uiautomator:new UiSelector().text("Helmet on, safety first!")',
