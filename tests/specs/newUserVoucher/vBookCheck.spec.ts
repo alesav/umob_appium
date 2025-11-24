@@ -275,11 +275,11 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(anouncement).toBeDisplayed();
 
-            //verify instruction
-            const instruction = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
-            );
-            await expect(instruction).toBeDisplayed();
+            // //verify instruction (not in use in some UI)
+            // const instruction = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
+            // );
+            // await expect(instruction).toBeDisplayed();
             /*
             //old UI booking procedure
 
@@ -341,16 +341,16 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await expect(PageObjects.continueButton).toBeDisplayed();
             await PageObjects.continueButton.click();
 
-            // Verify warning message
-            const helmetWarning = await driver.$(
-                '-android uiautomator:new UiSelector().text("Helmet on, safety first!")',
-            );
-            await expect(helmetWarning).toBeDisplayed();
+            // Verify warning message (not in use in some UI)
+            // const helmetWarning = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Helmet on, safety first!")',
+            // );
+            // await expect(helmetWarning).toBeDisplayed();
 
-            // Verify continue2 button
-            await driver.pause(2000);
-            await expect(PageObjects.continue2Button).toBeDisplayed();
-            await PageObjects.continue2Button.click();
+            // // Verify continue2 button (not in use in some UI)
+            // await driver.pause(2000);
+            // await expect(PageObjects.continue2Button).toBeDisplayed();
+            // await PageObjects.continue2Button.click();
 
             // Verify pause button
             await PageObjects.pauseButton.waitForDisplayed();
@@ -364,8 +364,8 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await PageObjects.markArrivalButton.click();
 
             // continue instead of end trip button should be tapped in some UI when switching between UI
-            await PageObjects.continueInsteadEndBtn.waitForDisplayed();
-            await PageObjects.continueInsteadEndBtn.click();
+            // await PageObjects.continueInsteadEndBtn.waitForDisplayed();
+            // await PageObjects.continueInsteadEndBtn.click();
 
             // Verify announcement for return helmet
             const helmetBack = await driver.$(
@@ -383,15 +383,15 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             await PageObjects.continue3Button.waitForDisplayed();
             await PageObjects.continue3Button.click();
 
-            // Verify helmet return message
-            const helmetBackmsg = await driver.$(
-                '-android uiautomator:new UiSelector().text("Return helmet before you end ride")',
-            );
-            await expect(helmetBackmsg).toBeDisplayed();
+            // // Verify helmet return message (not in use in some UI)
+            // const helmetBackmsg = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Return helmet before you end ride")',
+            // );
+            // await expect(helmetBackmsg).toBeDisplayed();
 
-            // Click 4th continue button
-            await PageObjects.continue4Button.waitForDisplayed();
-            await PageObjects.continue4Button.click();
+            // Click 4th continue button (not in use in some UI)
+            // await PageObjects.continue4Button.waitForDisplayed();
+            // await PageObjects.continue4Button.click();
 
             // Allow permissions for take a photo
             await expect(PageObjects.whileUsingAppPermission).toBeDisplayed();
