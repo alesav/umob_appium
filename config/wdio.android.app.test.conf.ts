@@ -108,6 +108,8 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
         // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        //Hash  df1147fe-e8d3-4da8-92dc-e41bd6fdef9b
+        //{"enabled":true,"balance":113.39,"sender":["smspm"],"minBalance":0,"token":["7538502c-35d2-4ca7-80ef-87881eae2504"]}
     ],
     capabilities: [
         {
