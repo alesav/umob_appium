@@ -63,14 +63,14 @@ export const config: WebdriverIO.Config = {
         //  "../tests/specs/book/bookUmobMoped.spec.ts",
         // "../tests/specs/book/bookUmobBike.spec.ts"
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
-        //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
+        "../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
         //"../tests/specs/book/bookUmobMoped.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts", //more
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //more
-        //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
+        "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -91,7 +91,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-        //"../tests/specs/book/reserveCheck.spec.ts",
+        "../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
         //"../tests/specs/account/qrCode.spec.ts",
         //"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
@@ -104,7 +104,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        //"../tests/specs/book/bookPublicTransport.spec.ts",
+        "../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
@@ -119,7 +119,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         ////////////////////////////////////////////////////////////////////////////////////////
-
+        /*
         //night run
         "../tests/specs/account/*.spec.ts",
         "../tests/specs/login/*.spec.ts",
@@ -149,6 +149,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded negative scenario because of blocking user after runs
         "../tests/specs/book/reserveCheck.spec.ts",
         "../tests/specs/book/reserveFelyx.spec.ts",
+        */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
