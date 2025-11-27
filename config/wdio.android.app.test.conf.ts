@@ -102,12 +102,12 @@ export const config: WebdriverIO.Config = {
     
 */
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
-        "../tests/specs/login/login.negative.spec.ts",
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
-        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        // "../tests/specs/login/login.negative.spec.ts",
+        // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
         //Hash  df1147fe-e8d3-4da8-92dc-e41bd6fdef9b
         //{"enabled":true,"balance":113.39,"sender":["smspm"],"minBalance":0,"token":["7538502c-35d2-4ca7-80ef-87881eae2504"]}
     ],
