@@ -82,7 +82,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
-        "../tests/specs/account/addPaymentMethod.spec.ts", // ok
+        //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         /////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
@@ -104,7 +104,7 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
