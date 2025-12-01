@@ -100,12 +100,12 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
-        "../tests/specs/book/bookTaxi.spec.ts",
+        //"../tests/specs/book/bookTaxi.spec.ts",
         //"../tests/specs/book/reserveFelyx.spec.ts",
         "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
-        "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts",
-        "../tests/specs/book/bookDott.spec.ts",
+        //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
@@ -115,7 +115,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
         // "../tests/specs/newUser/deleteCard.spec.ts",
-        //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+        "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         ////////////////////////////////////////////////////////////////////////////////////////
