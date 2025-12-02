@@ -13,8 +13,8 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             password: credentials.password,
         });
 
-        const longitude = 4.419394991410872;
-        const latitude = 51.21819167623497;
+        const longitude = 4.417875999443144;
+        const latitude = 51.21773134068517;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
