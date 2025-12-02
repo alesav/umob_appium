@@ -70,7 +70,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //more
-        "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
+        //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
