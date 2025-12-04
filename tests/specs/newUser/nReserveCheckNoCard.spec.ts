@@ -28,8 +28,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.47395,
-                latitude: 51.921705,
+                longitude: 4.468478941582217,
+                latitude: 51.91702868001766,
                 radius: 200,
                 zoomLevel: 15.25,
                 subOperators: [],

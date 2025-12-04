@@ -58,6 +58,10 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
         //"../tests/specs/account/AddAdress.spec.ts",
         //"../tests/specs/account/AddPaymentMethod.spec.ts",
+        //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
+        //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
+        //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
+        "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
@@ -102,12 +106,12 @@ export const config: WebdriverIO.Config = {
     
 */
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
-        "../tests/specs/login/login.negative.spec.ts",
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
-        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        // "../tests/specs/login/login.negative.spec.ts",
+        // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
     ],
     capabilities: [
         {
