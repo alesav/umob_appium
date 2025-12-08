@@ -186,7 +186,7 @@ export default class AppiumHelpers {
                         type: "pointerMove",
                         duration: 0,
                         x: centerX,
-                        y: centerY - 200,
+                        y: centerY - 180,
                     },
                     { type: "pointerDown", button: 0 },
                     { type: "pause", duration: 100 },
