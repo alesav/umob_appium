@@ -345,7 +345,7 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
                     targetScooter.coordinates.longitude,
                     targetScooter.coordinates.latitude,
                 );
-                await driver.pause(5000);
+                await driver.pause(6000);
 
                 // Click on center of screen to interact with map
                 await FelyxScooterActions.clickCenterOfScreen();

@@ -103,7 +103,7 @@ describe("Reserve Felyx Test", () => {
             await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
-            await driver.pause(3000);
+            await driver.pause(4000);
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
