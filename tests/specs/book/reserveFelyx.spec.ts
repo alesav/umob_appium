@@ -103,12 +103,37 @@ describe("Reserve Felyx Test", () => {
             await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
-            await driver.pause(2000);
+            await driver.pause(3000);
 
             //Click on middle of the screen
             await AppiumHelpers.clickCenterOfScreen();
+            /*
+            //tap on center screen
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: centerX,
+                            y: centerY - 200,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+
+            await driver.pause(2000);
+            // clearing the state of action
+            await driver.releaseActions();
 
             await driver.pause(4000);
+            */
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();

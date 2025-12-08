@@ -158,11 +158,41 @@ export default class AppiumHelpers {
     }
 
     static async clickCenterOfScreen() {
+        const { centerX, centerY } = await this.getScreenCenter();
         await driver.pause(4000);
-        const middleScreen = await driver.$(
-            '-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")',
-        );
-        await expect(middleScreen).toBeDisplayed();
-        await middleScreen.click();
+        //this option of clicking center of the screen stopped working
+        // const middleScreen = await driver.$(
+        //     '-android uiautomator:new UiSelector().resourceId("com.umob.umob:id/action_bar_root")',
+        // );
+
+        // await expect(middleScreen).toBeDisplayed();
+        // await middleScreen.click();
+        // await driver.pause(2000);
+
+        //tap on center screen
+        await driver.performActions([
+            {
+                type: "pointer",
+                id: "finger1",
+                parameters: { pointerType: "touch" },
+                actions: [
+                    {
+                        type: "pointerMove",
+                        duration: 0,
+                        x: centerX,
+                        y: centerY - 200,
+                    },
+                    { type: "pointerDown", button: 0 },
+                    { type: "pause", duration: 100 },
+                    { type: "pointerUp", button: 0 },
+                ],
+            },
+        ]);
+
+        await driver.pause(2000);
+        // clearing the state of action
+        await driver.releaseActions();
+
+        await driver.pause(4000);
     }
 }

@@ -62,7 +62,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobBike.spec.ts",
         //  "../tests/specs/book/bookUmobMoped.spec.ts",
         // "../tests/specs/book/bookUmobBike.spec.ts"
-        "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
+        //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUserVoucher/vCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //ok
         //"../tests/specs/book/bookUmobMoped.spec.ts",
@@ -72,7 +72,7 @@ export const config: WebdriverIO.Config = {
         //more
         "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
+        "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
@@ -105,7 +105,7 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/book/reserveFelyx.spec.ts",
         "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
