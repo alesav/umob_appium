@@ -70,8 +70,11 @@ export default class AppiumHelpers {
         //await driver.activateApp("com.umob.umob");
         //await PageObjects.accountButton.waitForExist();
         //await driver.pause(1000);
+        // const locationButton = await driver.$(
+        //     '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)',
+        // );
         const locationButton = await driver.$(
-            '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)',
+            '-android uiautomator:new UiSelector().resourceId("home_location_button")',
         );
         await locationButton.waitForEnabled();
         await driver.pause(1000);
@@ -148,8 +151,11 @@ export default class AppiumHelpers {
     }
 
     static async clickMyLocation() {
+        // const locationButton = await driver.$(
+        //     '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)',
+        // ;
         const locationButton = await driver.$(
-            '-android uiautomator:new UiSelector().className("com.horcrux.svg.SvgView").instance(3)',
+            '-android uiautomator:new UiSelector().resourceId("home_location_button")',
         );
         await locationButton.waitForEnabled();
         await driver.pause(1000);
