@@ -201,4 +201,27 @@ export default class AppiumHelpers {
 
         await driver.pause(4000);
     }
+
+    static async getMapCenterCoordinates() {
+        // 1. Получаем размер экрана динамически
+        const { width, height } = await driver.getWindowSize();
+        console.log(`Screen size: ${width}x${height}`);
+
+        // 2. Находим bottom sheet handle
+        const bottomSheet = await driver.$("~Bottom sheet handle");
+
+        // 3. Получаем координаты элемента
+        const location = await bottomSheet.getLocation();
+        console.log(`Bottom sheet Y coordinate: ${location.y}`);
+
+        // 4. Вычисляем центр карты
+        // Карта занимает пространство от верха экрана (0) до начала bottom sheet (location.y)
+        // Центр карты = половина этого расстояния
+        const mapCenterX = width / 2;
+        const mapCenterY = location.y / 2;
+
+        console.log(`Map center coordinates: X=${mapCenterX}, Y=${mapCenterY}`);
+
+        return { x: Math.round(mapCenterX), y: Math.round(mapCenterY) };
+    }
 }

@@ -105,8 +105,15 @@ describe("Reserve Felyx Test", () => {
             const { centerX, centerY } = await getScreenCenter();
             await driver.pause(4000);
 
-            //Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            // Получаем центр карты (НЕ центр экрана!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // Кликаем по центру карты (где самокат)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            //Click on middle of the screen (working solution with -180 on coordinates)
+            //await AppiumHelpers.clickCenterOfScreen();
             /*
             //tap on center screen
             await driver.performActions([

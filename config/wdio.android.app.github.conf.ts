@@ -102,11 +102,11 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
-        //"../tests/specs/book/reserveFelyx.spec.ts",
+        "../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts",
-        "../tests/specs/book/bookDott.spec.ts",
+        //"../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
