@@ -63,7 +63,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //morning run
-        "../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         // "../tests/specs/book/failedPaymentNoBooking.spec.ts",
         // "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
