@@ -224,7 +224,14 @@ describe("Mocked Umob Mopeds (with constant errors) trying Booking Tests", () =>
             const { centerX, centerY } = await getScreenCenter();
 
             //Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
 
             // Verify Euro currancy is displayed per minute driving
             await driver

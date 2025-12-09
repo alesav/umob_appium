@@ -70,7 +70,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //more
-        //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
+        "../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -85,11 +85,11 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/addPaymentMethod.spec.ts", // ok
         /////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
-        //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
+        "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
-        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
-        //"../tests/specs/newUser/deleteCard.spec.ts",
+        "../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
+        "../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
@@ -99,14 +99,14 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
-        //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
+        "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
-        "../tests/specs/book/reserveFelyx.spec.ts",
-        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts",
-        //"../tests/specs/book/bookDott.spec.ts",
+        "../tests/specs/book/bookDott.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",

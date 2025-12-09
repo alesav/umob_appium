@@ -41,7 +41,14 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(5000);
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(

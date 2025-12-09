@@ -170,8 +170,15 @@ describe("Check Reservation Tests", () => {
             //await applyFilters();
             const { centerX, centerY } = await getScreenCenter();
 
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
             //Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
 
             await driver.pause(4000);
             // const prices = await driver.$(

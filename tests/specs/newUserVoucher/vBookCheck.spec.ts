@@ -217,7 +217,14 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 targetScooter.coordinates.latitude,
             );
             await driver.pause(2000);
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
 
             await driver.pause(4000);
 

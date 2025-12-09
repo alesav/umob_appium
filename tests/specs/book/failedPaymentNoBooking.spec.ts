@@ -52,9 +52,16 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
             await driver.pause(5000);
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
 
-            await driver.pause(7000);
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            await driver.pause(4000);
 
             // get window size
             const windowSize = await driver.getWindowSize();

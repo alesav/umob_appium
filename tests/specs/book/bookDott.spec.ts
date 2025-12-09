@@ -36,7 +36,14 @@ describe("Dott Bike Booking Test in Antwerpen", () => {
             await PageObjects.locationButton.click();
             await driver.pause(5000);
 
-            await AppiumHelpers.clickCenterOfScreen();
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            //await AppiumHelpers.clickCenterOfScreen();
             await driver.pause(5000);
 
             // Verify that Euro symbol is displayed

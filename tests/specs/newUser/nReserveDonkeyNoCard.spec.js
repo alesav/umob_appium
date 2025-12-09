@@ -251,7 +251,14 @@ describe("Donkey Bike Booking - New User Without Card", () => {
                 await DonkeyBikeActions.clickFinishLater();
 
                 // Click on center of screen to interact with map
-                await AppiumHelpers.clickCenterOfScreen();
+                //await AppiumHelpers.clickCenterOfScreen();
+
+                // get center of the map (not the center of the screen!)
+                const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+                await driver.pause(3000);
+
+                // CLick on map center (operator located in the center of the map)
+                await driver.execute("mobile: clickGesture", { x, y });
 
                 // Select the specific bike
                 await DonkeyBikeActions.selectBike("UMOB Bike 2 1");
