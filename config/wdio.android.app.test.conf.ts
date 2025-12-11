@@ -94,7 +94,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/nearbyAssets.spec.ts", //new12
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
-        //"../tests/specs/book/bookDott.spec.ts",
+        "../tests/specs/book/bookDott.spec.ts",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
