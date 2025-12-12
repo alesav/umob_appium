@@ -160,6 +160,7 @@ class PageObjects extends Page {
 
     async dottPriceInfo() {
         await this.priceButton.waitForDisplayed();
+        await driver.pause(2000);
         await this.priceButton.click();
         await driver.pause(2000);
         const el1 = await driver.$(
