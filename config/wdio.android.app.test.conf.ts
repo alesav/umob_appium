@@ -65,7 +65,7 @@ export const config: WebdriverIO.Config = {
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
-        "../tests/specs/book/failedPaymentNoBooking.spec.ts",
+        "../tests/specs/book/failedPaymentNoBooking.spec copy.ts",
         // "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         // "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts", //new35 //ok
