@@ -6,6 +6,8 @@ import {
     saveRegistrationData,
     logRegistrationInfo,
 } from "../../helpers/RegistrationHelper.js";
+//required for second test
+import { getLastRegisteredUser } from "../../helpers/RegistrationHelper.js";
 
 describe("Registration procedure for a new user in test environment", () => {
     let generatedEmail: string;
@@ -28,8 +30,9 @@ describe("Registration procedure for a new user in test environment", () => {
 
     // start application before each test
     beforeEach(async () => {
+        await driver.terminateApp("com.umob.umob");
         await driver.activateApp("com.umob.umob");
-        await driver.pause(7000);
+        await driver.pause(5000);
     });
 
     it("Registration procedure for a new user in test environment", async () => {
@@ -249,8 +252,115 @@ describe("Registration procedure for a new user in test environment", () => {
             await PageObjects.accountButton.waitForDisplayed();
             console.log("✅ Registration completed successfully!");
 
+            // Go to account
+            await PageObjects.clickAccountButton();
+            await driver.pause(2000);
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.95,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.1,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.95,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.1,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
             // NOW save registration data after successful registration
             saveRegistrationData(generatedEmail, generatedPhone, password);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Click on LogOut option
+            await expect(PageObjects.logOutButton).toBeDisplayed();
+            await PageObjects.logOutButton.click();
+
+            // Verify Login button appeared
+            const signUpButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Login")',
+            );
+            await expect(signUpButton).toBeDisplayed();
+        });
+    });
+    it("Confirmation that it is possible to enter to just registered new account and welcome vouchers exist", async () => {
+        const testId = "e0cfc7bb-faca-4423-8235-9c9c33cb09a6";
+
+        await executeTest(testId, async () => {
+            await driver.pause(2000);
+            let lastUser: any;
+            // Get the last registered user from credentials.json
+            lastUser = getLastRegisteredUser("test");
+            if (!lastUser) {
+                throw new Error(
+                    "No registered user found. Please run registration test first.",
+                );
+            }
+            // Login with the last registered user
+            await PageObjects.login({
+                username: lastUser.username,
+                password: lastUser.password,
+            });
+            await driver.pause(5000);
+            // Check for map root element
+            await expect(PageObjects.mapRoot).toBeDisplayed();
+            await PageObjects.promosBtn.waitForExist();
+            await PageObjects.promosBtn.click();
+            await driver.pause(1000);
+
+            // Verify welcome vouchers
+            const checkVoucher = await driver.$(
+                '-android uiautomator:new UiSelector().text("New User Check")',
+            );
+            await expect(checkVoucher).toBeDisplayed();
+
+            const donkeyVoucher = await driver.$(
+                '-android uiautomator:new UiSelector().text("New User Donkey Republic")',
+            );
+            await expect(donkeyVoucher).toBeDisplayed();
+
+            console.log(`✓ Logged in with user: ${lastUser.username}`);
         });
     });
 
@@ -260,6 +370,11 @@ describe("Registration procedure for a new user in test environment", () => {
     });
 
     afterEach(async () => {
-        await driver.terminateApp("com.umob.umob");
+        // Optional: Reset the app state after each test
+        try {
+            await driver.terminateApp("com.umob.umob");
+        } catch (error) {
+            console.log("Error terminating app:", error);
+        }
     });
 });

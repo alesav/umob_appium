@@ -83,7 +83,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Get window size
             const { width, height } = await driver.getWindowSize();
 
-            // First scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // First scroll - individual scroll(do not modify)
             for (let i = 0; i < 2; i++) {
                 await driver.pause(2000);
                 await driver.executeScript("mobile: scrollGesture", [
@@ -108,7 +108,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             ];
             await PageObjects.verifyMenuItems(accountMenuItems2);
 
-            // Second scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Second scroll - individual scroll(do not modify)
             await driver.pause(2000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -122,7 +122,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             ]);
             await driver.pause(1000);
 
-            // Scroll fully down to make visible Log Out option - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll fully down to make visible Log Out option - individual scroll(do not modify)
             await driver.pause(3000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
