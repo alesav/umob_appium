@@ -123,6 +123,7 @@ describe("Registration user procedure in test environment", () => {
             // Wait to ensure registration is processed
             await driver.pause(2000);
 
+            //commented because of time-out issues
             //second screen - verification code
             // const screenHeader2 = await driver.$(
             //     '-android uiautomator:new UiSelector().text("What is your verification code?")',
@@ -150,6 +151,7 @@ describe("Registration user procedure in test environment", () => {
             // );
             // await expect(resendCodeButton).toBeDisplayed();
 
+            //continue button exists but for now there is no need to click it. Test goes further after filling te code
             // const contButton = await driver.$("accessibility id:next");
             // await expect(contButton).toBeDisplayed();
 

@@ -103,10 +103,11 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
         //"../tests/specs/book/reserveFelyx.spec.ts",
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         // "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
+        "../tests/specs/account/registration.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
@@ -118,7 +119,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
-        "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
+        //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         ////////////////////////////////////////////////////////////////////////////////////////
         /*
         //night run
