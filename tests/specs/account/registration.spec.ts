@@ -7,7 +7,7 @@ import {
     logRegistrationInfo,
 } from "../../helpers/RegistrationHelper.js";
 
-describe("Registration user procedure in test environment", () => {
+describe("Registration procedure for a new user in test environment", () => {
     let generatedEmail: string;
     let generatedPhone: string;
     const password = "123Qwerty!";
@@ -32,8 +32,8 @@ describe("Registration user procedure in test environment", () => {
         await driver.pause(7000);
     });
 
-    it("Registration user procedure in test environment", async () => {
-        const testId = "not defined yet";
+    it("Registration procedure for a new user in test environment", async () => {
+        const testId = "906516c7-f5f3-4d01-9b31-2c8d31310f46";
 
         await executeTest(testId, async () => {
             await driver.pause(2000);
