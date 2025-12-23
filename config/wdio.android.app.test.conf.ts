@@ -92,7 +92,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/account/combinedLoggedTest.spec.ts", //new12
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         //"../tests/specs/account/nearbyAssets.spec.ts", //new12
-        "../tests/specs/account/registration.spec.ts",
+        //"../tests/specs/account/registration.spec.ts",
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
@@ -112,10 +112,10 @@ export const config: WebdriverIO.Config = {
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
         // "../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        // "../tests/specs/account/AddAdress.spec.ts", //new12 /test2@gmail.com)
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test2@gmail.com)
     ],
     capabilities: [
         {
