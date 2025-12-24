@@ -45,6 +45,7 @@ describe("Registration procedure for a new user in test environment", () => {
             const startRegButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Start Registration")',
             );
+            await expect(startRegButton).toBeDisplayed();
             await startRegButton.click();
 
             // Verify screen header
@@ -121,6 +122,7 @@ describe("Registration procedure for a new user in test environment", () => {
             const continueButton = await driver.$(
                 "accessibility id:continue-text",
             );
+            await expect(continueButton).toBeDisplayed();
             await continueButton.click();
 
             // Wait to ensure registration is processed
@@ -204,6 +206,7 @@ describe("Registration procedure for a new user in test environment", () => {
             await expect(promoCodeBox).toBeDisplayed();
 
             const skipButton = await driver.$("accessibility id:skip");
+            await expect(skipButton).toBeDisplayed();
             await skipButton.click();
 
             // Privacy and Terms screen
@@ -232,8 +235,10 @@ describe("Registration procedure for a new user in test environment", () => {
             const privacyTick = await driver.$(
                 "accessibility id:privacy-toggle",
             );
+            await expect(privacyTick).toBeDisplayed();
             await privacyTick.click();
             const termsTick = await driver.$("accessibility id:terms-toggle");
+            await expect(termsTick).toBeDisplayed();
             await termsTick.click();
 
             const continueButton3 = await driver.$("accessibility id:continue");
