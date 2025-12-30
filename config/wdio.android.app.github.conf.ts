@@ -99,13 +99,13 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
-        //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
+        "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/bookTaxi.spec.ts",
-        //"../tests/specs/book/reserveFelyx.spec.ts",
-        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        "../tests/specs/book/reserveFelyx.spec.ts",
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         // "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        //"../tests/specs/book/bookPublicTransport.spec.ts",
+        "../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         //"../tests/specs/account/registration.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ export const config: WebdriverIO.Config = {
         ////////////////////////////////////////////////////////////////////////////////////////
 
         //night run
-
+        /*
         "../tests/specs/account/*.spec.ts",
         "../tests/specs/login/*.spec.ts",
         "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
@@ -152,6 +152,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobMoped.spec.ts", //temporarily excluded negative scenario because of blocking user after runs
         "../tests/specs/book/reserveCheck.spec.ts",
         "../tests/specs/book/reserveFelyx.spec.ts",
+        */
     ],
 
     // specs: ["../tests/specs/account/*.spec.ts",
