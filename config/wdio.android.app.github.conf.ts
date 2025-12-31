@@ -121,7 +121,6 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         ////////////////////////////////////////////////////////////////////////////////////////
-
         //night run
         /*
         "../tests/specs/account/*.spec.ts",
