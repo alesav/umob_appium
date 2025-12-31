@@ -247,6 +247,11 @@ describe("Registration procedure for a new user in test environment", () => {
             await continueButton3.click();
             await driver.pause(4000);
 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // NOW save registration data after successful registration
+            saveRegistrationData(generatedEmail, generatedPhone, password);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             // Location permission
             // const allowLocationButton = await driver.$(
             //     "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
@@ -315,10 +320,7 @@ describe("Registration procedure for a new user in test environment", () => {
                 },
             ]);
             await driver.pause(1000);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // NOW save registration data after successful registration
-            saveRegistrationData(generatedEmail, generatedPhone, password);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             // Click on LogOut option
             await expect(PageObjects.logOutButton).toBeDisplayed();
             await PageObjects.logOutButton.click();
