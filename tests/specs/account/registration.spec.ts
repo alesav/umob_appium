@@ -248,9 +248,9 @@ describe("Registration procedure for a new user in test environment", () => {
             await driver.pause(4000);
 
             // Location permission
-            const allowLocationButton = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
-            );
+            // const allowLocationButton = await driver.$(
+            //     "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
+            // );
             await PageObjects.whileUsingAppPermission.waitForDisplayed;
             await PageObjects.whileUsingAppPermission.click();
 
