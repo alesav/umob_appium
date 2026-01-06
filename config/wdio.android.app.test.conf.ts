@@ -38,7 +38,7 @@ export const config: WebdriverIO.Config = {
         ///////"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", /// unknown timeout problem
         //"c:/dev/umob_appium/tests/specs/book/reserveFelyx.spec.ts" // new18 driver id required
         //"c:/dev/umob_appium/tests/specs/book/failedPaymentNoBooking.spec.ts", //problem, a lot of manual work
-        "c:/dev/umob_appium/tests/specs/book/newBookTaxi.spec.ts",
+        //"c:/dev/umob_appium/tests/specs/book/newBookTaxi.spec.ts",
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveDonkeyNoCard.spec.js"
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
