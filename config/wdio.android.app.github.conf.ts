@@ -145,7 +145,7 @@ export const config: WebdriverIO.Config = {
         //book folder
         "../tests/specs/book/bookDott.spec.ts",
         "../tests/specs/book/bookPublicTransport.spec.ts",
-        "../tests/specs/book/bookTaxi.spec.ts",
+        "../tests/specs/book/newBookTaxi.spec.ts",
         "../tests/specs/book/bookDonkeyMocked.spec.ts",
         "../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js", //js file temporarily excluded because of blocking user after runs

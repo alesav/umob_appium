@@ -340,7 +340,7 @@ describe("Book a Taxi", () => {
             // Verify PostHog events
             try {
                 // Get Taxi button clicked event
-                const taxiEvent = await posthog.waitForEvent(
+                const taxiButtonEvent = await posthog.waitForEvent(
                     {
                         eventName: "Taxi button clicked",
                     },
@@ -355,7 +355,7 @@ describe("Book a Taxi", () => {
                 // Get Taxi Flow Started event
                 const taxiFlowEvent = await posthog.waitForEvent(
                     {
-                        eventName: "Taxi Flow Started",
+                        eventName: "Booking Flow Started",
                     },
                     {
                         maxRetries: 10,
@@ -378,20 +378,62 @@ describe("Book a Taxi", () => {
                     },
                 );
 
+                // Get Taxi Reservation Created event
+                const taxiResEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Taxi Reservation Created",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Taxi Reservation Cancelled event
+                const taxiResCancelEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Taxi Reservation Cancelled",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Transporter Ride Verified event
+                const transRideEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Ride Verified",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
                 // If we got here, event was found with all criteria matching
-                posthog.printEventSummary(taxiEvent);
+                posthog.printEventSummary(taxiButtonEvent);
                 posthog.printEventSummary(taxiFlowEvent);
                 posthog.printEventSummary(taxiDestEvent);
+                posthog.printEventSummary(taxiResEvent);
+                posthog.printEventSummary(taxiResCancelEvent);
+                posthog.printEventSummary(transRideEvent);
 
                 // Verify Taxi button clicked event
-                expect(taxiEvent.event).toBe("Taxi button clicked");
-                expect(taxiEvent.person?.is_identified).toBe(true);
-                expect(taxiEvent.person?.properties?.email).toBe(
+                expect(taxiButtonEvent.event).toBe("Taxi button clicked");
+                expect(taxiButtonEvent.person?.is_identified).toBe(true);
+                expect(taxiButtonEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
                 );
 
-                // Verify Taxi Flow Started event
-                expect(taxiFlowEvent.event).toBe("Taxi Flow Started");
+                // Verify Booking Flow Started event
+                expect(taxiFlowEvent.event).toBe("Booking Flow Started");
                 expect(taxiFlowEvent.person?.is_identified).toBe(true);
                 expect(taxiFlowEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
@@ -401,6 +443,29 @@ describe("Book a Taxi", () => {
                 expect(taxiDestEvent.event).toBe("Taxi Destination Added");
                 expect(taxiDestEvent.person?.is_identified).toBe(true);
                 expect(taxiDestEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Taxi Reservation Created event
+                expect(taxiResEvent.event).toBe("Taxi Reservation Created");
+                expect(taxiResEvent.person?.is_identified).toBe(true);
+                expect(taxiResEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Taxi Reservation Cancelled event
+                expect(taxiResCancelEvent.event).toBe(
+                    "Taxi Reservation Cancelled",
+                );
+                expect(taxiResCancelEvent.person?.is_identified).toBe(true);
+                expect(taxiResCancelEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Transporter Ride Verified event
+                expect(transRideEvent.event).toBe("Transporter Ride Verified");
+                expect(transRideEvent.person?.is_identified).toBe(true);
+                expect(transRideEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
                 );
             } catch (posthogError) {
