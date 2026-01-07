@@ -337,6 +337,9 @@ describe("Book a Taxi", () => {
             );
             await expect(previousRides).toBeDisplayed();
 
+            //add small pause before verify posthog events
+            await driver.pause(3000);
+
             // Verify PostHog events
             try {
                 // Get Taxi button clicked event
@@ -391,10 +394,10 @@ describe("Book a Taxi", () => {
                     },
                 );
 
-                // Get Taxi Reservation Cancelled event
-                const taxiResCancelEvent = await posthog.waitForEvent(
+                // Get Transporter Ride Verified event
+                const transRideEvent = await posthog.waitForEvent(
                     {
-                        eventName: "Taxi Reservation Cancelled",
+                        eventName: "Transporter Ride Verified",
                     },
                     {
                         maxRetries: 10,
@@ -404,10 +407,10 @@ describe("Book a Taxi", () => {
                     },
                 );
 
-                // Get Transporter Ride Verified event
-                const transRideEvent = await posthog.waitForEvent(
+                // Get Taxi Reservation Cancelled event
+                const taxiResCancelEvent = await posthog.waitForEvent(
                     {
-                        eventName: "Transporter Ride Verified",
+                        eventName: "Taxi Reservation Cancelled",
                     },
                     {
                         maxRetries: 10,
