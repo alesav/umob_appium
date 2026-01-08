@@ -1007,7 +1007,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                     },
                     {
                         maxRetries: 10,
-                        retryDelayMs: 3000,
+                        retryDelayMs: 5000,
                         searchLimit: 20,
                         maxAgeMinutes: 5,
                     },

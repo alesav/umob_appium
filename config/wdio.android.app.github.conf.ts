@@ -78,7 +78,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/book/bookDonkeyMocked.spec.ts",
-        //"../tests/specs/account/combinedLoggedTest.spec.ts",
+        "../tests/specs/account/combinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
@@ -101,13 +101,13 @@ export const config: WebdriverIO.Config = {
         ///"../tests/specs/newUser/welcomeBookDonkey.spec.ts" //only once for the welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
-        //"../tests/specs/book/newBookTaxi.spec.ts",
+        "../tests/specs/book/newBookTaxi.spec.ts",
         //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         // "../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
-        "../tests/specs/account/registration.spec.ts",
+        //"../tests/specs/account/registration.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",

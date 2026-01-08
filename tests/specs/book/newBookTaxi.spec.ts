@@ -414,7 +414,7 @@ describe("Book a Taxi", () => {
                     },
                     {
                         maxRetries: 10,
-                        retryDelayMs: 3000,
+                        retryDelayMs: 5000,
                         searchLimit: 20,
                         maxAgeMinutes: 5,
                     },
