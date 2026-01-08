@@ -242,7 +242,9 @@ describe("Registration procedure for a new user in test environment", () => {
             await expect(termsTick).toBeDisplayed();
             await termsTick.click();
 
-            const continueButton3 = await driver.$("accessibility id:continue");
+            const continueButton3 = await driver.$(
+                "accessibility id:continueX",
+            );
             await expect(continueButton3).toBeDisplayed();
             await continueButton3.click();
             await driver.pause(4000);
