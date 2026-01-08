@@ -7,6 +7,9 @@ import {
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
+// const ENV = process.env.TEST_ENV || "test";
+// const USER = process.env.TEST_USER || "new12";
+
 const posthog = new PostHogHelper();
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +45,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Click PLAN TRIP button to verify taxi and public transport options
             await PageObjects.planTripBtn.click();
 
-            // Scroll to bottom - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll to bottom - don't modify this scroll
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -155,7 +158,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
-            // Scroll to My Rides - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll to My Rides - don't modify this scroll
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -202,7 +205,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
-            // Scroll to My Payments - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll to My Payments - don't modify this scroll
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
@@ -317,7 +320,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                 await expect(fieldElement).toBeDisplayed();
             }
 
-            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down - don't modify this scroll
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -369,7 +372,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Get window size
             const { width, height } = await driver.getWindowSize();
 
-            // Scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll - don't modify this scroll
             await driver.performActions([
                 {
                     type: "pointer",
@@ -425,7 +428,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(promotionalCodeDescription).toBeDisplayed();
 
-            // Scroll - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll - don't modify this scroll
             await driver.pause(1000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -498,7 +501,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(screenDescription).toBeDisplayed();
 
-            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down - don't modify this scroll
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -652,7 +655,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                 await expect(categoryElement).toBeDisplayed();
             }
 
-            // Scroll down - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down - don't modify this scroll
             await driver.pause(2000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -683,7 +686,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             );
             await expect(changeDocumentButton).toBeDisplayed();
 
-            // Scroll to bottom - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll to bottom - don't modify this scroll
             await driver.pause(2000);
             await driver.executeScript("mobile: scrollGesture", [
                 {
@@ -717,7 +720,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             // Click on Account button
             await PageObjects.clickAccountButton();
 
-            // Scroll down to make Delete account button visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down to make Delete account button visible - don't modify this scroll
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -809,7 +812,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make Map theme settings visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down to make Map theme settings visible - don't modify this scroll
             await driver.pause(3000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
@@ -882,7 +885,7 @@ describe("Combined test for the logged in old user with rides history", () => {
             await PageObjects.clickAccountButton();
             await driver.pause(2000);
 
-            // Scroll down to make Language visible - ИНДИВИДУАЛЬНЫЙ СКРОЛЛ (НЕ ТРОГАТЬ)
+            // Scroll down to make Language visible - don't modify this scroll
             await driver.pause(1000);
             const { width, height } = await driver.getWindowSize();
             await driver.executeScript("mobile: scrollGesture", [
