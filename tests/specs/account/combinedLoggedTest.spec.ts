@@ -87,20 +87,31 @@ describe("Combined test for the logged in old user with rides history", () => {
             const { width, height } = await driver.getWindowSize();
 
             // First scroll - individual scroll(do not modify)
-            for (let i = 0; i < 2; i++) {
-                await driver.pause(2000);
-                await driver.executeScript("mobile: scrollGesture", [
-                    {
-                        left: width / 2,
-                        top: height * 0.3,
-                        width: width * 0.8,
-                        height: height * 0.4,
-                        direction: "down",
-                        percent: 0.9,
-                    },
-                ]);
-                await driver.pause(2000);
-            }
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.95,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.6,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
 
             // Verify account menu items after first scrolling
             const accountMenuItems2 = [
