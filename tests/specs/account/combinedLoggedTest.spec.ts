@@ -2,13 +2,13 @@ import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import {
     getCredentials,
     executeTest,
-    ENV,
-    USER,
+    // ENV,
+    // USER,
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-// const ENV = process.env.TEST_ENV || "test";
-// const USER = process.env.TEST_USER || "new12";
+const ENV = process.env.TEST_ENV || "test";
+const USER = process.env.TEST_USER || "new76";
 
 const posthog = new PostHogHelper();
 
