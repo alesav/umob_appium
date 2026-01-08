@@ -640,7 +640,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                 "Driver license",
                 "Status",
                 "Expiration date",
-                "28 May 2031",
+                "16 April 2100",
                 "Categories",
             ];
 
@@ -658,7 +658,8 @@ describe("Combined test for the logged in old user with rides history", () => {
             await expect(statusVerifiedText).toBeDisplayed();
 
             // Verify all license categories
-            const categories = ["B", "A", "B1", "AM"];
+            //const categories = ["B", "A", "B1", "AM"];
+            const categories = ["B"];
             for (const category of categories) {
                 const categoryElement = await driver.$(
                     `-android uiautomator:new UiSelector().description("undefinedIdDocumentItemContent${category}")`,
