@@ -63,7 +63,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
         //morning run
-        "../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec copy.ts",
         // "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
@@ -110,7 +110,7 @@ export const config: WebdriverIO.Config = {
     
 */
         //TESTS FOR ACCEPT APP (npm run android.app.test.accept)
-        // "../tests/specs/login/login.negative.spec.ts",
+        //"../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/account/AddAdress.spec.ts", //new12 /test2@gmail.com)
         // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
