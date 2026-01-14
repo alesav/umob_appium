@@ -255,7 +255,7 @@ class PageObjects extends Page {
     }
     get logInButton() {
         return $(
-            '-android uiautomator:new UiSelector().textContains("Log In")',
+            '-android uiautomator:new UiSelector().textContains("Log in")',
         );
     }
 
@@ -585,7 +585,7 @@ class PageObjects extends Page {
             );
             await driver.pause(3000);
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log In")',
+                '-android uiautomator:new UiSelector().text("Log in")',
             );
             await logInBtn.waitForDisplayed({ timeout: 200000 });
             await logInBtn.waitForEnabled();
