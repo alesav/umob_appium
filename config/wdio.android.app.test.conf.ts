@@ -80,7 +80,7 @@ export const config: WebdriverIO.Config = {
         //////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
         //"../tests/specs/newUser/deleteCard.spec.ts",
-        //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
+        "c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
         ///////"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts", //new25 //ok/
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts", //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
