@@ -10,14 +10,20 @@ describe("Combined Not Logged User Tests", () => {
         // Wait for and handle the initial popup
         try {
             // Wait for the popup text to be visible
+            // const popupText = await driver.$(
+            //     'android=new UiSelector().text("Sign up & get €10,-")',
+            // );
             const popupText = await driver.$(
-                'android=new UiSelector().text("Sign up & get €10,-")',
+                'android=new UiSelector().text("Ready to ride?")',
             );
             await popupText.waitForDisplayed({ timeout: 15000 });
 
             // Verify popup elements
+            // const popupDescription = await driver.$(
+            //     'android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")',
+            // );
             const popupDescription = await driver.$(
-                'android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")',
+                'android=new UiSelector().text("Join over 5.000 people who use umob")',
             );
             await expect(popupDescription).toBeDisplayed();
 
@@ -125,7 +131,9 @@ describe("Combined Not Logged User Tests", () => {
 
             // Verify screen header
             await expect(PageObjects.supportScreenHeader).toBeDisplayed();
-            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
+            await PageObjects.supportScreenHeader.waitForDisplayed({
+                timeout: 4000,
+            });
 
             // Verify tabs
             await expect(PageObjects.supportFaqTab).toBeDisplayed();

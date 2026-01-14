@@ -86,13 +86,19 @@ describe("Login positive scenarios", () => {
         const testId = "97ad3bd3-1c89-4fbf-8f25-28c32e138a7f";
 
         await handleTestResult(testId, async () => {
+            // const signUpTitle = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
+            // );
             const signUpTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
+                '-android uiautomator:new UiSelector().text("Ready to ride?")',
             );
             await expect(signUpTitle).toBeDisplayed();
 
+            // const signUpDescription = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Sign up to explore or get started right away")',
+            // );
             const signUpDescription = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Sign up to explore or get started right away")',
+                '-android uiautomator:new UiSelector().textContains("Join over 5.000 people who use umob")',
             );
             await expect(signUpDescription).toBeDisplayed();
 

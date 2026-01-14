@@ -8,7 +8,7 @@ import {
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
 const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new76";
+const USER = process.env.TEST_USER || "new78";
 
 const posthog = new PostHogHelper();
 
@@ -106,7 +106,7 @@ describe("Combined test for the logged in old user with rides history", () => {
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: height * 0.6,
+                            y: height * 0.5,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
