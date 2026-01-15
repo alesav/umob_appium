@@ -126,7 +126,7 @@ describe("Book a Taxi", () => {
 
             //Verify that location is the same that was added
             const toLocation = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Blaak 31 2981 EC Ridderkerk")',
+                '-android uiautomator:new UiSelector().textContains("Blaak 31 3011 GA Rotterdam")',
             );
             await expect(toLocation).toBeDisplayed();
             await toLocation.click();
