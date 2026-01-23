@@ -82,14 +82,14 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/book/bookUmobScooters.spec.js",
-        "../tests/specs/newUser/addPaymentMethod.spec.ts", // ok
+        //"../tests/specs/newUser/addPaymentMethod.spec.ts", // ok
         /////"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //ok/ ? fail, but there is no active booking for this user (new17)
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts", //Need Help. Test updated. Due to some reason there is still verification in progress problem
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //fail because payment card wasnt added
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", // fail because payment card wasnt added
-        "../tests/specs/newUser/deleteCard.spec.ts",
+        //"../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
