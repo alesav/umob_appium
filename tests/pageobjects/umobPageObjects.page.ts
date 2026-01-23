@@ -264,7 +264,7 @@ class PageObjects extends Page {
         return $("accessibility id:scan-to-ride-button");
     }
     get scanVehicleButton() {
-        return $('-android uiautomator:new UiSelector().text("Scan Vehicle")');
+        return $('-android uiautomator:new UiSelector().text("Scan vehicle")');
     }
     get vehicleIdInput() {
         return $("class name:android.widget.EditText");
