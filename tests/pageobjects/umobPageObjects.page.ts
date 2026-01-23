@@ -40,9 +40,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("My rides")');
     }
     get publicTransportButton() {
-        return $(
-            '-android uiautomator:new UiSelector().text("Public Transport")',
-        );
+        return $('-android uiautomator:new UiSelector().text("Buy a ticket")');
     }
     get grabTaxiButton() {
         return $('-android uiautomator:new UiSelector().text("Book now")');
