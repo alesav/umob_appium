@@ -230,6 +230,12 @@ describe("Book Public Transport", () => {
             );
             await expect(routeHeader).toBeDisplayed();
 
+            // Check destination address is visible
+            const address = await driver.$(
+                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+            );
+            await expect(address).toBeDisplayed();
+
             // Select first route by clicking euro symbol
             const firstRoutePrice = await driver.$(
                 "(//android.widget.TextView[contains(@text, '€')])[1]",
@@ -285,6 +291,12 @@ describe("Book Public Transport", () => {
             const backButton = await driver.$("accessibility id:back_button");
             await expect(backButton).toBeDisplayed();
             await driver.pause(2000);
+
+            // Check destination address is visible
+            const address = await driver.$(
+                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+            );
+            await expect(address).toBeDisplayed();
 
             // Check "buy e-tickets" button is enabled and click it
             const buyButton = await driver.$(
@@ -416,6 +428,12 @@ describe("Book Public Transport", () => {
             );
             await expect(assureText).toBeDisplayed();
 
+            // Check destination address is visible
+            const address = await driver.$(
+                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+            );
+            await expect(address).toBeDisplayed();
+
             // Button "show e-tickets" is enabled and click the button
             const showButton = await driver.$(
                 '-android uiautomator:new UiSelector().text("Show E-Tickets")',
@@ -435,6 +453,12 @@ describe("Book Public Transport", () => {
                 '-android uiautomator:new UiSelector().text("Ticket")',
             );
             await expect(ticketHeader).toBeDisplayed();
+
+            // Check destination address is visible
+            const address = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Blaak 31, 3011 GA Rotterdam")',
+            );
+            await expect(address).toBeDisplayed();
 
             // Check route information using direct text selector
             const fromSection = await driver.$(
@@ -487,6 +511,12 @@ describe("Book Public Transport", () => {
                 '-android uiautomator:new UiSelector().text("Vehicle type")',
             );
             await expect(vehicleType).toBeDisplayed();
+
+            // Check vehicle index type is displayed
+            const vehicleIndexType = await driver.$(
+                '-android uiautomator:new UiSelector().text("Public transport")',
+            );
+            await expect(vehicleIndexType).toBeDisplayed();
 
             // Check booking number is displayed
             const bookingNo = await driver.$(
