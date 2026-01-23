@@ -44,7 +44,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/account/AddPaymentMethod.spec.ts",
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts", //Umob Boke 23
-        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts"
+        //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts"
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts"
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts", //new49 (blocked) stop booking after night run
@@ -62,6 +62,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
+        "../tests/specs/newUser/addPaymentMethod.spec.ts",
         //morning run
         //"../tests/specs/book/reserveFelyx.spec.ts",
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js",
@@ -78,7 +79,7 @@ export const config: WebdriverIO.Config = {
         ///////////////////"c:/dev/umob_appium/tests/specs/account/AddAdress.spec.ts",
         //"c:/dev/umob_appium/tests/specs/login/NEW.login.positive.spec.ts", //ok
         //////////////"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
-        //"../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
+        //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts", //it was new13, now newUser in credentials  //ok sometimes verification in progress problem
         //"../tests/specs/newUser/deleteCard.spec.ts",
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
         ///////"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts", //new25 //ok/
@@ -102,7 +103,7 @@ export const config: WebdriverIO.Config = {
     "../tests/specs/newUser/nReserveCheckNoCard.spec.ts",      //new20  //new43
     "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file  //new39  //newUser (174str)
     "../tests/specs/newUser/nReserveFelyxNoCard.spec.js",   //js file  //new11   newUser 
-    "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts",      ///new13   //newUser
+    "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",      ///new13   //newUser
     "../tests/specs/newUser/nReserveFelyxNoId.spec.ts",    //new38   //newUser
     //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //DO NOT RUN! always new welcome voucher required//it was new20  //new40
     //"../tests/specs/newUser/addVoucher.spec.ts",//DO NOT RUN! voucher could be added to different users but only once
@@ -113,7 +114,7 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/login/login.negative.spec.ts",
         // "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         // "../tests/specs/account/AddAdress.spec.ts", //new12 /test2@gmail.com)
-        // "../tests/specs/newUser/COPYpopupAddPaymentMethod.spec.ts", //newUser
+        // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts", //newUser
         // "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
         // "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test2@gmail.com)
     ],
