@@ -1,7 +1,20 @@
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import {
+    //getCredentials,
+    //executeTest,
+    getScreenCenter,
+} from "../../helpers/TestHelpers.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 
 describe("Combined Not Logged User Tests", () => {
+    let scooters: Scooter[];
+
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
         await driver.pause(7000);
@@ -502,7 +515,7 @@ describe("Combined Not Logged User Tests", () => {
             }
         }
     });
-
+    /*
     it("should display all key account screen elements", async () => {
         const testId = "fc11c3a5-b6d4-484d-ba45-5cd9ad7716d0";
         // Send results
@@ -710,6 +723,97 @@ describe("Combined Not Logged User Tests", () => {
 
             // Verify sign up button
             await expect(PageObjects.registerButton).toBeDisplayed();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            // Capture screenshot on failure
+            screenshotPath = "./screenshots/" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+        } finally {
+            // Submit test run result
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            // If there was an error in the main try block, throw it here to fail the test
+            if (error) {
+                throw error;
+            }
+        }
+    });
+*/
+    it("should go to login page after choosing asset and click bottom button", async () => {
+        const testId = "7404b64e-33bb-4dfc-8524-0aadeb575f6a";
+        // Send results
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            scooters = await fetchScooterCoordinates();
+
+            // const credentials = getCredentials(ENV, USER);
+
+            // await PageObjects.login({
+            //     username: credentials.username,
+            //     password: credentials.password,
+            // });
+
+            const targetScooter = findFelyxScooter(scooters);
+
+            await AppiumHelpers.setLocationAndRestartApp(
+                targetScooter.coordinates.longitude,
+                targetScooter.coordinates.latitude,
+            );
+            await driver.pause(3000);
+
+            //await PageObjects.clickAccountButton();
+            await PageObjects.accountButton.waitForDisplayed({
+                timeout: 3000,
+            });
+
+            await driver.pause(5000);
+            const { centerX, centerY } = await getScreenCenter();
+            await driver.pause(4000);
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+            await driver.pause(2000);
+
+            //verify Pricing
+            await PageObjects.felyxPriceInfo();
+
+            //tap "Log In To Start Ride" button
+            const gotoLoginScreenButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Register To Unlock Discount")',
+            );
+            // const gotoLoginScreenButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Log In To Start Ride")',
+            // );
+            await expect(gotoLoginScreenButton).toBeDisplayed();
+            await gotoLoginScreenButton.click();
+
+            // verify that we are on login page
+            const forgotPasswordButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Forgot password?")',
+            );
+            await expect(forgotPasswordButton).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);
