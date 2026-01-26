@@ -71,7 +71,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookUmobScooters.spec.js", //more
         //more
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //more
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //ok
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
@@ -93,7 +93,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/account/nearbyAssets.spec.ts",
-        "../tests/specs/account/qrCode.spec.ts",
+        //"../tests/specs/account/qrCode.spec.ts",
         //"../tests/specs/book/bookUmobBike.spec.ts", //location problems were before
         //"../tests/specs/book/bookUmobMoped.spec.ts", //taking photo crashed app. Cant stop active booking for new32 user!
         //"../tests/specs/login/login.negative.spec.ts",
@@ -103,9 +103,9 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/newBookTaxi.spec.ts",
         //"../tests/specs/book/reserveFelyx.spec.ts",
-        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
+        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        "../tests/specs/book/bookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         //"../tests/specs/account/registration.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/addVoucher.spec.ts",// voucher could be added to different users but only once for each user
-        //"../tests/specs/newUser/deleteCard.spec.ts",
+        "../tests/specs/newUser/deleteCard.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //js file
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
