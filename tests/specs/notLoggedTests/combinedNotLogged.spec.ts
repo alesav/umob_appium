@@ -777,7 +777,7 @@ describe("Combined Not Logged User Tests", () => {
                 targetScooter.coordinates.longitude,
                 targetScooter.coordinates.latitude,
             );
-            await driver.pause(3000);
+            await driver.pause(5000);
 
             //await PageObjects.clickAccountButton();
             await PageObjects.accountButton.waitForDisplayed({
