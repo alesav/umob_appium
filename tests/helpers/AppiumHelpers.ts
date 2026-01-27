@@ -83,6 +83,23 @@ export default class AppiumHelpers {
         await driver.pause(5000);
     }
 
+    static async setLocationAndRestartAppFotLocationPermissionOffTest(
+        longitude,
+        latitude,
+    ) {
+        execSync(
+            `adb shell am startservice -e longitude ${longitude} -e latitude ${latitude} io.appium.settings/.LocationService`,
+        );
+        await driver.pause(2000);
+        try {
+            execSync(`adb emu geo fix ${longitude} ${latitude}`);
+        } catch (error) {
+            console.error("Failed to set location:", error);
+        }
+
+        await driver.pause(5000);
+    }
+
     /**
      * Perform a swipe up gesture on the screen
      * Swipes from 70% of screen height to 20% of screen height

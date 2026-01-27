@@ -395,6 +395,9 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().textContains("hile using the app")',
         );
     }
+    get whileUsingAppPermissionDenied() {
+        return $('-android uiautomator:new UiSelector().textContains("don")');
+    }
     get androidPermissionAllowButton() {
         return $(
             "id:com.android.permissioncontroller:id/permission_allow_button",
@@ -617,6 +620,88 @@ class PageObjects extends Page {
             await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
+        } catch (e) {
+            error = e;
+            console.error("Login failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            screenshotPath = "./screenshots/login_" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Login failure report submitted successfully");
+            } catch (submitError) {
+                console.error(
+                    "Failed to submit login failure report:",
+                    submitError,
+                );
+            }
+
+            throw error;
+        }
+    }
+
+    async loginWithoutLocationPermission({
+        username,
+        password,
+    }: {
+        username: string;
+        password: string;
+    }) {
+        const testId = "b6f88693-4e0a-4958-8d26-b4f3a4d0b7d6";
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            const deviceCapabilities = JSON.stringify(driver.capabilities);
+            console.log(
+                "Login with: " + username + " and password: " + password,
+            );
+            await driver.pause(3000);
+            const logInBtn = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log in")',
+            );
+            await logInBtn.waitForDisplayed({ timeout: 200000 });
+            await logInBtn.waitForEnabled();
+            await driver.pause(5000);
+            await logInBtn.click();
+
+            const usernameField = await driver.$(
+                "accessibility id:login_username_field",
+            );
+            await expect(usernameField).toBeDisplayed();
+            await usernameField.addValue(username);
+
+            const passwordField = await driver.$(
+                "accessibility id:login_password_field",
+            );
+            await expect(passwordField).toBeDisplayed();
+            await passwordField.addValue(password);
+
+            const loginButtonText = await driver.$(
+                "accessibility id:login_button-text",
+            );
+            await expect(loginButtonText).toBeDisplayed();
+            await loginButtonText.click();
+
+            const loginButton = await driver.$("accessibility id:login_button");
+            await expect(loginButton).toBeDisplayed();
+            await loginButton.click();
+
+            // Handle location permissions
+            await this.allowPermissionButton.click();
+            await driver.pause(4000);
+            await this.whileUsingAppPermissionDenied.waitForDisplayed();
+            await this.whileUsingAppPermissionDenied.click();
         } catch (e) {
             error = e;
             console.error("Login failed:", error);
