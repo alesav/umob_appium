@@ -359,6 +359,34 @@ describe("Book Public Transport", () => {
             );
             await expect(header).toBeDisplayed();
 
+            const { width, height } = await driver.getWindowSize();
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: 160,
+                            y: height / 3 - 100,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
             // Verify that exactly 3 tickets are displayed
             const fromLabels = await driver.$$(
                 '-android uiautomator:new UiSelector().text("From")',
@@ -372,7 +400,7 @@ describe("Book Public Transport", () => {
             expect(ticketContainers.length).toBe(3);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
-            const { width, height } = await driver.getWindowSize();
+
             await driver.performActions([
                 {
                     type: "pointer",
