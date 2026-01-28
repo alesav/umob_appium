@@ -151,6 +151,71 @@ describe("Combined Not Logged User Tests", () => {
         }
     });
 
+    it("verify Log in to claim button on Promos screen that leads to login page", async () => {
+        const testId = "f0beea49-25aa-45a3-8e02-8042d94d98a3";
+        // Send results
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            await PageObjects.promosBtn.waitForExist();
+
+            //click PLAN TRIP button to verify taxi and public transport options
+
+            await PageObjects.promosBtn.click();
+
+            await driver.pause(1000);
+
+            //get a promo notification
+            const gotPromo = await driver.$(
+                '-android uiautomator:new UiSelector().text("Got a promo code?")',
+            );
+            await expect(gotPromo).toBeDisplayed();
+
+            //tap Log in to claim button to go to login page
+            const logInToClaimBtn = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log in to claim")',
+            );
+            await expect(logInToClaimBtn).toBeDisplayed();
+            await logInToClaimBtn.click();
+
+            //verify Sign up button to check that we are on login page
+            const signUpBtn = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Sign up")',
+            );
+            await expect(signUpBtn).toBeDisplayed();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            // Capture screenshot on failure
+            screenshotPath = "./screenshots/" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+        } finally {
+            // Submit test run result
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            // If there was an error in the main try block, throw it here to fail the test
+            if (error) {
+                throw error;
+            }
+        }
+    });
+
     it("it should test support screen", async () => {
         const testId = "785c3575-e331-4b27-933c-54f78fcbceb3";
         // Send results
@@ -537,7 +602,7 @@ describe("Combined Not Logged User Tests", () => {
             }
         }
     });
-    /*
+
     it("should display all key account screen elements", async () => {
         const testId = "fc11c3a5-b6d4-484d-ba45-5cd9ad7716d0";
         // Send results
@@ -774,7 +839,7 @@ describe("Combined Not Logged User Tests", () => {
             }
         }
     });
-*/
+
     it("should go to login page after choosing asset and click bottom button", async () => {
         const testId = "7404b64e-33bb-4dfc-8524-0aadeb575f6a";
         // Send results
