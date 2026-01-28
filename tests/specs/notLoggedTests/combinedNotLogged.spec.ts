@@ -10,7 +10,7 @@ import {
     fetchScooterCoordinates,
     findFelyxScooter,
     type Scooter,
-} from "../../helpers/ScooterCoordinates.js";
+} from "../../helpers/ScooterCoordinatesNotLoggedTest.js";
 
 describe("Combined Not Logged User Tests", () => {
     let scooters: Scooter[];
@@ -45,7 +45,29 @@ describe("Combined Not Logged User Tests", () => {
 
             await driver.pause(5000);
             await PageObjects.exploreMapButton.click();
-            await driver.pause(2000);
+            await driver.pause(3000);
+
+            scooters = await fetchScooterCoordinates();
+
+            // const credentials = getCredentials(ENV, USER);
+
+            // await PageObjects.login({
+            //     username: credentials.username,
+            //     password: credentials.password,
+            // });
+
+            const targetScooter = findFelyxScooter(scooters);
+
+            await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
+                targetScooter.coordinates.longitude,
+                targetScooter.coordinates.latitude,
+            );
+            await driver.pause(5000);
+
+            //await PageObjects.clickAccountButton();
+            await PageObjects.accountButton.waitForDisplayed({
+                timeout: 3000,
+            });
         } catch (error) {
             console.log("Popup not found or already handled:", error);
         }
@@ -762,27 +784,27 @@ describe("Combined Not Logged User Tests", () => {
         let error = null;
 
         try {
-            scooters = await fetchScooterCoordinates();
+            // scooters = await fetchScooterCoordinates();
 
-            // const credentials = getCredentials(ENV, USER);
+            // // const credentials = getCredentials(ENV, USER);
 
-            // await PageObjects.login({
-            //     username: credentials.username,
-            //     password: credentials.password,
+            // // await PageObjects.login({
+            // //     username: credentials.username,
+            // //     password: credentials.password,
+            // // });
+
+            // const targetScooter = findFelyxScooter(scooters);
+
+            // await AppiumHelpers.setLocationAndRestartApp(
+            //     targetScooter.coordinates.longitude,
+            //     targetScooter.coordinates.latitude,
+            // );
+            // await driver.pause(5000);
+
+            // //await PageObjects.clickAccountButton();
+            // await PageObjects.accountButton.waitForDisplayed({
+            //     timeout: 3000,
             // });
-
-            const targetScooter = findFelyxScooter(scooters);
-
-            await AppiumHelpers.setLocationAndRestartApp(
-                targetScooter.coordinates.longitude,
-                targetScooter.coordinates.latitude,
-            );
-            await driver.pause(5000);
-
-            //await PageObjects.clickAccountButton();
-            await PageObjects.accountButton.waitForDisplayed({
-                timeout: 3000,
-            });
 
             await driver.pause(5000);
             const { centerX, centerY } = await getScreenCenter();
@@ -800,12 +822,12 @@ describe("Combined Not Logged User Tests", () => {
             await PageObjects.felyxPriceInfo();
 
             //tap "Log In To Start Ride" button
-            const gotoLoginScreenButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Register To Unlock Discount")',
-            );
             // const gotoLoginScreenButton = await driver.$(
-            //     '-android uiautomator:new UiSelector().text("Log In To Start Ride")',
+            //     '-android uiautomator:new UiSelector().text("Register To Unlock Discount")',
             // );
+            const gotoLoginScreenButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log In To Start Ride")',
+            );
             await expect(gotoLoginScreenButton).toBeDisplayed();
             await gotoLoginScreenButton.click();
 
