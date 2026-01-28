@@ -379,7 +379,7 @@ describe("Book Public Transport", () => {
                             type: "pointerMove",
                             duration: 1000,
                             x: 160,
-                            y: height / 3 - 100,
+                            y: height / 3,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
