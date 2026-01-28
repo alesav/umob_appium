@@ -292,6 +292,48 @@ describe("Book Public Transport", () => {
             await expect(backButton).toBeDisplayed();
             await driver.pause(2000);
 
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerMove", duration: 1000, x: 160, y: 10 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerMove", duration: 1000, x: 160, y: 10 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
             // Check destination address is visible
             const address = await driver.$(
                 '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
