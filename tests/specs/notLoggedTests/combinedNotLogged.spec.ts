@@ -10,7 +10,7 @@ import {
     fetchScooterCoordinates,
     findFelyxScooter,
     type Scooter,
-} from "../../helpers/ScooterCoordinatesNotLoggedTest.js";
+} from "../../helpers/ScooterCoordinates.js";
 
 describe("Combined Not Logged User Tests", () => {
     let scooters: Scooter[];
