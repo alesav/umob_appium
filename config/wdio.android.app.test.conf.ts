@@ -13,7 +13,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
-        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+        "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
         // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
