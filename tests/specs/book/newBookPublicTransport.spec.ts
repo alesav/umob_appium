@@ -538,7 +538,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
+                '-android uiautomator:new UiSelector().textContains("Adrianahoeve 10, 2131 MN Hoofddorp")',
             );
             await expect(address).toBeDisplayed();
 
