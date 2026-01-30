@@ -123,6 +123,27 @@ describe("Test for checking disability of aplication features when location perm
             );
             await expect(buttonForPubTrans).toBeDisplayed();
 
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerMove", duration: 1000, x: 160, y: 10 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
             //verify enable location button for nearby assets
             const buttonForNearbyAssets = await driver.$(
                 '-android uiautomator:new UiSelector().text("Enable location to find")',
