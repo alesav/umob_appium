@@ -13,7 +13,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts"
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts",
         //"c:/dev/umob_appium/tests/specs/book/bookUmobMoped.spec.ts"
-        "c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
+        //"c:/dev/umob_appium/tests/specs/book/bookPublicTransport.spec.ts",
         // "../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUserVoucher/vBookDonkeyMocked.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.ts"
@@ -97,7 +97,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/login/login.negative.spec.ts",
         //"../tests/specs/login/login.positive.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
-        //"../tests/specs/account/locationPermissionOff.spec.ts",
+        "../tests/specs/account/locationPermissionOff.spec.ts",
         /*
 //new user tests should be in some order 
     "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",      //was new13  //now newUser in credentials (new48)
