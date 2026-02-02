@@ -133,7 +133,7 @@ describe("Test for checking disability of aplication features when location perm
                             type: "pointerMove",
                             duration: 0,
                             x: 160,
-                            y: height / 3 + 100,
+                            y: height / 3.2 + 300,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
