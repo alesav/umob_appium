@@ -193,7 +193,7 @@ describe("Book Public Transport", () => {
             const el1 = await driver.$(
                 '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)',
             );
-            await el1.addValue("Blaak 31");
+            await el1.addValue("MA AIRPORT HOTEL");
             await driver.pause(4000);
 
             // First get the element's location and size
@@ -206,7 +206,7 @@ describe("Book Public Transport", () => {
             );
 
             const chooseFromList = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Blaak 31")',
+                '-android uiautomator:new UiSelector().textContains("MA AIRPORT HOTEL")',
             );
             await expect(chooseFromList).toBeDisplayed();
 
@@ -232,7 +232,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
             );
             await expect(address).toBeDisplayed();
 
@@ -292,9 +292,51 @@ describe("Book Public Transport", () => {
             await expect(backButton).toBeDisplayed();
             await driver.pause(2000);
 
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerMove", duration: 1000, x: 160, y: 10 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 100,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerMove", duration: 1000, x: 160, y: 10 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
             );
             await expect(address).toBeDisplayed();
 
@@ -317,8 +359,48 @@ describe("Book Public Transport", () => {
             );
             await expect(header).toBeDisplayed();
 
-            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: 160,
+                            y: height / 3 + 110,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: 160,
+                            y: height / 3,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
+            // Verify that exactly 3 tickets are displayed
+            const fromLabels = await driver.$$(
+                '-android uiautomator:new UiSelector().text("From")',
+            );
+            expect(fromLabels.length).toBe(3);
+
+            // Alternative approach: count ticket containers by their partial resource-id pattern
+            // const ticketContainers = await driver.$$(
+            //     '-android uiautomator:new UiSelector().resourceIdMatches("ticket-TranzerUmob:.*-container")',
+            // );
+            // expect(ticketContainers.length).toBe(3);
+
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
+
             await driver.performActions([
                 {
                     type: "pointer",
@@ -430,7 +512,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("Blaak 31 3011 GA Rotterdam")',
+                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
             );
             await expect(address).toBeDisplayed();
 
@@ -456,7 +538,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Blaak 31, 3011 GA Rotterdam")',
+                '-android uiautomator:new UiSelector().textContains("Adrianahoeve 10, 2131 MN Hoofddorp")',
             );
             await expect(address).toBeDisplayed();
 

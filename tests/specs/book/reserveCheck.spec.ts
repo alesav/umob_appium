@@ -214,6 +214,17 @@ describe("Check Reservation Tests", () => {
             ]);
             await driver.pause(2000);
 
+            //verify name of Check operator
+            const checkOperatorName = await driver.$(
+                '-android uiautomator:new UiSelector().text("CHECK")',
+            );
+            await expect(checkOperatorName).toBeDisplayed();
+
+            const felyxPlateNumber = await driver.$(
+                '-android uiautomator:new UiSelector().text("FHV39X")',
+            );
+            await expect(felyxPlateNumber).toBeDisplayed();
+
             //verify Pricing (use Felyx from page objects because we are not checking amount of payment)
             await PageObjects.felyxPriceInfo();
 

@@ -102,17 +102,18 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js",
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts",
         //"../tests/specs/book/newBookTaxi.spec.ts",
-        "../tests/specs/book/reserveFelyx.spec.ts",
+        //"../tests/specs/book/reserveFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        //"../tests/specs/book/newBookPublicTransport.spec.ts",
+        //"../tests/specs/book/bookPublicTransport.spec.ts",
         //"../tests/specs/book/bookDott.spec.ts",
         //"../tests/specs/account/registration.spec.ts",
-        "../tests/specs/account/locationPermissionOff.spec.ts",
+        //"../tests/specs/account/locationPermissionOff.spec.ts",
+        //"../tests/specs/book/2bookPublicTransport.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
         //"../tests/specs/newUser/*.spec.ts",
-        //"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
+        ////"../tests/specs/newUser/popupAddPaymentMethod.spec.ts",
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUser/welcomeBookDonkey.spec.ts", //always required new welcome voucher
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
@@ -144,7 +145,8 @@ export const config: WebdriverIO.Config = {
 
         //book folder
         "../tests/specs/book/bookDott.spec.ts",
-        "../tests/specs/book/newBookPublicTransport.spec.ts",
+        "../tests/specs/book/bookPublicTransport.spec.ts",
+        "../tests/specs/book/2bookPublicTransport.spec.ts",
         "../tests/specs/book/newBookTaxi.spec.ts",
         "../tests/specs/book/bookDonkeyMocked.spec.ts",
         "../tests/specs/book/failedPaymentNoBooking.spec.ts",

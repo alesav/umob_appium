@@ -171,6 +171,17 @@ describe("Reserve Felyx Test", () => {
             ]);
             await driver.pause(2000);
 
+            //verify name of Check operator
+            const felyxOperatorName = await driver.$(
+                '-android uiautomator:new UiSelector().text("FELYX")',
+            );
+            await expect(felyxOperatorName).toBeDisplayed();
+
+            const felyxPlateNumber = await driver.$(
+                '-android uiautomator:new UiSelector().text("FAKE-E856MN")',
+            );
+            await expect(felyxPlateNumber).toBeDisplayed();
+
             //verify Pricing
             await PageObjects.felyxPriceInfo();
 
