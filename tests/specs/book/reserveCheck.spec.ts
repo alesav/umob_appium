@@ -77,6 +77,46 @@ const getScreenCenter = async () => {
     };
 };
 
+const fetchCheckMopedDetails = async (assetId: string, coordinates: any) => {
+    try {
+        const response = await fetch(
+            "https://backend-test.umobapp.com/api/tomp/planning/inquirebyasset",
+            {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: AUTH_TOKEN,
+                    "Accept-Language": "en",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "App-Version": "1.22959.3.22959",
+                    "App-Platform": "android",
+                },
+                body: JSON.stringify({
+                    assetId: assetId,
+                    assetCoordinates: {
+                        latitude: coordinates.latitude,
+                        longitude: coordinates.longitude,
+                    },
+                }),
+            },
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("=== CHECK MOPED DETAILS ===");
+        console.log(JSON.stringify(data, null, 2));
+        console.log("===========================");
+        return data;
+    } catch (error) {
+        console.error("Error fetching Check moped details:", error);
+        throw error;
+    }
+};
+
 const fetchScooterCoordinates = async () => {
     try {
         const response = await fetch(API_URL, {
@@ -125,6 +165,8 @@ const fetchScooterCoordinates = async () => {
 
 describe("Check Reservation Tests", () => {
     let scooters;
+    let targetScooter: any;
+    let checkMopedDetails: any;
 
     before(async () => {
         scooters = await fetchScooterCoordinates();
@@ -137,8 +179,18 @@ describe("Check Reservation Tests", () => {
             password: credentials.password,
         });
 
-        const targetScooter = scooters.find((scooter) =>
+        targetScooter = scooters.find((scooter) =>
             scooter.id.includes("Check"),
+        );
+
+        if (!targetScooter) {
+            throw new Error("No Check scooter found in the area");
+        }
+
+        // getting details of Check scooter
+        checkMopedDetails = await fetchCheckMopedDetails(
+            targetScooter.id,
+            targetScooter.coordinates,
         );
 
         await AppiumHelpers.setLocationAndRestartApp(
@@ -159,13 +211,13 @@ describe("Check Reservation Tests", () => {
         let error = null;
 
         try {
-            const targetScooter = scooters.find((scooter) =>
-                scooter.id.includes("Check"),
-            );
-            await AppiumHelpers.setLocationAndRestartApp(
-                targetScooter.coordinates.longitude,
-                targetScooter.coordinates.latitude,
-            );
+            // const targetScooter = scooters.find((scooter) =>
+            //     scooter.id.includes("Check"),
+            // );
+            // await AppiumHelpers.setLocationAndRestartApp(
+            //     targetScooter.coordinates.longitude,
+            //     targetScooter.coordinates.latitude,
+            // );
             await driver.pause(4000);
             //await applyFilters();
             const { centerX, centerY } = await getScreenCenter();
@@ -220,10 +272,35 @@ describe("Check Reservation Tests", () => {
             );
             await expect(checkOperatorName).toBeDisplayed();
 
-            const felyxPlateNumber = await driver.$(
-                '-android uiautomator:new UiSelector().text("FHV39X")',
+            // Verify moped name from API (assetInfo.name)
+            const mopedName = checkMopedDetails.assetInfo?.name;
+            if (!mopedName) {
+                throw new Error("Moped name not found in API response");
+            }
+            console.log(`Expected moped name: ${mopedName}`);
+
+            const checkMopedName = await driver.$(
+                `-android uiautomator:new UiSelector().textContains("${mopedName}")`,
             );
-            await expect(felyxPlateNumber).toBeDisplayed();
+            await expect(checkMopedName).toBeDisplayed();
+
+            // Verify license plate from mapboxmarkers (licensePlate)
+            const licensePlate = targetScooter.licensePlate;
+            if (!licensePlate) {
+                throw new Error("License plate not found in API response");
+            }
+            console.log(`Expected license plate: ${licensePlate}`);
+
+            const checkPlateNumber = await driver.$(
+                `-android uiautomator:new UiSelector().textContains("${licensePlate}")`,
+            );
+            await expect(checkPlateNumber).toBeDisplayed();
+
+            ////hard coded dataPlate of the scooter
+            // const checkPlateNumber = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("FHV39X")',
+            // );
+            // await expect(checkPlateNumber).toBeDisplayed();
 
             //verify Pricing (use Felyx from page objects because we are not checking amount of payment)
             await PageObjects.felyxPriceInfo();
