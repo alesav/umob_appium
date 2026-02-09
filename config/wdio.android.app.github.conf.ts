@@ -108,7 +108,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookPublicTransport.spec.ts",
         "../tests/specs/book/bookDott.spec.ts",
         //"../tests/specs/account/registration.spec.ts",
-        //"../tests/specs/account/locationPermissionOff.spec.ts",
+        "../tests/specs/account/locationPermissionOff.spec.ts",
         //"../tests/specs/book/2bookPublicTransport.spec.ts",
         /////////////////////////////////////////////////////////////////////////////////////////////
         //new user tests should be in some order
