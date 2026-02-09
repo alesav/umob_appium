@@ -12,6 +12,7 @@ export interface ScooterCoordinates {
 export interface Scooter {
     id: string;
     coordinates: ScooterCoordinates;
+    licensePlate: string;
     [key: string]: any; // For other properties we might not know about
 }
 

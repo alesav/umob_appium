@@ -71,6 +71,7 @@ const applyFilters = async () => {
 /////////////////////////////////////////////////////////////////////////////////
 describe("Reserve Felyx Test", () => {
     let scooters: Scooter[];
+    let targetScooter: Scooter;
 
     before(async () => {
         scooters = await fetchScooterCoordinates();
@@ -82,7 +83,11 @@ describe("Reserve Felyx Test", () => {
             password: credentials.password,
         });
 
-        const targetScooter = findFelyxScooter(scooters);
+        targetScooter = findFelyxScooter(scooters);
+
+        console.log("=== FULL SCOOTER DATA ===");
+        console.log(JSON.stringify(targetScooter, null, 2));
+        console.log("=========================");
 
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
@@ -177,8 +182,13 @@ describe("Reserve Felyx Test", () => {
             );
             await expect(felyxOperatorName).toBeDisplayed();
 
+            // Verify license plate dynamically from API response
+            console.log(
+                `Expected license plate: ${targetScooter.licensePlate}`,
+            );
+
             const felyxPlateNumber = await driver.$(
-                '-android uiautomator:new UiSelector().text("FAKE-E856MN")',
+                `-android uiautomator:new UiSelector().text("${targetScooter.licensePlate}")`,
             );
             await expect(felyxPlateNumber).toBeDisplayed();
 
