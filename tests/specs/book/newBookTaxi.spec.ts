@@ -81,46 +81,61 @@ describe("Book a Taxi", () => {
             await driver.pause(2000);
             // Verify screen header
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Book a taxi")',
+                '-android uiautomator:new UiSelector().text("Book Taxi")',
             );
             await expect(screenHeader).toBeDisplayed();
 
-            // Verify departure and destination input section
-            const departureDestinationLabel = await driver.$(
-                '-android uiautomator:new UiSelector().text("Enter pickup & destination points")',
+            //verify search button is present
+            const searchButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Search")',
             );
-            await expect(departureDestinationLabel).toBeDisplayed();
+            await searchButton.waitForDisplayed();
+            //await searchButton.click();
+
+            // Verify departure and destination input section
+            // const departureDestinationLabel = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Enter pickup & destination points")',
+            // );
+            // await expect(departureDestinationLabel).toBeDisplayed();
             await driver.pause(2000);
 
             // Click on destination and text
-            const el1 = await driver.$(
-                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)',
+            const destinationField = await driver.$(
+                '-android uiautomator:new UiSelector().text("Select destination")',
             );
-            await el1.addValue("Blaak 31");
-            await driver.pause(4000);
+            await expect(destinationField).toBeDisplayed();
+
+            await destinationField.click();
+            await driver.pause(1000);
+
+            // Find the input field (EditText) and enter address
+            const addressInput = await driver.$(
+                '-android uiautomator:new UiSelector().className("android.widget.EditText")',
+            );
+            await addressInput.waitForDisplayed();
+            await addressInput.setValue("Blaak 31");
 
             // First get the element's location and size
-            const location = await el1.getLocation();
-            const size = await el1.getSize();
+            // const location = await el1.getLocation();
+            // const size = await el1.getSize();
 
             // Set location to specific scooter coordinates
-            execSync(
-                `adb shell input tap ${location.x + 100}  ${location.y + size.height + 70}`,
-            );
+            // execSync(
+            //     `adb shell input tap ${location.x + 100}  ${location.y + size.height + 70}`,
+            // );
 
             //Verify that location is the same that was added
             const toLocation = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Blaak 31")',
+                '-android uiautomator:new UiSelector().textContains("Blaak 31 3011 GA Rotterdam")',
             );
             await expect(toLocation).toBeDisplayed();
+            await toLocation.click();
 
-            // click the continue button after adding destination
-            const continueButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Continue")',
-            );
-            await expect(continueButton).toBeDisplayed();
-            await continueButton.click();
-            await driver.pause(15000);
+            await driver.pause(2000);
+
+            await searchButton.click();
+
+            await driver.pause(5000);
         });
     });
 
@@ -316,12 +331,19 @@ describe("Book a Taxi", () => {
             await driver.pause(2000);
             await confirmCancelButton.click();
 
-            //check main screen is displayed
+            //check book taxi screen is displayed
+            const previousRides = await driver.$(
+                '-android uiautomator:new UiSelector().text("Previous rides")',
+            );
+            await expect(previousRides).toBeDisplayed();
+
+            //add small pause before verify posthog events
+            await driver.pause(3000);
 
             // Verify PostHog events
             try {
                 // Get Taxi button clicked event
-                const taxiEvent = await posthog.waitForEvent(
+                const taxiButtonEvent = await posthog.waitForEvent(
                     {
                         eventName: "Taxi button clicked",
                     },
@@ -336,7 +358,7 @@ describe("Book a Taxi", () => {
                 // Get Taxi Flow Started event
                 const taxiFlowEvent = await posthog.waitForEvent(
                     {
-                        eventName: "Taxi Flow Started",
+                        eventName: "Booking Flow Started",
                     },
                     {
                         maxRetries: 10,
@@ -359,20 +381,62 @@ describe("Book a Taxi", () => {
                     },
                 );
 
+                // Get Taxi Reservation Created event
+                const taxiResEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Taxi Reservation Created",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Transporter Ride Verified event
+                const transRideEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Transporter Ride Verified",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 3000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
+                // Get Taxi Reservation Cancelled event
+                const taxiResCancelEvent = await posthog.waitForEvent(
+                    {
+                        eventName: "Taxi Reservation Cancelled",
+                    },
+                    {
+                        maxRetries: 10,
+                        retryDelayMs: 5000,
+                        searchLimit: 20,
+                        maxAgeMinutes: 5,
+                    },
+                );
+
                 // If we got here, event was found with all criteria matching
-                posthog.printEventSummary(taxiEvent);
+                posthog.printEventSummary(taxiButtonEvent);
                 posthog.printEventSummary(taxiFlowEvent);
                 posthog.printEventSummary(taxiDestEvent);
+                posthog.printEventSummary(taxiResEvent);
+                posthog.printEventSummary(taxiResCancelEvent);
+                posthog.printEventSummary(transRideEvent);
 
                 // Verify Taxi button clicked event
-                expect(taxiEvent.event).toBe("Taxi button clicked");
-                expect(taxiEvent.person?.is_identified).toBe(true);
-                expect(taxiEvent.person?.properties?.email).toBe(
+                expect(taxiButtonEvent.event).toBe("Taxi button clicked");
+                expect(taxiButtonEvent.person?.is_identified).toBe(true);
+                expect(taxiButtonEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
                 );
 
-                // Verify Taxi Flow Started event
-                expect(taxiFlowEvent.event).toBe("Taxi Flow Started");
+                // Verify Booking Flow Started event
+                expect(taxiFlowEvent.event).toBe("Booking Flow Started");
                 expect(taxiFlowEvent.person?.is_identified).toBe(true);
                 expect(taxiFlowEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
@@ -382,6 +446,29 @@ describe("Book a Taxi", () => {
                 expect(taxiDestEvent.event).toBe("Taxi Destination Added");
                 expect(taxiDestEvent.person?.is_identified).toBe(true);
                 expect(taxiDestEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Taxi Reservation Created event
+                expect(taxiResEvent.event).toBe("Taxi Reservation Created");
+                expect(taxiResEvent.person?.is_identified).toBe(true);
+                expect(taxiResEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Taxi Reservation Cancelled event
+                expect(taxiResCancelEvent.event).toBe(
+                    "Taxi Reservation Cancelled",
+                );
+                expect(taxiResCancelEvent.person?.is_identified).toBe(true);
+                expect(taxiResCancelEvent.person?.properties?.email).toBe(
+                    "new34@gmail.com",
+                );
+
+                // Verify Transporter Ride Verified event
+                expect(transRideEvent.event).toBe("Transporter Ride Verified");
+                expect(transRideEvent.person?.is_identified).toBe(true);
+                expect(transRideEvent.person?.properties?.email).toBe(
                     "new34@gmail.com",
                 );
             } catch (posthogError) {

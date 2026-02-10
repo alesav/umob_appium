@@ -24,7 +24,7 @@ describe("Login Negative Scenarios", () => {
 
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log In")',
+                '-android uiautomator:new UiSelector().text("Log in")',
             );
             await logInBtn.isClickable();
             await driver.pause(2000);
@@ -130,7 +130,7 @@ describe("Login Negative Scenarios", () => {
 
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log In")',
+                '-android uiautomator:new UiSelector().text("Log in")',
             );
             await logInBtn.click();
 
@@ -287,7 +287,7 @@ describe("Login Negative Scenarios", () => {
         try {
             // Find and click LOG IN button
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log In")',
+                '-android uiautomator:new UiSelector().text("Log in")',
             );
             await logInBtn.click();
 

@@ -71,6 +71,7 @@ const applyFilters = async () => {
 /////////////////////////////////////////////////////////////////////////////////
 describe("Reserve Felyx Test", () => {
     let scooters: Scooter[];
+    let targetScooter: Scooter;
 
     before(async () => {
         scooters = await fetchScooterCoordinates();
@@ -82,7 +83,11 @@ describe("Reserve Felyx Test", () => {
             password: credentials.password,
         });
 
-        const targetScooter = findFelyxScooter(scooters);
+        targetScooter = findFelyxScooter(scooters);
+
+        console.log("=== FULL SCOOTER DATA ===");
+        console.log(JSON.stringify(targetScooter, null, 2));
+        console.log("=========================");
 
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
@@ -103,12 +108,44 @@ describe("Reserve Felyx Test", () => {
             await driver.pause(5000);
 
             const { centerX, centerY } = await getScreenCenter();
-            await driver.pause(2000);
+            await driver.pause(4000);
 
-            //Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            //Click on middle of the map (working solution with -180 on coordinates)
+            //await AppiumHelpers.clickCenterOfScreen();
+            /*
+            //tap on center screen
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: centerX,
+                            y: centerY - 200,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+
+            await driver.pause(2000);
+            // clearing the state of action
+            await driver.releaseActions();
 
             await driver.pause(4000);
+            */
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
@@ -138,6 +175,25 @@ describe("Reserve Felyx Test", () => {
                 },
             ]);
             await driver.pause(2000);
+
+            //verify name of Check operator
+            const felyxOperatorName = await driver.$(
+                '-android uiautomator:new UiSelector().text("FELYX")',
+            );
+            await expect(felyxOperatorName).toBeDisplayed();
+
+            // Verify license plate dynamically from API response
+            console.log(
+                `Expected license plate: ${targetScooter.licensePlate}`,
+            );
+
+            const felyxPlateNumber = await driver.$(
+                `-android uiautomator:new UiSelector().text("${targetScooter.licensePlate}")`,
+            );
+            await expect(felyxPlateNumber).toBeDisplayed();
+
+            //verify Pricing
+            await PageObjects.felyxPriceInfo();
 
             // Click Reserve button
             await PageObjects.reserveButton.waitForDisplayed();

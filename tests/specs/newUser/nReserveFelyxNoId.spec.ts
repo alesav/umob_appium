@@ -105,7 +105,14 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
             await driver.pause(3000);
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
             await driver.pause(3000);
 
             // Verify that driver's licence is not added

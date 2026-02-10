@@ -4,34 +4,93 @@ import {
     getCredentials,
     executeTest,
     fetchScooterCoordinates,
+    getApiConfig,
 } from "../../helpers/TestHelpers.js";
+
+import {
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const posthog = new PostHogHelper();
+
+const ENV = process.env.TEST_ENV || "test";
+const USER = process.env.TEST_USER || "new16";
+
+// Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
+const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
+    const apiConfig = getApiConfig(ENV);
+
+    try {
+        const response = await fetch(apiConfig.apiUrl, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: apiConfig.authToken,
+                "Accept-Language": "en",
+                "X-Requested-With": "XMLHttpRequest",
+                "App-Version": "1.23316.3.23316",
+                "App-Platform": "android",
+            },
+            body: JSON.stringify({
+                regionId: "",
+                stationId: "",
+                longitude: 4.4743720514863075,
+                latitude: 51.91731373726902,
+                radius: 101.6137310913994,
+                zoomLevel: 15.25,
+                subOperators: [],
+                assetClasses: [23],
+                operatorAvailabilities: [2, 1, 3],
+                showEmptyStations: false,
+                skipCount: 0,
+                sorting: "",
+                defaultMaxResultCount: 10,
+                maxMaxResultCount: 1000,
+                maxResultCount: 10,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Fetched scooter coordinates:", JSON.stringify(data));
+        return data.assets;
+    } catch (error) {
+        console.error("Error fetching scooter coordinates:", error);
+        throw error;
+    }
+};
 
 /////////////////////////////////////////////////////////////////////////////////
 
 let targetScooter;
 
 describe("verify that it is not possible to book a bike if you didnt pay for the previous ride", () => {
-    let scooters;
+    let scooters: Scooter[];
 
     before(async () => {
-        // Always use the new16 user from test environment for this specific test
-        const credentials = getCredentials("test", "new16");
-
+        // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
+        const credentials = getCredentials(ENV, USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
         });
 
-        targetScooter = scooters.find((scooter) =>
-            scooter.id.includes("UmobMock"),
-        );
+        const targetScooter = findFelyxScooter(scooters);
 
+        // Set location to specific scooter coordinates
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
             targetScooter.coordinates.latitude,
         );
+        await driver.pause(3000);
     });
 
     beforeEach(async () => {
@@ -44,12 +103,12 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
         await executeTest(testId, async () => {
             await driver.pause(7000);
 
-            await AppiumHelpers.setLocationAndRestartApp(
-                targetScooter.coordinates.longitude,
-                targetScooter.coordinates.latitude,
-            );
+            // await AppiumHelpers.setLocationAndRestartApp(
+            //     targetScooter.coordinates.longitude,
+            //     targetScooter.coordinates.latitude,
+            //  );
 
-            await driver.pause(5000);
+            // await driver.pause(5000);
 
             // Click on middle of the screen
             //await AppiumHelpers.clickCenterOfScreen();

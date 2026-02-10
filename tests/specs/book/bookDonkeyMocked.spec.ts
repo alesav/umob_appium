@@ -41,7 +41,14 @@ describe("Donkey Bike Booking Test", () => {
             await driver.pause(5000);
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
 
             // Click UMOB Bike 20 button
             const umob20Button = await driver.$(
@@ -51,21 +58,30 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(3000);
 
+            // Handle allow permissions
+            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
+            await PageObjects.androidPermissionButton.click();
+            await driver.pause(5000);
+
             // Verify that Euro symbol is displayed
             const euroSymbol = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€")',
             );
             await expect(euroSymbol).toBeDisplayed();
-            await driver.pause(5000);
+
+            //verify pricing
+            await PageObjects.donkeyPriceInfo();
+
+            const selectPayment = await driver.$(
+                '-android uiautomator:new UiSelector().text("**** **** 1115")',
+            );
+            await expect(selectPayment).toBeDisplayed();
+
+            await driver.pause(1000);
 
             // Click Start Trip button
             await PageObjects.startTripButton.waitForDisplayed();
             await PageObjects.startTripButton.click();
-
-            // Handle allow permissions
-            await expect(PageObjects.androidPermissionButton).toBeDisplayed();
-            await PageObjects.androidPermissionButton.click();
-            await driver.pause(2000);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.pause(2000);
@@ -96,8 +112,21 @@ describe("Donkey Bike Booking Test", () => {
 
             await driver.pause(3000);
 
+            await expect(PageObjects.donkeyLockText1).toBeDisplayed();
+
+            await expect(PageObjects.donkeyLockText2).toBeDisplayed();
+
             // Click to start and unlock the bike
 
+            await expect(PageObjects.dottContinueBtn).toBeDisplayed();
+            await PageObjects.dottContinueBtn.click();
+
+            await driver.pause(3000);
+            await expect(PageObjects.reportButton).toBeDisplayed();
+            await expect(PageObjects.markArrivalButton).toBeDisplayed();
+            await PageObjects.markArrivalButton.click();
+            /*
+            // old UI could always be back
             await PageObjects.donkeyStartButton2.waitForDisplayed({
                 timeout: 15000,
                 timeoutMsg: "start trip button not found after 15 seconds",
@@ -162,12 +191,12 @@ describe("Donkey Bike Booking Test", () => {
 
             await expect(PageObjects.continueButton).toBeDisplayed();
             await PageObjects.continueButton.click();
-
+*/
             // Pause for ride duration
             await driver.pause(8000);
 
             // Click end trip button
-            await PageObjects.endTripText.click();
+            await PageObjects.endTripButton.click();
 
             await driver.pause(2000);
 

@@ -28,8 +28,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.47395,
-                latitude: 51.921705,
+                longitude: 4.468478941582217,
+                latitude: 51.91702868001766,
                 radius: 200,
                 zoomLevel: 15.25,
                 subOperators: [],
@@ -132,7 +132,14 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
 
         await executeTest(testId, async () => {
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
             await driver.pause(6000);
 
             // Verify that new user voucher is visible
