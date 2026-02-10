@@ -313,7 +313,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
             await expect(useButton).toBeDisplayed();
             await driver.pause(2000);
             await useButton.click();
-            await driver.pause(2000);
+            await driver.pause(3000);
 
             // Click got it button
             await PageObjects.gotItButton.waitForDisplayed();
