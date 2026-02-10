@@ -143,8 +143,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.47446,
-                latitude: 51.92084,
+                longitude: 4.465013357657082,
+                latitude: 51.915053266230686,
                 radius: 200.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
@@ -185,8 +185,8 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-        const longitude = 4.47446;
-        const latitude = 51.92084;
+        const longitude = 4.465013357657082;
+        const latitude = 51.915053266230686;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
@@ -217,15 +217,25 @@ describe("Check Booking Test with unlimited multi voucher", () => {
                 targetScooter.coordinates.latitude,
             );
             await driver.pause(2000);
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
 
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
             await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            await driver.pause(4000);
 
             //verify that Euro simbol is displayed
             const euroSimbol = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€")',
             );
             await expect(euroSimbol).toBeDisplayed();
+
+            //verify pricing (lines are equal to Felyx)
+            await PageObjects.felyxPriceInfo();
 
             //verify that multi voucher is visible
             const vaucher = await driver.$(
@@ -272,11 +282,13 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(anouncement).toBeDisplayed();
 
-            //verify instruction
-            const instruction = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
-            );
-            await expect(instruction).toBeDisplayed();
+            // //verify instruction (not in use in some UI)
+            // const instruction = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
+            // );
+            // await expect(instruction).toBeDisplayed();
+            /*
+            //old UI booking procedure
 
             //verify open helmet case button
             const openCase = await driver.$(
@@ -331,17 +343,76 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(continueB2).toBeDisplayed();
             await continueB2.click();
-
+*/
             await driver.pause(2000);
+            await expect(PageObjects.continueButton).toBeDisplayed();
+            await PageObjects.continueButton.click();
+
+            // Verify warning message (not in use in some UI)
+            // const helmetWarning = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Helmet on, safety first!")',
+            // );
+            // await expect(helmetWarning).toBeDisplayed();
+
+            // // Verify continue2 button (not in use in some UI)
+            // await driver.pause(2000);
+            // await expect(PageObjects.continue2Button).toBeDisplayed();
+            // await PageObjects.continue2Button.click();
+
+            // Verify pause button
+            await PageObjects.pauseButton.waitForDisplayed();
+            await driver.pause(10000);
+
+            // Verify report issue button
+            await PageObjects.reportButton.waitForDisplayed();
+
+            //mark arrival button
+            await PageObjects.markArrivalButton.waitForDisplayed();
+            await PageObjects.markArrivalButton.click();
+
+            // continue instead of end trip button should be tapped in some UI when switching between UI
+            // await PageObjects.continueInsteadEndBtn.waitForDisplayed();
+            // await PageObjects.continueInsteadEndBtn.click();
+
+            // Verify announcement for return helmet
+            const helmetBack = await driver.$(
+                '-android uiautomator:new UiSelector().text("Return the helmet")',
+            );
+            await expect(helmetBack).toBeDisplayed();
+
+            // Verify helmet putting back instruction
+            const instruction2 = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Open the top case by pressing the red button")',
+            );
+            await expect(instruction2).toBeDisplayed();
+
+            // Click 3rd continue button
+            await PageObjects.continue3Button.waitForDisplayed();
+            await PageObjects.continue3Button.click();
+
+            // // Verify helmet return message (not in use in some UI)
+            // const helmetBackmsg = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Return helmet before you end ride")',
+            // );
+            // await expect(helmetBackmsg).toBeDisplayed();
+
+            // Click 4th continue button (not in use in some UI)
+            // await PageObjects.continue4Button.waitForDisplayed();
+            // await PageObjects.continue4Button.click();
+
+            // Allow permissions for take a photo
+            await expect(PageObjects.whileUsingAppPermission).toBeDisplayed();
+            await PageObjects.whileUsingAppPermission.click();
+            await driver.pause(5000);
 
             //allow permissions for take a photo
 
-            const permission = await driver.$(
-                "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
-            );
-            await expect(permission).toBeDisplayed();
-            await permission.click();
-            await driver.pause(4000);
+            // const permission = await driver.$(
+            //     "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
+            // );
+            // await expect(permission).toBeDisplayed();
+            // await permission.click();
+            // await driver.pause(4000);
 
             //verify parking photo header
             const parkingHeader = await driver.$(
@@ -355,12 +426,20 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await expect(photoInstruction).toBeDisplayed();
 
-            // Tap a button for taking photo
+            /*
+            // Tap a button for taking photo in old UI
             const photoButton = await driver.$(
                 '-android uiautomator:new UiSelector().resourceId("buttonContainer")',
             );
             await expect(photoButton).toBeDisplayed();
             await driver.pause(2000);
+            await photoButton.click();
+*/
+
+            //take a picture in new UI
+            const photoButton = await driver.$(
+                '-android uiautomator:new UiSelector().className("com.horcrux.svg.CircleView").instance(2)',
+            );
             await photoButton.click();
 
             await driver.pause(4000);
@@ -403,19 +482,17 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             // await expect(notNowButton).toBeDisplayed();
             // await notNowButton.click();
 
-            //verify that main map screen is displayed
+            // Verify that main map screen is displayed
             await PageObjects.clickAccountButton();
 
-            //verify that my account screen is displayed
-            const myRides = await driver.$(
-                '-android uiautomator:new UiSelector().text("My rides")',
-            );
-            await expect(myRides).toBeDisplayed();
+            // Verify that my account screen is displayed
+            await expect(PageObjects.myRidesButton).toBeDisplayed();
 
-            //click on my rides and tickets
-            await myRides.click();
+            // Click on my rides and tickets
+            await driver.pause(2000);
+            await PageObjects.myRidesButton.click();
 
-            //verify that payment is visible in my rides and tickets screen and it is 0 Euro
+            // Verify that payment is visible in my rides and tickets screen and it is 0 Euro
             const lastRide1 = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("€0")',
             );

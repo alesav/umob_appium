@@ -1,7 +1,20 @@
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
+import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import {
+    //getCredentials,
+    //executeTest,
+    getScreenCenter,
+} from "../../helpers/TestHelpers.js";
+import {
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 
 describe("Combined Not Logged User Tests", () => {
+    let scooters: Scooter[];
+
     beforeEach(async () => {
         await driver.activateApp("com.umob.umob");
         await driver.pause(7000);
@@ -10,14 +23,20 @@ describe("Combined Not Logged User Tests", () => {
         // Wait for and handle the initial popup
         try {
             // Wait for the popup text to be visible
+            // const popupText = await driver.$(
+            //     'android=new UiSelector().text("Sign up & get €10,-")',
+            // );
             const popupText = await driver.$(
-                'android=new UiSelector().text("Sign up & get €10,-")',
+                'android=new UiSelector().textContains("Ready to ride?")',
             );
             await popupText.waitForDisplayed({ timeout: 15000 });
 
             // Verify popup elements
+            // const popupDescription = await driver.$(
+            //     'android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")',
+            // );
             const popupDescription = await driver.$(
-                'android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")',
+                'android=new UiSelector().textContains("Join over 5.000 people who use umob")',
             );
             await expect(popupDescription).toBeDisplayed();
 
@@ -26,7 +45,29 @@ describe("Combined Not Logged User Tests", () => {
 
             await driver.pause(5000);
             await PageObjects.exploreMapButton.click();
-            await driver.pause(2000);
+            await driver.pause(3000);
+
+            scooters = await fetchScooterCoordinates();
+
+            // const credentials = getCredentials(ENV, USER);
+
+            // await PageObjects.login({
+            //     username: credentials.username,
+            //     password: credentials.password,
+            // });
+
+            const targetScooter = findFelyxScooter(scooters);
+
+            await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
+                targetScooter.coordinates.longitude,
+                targetScooter.coordinates.latitude,
+            );
+            await driver.pause(5000);
+
+            //await PageObjects.clickAccountButton();
+            await PageObjects.accountButton.waitForDisplayed({
+                timeout: 3000,
+            });
         } catch (error) {
             console.log("Popup not found or already handled:", error);
         }
@@ -110,6 +151,71 @@ describe("Combined Not Logged User Tests", () => {
         }
     });
 
+    it("verify Log in to claim button on Promos screen that leads to login page", async () => {
+        const testId = "f0beea49-25aa-45a3-8e02-8042d94d98a3";
+        // Send results
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            await PageObjects.promosBtn.waitForExist();
+
+            //click PLAN TRIP button to verify taxi and public transport options
+
+            await PageObjects.promosBtn.click();
+
+            await driver.pause(1000);
+
+            //get a promo notification
+            const gotPromo = await driver.$(
+                '-android uiautomator:new UiSelector().text("Got a promo code?")',
+            );
+            await expect(gotPromo).toBeDisplayed();
+
+            //tap Log in to claim button to go to login page
+            const logInToClaimBtn = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log in to claim")',
+            );
+            await expect(logInToClaimBtn).toBeDisplayed();
+            await logInToClaimBtn.click();
+
+            //verify Sign up button to check that we are on login page
+            const signUpBtn = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Sign up")',
+            );
+            await expect(signUpBtn).toBeDisplayed();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            // Capture screenshot on failure
+            screenshotPath = "./screenshots/" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+        } finally {
+            // Submit test run result
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            // If there was an error in the main try block, throw it here to fail the test
+            if (error) {
+                throw error;
+            }
+        }
+    });
+
     it("it should test support screen", async () => {
         const testId = "785c3575-e331-4b27-933c-54f78fcbceb3";
         // Send results
@@ -125,7 +231,9 @@ describe("Combined Not Logged User Tests", () => {
 
             // Verify screen header
             await expect(PageObjects.supportScreenHeader).toBeDisplayed();
-            await PageObjects.supportScreenHeader.waitForDisplayed({ timeout: 4000 });
+            await PageObjects.supportScreenHeader.waitForDisplayed({
+                timeout: 4000,
+            });
 
             // Verify tabs
             await expect(PageObjects.supportFaqTab).toBeDisplayed();
@@ -702,6 +810,97 @@ describe("Combined Not Logged User Tests", () => {
 
             // Verify sign up button
             await expect(PageObjects.registerButton).toBeDisplayed();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            // Capture screenshot on failure
+            screenshotPath = "./screenshots/" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+        } finally {
+            // Submit test run result
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            // If there was an error in the main try block, throw it here to fail the test
+            if (error) {
+                throw error;
+            }
+        }
+    });
+
+    it("should go to login page after choosing asset and click bottom button", async () => {
+        const testId = "7404b64e-33bb-4dfc-8524-0aadeb575f6a";
+        // Send results
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            // scooters = await fetchScooterCoordinates();
+
+            // // const credentials = getCredentials(ENV, USER);
+
+            // // await PageObjects.login({
+            // //     username: credentials.username,
+            // //     password: credentials.password,
+            // // });
+
+            // const targetScooter = findFelyxScooter(scooters);
+
+            // await AppiumHelpers.setLocationAndRestartApp(
+            //     targetScooter.coordinates.longitude,
+            //     targetScooter.coordinates.latitude,
+            // );
+            // await driver.pause(5000);
+
+            // //await PageObjects.clickAccountButton();
+            // await PageObjects.accountButton.waitForDisplayed({
+            //     timeout: 3000,
+            // });
+
+            await driver.pause(5000);
+            const { centerX, centerY } = await getScreenCenter();
+            await driver.pause(4000);
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+            await driver.pause(2000);
+
+            //verify Pricing
+            await PageObjects.felyxPriceInfo();
+
+            //tap "Log In To Start Ride" button
+            // const gotoLoginScreenButton = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Register To Unlock Discount")',
+            // );
+            const gotoLoginScreenButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log In To Start Ride")',
+            );
+            await expect(gotoLoginScreenButton).toBeDisplayed();
+            await gotoLoginScreenButton.click();
+
+            // verify that we are on login page
+            const forgotPasswordButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Forgot password?")',
+            );
+            await expect(forgotPasswordButton).toBeDisplayed();
         } catch (e) {
             error = e;
             console.error("Test failed:", error);

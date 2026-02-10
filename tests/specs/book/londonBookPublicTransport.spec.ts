@@ -26,8 +26,8 @@ describe("Book Public Transport", () => {
             "adb shell pm grant com.umob.umob android.permission.ACCESS_COARSE_LOCATION",
         );
 
-        const latitude = 51.9155956;
-        const longitude = 4.4744301;
+        const latitude = 51.49;
+        const longitude = -0.154;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
 
@@ -193,7 +193,7 @@ describe("Book Public Transport", () => {
             const el1 = await driver.$(
                 '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(1)',
             );
-            await el1.addValue("MA AIRPORT HOTEL");
+            await el1.addValue("Mast Street IG11 7FY Barking");
             await driver.pause(4000);
 
             // First get the element's location and size
@@ -206,7 +206,7 @@ describe("Book Public Transport", () => {
             );
 
             const chooseFromList = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("MA AIRPORT HOTEL")',
+                '-android uiautomator:new UiSelector().textContains("Mast Street IG11 7FY Barking")',
             );
             await expect(chooseFromList).toBeDisplayed();
 
@@ -232,13 +232,13 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
+                '-android uiautomator:new UiSelector().text("Mast Street IG11 7FY Barking")',
             );
             await expect(address).toBeDisplayed();
 
             // Select first route by clicking euro symbol
             const firstRoutePrice = await driver.$(
-                "(//android.widget.TextView[contains(@text, '€')])[1]",
+                "(//android.widget.TextView[contains(@text, '£')])[1]",
             );
             await expect(firstRoutePrice).toBeDisplayed();
             await firstRoutePrice.click();
@@ -336,7 +336,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
+                '-android uiautomator:new UiSelector().text("Mast Street IG11 7FY Barking")',
             );
             await expect(address).toBeDisplayed();
 
@@ -391,7 +391,7 @@ describe("Book Public Transport", () => {
             const fromLabels = await driver.$$(
                 '-android uiautomator:new UiSelector().text("From")',
             );
-            expect(fromLabels.length).toBe(3);
+            expect(fromLabels.length).toBe(2);
 
             // Alternative approach: count ticket containers by their partial resource-id pattern
             // const ticketContainers = await driver.$$(
@@ -512,7 +512,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().text("MA AIRPORT HOTEL Adrianahoeve 10 2131 MN Hoofddorp")',
+                '-android uiautomator:new UiSelector().text("Mast Street IG11 7FY Barking")',
             );
             await expect(address).toBeDisplayed();
 
@@ -538,7 +538,7 @@ describe("Book Public Transport", () => {
 
             // Check destination address is visible
             const address = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Adrianahoeve 10, 2131 MN Hoofddorp")',
+                '-android uiautomator:new UiSelector().textContains("Mast Street IG11 7FY Barking")',
             );
             await expect(address).toBeDisplayed();
 

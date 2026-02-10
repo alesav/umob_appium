@@ -1,10 +1,11 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
 import {
-    getCredentials,
-    executeTest,
-} from "../../helpers/TestHelpers.js";
-import { fetchScooterCoordinates, findFelyxScooter, type Scooter } from "../../helpers/ScooterCoordinates.js";
+    fetchScooterCoordinates,
+    findFelyxScooter,
+    type Scooter,
+} from "../../helpers/ScooterCoordinates.js";
 
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "newUser";
@@ -40,7 +41,7 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
         await executeTest(testId, async () => {
             const targetScooter = findFelyxScooter(scooters);
             await driver.pause(3000);
-            
+
             // Set location to specific scooter coordinates
             await AppiumHelpers.setLocationAndRestartApp(
                 targetScooter.coordinates.longitude,
@@ -49,7 +50,14 @@ describe("Trying to Reserve Felyx by a New User Without a Card", () => {
             await driver.pause(5000);
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
             await driver.pause(3000);
 
             // Verify that payment method not set up

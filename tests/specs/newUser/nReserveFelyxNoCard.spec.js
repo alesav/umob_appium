@@ -345,10 +345,17 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
                     targetScooter.coordinates.longitude,
                     targetScooter.coordinates.latitude,
                 );
-                await driver.pause(5000);
+                await driver.pause(6000);
 
                 // Click on center of screen to interact with map
-                await FelyxScooterActions.clickCenterOfScreen();
+                //await FelyxScooterActions.clickCenterOfScreen();
+
+                // get center of the map (not the center of the screen!)
+                const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+                await driver.pause(3000);
+
+                // CLick on map center (operator located in the center of the map)
+                await driver.execute("mobile: clickGesture", { x, y });
 
                 // Verify that payment method is not set up
                 await FelyxScooterActions.verifySelectPaymentMethod();

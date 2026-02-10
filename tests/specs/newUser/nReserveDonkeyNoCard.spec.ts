@@ -1,9 +1,6 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import {
-    getCredentials,
-    executeTest,
-} from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
 
 const ENV = process.env.TEST_ENV || "test";
 const USER = process.env.TEST_USER || "newUser";
@@ -40,7 +37,14 @@ describe("Trying to Book Donkey bike by a New User Without a Card", () => {
             const { width, height } = await driver.getWindowSize();
 
             // Click on middle of the screen
-            await AppiumHelpers.clickCenterOfScreen();
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
 
             await driver.pause(2000);
 

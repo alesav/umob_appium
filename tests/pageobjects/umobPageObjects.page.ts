@@ -40,15 +40,16 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("My rides")');
     }
     get publicTransportButton() {
-        return $(
-            '-android uiautomator:new UiSelector().text("Public Transport")',
-        );
+        return $('-android uiautomator:new UiSelector().text("Buy a ticket")');
     }
     get grabTaxiButton() {
         return $('-android uiautomator:new UiSelector().text("Book now")');
     }
 
     // Trip related elements
+    get priceButton() {
+        return $('-android uiautomator:new UiSelector().text("Price")');
+    }
     get reserveButton() {
         return $('-android uiautomator:new UiSelector().text("Reserve")');
     }
@@ -71,8 +72,31 @@ class PageObjects extends Page {
             '-android uiautomator:new UiSelector().textContains("Pull the lock from")',
         );
     }
+
+    get dottContinueBtn() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get dottContinue2Btn() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+
     get endTripButton() {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
+    }
+    get markArrivalButton() {
+        return $('-android uiautomator:new UiSelector().text("Mark Arrival")');
+    }
+    get pauseButton() {
+        return $('-android uiautomator:new UiSelector().text("Pause")');
+    }
+    get reportButton() {
+        return $('-android uiautomator:new UiSelector().text("Report Issue")');
+    }
+    get continue3Button() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get continue4Button() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
     }
     get gotItButton() {
         return $('-android uiautomator:new UiSelector().text("Got It!")');
@@ -81,6 +105,12 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("Retry")');
     }
     get continueButton() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get continue2Button() {
+        return $('-android uiautomator:new UiSelector().text("Continue")');
+    }
+    get continueInsteadEndBtn() {
         return $('-android uiautomator:new UiSelector().text("Continue")');
     }
     get inviteFriendsButton() {
@@ -99,12 +129,93 @@ class PageObjects extends Page {
         );
     }
 
+    async felyxPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Unlock")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Riding")',
+        );
+        await expect(el3).toBeDisplayed();
+        const el4 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Pausing")',
+        );
+        await expect(el4).toBeDisplayed();
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
+    }
+
+    async dottPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await driver.pause(2000);
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Unlock")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Riding")',
+        );
+        await expect(el3).toBeDisplayed();
+
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
+    }
+
+    async donkeyPriceInfo() {
+        await this.priceButton.waitForDisplayed();
+        await this.priceButton.click();
+        await driver.pause(2000);
+        const el1 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("€5.00")',
+        );
+        await expect(el1).toBeDisplayed();
+        const el2 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("15 minutes")',
+        );
+        await expect(el2).toBeDisplayed();
+        const el3 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("30 minutes")',
+        );
+        await expect(el3).toBeDisplayed();
+
+        const el5 = await driver.$(
+            '-android uiautomator:new UiSelector().textContains("Got It")',
+        );
+        await expect(el5).toBeDisplayed();
+        await el5.click();
+    }
+
     // Donkey Republic Booking Elements
     get locationButton() {
         return $(
             '-android uiautomator:new UiSelector().resourceId("home_location_button")',
         );
     }
+
+    get positionAllowButton() {
+        return $("com.android.permissioncontroller:id/permission_allow_button");
+    }
+
     get endTripText() {
         return $("accessibility id:endTrip-text");
     }
@@ -142,7 +253,7 @@ class PageObjects extends Page {
     }
     get logInButton() {
         return $(
-            '-android uiautomator:new UiSelector().textContains("Log In")',
+            '-android uiautomator:new UiSelector().textContains("Log in")',
         );
     }
 
@@ -151,7 +262,7 @@ class PageObjects extends Page {
         return $("accessibility id:scan-to-ride-button");
     }
     get scanVehicleButton() {
-        return $('-android uiautomator:new UiSelector().text("Scan Vehicle")');
+        return $('-android uiautomator:new UiSelector().text("Scan vehicle")');
     }
     get vehicleIdInput() {
         return $("class name:android.widget.EditText");
@@ -283,6 +394,9 @@ class PageObjects extends Page {
         return $(
             '-android uiautomator:new UiSelector().textContains("hile using the app")',
         );
+    }
+    get whileUsingAppPermissionDenied() {
+        return $('-android uiautomator:new UiSelector().textContains("don")');
     }
     get androidPermissionAllowButton() {
         return $(
@@ -472,7 +586,7 @@ class PageObjects extends Page {
             );
             await driver.pause(3000);
             const logInBtn = await driver.$(
-                '-android uiautomator:new UiSelector().text("Log In")',
+                '-android uiautomator:new UiSelector().text("Log in")',
             );
             await logInBtn.waitForDisplayed({ timeout: 200000 });
             await logInBtn.waitForEnabled();
@@ -506,6 +620,88 @@ class PageObjects extends Page {
             await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
+        } catch (e) {
+            error = e;
+            console.error("Login failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            screenshotPath = "./screenshots/login_" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Login failure report submitted successfully");
+            } catch (submitError) {
+                console.error(
+                    "Failed to submit login failure report:",
+                    submitError,
+                );
+            }
+
+            throw error;
+        }
+    }
+
+    async loginWithoutLocationPermission({
+        username,
+        password,
+    }: {
+        username: string;
+        password: string;
+    }) {
+        const testId = "b6f88693-4e0a-4958-8d26-b4f3a4d0b7d6";
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            const deviceCapabilities = JSON.stringify(driver.capabilities);
+            console.log(
+                "Login with: " + username + " and password: " + password,
+            );
+            await driver.pause(3000);
+            const logInBtn = await driver.$(
+                '-android uiautomator:new UiSelector().text("Log in")',
+            );
+            await logInBtn.waitForDisplayed({ timeout: 200000 });
+            await logInBtn.waitForEnabled();
+            await driver.pause(5000);
+            await logInBtn.click();
+
+            const usernameField = await driver.$(
+                "accessibility id:login_username_field",
+            );
+            await expect(usernameField).toBeDisplayed();
+            await usernameField.addValue(username);
+
+            const passwordField = await driver.$(
+                "accessibility id:login_password_field",
+            );
+            await expect(passwordField).toBeDisplayed();
+            await passwordField.addValue(password);
+
+            const loginButtonText = await driver.$(
+                "accessibility id:login_button-text",
+            );
+            await expect(loginButtonText).toBeDisplayed();
+            await loginButtonText.click();
+
+            const loginButton = await driver.$("accessibility id:login_button");
+            await expect(loginButton).toBeDisplayed();
+            await loginButton.click();
+
+            // Handle location permissions
+            await this.allowPermissionButton.click();
+            await driver.pause(4000);
+            await this.whileUsingAppPermissionDenied.waitForDisplayed();
+            await this.whileUsingAppPermissionDenied.click();
         } catch (e) {
             error = e;
             console.error("Login failed:", error);

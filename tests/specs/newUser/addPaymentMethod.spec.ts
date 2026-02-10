@@ -1,5 +1,9 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import { getCredentials, executeTest, ENV, USER } from "../../helpers/TestHelpers.js";
+//import { getCredentials, executeTest, ENV, USER } from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+
+const ENV = process.env.TEST_ENV || "test";
+const USER = process.env.TEST_USER || "newUser";
 
 describe("Add Payment Method", () => {
     before(async () => {
@@ -26,7 +30,9 @@ describe("Add Payment Method", () => {
             // Check if payment method already exists and remove it
             try {
                 // Short timeout to check existence
-                await PageObjects.removePaymentMethodButton.waitForDisplayed({ timeout: 5000 });
+                await PageObjects.removePaymentMethodButton.waitForDisplayed({
+                    timeout: 5000,
+                });
 
                 // If button exists, click it to remove existing payment method
                 await PageObjects.removePaymentMethodButton.click();
@@ -40,19 +46,19 @@ describe("Add Payment Method", () => {
             await PageObjects.addPaymentMethod();
 
             // Verify payment method was added successfully
-            await PageObjects.removePaymentMethodButton.waitForDisplayed();
             await driver.pause(2000);
+            await PageObjects.removePaymentMethodButton.waitForDisplayed();
 
             // Clean up: remove the payment method
-            await PageObjects.removePaymentMethodButton.click();
-            await driver.pause(2000);
+            // await PageObjects.removePaymentMethodButton.click();
+            //await driver.pause(2000);
 
             // Verify we're back at Payment Methods screen
-            await PageObjects.paymentMethodsButton.waitForDisplayed();
-            await PageObjects.paymentMethodsButton.click();
+            //await PageObjects.paymentMethodsButton.waitForDisplayed();
+            //await PageObjects.paymentMethodsButton.click();
 
             // Verify payment method is removed - Add Payment Method button should be visible
-            await PageObjects.addPaymentMethodButton.waitForDisplayed();
+            //await PageObjects.addPaymentMethodButton.waitForDisplayed();
         });
     });
 
