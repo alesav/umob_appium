@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { ENV } from "./TestHelpers.js";
 
 const submitTestRun = async (
     testId: string,
@@ -17,6 +18,7 @@ const submitTestRun = async (
             JSON.stringify({
                 status,
                 details,
+                environment: ENV,
                 hash: "60e35107-893f-4204-980f-e0150c9b8884",
             }),
         );
@@ -38,7 +40,7 @@ const submitTestRun = async (
             formData.append("file", file);
         }
 
-        const postUrl = "https://umobqa.pages.dev/api/v2/runs/" + testId;
+        const postUrl = "https://umobqa.smspm.com/api/v2/runs/" + testId;
 
         console.log("POST URL:" + postUrl);
         const response = await fetch(postUrl, {

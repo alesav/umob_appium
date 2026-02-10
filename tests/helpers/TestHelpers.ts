@@ -134,7 +134,7 @@ export const getScreenCenter = async (): Promise<ScreenDimensions> => {
 export const fetchScooterCoordinates = async (): Promise<ScooterAsset[]> => {
     try {
         const apiConfig = getApiConfig(ENV);
-        
+
         const response = await fetch(apiConfig.apiUrl, {
             method: "POST",
             headers: {
@@ -185,7 +185,7 @@ export const fetchScooterCoordinates = async (): Promise<ScooterAsset[]> => {
  * @returns Promise<void>
  */
 export async function executeTest(
-    testId: string, 
+    testId: string,
     testFunction: () => Promise<void>
 ): Promise<void> {
     let testStatus = "Pass";
@@ -223,6 +223,22 @@ export async function executeTest(
 // Environment configuration
 export const ENV: string = process.env.TEST_ENV || "test";
 export const USER: string = process.env.TEST_USER || "new12";
+
+// Environment helpers
+export const isTest = ENV === "test";
+export const isAccept = ENV === "accept";
+export const isProd = ENV === "prod";
+
+/**
+ * Helper to skip a test if running in Accept environment
+ * Useful for tests that involve real money or irreversible actions
+ */
+export function skipIfAccept(testContext: Mocha.Context) {
+    if (isAccept) {
+        console.log(">>> SKIPPING TEST: Not allowed in Accept environment");
+        testContext.skip();
+    }
+}
 
 // Common error messages for nearby assets
 export const NEARBY_ASSETS_ERROR_MESSAGES: string[] = [

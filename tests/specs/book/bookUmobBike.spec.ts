@@ -10,54 +10,16 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
+import {
+    getCredentials,
+    ENV,
+    USER,
+    isAccept,
+    isTest,
+} from "../../helpers/TestHelpers.js";
 
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new62";
+// const ENV = process.env.TEST_ENV || "test";
+// const USER = process.env.TEST_USER || "new62";
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -65,17 +27,7 @@ const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
 const AUTH_TOKEN =
     "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkZEMTM2Q0Y3Nzg3RDhGRUM4RDQzMUFDRUY2M0IxQURCODI3RjMzMjEiLCJ4NXQiOiJfUk5zOTNoOWoteU5ReHJPOWpzYTI0Sl9NeUUiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NjE4MTM5MzEsImlhdCI6MTc1NDAzNzkzMSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjJkOThhM2RjLTQwYmQtNDkyYS1iNGU5LTEzMWRiMzFkOWE1NCIsInN1YiI6Ijc3ZDg4ZjhhLTBkODAtNDVkMS1iZGZkLTc3NjE2YmRmMGViMCIsInByZWZlcnJlZF91c2VybmFtZSI6Im5ldzE1QGdtYWlsLmNvbSIsImVtYWlsIjoibmV3MTVAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldzE1IiwiZmFtaWx5X25hbWUiOiJTbmV3MTUiLCJwaG9uZV9udW1iZXIiOiIrMzE5NzAxMDU4MDMwMiIsInBob25lX251bWJlcl92ZXJpZmllZCI6IlRydWUiLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwic2Vzc2lvbl9pZCI6Ijc5Y2FhMzI2LThjNzMtNDU1Ny1hNDJjLTgzNGIyMDFiNjUyYiIsInVuaXF1ZV9uYW1lIjoibmV3MTVAZ21haWwuY29tIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImU4MjY0N2ZmLTRhMTYtOGZjMy1iZDQ0LTNhMWI3NmZiYTc3NCIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiYTVhMzcyMi0zNTcyLTNlYzMtMTM3Yi0zYTFiNzZmYmE4MDAifQ.kswKL_MyhB5LM3kZv19WMpSdkSlApdYabI0SSBqvlD4FjoZpOHaXlayJBCoMD7LG9HbPKrE58TwfPKpWGvv0InkMPH7Lsr3bVwgiD5hv2PXr-GBNH0LzF13q3jDN6Gs5-MDtB1s7K-bKfvVxFr6N1--i11A-AgvTY_xrBpJcfeCE74iHqDX4wkXvCwq_kyv-O6RffC4Lje53oPRzq7ymjMunFi_wsmcDIjF9vGyhlRcGTAmv3y2vKXtJrvEOtQIXmqlLfvWp0JSAiBNle33psvWROQjTVOL6q6alEDe7PzJHzoLZgn8bgE3QWQo-GOFlaZYTjJAcnvZ08ljqboJTOA";
 
-const getScreenCenter = async () => {
-    // Get screen dimensions
-    const { width, height } = await driver.getWindowSize();
-
-    return {
-        centerX: Math.round(width / 2),
-        centerY: Math.round(height / 2),
-        screenWidth: width,
-        screenHeight: height,
-    };
-};
+import { getScreenCenter, fetchScooterCoordinates } from "../../helpers/TestHelpers.js";
 
 // Filter mopeds and stations
 const applyFilters = async () => {
@@ -127,50 +79,7 @@ const applyFilters = async () => {
         .click();
 };
 
-const fetchScooterCoordinates = async () => {
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: AUTH_TOKEN,
-                "Accept-Language": "en",
-                "X-Requested-With": "XMLHttpRequest",
-                "App-Version": "1.26124.3.26124",
-                "App-Platform": "android",
-            },
-            body: JSON.stringify({
-                regionId: "",
-                stationId: "",
-                longitude: 4.4773, //4.477300196886063,
-                latitude: 51.9235, //51.92350013464292,
-                radius: 1166.6137310913994,
-                zoomLevel: 15.25,
-                subOperators: [],
-                assetClasses: [17, 23, 24],
-                operatorAvailabilities: [2, 1, 3],
-                showEmptyStations: false,
-                skipCount: 0,
-                sorting: "",
-                defaultMaxResultCount: 10,
-                maxMaxResultCount: 1000,
-                maxResultCount: 10,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Fetched scooter coordinates:", JSON.stringify(data));
-        return data.assets;
-    } catch (error) {
-        console.error("Error fetching scooter coordinates:", error);
-        throw error;
-    }
-};
+// fetchScooterCoordinates is now imported from TestHelpers.js
 /////////////////////////////////////////////////////////////////////////////////
 describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => {
     let scooters;
@@ -191,6 +100,10 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             (scooter) =>
                 scooter.id === "UmobMock:QZGKL2BP2CI25_ROTTERDAM_EBIKE",
         );
+
+        if (!targetScooter) {
+            throw new Error("Target scooter 'UmobMock:QZGKL2BP2CI25_ROTTERDAM_EBIKE' not found in API response");
+        }
 
         await AppiumHelpers.setLocationAndRestartApp(
             targetScooter.coordinates.longitude,
@@ -246,13 +159,18 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
             //     .$('-android uiautomator:new UiSelector().text("No voucher")')
             //     .click();
 
-            // Click Start
-            await PageObjects.startTripButton.waitForDisplayed();
-            await PageObjects.startTripButton.click();
+            // Click Start - ONLY IN TEST ENVIRONMENT
+            if (isTest) {
+                await PageObjects.startTripButton.waitForDisplayed();
+                await PageObjects.startTripButton.click();
 
-            // Click End Trip
-            await PageObjects.endTripButton.waitForDisplayed();
-            await PageObjects.endTripButton.click();
+                // Click End Trip
+                await PageObjects.endTripButton.waitForDisplayed();
+                await PageObjects.endTripButton.click();
+            } else {
+                console.log(">>> SKIPPING REAL BOOKING: Environment is NOT 'test'");
+                return; // End test here for Accept/Prod
+            }
 
             await driver.pause(10000);
 

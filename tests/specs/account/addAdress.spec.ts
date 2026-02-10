@@ -1,7 +1,14 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
+import {
+    getCredentials,
+    executeTest,
+    ENV,
+    USER,
+    isAccept,
+    isTest,
+} from "../../helpers/TestHelpers.js";
 
-const USER = "new12";
+// const USER = "new12";
 
 describe("Add address for any user", () => {
     before(async () => {
