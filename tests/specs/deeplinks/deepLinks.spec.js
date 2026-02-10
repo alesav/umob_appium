@@ -62,6 +62,12 @@ class DeepLinkTestHelper {
 }
 
 // Deep Link Test Configuration
+
+// To Do: Add new deep links
+// https://app.umobapp.com/applink/?url=/my-account/vouchers/ABc1234-yes
+// https://app.umobapp.com/my-account/vouchers/ABc1234-yes
+// umob://my-account/vouchers/ABc1234-yes
+// Removed payment deeplink
 const deepLinkNotLoggedIn = [
     {
         name: "ID Document screen Deep Link",
