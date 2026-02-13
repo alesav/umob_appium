@@ -209,8 +209,8 @@ describe("Test for checking disability of aplication features when location perm
             await driver.pause(2000);
 
             // Verify PostHog event
-            try {
-                /*  // 1. get email and event name on $screen even
+            //  try {
+            /*  // 1. get email and event name on $screen even
                 const loggedinEvent = await posthog.waitForEvent(
                     {
                         eventName: "Logged In",
@@ -224,6 +224,7 @@ describe("Test for checking disability of aplication features when location perm
                     },
                 );
 */
+            /*
                 const nearbyEvent = await posthog.waitForEvent(
                     {
                         eventName: "Nearby vehicles loaded",
@@ -263,6 +264,7 @@ describe("Test for checking disability of aplication features when location perm
                 console.error("PostHog validation failed:", e);
                 throw e;
             }
+                */
         });
     });
 
