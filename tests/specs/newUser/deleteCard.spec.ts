@@ -1,15 +1,11 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import PostHogHelper from "../../helpers/PosthogHelper.js";
-import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
-const posthog = new PostHogHelper();
-
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "newUser";
+const TEST_USER = "newUser";
 
 describe("Remove payment card for the new user", () => {
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,

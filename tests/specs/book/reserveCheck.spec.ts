@@ -56,8 +56,7 @@ function getCredentials(
 }
 
 // Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new25";
+const TEST_USER = "new25";
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -171,7 +170,7 @@ describe("Check Reservation Tests", () => {
     before(async () => {
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         // await PageObjects.login(credentials);
         await PageObjects.login({

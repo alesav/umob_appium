@@ -4,10 +4,10 @@ import {
     getCredentials,
     executeTest,
     getApiConfig,
+    ENV,
 } from "../../helpers/TestHelpers.js";
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "newUser";
+const TEST_USER = "newUser";
 
 // Fetch scooter coordinates from API (specific to this test location)
 const fetchScooterCoordinates = async () => {
@@ -99,7 +99,7 @@ describe("Trying to Reserve Check by a New User Without a Card", () => {
     let scooters;
 
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();

@@ -1,13 +1,12 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new36";
+const TEST_USER = "new36";
 
 describe("Donkey Bike Booking Test with unlimited multi voucher", () => {
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

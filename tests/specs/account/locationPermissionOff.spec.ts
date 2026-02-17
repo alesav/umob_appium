@@ -7,10 +7,11 @@ import {
     executeTest,
     fetchScooterCoordinates,
     ENV,
-    USER,
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
+
+const TEST_USER = "new12";
 
 console.log("=== DEBUG ENV ===");
 console.log("POSTHOG_API_KEY exists:", !!process.env.POSTHOG_API_KEY);
@@ -30,7 +31,7 @@ describe("Test for checking disability of aplication features when location perm
     before(async () => {
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.loginWithoutLocationPermission({
             username: credentials.username,

@@ -1,13 +1,12 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 //import { getCredentials, executeTest, ENV, USER } from "../../helpers/TestHelpers.js";
-import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "newUser";
+const TEST_USER = "newUser";
 
 describe("Add Payment Method", () => {
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
