@@ -5,29 +5,20 @@ import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import {
+    getCredentials,
+    getScreenCenter,
+    fetchScooterCoordinates,
+    ENV,
+    isAccept,
+    isTest,
+} from "../../helpers/TestHelpers.js";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import {
-    getCredentials,
-    ENV,
-    USER,
-    isAccept,
-    isTest,
-} from "../../helpers/TestHelpers.js";
-
-// const ENV = process.env.TEST_ENV || "test";
-// const USER = process.env.TEST_USER || "new62";
-
-/////////////////////////////////////////////////////////////////////////////////
-
-const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
-const AUTH_TOKEN =
-    "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkZEMTM2Q0Y3Nzg3RDhGRUM4RDQzMUFDRUY2M0IxQURCODI3RjMzMjEiLCJ4NXQiOiJfUk5zOTNoOWoteU5ReHJPOWpzYTI0Sl9NeUUiLCJ0eXAiOiJhdCtqd3QifQ.eyJpc3MiOiJodHRwczovL2JhY2tlbmQtdGVzdC51bW9iYXBwLmNvbS8iLCJleHAiOjE3NjE4MTM5MzEsImlhdCI6MTc1NDAzNzkzMSwiYXVkIjoidU1vYiIsInNjb3BlIjoib2ZmbGluZV9hY2Nlc3MgdU1vYiIsImp0aSI6IjJkOThhM2RjLTQwYmQtNDkyYS1iNGU5LTEzMWRiMzFkOWE1NCIsInN1YiI6Ijc3ZDg4ZjhhLTBkODAtNDVkMS1iZGZkLTc3NjE2YmRmMGViMCIsInByZWZlcnJlZF91c2VybmFtZSI6Im5ldzE1QGdtYWlsLmNvbSIsImVtYWlsIjoibmV3MTVAZ21haWwuY29tIiwiZ2l2ZW5fbmFtZSI6Ik5ldzE1IiwiZmFtaWx5X25hbWUiOiJTbmV3MTUiLCJwaG9uZV9udW1iZXIiOiIrMzE5NzAxMDU4MDMwMiIsInBob25lX251bWJlcl92ZXJpZmllZCI6IlRydWUiLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwic2Vzc2lvbl9pZCI6Ijc5Y2FhMzI2LThjNzMtNDU1Ny1hNDJjLTgzNGIyMDFiNjUyYiIsInVuaXF1ZV9uYW1lIjoibmV3MTVAZ21haWwuY29tIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6ImU4MjY0N2ZmLTRhMTYtOGZjMy1iZDQ0LTNhMWI3NmZiYTc3NCIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiJiYTVhMzcyMi0zNTcyLTNlYzMtMTM3Yi0zYTFiNzZmYmE4MDAifQ.kswKL_MyhB5LM3kZv19WMpSdkSlApdYabI0SSBqvlD4FjoZpOHaXlayJBCoMD7LG9HbPKrE58TwfPKpWGvv0InkMPH7Lsr3bVwgiD5hv2PXr-GBNH0LzF13q3jDN6Gs5-MDtB1s7K-bKfvVxFr6N1--i11A-AgvTY_xrBpJcfeCE74iHqDX4wkXvCwq_kyv-O6RffC4Lje53oPRzq7ymjMunFi_wsmcDIjF9vGyhlRcGTAmv3y2vKXtJrvEOtQIXmqlLfvWp0JSAiBNle33psvWROQjTVOL6q6alEDe7PzJHzoLZgn8bgE3QWQo-GOFlaZYTjJAcnvZ08ljqboJTOA";
-
-import { getScreenCenter, fetchScooterCoordinates } from "../../helpers/TestHelpers.js";
+const TEST_USER = "new62";
 
 // Filter mopeds and stations
 const applyFilters = async () => {
@@ -88,7 +79,7 @@ describe("Mocked Umob Bikes (with constant errors) trying Booking Tests", () => 
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         // await PageObjects.login(credentials);
         await PageObjects.login({

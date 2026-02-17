@@ -220,9 +220,8 @@ export async function executeTest(
     }
 }
 
-// Environment configuration
+// Environment configuration - driven by npm script (TEST_ENV=test or TEST_ENV=accept)
 export const ENV: string = process.env.TEST_ENV || "test";
-export const USER: string = process.env.TEST_USER || "new12";
 
 // Environment helpers
 export const isTest = ENV === "test";

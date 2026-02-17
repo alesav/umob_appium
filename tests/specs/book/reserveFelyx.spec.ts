@@ -4,6 +4,7 @@ import {
     getCredentials,
     executeTest,
     getScreenCenter,
+    ENV,
 } from "../../helpers/TestHelpers.js";
 import {
     fetchScooterCoordinates,
@@ -14,9 +15,7 @@ import PostHogHelper from "../../helpers/PosthogHelper.js";
 
 const posthog = new PostHogHelper();
 
-// Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new18";
+const TEST_USER = "new18";
 
 // Filter mopeds and stations
 const applyFilters = async () => {
@@ -76,7 +75,7 @@ describe("Reserve Felyx Test", () => {
     before(async () => {
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,

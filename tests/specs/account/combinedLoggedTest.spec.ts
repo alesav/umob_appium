@@ -3,14 +3,14 @@ import {
     getCredentials,
     executeTest,
     ENV,
-    USER,
     isAccept,
     isTest,
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
-// const ENV = process.env.TEST_ENV || "test";
-// const USER = process.env.TEST_USER || "new78";
+// This test uses "new78" in both Test and Accept environments.
+// ENV is set automatically by the npm script (test or accept).
+const TEST_USER = "new78";
 
 const posthog = new PostHogHelper();
 
@@ -23,7 +23,7 @@ describe("Combined test for the logged in old user with rides history", () => {
     });
 
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

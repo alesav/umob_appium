@@ -4,6 +4,7 @@ import {
     getCredentials,
     executeTest,
     getApiConfig,
+    ENV,
 } from "../../helpers/TestHelpers.js";
 import {
     findFelyxScooter,
@@ -12,9 +13,7 @@ import {
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
 const posthog = new PostHogHelper();
-
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new67";
+const TEST_USER = "new67";
 
 // Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
 const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
@@ -71,7 +70,7 @@ describe("Felyx Booking Test with unlimited multi voucher", () => {
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

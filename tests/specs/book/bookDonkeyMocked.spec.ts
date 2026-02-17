@@ -1,16 +1,15 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
 
 const posthog = new PostHogHelper();
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new45";
+const TEST_USER = "new45";
 
 describe("Donkey Bike Booking Test", () => {
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,

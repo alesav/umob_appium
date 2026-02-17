@@ -1,21 +1,16 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
-import {
-    getCredentials,
-    executeTest,
-    ENV,
-    USER,
-    isAccept,
-    isTest,
-} from "../../helpers/TestHelpers.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
-// const USER = "new12";
+// This test uses "new12" in both Test and Accept environments.
+// ENV is set automatically by the npm script (test or accept).
+const TEST_USER = "new12";
 
 describe("Add address for any user", () => {
     before(async () => {
         // This will automatically use the correct environment (test or accept)
         // and the correct user (new12) based on environment variables set in package.json
-        const credentials = getCredentials(ENV, USER);
-        console.log(`Using credentials for environment: ${ENV}, user: ${USER}`);
+        const credentials = getCredentials(ENV, TEST_USER);
+        console.log(`Using credentials for environment: ${ENV}, user: ${TEST_USER}`);
         console.log(`Username: ${credentials.username}`);
 
         await PageObjects.login({

@@ -2,62 +2,9 @@ import { execSync } from "child_process";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
-// Get the directory name in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Function to load credentials based on environment and user
-function getCredentials(
-    environment: string = "test",
-    userKey: string | null = null,
-) {
-    try {
-        const credentialsPath = path.resolve(
-            __dirname,
-            "../../../config/credentials.json",
-        );
-        const credentials = JSON.parse(
-            fs.readFileSync(credentialsPath, "utf8"),
-        );
-
-        // Check if environment exists
-        if (!credentials[environment]) {
-            console.warn(
-                `Environment '${environment}' not found in credentials file. Using 'test' environment.`,
-            );
-            environment = "test";
-        }
-
-        const envUsers = credentials[environment];
-
-        // If no specific user is requested, use the first user in the environment
-        if (!userKey) {
-            userKey = Object.keys(envUsers)[0];
-        } else if (!envUsers[userKey]) {
-            console.warn(
-                `User '${userKey}' not found in '${environment}' environment. Using first available user.`,
-            );
-            userKey = Object.keys(envUsers)[0];
-        }
-
-        // Return the user credentials
-        return {
-            username: envUsers[userKey].username,
-            password: envUsers[userKey].password,
-        };
-    } catch (error) {
-        console.error("Error loading credentials:", error);
-        throw new Error("Failed to load credentials configuration");
-    }
-}
-
-// Get environment and user from env variables or use defaults
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new61";
+const TEST_USER = "new61";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -179,7 +126,7 @@ describe("Check Booking Test with unlimited multi voucher", () => {
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

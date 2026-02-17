@@ -249,8 +249,7 @@ describe("Deep Link Testing Suite", () => {
     it(`Login`, async () => {
         // Get credentials (using your existing method)
         const ENV = process.env.TEST_ENV || "test";
-        const USER = process.env.TEST_USER || "new12";
-        credentials = getCredentials(ENV, USER);
+        credentials = getCredentials(ENV, "new12");
 
         // Login to app
         await PageObjects.login(credentials);

@@ -1,11 +1,10 @@
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
-import { getCredentials, executeTest } from "../../helpers/TestHelpers.js";
+import PostHogHelper from "../../helpers/PosthogHelper.js";
+import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
 
 const posthog = new PostHogHelper();
-
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "newUser";
+const TEST_USER = "newUser";
 
 // Function to add payment method
 async function addPaymentMethod() {
@@ -54,7 +53,7 @@ async function addPaymentMethod() {
 
 describe("Add Payment Method through popup for the New User", () => {
     before(async () => {
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

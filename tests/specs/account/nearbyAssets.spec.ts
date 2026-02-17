@@ -7,9 +7,10 @@ import {
     executeTest,
     fetchScooterCoordinates,
     ENV,
-    USER,
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const TEST_USER = "new12";
 
 console.log("=== DEBUG ENV ===");
 console.log("POSTHOG_API_KEY exists:", !!process.env.POSTHOG_API_KEY);
@@ -29,7 +30,7 @@ describe("Test for the Nearby Assets feature", () => {
     before(async () => {
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,

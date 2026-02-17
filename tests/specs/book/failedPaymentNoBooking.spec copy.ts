@@ -15,8 +15,7 @@ import PostHogHelper from "../../helpers/PosthogHelper.js";
 
 const posthog = new PostHogHelper();
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "new16";
+const TEST_USER = "new16";
 
 // Fetch scooter coordinates from API (uses default coordinates from ScooterCoordinates.ts)
 const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
@@ -77,7 +76,7 @@ describe("verify that it is not possible to book a bike if you didnt pay for the
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

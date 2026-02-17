@@ -290,7 +290,7 @@ class TestRunner {
  */
 describe("Felyx Scooter Booking - New User Without Card", () => {
     const ENV = process.env.TEST_ENV || "test";
-    const USER = process.env.TEST_USER || "newUser";
+    const TEST_USER = "newUser";
 
     const defaultLocation = {
         longitude: 4.46893572807312,
@@ -300,7 +300,7 @@ describe("Felyx Scooter Booking - New User Without Card", () => {
     let scooters;
 
     before(async () => {
-        const credentials = TestHelpers.getCredentials(ENV, USER);
+        const credentials = TestHelpers.getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

@@ -111,9 +111,9 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/bookPublicTransport.spec.ts", //нью 12, постхог нью56
         // "../tests/specs/book/bookDott.spec.ts", // отображении линии локации, стоимость в май райд?
         // "../tests/specs/book/failedPaymentNoBooking.spec.ts", //норм, нью16
-        // "../tests/specs/book/newBookTaxi.spec.ts", //нью 12, адрес навеное норм? постхог нью34! скрол сильный
-        "../tests/specs/book/reserveFelyx.spec.ts", //нью12, постхог соответственно нью18 должен быть
-        // //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
+        //"../tests/specs/book/newBookTaxi.spec.ts", //нью 12, адрес навеное норм? постхог нью34! скрол сильный
+        //"../tests/specs/book/reserveFelyx.spec.ts", //нью12, постхог соответственно нью18 должен быть
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
         // "../tests/specs/login/login.negative.spec.ts", //норм
         // "../tests/specs/login/login.positive.spec.ts", //норм
         // "../tests/specs/account/combinedLoggedTest.spec.ts", //нью12? сильный скрол

@@ -4,11 +4,11 @@ import {
     getCredentials,
     executeTest,
     getApiConfig,
+    ENV,
 } from "../../helpers/TestHelpers.js";
 import type { Scooter } from "../../helpers/ScooterCoordinates.js";
 
-const ENV = process.env.TEST_ENV || "test";
-const USER = process.env.TEST_USER || "newUser";
+const TEST_USER = "newUser";
 
 // Fetch scooter coordinates from API (specific to this test location)
 const fetchScooterCoordinates = async (): Promise<Scooter[]> => {
@@ -65,7 +65,7 @@ describe("Trying to Reserve Felyx by a New User Without a drivers licence", () =
         // Fetch scooter coordinates before running tests
         scooters = await fetchScooterCoordinates();
 
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,

@@ -207,7 +207,7 @@ class TestRunner {
  */
 describe("Donkey Bike Booking - New User Without Card", () => {
     const ENV = process.env.TEST_ENV || "test";
-    const USER = process.env.TEST_USER || "newUser";
+    const TEST_USER = "newUser";
 
     const bikeLocation = {
         name: "UMOB Bike 2 1",
@@ -216,7 +216,7 @@ describe("Donkey Bike Booking - New User Without Card", () => {
     };
 
     before(async () => {
-        const credentials = TestHelpers.getCredentials(ENV, USER);
+        const credentials = TestHelpers.getCredentials(ENV, TEST_USER);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,

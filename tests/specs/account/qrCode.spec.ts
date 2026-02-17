@@ -6,11 +6,12 @@ import {
     fetchScooterCoordinates,
     executeTest,
     ENV,
-    USER,
     TARGET_SCOOTER_ID,
     TEST_VEHICLE_ID,
 } from "../../helpers/TestHelpers.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
+
+const TEST_USER = "new12";
 
 const posthog = new PostHogHelper();
 
@@ -19,7 +20,7 @@ describe("Test for the QR feature", () => {
 
     before(async () => {
         scooters = await fetchScooterCoordinates();
-        const credentials = getCredentials(ENV, USER);
+        const credentials = getCredentials(ENV, TEST_USER);
 
         await PageObjects.login({
             username: credentials.username,
