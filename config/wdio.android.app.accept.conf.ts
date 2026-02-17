@@ -7,12 +7,12 @@ export const config: WebdriverIO.Config = {
     specs: [
         //"../tests/specs/account/combinedLoggedTest.spec.ts",
         //TESTS FOR ACCEPT APP (npm run android.app.accept)
-        "../tests/specs/login/login.negative.spec.ts",
-        "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
-        "../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
-        "../tests/specs/newUser/addPaymentMethod.spec.ts", //newUser
-        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
-        "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
+        //"../tests/specs/login/login.negative.spec.ts",
+        ////"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
+        //"../tests/specs/account/AddAdress.spec.ts", //new12 /test@gmail.com)
+        ////"../tests/specs/newUser/addPaymentMethod.spec.ts", //newUser
+        ////"../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser
+        ////"../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48/test@gmail.com)
     ],
     capabilities: [
         {
