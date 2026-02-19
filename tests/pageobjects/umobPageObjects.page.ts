@@ -388,7 +388,7 @@ class PageObjects extends Page {
 
     // Permission Elements
     get allowPermissionButton() {
-        return $('-android uiautomator:new UiSelector().textContains("Allow")');
+        return $('-android uiautomator:new UiSelector().textContains("ALLOW")');
     }
     get whileUsingAppPermission() {
         return $(
@@ -402,6 +402,11 @@ class PageObjects extends Page {
         return $(
             "id:com.android.permissioncontroller:id/permission_allow_button",
         );
+    }
+    get enableLocationWhenStartApp() {
+        return $("accessibility id:Enable location");
+        //'-android uiautomator:new UiSelector().textContains("Enable location")',
+        //);
     }
 
     // Help/Support button on home screen (for not logged users)
@@ -456,6 +461,10 @@ class PageObjects extends Page {
             await this.androidPermissionAllowButton.click();
 
             await driver.pause(2000);
+
+            // Handle "enable location" to view a map
+            await this.enableLocationWhenStartApp.waitForDisplayed();
+            await this.enableLocationWhenStartApp.click();
 
             // "While using the app" permission
             await this.whileUsingAppPermission.waitForDisplayed({
@@ -616,7 +625,14 @@ class PageObjects extends Page {
             await loginButton.click();
 
             // Handle location permissions
+            await this.allowPermissionButton.waitForDisplayed();
             await this.allowPermissionButton.click();
+
+            // Handle "enable location" to view a map
+            // await this.enableLocationWhenStartApp.waitForDisplayed();
+            // await this.enableLocationWhenStartApp.click();
+
+            //handle while using the app permission
             await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();
