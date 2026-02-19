@@ -10,13 +10,14 @@ on:
             - "docs/**"
     schedule:
         - cron: "0 23 * * *"
+        - cron: "0 22 * * *"
     # Add manual trigger for testing
     workflow_dispatch:
 jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
         # Only run on the main repository, not on forks
-        if: github.repository == 'alekswhim/umob_appium'
+        if: github.repository == 'alekswhim/umob_appium' && (github.event_name != 'schedule' || github.event.schedule == '0 23 * * *')
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -61,6 +62,58 @@ jobs:
                       mkdir screenshots
                       sh ./scripts/download_apk.sh
                       npm run android.app.github
+
+            - name: Last actions
+              run: |
+                  ls -la
+                  ls -la screenshots
+
+    Explore-GitHub-Actions-Accept:
+        runs-on: ubuntu-latest
+        if: github.repository == 'alekswhim/umob_appium' && github.event.schedule == '0 22 * * *'
+        steps:
+            - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+            - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+            - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+            - name: Check out repository code
+              uses: actions/checkout@v4
+            - name: List files in the repository
+              run: |
+                  ls ${{ github.workspace }}
+            - run: echo "🍏 This job's status is ${{ job.status }}."
+            - name: Install depende
+              run: |
+                  npm install
+
+            - name: Enable KVM group perms
+              run: |
+                  echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                  sudo udevadm control --reload-rules
+                  sudo udevadm trigger --name-match=kvm
+
+            - name: run tests
+              uses: reactivecircus/android-emulator-runner@v2
+              env:
+                  AZURE_PAT: ${{ secrets.AZURE_PAT }}
+                  POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+              with:
+                  api-level: 34
+                  profile: pixel
+                  disable-animations: true
+                  emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -packet-streamer-endpoint default -skin 1080x1920 -no-skin
+                  arch: x86_64
+                  target: google_apis
+                  script: |
+                      # Prevent fullscreen
+                      adb shell settings put secure immersive_mode_confirmations confirmed
+
+                      # Enable hardware features
+                      adb shell settings put system pointer_location 0
+                      adb shell settings put system show_touches 1
+
+                      mkdir screenshots
+                      sh ./scripts/download_accept.sh
+                      npm run android.app.accept
 
             - name: Last actions
               run: |
