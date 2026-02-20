@@ -463,7 +463,9 @@ class PageObjects extends Page {
             await driver.pause(2000);
 
             // Handle "enable location" to view a map
-            await this.enableLocationWhenStartApp.waitForDisplayed();
+            await this.enableLocationWhenStartApp.waitForDisplayed({
+                timeout: 5000,
+            });
             await this.enableLocationWhenStartApp.click();
 
             // "While using the app" permission

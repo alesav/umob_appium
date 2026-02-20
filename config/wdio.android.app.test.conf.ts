@@ -118,8 +118,8 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/book/reserveFelyx.spec.ts", //нью12, постхог соответственно нью18 должен быть
         // "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
         // //"../tests/specs/login/login.negative.spec.ts", //норм
-        // "../tests/specs/login/login.positive.spec.ts", //норм
-        "../tests/specs/account/combinedLoggedTest.spec.ts", //нью12? сильный скрол
+        "../tests/specs/login/login.positive.spec.ts", //норм
+        //"../tests/specs/account/combinedLoggedTest.spec.ts", //нью12? сильный скрол
         //"../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         //"../tests/specs/newUser/deleteCard.spec.ts",
         /*
