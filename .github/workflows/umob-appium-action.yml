@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is trying to run Appium test 🚀
+name: Umob Appium auto-tests (Test/Accept)
+run-name: ${{ github.actor }} is running Umob Appium tests 🚀
 on:
     schedule:
         - cron: "0 23 * * *"
@@ -7,16 +7,16 @@ on:
     workflow_dispatch:
         inputs:
             job:
-                description: 'Which job to run'
+                description: "Which job to run"
                 required: false
-                default: 'github'
+                default: "github"
                 type: choice
                 options:
                     - github
                     - accept
                     - both
 jobs:
-    Explore-GitHub-Actions:
+    Umob-Appium-Test:
         runs-on: ubuntu-latest
         if: |
             (github.event_name == 'workflow_dispatch' && (inputs.job == 'github' || inputs.job == 'both')) ||
@@ -71,7 +71,7 @@ jobs:
                   ls -la
                   ls -la screenshots
 
-    Explore-GitHub-Actions-Accept:
+    Umob-Appium-Accept:
         runs-on: ubuntu-latest
         if: |
             (github.event_name == 'workflow_dispatch' && (inputs.job == 'accept' || inputs.job == 'both')) ||
