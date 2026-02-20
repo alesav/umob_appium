@@ -59,7 +59,7 @@ describe("Book a Taxi", () => {
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: height * 0.1,
+                            y: height * 0.75,
                         },
                         { type: "pointerUp", button: 0 },
                     ],

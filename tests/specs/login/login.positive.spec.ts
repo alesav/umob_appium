@@ -1,6 +1,7 @@
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
+import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
 
 const posthog = new PostHogHelper();
 
@@ -101,7 +102,7 @@ describe("Login positive scenarios", () => {
             const loginButton = await driver.$("accessibility id:login_button");
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
-
+            /*
             const permissionsPopup = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Allow")',
             );
@@ -122,6 +123,8 @@ describe("Login positive scenarios", () => {
             );
             await permissionsPopup3.isDisplayed();
             await permissionsPopup3.click();
+*/
+            await PageObjects.handleLocationPermissions();
 
             await PageObjects.clickAccountButton();
 
