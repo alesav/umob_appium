@@ -10,10 +10,10 @@ export const config: WebdriverIO.Config = {
         "../tests/specs/login/login.negative.spec.ts",
         "../tests/specs/notLoggedTests/combinedNotLogged.spec.ts",
         "../tests/specs/account/AddAdress.spec.ts", //new12 /  for accept test@gmail.com)
-        "../tests/specs/book/2bookPublicTransport.spec.ts", //new65  / for accept test@gmail
+        "../tests/specs/book/2bookPublicTransport.spec.ts", //new56  / for accept test@gmail
         "../tests/specs/newUser/addPaymentMethod.spec.ts", //newUser /   for accept test@gmail.com
         "../tests/specs/newUser/nCombinedLoggedTest.spec.ts", //newUser /   for accept test@gmail.com
-        "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48  /  for accept test@gmail.com)
+        "../tests/specs/newUser/deleteCard.spec.ts", //newUser (new48)  /  for accept test@gmail.com
         "../tests/specs/account/locationPermissionOff.spec.ts", //new12 /   for accept test@gmail.com
     ],
     capabilities: [
