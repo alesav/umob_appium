@@ -1,23 +1,26 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is trying to run Appium test 🚀
 on:
-    push:
-        branches:
-            - main
-        # Only trigger on the main repository
-        paths-ignore:
-            - "README.md"
-            - "docs/**"
     schedule:
         - cron: "0 23 * * *"
         - cron: "0 22 * * *"
-    # Add manual trigger for testing
     workflow_dispatch:
+        inputs:
+            job:
+                description: 'Which job to run'
+                required: false
+                default: 'github'
+                type: choice
+                options:
+                    - github
+                    - accept
+                    - both
 jobs:
     Explore-GitHub-Actions:
         runs-on: ubuntu-latest
-        # Only run on the main repository, not on forks
-        if: github.repository == 'alekswhim/umob_appium' && (github.event_name != 'schedule' || github.event.schedule == '0 23 * * *')
+        if: |
+            (github.event_name == 'workflow_dispatch' && (inputs.job == 'github' || inputs.job == 'both')) ||
+            (github.event_name == 'schedule' && github.repository == 'alekswhim/umob_appium' && github.event.schedule == '0 23 * * *')
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -70,7 +73,9 @@ jobs:
 
     Explore-GitHub-Actions-Accept:
         runs-on: ubuntu-latest
-        if: github.repository == 'alekswhim/umob_appium' && github.event.schedule == '0 22 * * *'
+        if: |
+            (github.event_name == 'workflow_dispatch' && (inputs.job == 'accept' || inputs.job == 'both')) ||
+            (github.event_name == 'schedule' && github.repository == 'alekswhim/umob_appium' && github.event.schedule == '0 22 * * *')
         steps:
             - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
