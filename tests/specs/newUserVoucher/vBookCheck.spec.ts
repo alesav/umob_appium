@@ -3,6 +3,7 @@ import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
+import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
 
 const TEST_USER = "new61";
 
@@ -165,6 +166,9 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await driver.pause(2000);
             //await AppiumHelpers.clickCenterOfScreen();
+
+            await umobPageObjectsPage.locationButton.waitForDisplayed();
+            await umobPageObjectsPage.locationButton.click();
 
             // get center of the map (not the center of the screen!)
             const { x, y } = await AppiumHelpers.getMapCenterCoordinates();

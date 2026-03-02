@@ -5,7 +5,13 @@ import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import {
+    ENV,
+    getCredentials,
+    getScreenCenter,
+} from "../../helpers/TestHelpers.js";
 
+/*
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,7 +60,7 @@ function getCredentials(
         throw new Error("Failed to load credentials configuration");
     }
 }
-
+*/
 // Get environment and user from env variables or use defaults
 const TEST_USER = "new25";
 
@@ -63,7 +69,7 @@ const TEST_USER = "new25";
 const API_URL = "https://backend-test.umobapp.com/api/tomp/mapboxmarkers";
 const AUTH_TOKEN =
     "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkFGNkFBNzZCMUFEOEI4QUJCQzgzRTAzNjBEQkQ4MkYzRjdGNDE1MDMiLCJ4NXQiOiJyMnFuYXhyWXVLdThnLUEyRGIyQzhfZjBGUU0iLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiJiMzI0ZDRlNy01OGNmLTRkZTMtOWE2Yi04N2YxYzcyYzM0ZjUiLCJ1bmlxdWVfbmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6IjRiaWdmb290KzE4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJBbGVrcyIsImZhbWlseV9uYW1lIjoiU2F2IiwiZW1haWwiOiI0YmlnZm9vdCsxOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6IkZhbHNlIiwicGhvbmVfbnVtYmVyIjoiKzMxOTcwMTA1ODc3MjQiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOiJUcnVlIiwib2lfcHJzdCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV9hdV9pZCI6IjRkYTQ1MTk2LTA2OTEtYjg4MC04MTM2LTNhMTZlNTk4OWY2NSIsImNsaWVudF9pZCI6InVNb2JfQXBwX09wZW5JZGRpY3QiLCJvaV90a25faWQiOiIyYTlhNjMwNS1hMjYxLTgwMjQtOTQ5Yy0zYTE2ZTU5ODlmN2EiLCJhdWQiOiJ1TW9iIiwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyB1TW9iIiwianRpIjoiY2QyM2VlMzktMTE2Mi00ZDhmLTkyMDgtZDgxMDdiZTc2MGYxIiwiaXNzIjoiaHR0cHM6Ly9iYWNrZW5kLXRlc3QudW1vYmFwcC5jb20vIiwiZXhwIjoxNzQyMTk0ODc2LCJpYXQiOjE3MzQ0MTg4NzZ9.u6ndZq46MDie48o9UNmzjTzAmSpyEJcHEmgKWkKB_UT0EC6vQXSIifrrD3KtFy9gD_Y0DFa3k043uRvEp7Cp1Gnu1OEWl6BKjIi0FOZ4yHTHPgTLhSQWSFfxJx_0yjtanvmC5aFg-t6kGvA76S8QMlbNYOKJf9R3mv3fPmnC1jIRMlZeIuikzHBJ1D3czlx1Pk3lFjsWoQcdZbWEpsRY4PEv28uLfh46COq2myEHDA_mk9WG-V7ocPuNRYiHamHcjttHem5Y_yNNUfoXDPwsQSlehtAuZnB6dyIL1C5OrNl5ZfyFiD1p6XWuBAFUmh5wOSWE23Fmm8fruD2UXSPPWg";
-
+/*
 const getScreenCenter = async () => {
     // Get screen dimensions
     const { width, height } = await driver.getWindowSize();
@@ -75,7 +81,7 @@ const getScreenCenter = async () => {
         screenHeight: height,
     };
 };
-
+*/
 const fetchCheckMopedDetails = async (assetId: string, coordinates: any) => {
     try {
         const response = await fetch(
@@ -353,3 +359,148 @@ describe("Check Reservation Tests", () => {
         await driver.terminateApp("com.umob.umob");
     });
 });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+moped details from network logger (name of current moped is "Constant" located in assetInfo.name)
+
+[0-0] === CHECK MOPED DETAILS ===
+[0-0] {
+[0-0]   "assetTypeId": "Check:7b95ce0e-f416-4a0f-87f4-5fe6a58142f4",
+[0-0]   "missingRequiredBookingFields": [],
+[0-0]   "pricing": [
+[0-0]     {
+[0-0]       "amount": 1.25,
+[0-0]       "currency": "EUR",
+[0-0]       "vatRate": 21,
+[0-0]       "vatCountryCode": null,
+[0-0]       "type": 1,
+[0-0]       "unitType": null,
+[0-0]       "units": 1,
+[0-0]       "planId": null,
+[0-0]       "scaleFrom": null,
+[0-0]       "scaleTo": null,
+[0-0]       "scaleType": null,
+[0-0]       "totalAmount": 1.25,
+[0-0]       "legState": null,
+[0-0]       "partId": null,
+[0-0]       "name": "Starting fee"
+[0-0]     },
+[0-0]     {
+[0-0]       "amount": 0.25,
+[0-0]       "currency": "EUR",
+[0-0]       "vatRate": 21,
+[0-0]       "vatCountryCode": null,
+[0-0]       "type": 2,
+[0-0]       "unitType": 1,
+[0-0]       "units": 1,
+[0-0]       "planId": null,
+[0-0]       "scaleFrom": null,
+[0-0]       "scaleTo": null,
+[0-0]       "scaleType": null,
+[0-0]       "totalAmount": 0.25,
+[0-0]       "legState": 4,
+[0-0]       "partId": null,
+[0-0]       "name": "Driving rate"
+[0-0]     },
+[0-0]     {
+[0-0]       "amount": 0.15,
+[0-0]       "currency": "EUR",
+[0-0]       "vatRate": 21,
+[0-0]       "vatCountryCode": null,
+[0-0]       "type": 2,
+[0-0]       "unitType": 1,
+[0-0]       "units": 1,
+[0-0]       "planId": null,
+[0-0]       "scaleFrom": null,
+[0-0]       "scaleTo": null,
+[0-0]       "scaleType": null,
+[0-0]       "totalAmount": 0.15,
+[0-0]       "legState": 5,
+[0-0]       "partId": null,
+[0-0]       "name": "Pausing rate"
+[0-0]     }
+[0-0]   ],
+[0-0]   "assetInfo": {
+[0-0]     "coordinates": null,
+[0-0]     "properties": [
+[0-0]       {
+[0-0]         "type": 7,
+[0-0]         "value": 97
+[0-0]       },
+[0-0]       {
+[0-0]         "type": 9,
+[0-0]         "value": true
+[0-0]       },
+[0-0]       {
+[0-0]         "type": 1,
+[0-0]         "value": 0
+[0-0]       }
+[0-0]     ],
+[0-0]     "blueToothLockInfo": null,
+[0-0]     "stationId": null,
+[0-0]     "name": "Constant",
+[0-0]     "driver": null,
+[0-0]     "id": "Check:7b95ce0e-f416-4a0f-87f4-5fe6a58142f4",
+[0-0]     "countryCode": null
+[0-0]   },
+[0-0]   "assetClass": "MOPED",
+[0-0]   "assetSubClass": null,
+[0-0]   "operatorName": "Check",
+[0-0]   "departureTime": null,
+[0-0]   "arrivalTime": null,
+[0-0]   "durationSeconds": null,
+[0-0]   "distance": 0,
+[0-0]   "gracePeriod": true,
+[0-0]   "gracePeriodDuration": 600000,
+[0-0]   "supportsLegProgress": false,
+[0-0]   "createdOn": null,
+[0-0]   "subOperator": null,
+[0-0]   "from": null,
+[0-0]   "to": null,
+[0-0]   "legId": null,
+[0-0]   "ticketInformation": null,
+[0-0]   "onboardingSteps": [
+[0-0]     1006,
+[0-0]     1004,
+[0-0]     12,
+[0-0]     8
+[0-0]   ],
+[0-0]   "pauseSteps": [
+[0-0]     7,
+[0-0]     17,
+[0-0]     8,
+[0-0]     14
+[0-0]   ],
+[0-0]   "resumeSteps": [
+[0-0]     12,
+[0-0]     8
+[0-0]   ],
+[0-0]   "offboardingSteps": [
+[0-0]     15,
+[0-0]     7,
+[0-0]     8,
+[0-0]     1004,
+[0-0]     16
+[0-0]   ],
+[0-0]   "offboardingEvidenceSteps": [],
+[0-0]   "cancelSteps": [],
+[0-0]   "forcedOffboardingSteps": [
+[0-0]     1006,
+[0-0]     7,
+[0-0]     14,
+[0-0]     1004,
+[0-0]     1007
+[0-0]   ],
+[0-0]   "deeplinkUrl": null,
+[0-0]   "tieredPricing": [],
+[0-0]   "returnAreas": [],
+[0-0]   "noParkingZones": [],
+[0-0]   "noAccessZones": [],
+[0-0]   "speedLimitZones": [],
+[0-0]   "regionFileUrls": [
+[0-0]     "https://umob-integration-file-reference-test.s3.eu-west-1.amazonaws.com/regions/check_clustered_rotterdam-schiedam.geojso
+n?v=1772188063555"
+[0-0]   ],
+[0-0]   "bookingPriceCoverageAmount": null
+[0-0] }
+[0-0] ===========================

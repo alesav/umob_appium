@@ -40,6 +40,11 @@ describe("Combined Not Logged User Tests", () => {
             );
             await expect(popupDescription).toBeDisplayed();
 
+            const popupDescription2 = await driver.$(
+                'android=new UiSelector().textContains("Access 20+ operators in a single app")',
+            );
+            await expect(popupDescription2).toBeDisplayed();
+
             // Click the "EXPLORE MAP" button
             await PageObjects.exploreMapButton.waitForEnabled();
 
