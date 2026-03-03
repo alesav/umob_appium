@@ -208,8 +208,8 @@ describe("Check Reservation Tests", () => {
         await driver.activateApp("com.umob.umob");
     });
 
-    it("Positive Scenario: Reserve Check moped with ID Check:b76ce2d0-7fe5-4914-9d1b-580928859efd", async () => {
-        const testId = "a803283c-c3ca-419e-b25c-6eb20254e186";
+    it("Verify that Check operator has operator name, has own personal name and data plate number", async () => {
+        const testId = "2cf2c7bd-4846-417c-bc94-22dde18d9182";
         let testStatus = "Pass";
         let screenshotPath = "";
         let testDetails = "";
@@ -309,6 +309,106 @@ describe("Check Reservation Tests", () => {
 
             //verify Pricing (use Felyx from page objects because we are not checking amount of payment)
             await PageObjects.felyxPriceInfo();
+        } catch (e) {
+            error = e;
+            console.error("Test failed:", error);
+            testStatus = "Fail";
+            testDetails = e.message;
+
+            // Capture screenshot on failure
+            screenshotPath = "./screenshots/" + testId + ".png";
+            await driver.saveScreenshot(screenshotPath);
+        } finally {
+            // Submit test run result
+            try {
+                await submitTestRun(
+                    testId,
+                    testStatus,
+                    testDetails,
+                    screenshotPath,
+                );
+                console.log("Test run submitted successfully");
+            } catch (submitError) {
+                console.error("Failed to submit test run:", submitError);
+            }
+
+            // If there was an error in the main try block, throw it here to fail the test
+            if (error) {
+                throw error;
+            }
+        }
+    });
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    it("Positive Scenario: Reserve Check moped with ID Check:7b95ce0e-f416-4a0f-87f4-5fe6a58142f4", async () => {
+        const testId = "a803283c-c3ca-419e-b25c-6eb20254e186";
+        let testStatus = "Pass";
+        let screenshotPath = "";
+        let testDetails = "";
+        let error = null;
+
+        try {
+            // const targetScooter = scooters.find((scooter) =>
+            //     scooter.id.includes("Check"),
+            // );
+            // await AppiumHelpers.setLocationAndRestartApp(
+            //     targetScooter.coordinates.longitude,
+            //     targetScooter.coordinates.latitude,
+            // );
+            await driver.pause(4000);
+            //await applyFilters();
+            const { centerX, centerY } = await getScreenCenter();
+
+            // get center of the map (not the center of the screen!)
+            const { x, y } = await AppiumHelpers.getMapCenterCoordinates();
+            await driver.pause(3000);
+
+            // CLick on map center (operator located in the center of the map)
+            await driver.execute("mobile: clickGesture", { x, y });
+
+            //Click on middle of the screen
+            //await AppiumHelpers.clickCenterOfScreen();
+
+            await driver.pause(4000);
+            // const prices = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("to start")',
+            // );
+            // await expect(prices).toBeDisplayed();
+
+            const { width, height } = await driver.getWindowSize();
+            await driver.pause(2000);
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: height * 0.7,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.2,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(2000);
+
+            //verify name of Check operator
+            const checkOperatorName = await driver.$(
+                '-android uiautomator:new UiSelector().text("CHECK")',
+            );
+            await expect(checkOperatorName).toBeDisplayed();
 
             await PageObjects.reserveButton.waitForDisplayed();
             await driver.pause(4000);
@@ -504,3 +604,4 @@ n?v=1772188063555"
 [0-0]   "bookingPriceCoverageAmount": null
 [0-0] }
 [0-0] ===========================
+*/

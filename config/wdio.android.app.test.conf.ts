@@ -86,7 +86,7 @@ export const config: WebdriverIO.Config = {
         ///////"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts", //new25 //ok/
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts", //new38 //ok. not in center, so doesnt click a moped
         //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
-        "../tests/specs/newUserVoucher/vBookCheck.spec.ts", //new61 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
+        //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //new61 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
@@ -104,10 +104,10 @@ export const config: WebdriverIO.Config = {
         // "../tests/specs/account/nearbyAssets.spec.ts", //норм, но локейшен
         //"../tests/specs/account/qrCode.spec.ts", // норм, но локейшен
         // "../tests/specs/newUser/nReserveDonkeyNoCard.spec.js", //не new user, посмотреть руками
-        // "../tests/specs/newUser/nReserveFelyxNoCard.spec.js", //не нью юзер, а нбю12
+        //"../tests/specs/newUser/nReserveFelyxNoCard.spec.js", //не нью юзер, а нбю12
         // "../tests/specs/account/addAdress.spec.ts",
         //"../tests/specs/newUser/addPaymentMethod.spec.ts",
-        // "../tests/specs/newUser/nReserveFelyxNoId.spec.ts", //не нью юзер, посмотреть руками
+        //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", //не нью юзер, посмотреть руками
         // "../tests/specs/account/locationPermissionOff.spec.ts", //в приложении скан веикл первый идёт
         //"../tests/specs/book/2bookPublicTransport.spec.ts", //тоже new12
         //"../tests/specs/book/bookPublicTransport.spec.ts", //нью 12, постхог нью56
@@ -115,7 +115,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //норм, нью16
         // "../tests/specs/book/newBookTaxi.spec.ts", //нью 12, адрес навеное норм? постхог нью34! скрол сильный
         //"../tests/specs/book/reserveFelyx.spec.ts", //нью12, постхог соответственно нью18 должен быть
-        //"../tests/specs/book/reserveCheck.spec.ts",
+        "../tests/specs/book/reserveCheck.spec.ts",
         // "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
         //"../tests/specs/login/login.negative.spec.ts", //норм
         // "../tests/specs/login/login.positive.spec.ts", //норм
