@@ -26,19 +26,23 @@ describe("Combined Not Logged User Tests", () => {
             // const popupText = await driver.$(
             //     'android=new UiSelector().text("Sign up & get €10,-")',
             // );
-            const popupText = await driver.$(
-                'android=new UiSelector().textContains("Ready to ride?")',
-            );
-            await popupText.waitForDisplayed({ timeout: 15000 });
+
+            //popup text is temporarily switched off
+            // const popupText = await driver.$(
+            //     'android=new UiSelector().textContains("Ready to ride?")',
+            // );
+            // await popupText.waitForDisplayed({ timeout: 15000 });
 
             // Verify popup elements
             // const popupDescription = await driver.$(
             //     'android=new UiSelector().text("Sign up to explore or get started right away, no registration needed! Just planning a trip? For taxis and public transport, all we need is your phone number and payment method.")',
             // );
-            const popupDescription = await driver.$(
-                'android=new UiSelector().textContains("Join over 5.000 people who use umob")',
-            );
-            await expect(popupDescription).toBeDisplayed();
+
+            //popupDescription is temporarily switched off
+            // const popupDescription = await driver.$(
+            //     'android=new UiSelector().textContains("Join over 5.000 people who use umob")',
+            // );
+            // await expect(popupDescription).toBeDisplayed();
 
             //on accept app this description is used
             // const popupDescription2 = await driver.$(
