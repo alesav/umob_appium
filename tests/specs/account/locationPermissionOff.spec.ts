@@ -27,6 +27,7 @@ const posthog = new PostHogHelper();
 
 describe("Test for checking disability of aplication features when location permission is off", () => {
     let scooters;
+    let targetScooter: any;
 
     before(async () => {
         //scooters = await fetchScooterCoordinates();
@@ -45,10 +46,12 @@ describe("Test for checking disability of aplication features when location perm
             latitude,
         );
 
+        //1st option for finding scooter
         // const targetScooter = scooters.find(
-        //     (scooter) => scooter.id === "UmobMock:ROTTERDAM_MOPED_1",
+        //     (scooter) => scooter.id.includes("Felyx"),
         // );
 
+        // 2nd option for target scooter
         //targetScooter = findFelyxScooter(scooters);
 
         // await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
