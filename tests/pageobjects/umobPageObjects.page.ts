@@ -84,7 +84,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
     get markArrivalButton() {
-        return $('-android uiautomator:new UiSelector().text("Mark Arrival")');
+        return $('-android uiautomator:new UiSelector().text("End Ride")');
     }
     get pauseButton() {
         return $('-android uiautomator:new UiSelector().text("Pause")');
@@ -248,7 +248,7 @@ class PageObjects extends Page {
     // Authentication Elements
     get startRegistrationButton() {
         return $(
-            '-android uiautomator:new UiSelector().textContains("Start Registration")',
+            '-android uiautomator:new UiSelector().textContains("Create new account")',
         );
     }
     get logInButton() {

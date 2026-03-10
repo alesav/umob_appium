@@ -56,7 +56,7 @@ describe("Login positive scenarios", () => {
             //     '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
             // );
             const signUpTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Ready to ride?")',
+                '-android uiautomator:new UiSelector().text("One app to ride them")',
             );
             await expect(signUpTitle).toBeDisplayed();
 
@@ -64,7 +64,7 @@ describe("Login positive scenarios", () => {
             //     '-android uiautomator:new UiSelector().textContains("Sign up to explore or get started right away")',
             // );
             const signUpDescription = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Join over 5.000 people who use umob")',
+                '-android uiautomator:new UiSelector().textContains("Access 20+ operators in a single app")',
             );
             await expect(signUpDescription).toBeDisplayed();
 

@@ -28,10 +28,10 @@ describe("Combined Not Logged User Tests", () => {
             // );
 
             //popup text is temporarily switched off
-            // const popupText = await driver.$(
-            //     'android=new UiSelector().textContains("Ready to ride?")',
-            // );
-            // await popupText.waitForDisplayed({ timeout: 15000 });
+            const popupText = await driver.$(
+                'android=new UiSelector().textContains("One app to ride them")',
+            );
+            await popupText.waitForDisplayed({ timeout: 15000 });
 
             // Verify popup elements
             // const popupDescription = await driver.$(
@@ -40,15 +40,15 @@ describe("Combined Not Logged User Tests", () => {
 
             //popupDescription is temporarily switched off
             // const popupDescription = await driver.$(
-            //     'android=new UiSelector().textContains("Join over 5.000 people who use umob")',
+            //     'android=new UiSelector().textContains("Access 20+ operators in a single app")',
             // );
             // await expect(popupDescription).toBeDisplayed();
 
             //on accept app this description is used
-            // const popupDescription2 = await driver.$(
-            //     'android=new UiSelector().textContains("Access 20+ operators in a single app")',
-            // );
-            // await expect(popupDescription2).toBeDisplayed();
+            const popupDescription2 = await driver.$(
+                'android=new UiSelector().textContains("Access 20+ operators in a single app")',
+            );
+            await expect(popupDescription2).toBeDisplayed();
 
             // Click the "EXPLORE MAP" button
             await PageObjects.exploreMapButton.waitForEnabled();

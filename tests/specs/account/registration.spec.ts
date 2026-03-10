@@ -45,7 +45,7 @@ describe("Registration procedure for a new user in test environment", () => {
 
             // Click Start Registration button
             const startRegButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Start Registration")',
+                '-android uiautomator:new UiSelector().text("Create new account")',
             );
             await expect(startRegButton).toBeDisplayed();
             await startRegButton.click();

@@ -80,7 +80,7 @@ describe("Book a Taxi", () => {
             await driver.pause(2000);
             // Verify screen header
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Book Taxi")',
+                '-android uiautomator:new UiSelector().text("Book taxi")',
             );
             await expect(screenHeader).toBeDisplayed();
 
