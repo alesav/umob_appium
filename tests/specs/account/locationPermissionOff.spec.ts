@@ -29,7 +29,7 @@ describe("Test for checking disability of aplication features when location perm
     let scooters;
 
     before(async () => {
-        scooters = await fetchScooterCoordinates();
+        //scooters = await fetchScooterCoordinates();
 
         const credentials = getCredentials(ENV, TEST_USER);
 
@@ -38,16 +38,23 @@ describe("Test for checking disability of aplication features when location perm
             password: credentials.password,
         });
 
-        const targetScooter = scooters.find(
-            (scooter) => scooter.id === "UmobMock:ROTTERDAM_MOPED_1",
-        );
-
+        const latitude = 51.9155956;
+        const longitude = 4.4744301;
         await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
-            targetScooter.coordinates.longitude,
-            targetScooter.coordinates.latitude,
+            longitude,
+            latitude,
         );
 
-        // Check Account is presented
+        // const targetScooter = scooters.find(
+        //     (scooter) => scooter.id === "UmobMock:ROTTERDAM_MOPED_1",
+        // );
+
+        //targetScooter = findFelyxScooter(scooters);
+
+        // await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
+        //     targetScooter.coordinates.longitude,
+        //     targetScooter.coordinates.latitude,
+        // );
     });
 
     beforeEach(async () => {
@@ -81,7 +88,7 @@ describe("Test for checking disability of aplication features when location perm
             await driver.pause(5000);
 
             //scroll to be everything on display
-/*
+            /*
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -113,7 +120,7 @@ describe("Test for checking disability of aplication features when location perm
             //verify scan vehicle button
             await PageObjects.scanVehicleButton.waitForDisplayed();
 
-             //scroll to be everything on display
+            //scroll to be everything on display
 
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
