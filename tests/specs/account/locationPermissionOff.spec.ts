@@ -88,7 +88,7 @@ describe("Test for checking disability of aplication features when location perm
             await driver.pause(5000);
 
             //scroll to be everything on display
-            /*
+
             const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
@@ -100,7 +100,7 @@ describe("Test for checking disability of aplication features when location perm
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
-                            y: height * 0.8,
+                            y: height * 0.7,
                         },
                         { type: "pointerDown", button: 0 },
                         { type: "pause", duration: 100 },
@@ -108,21 +108,19 @@ describe("Test for checking disability of aplication features when location perm
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: height * 0.2,
+                            y: height * 0.4,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
                 },
             ]);
-            await driver.pause(3000);
-            */
+            await driver.pause(1000);
 
             //verify scan vehicle button
             await PageObjects.scanVehicleButton.waitForDisplayed();
 
             //scroll to be everything on display
 
-            const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
                     type: "pointer",
