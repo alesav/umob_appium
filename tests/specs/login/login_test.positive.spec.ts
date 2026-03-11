@@ -90,7 +90,7 @@ describe("Login positive scenarios", () => {
             //     '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
             // );
             const signUpTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("One app to ride them all")',
+                '-android uiautomator:new UiSelector().textContains("One app to ride them all")',
             );
             await expect(signUpTitle).toBeDisplayed();
 

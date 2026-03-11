@@ -416,27 +416,38 @@ class PageObjects extends Page {
 
     // Support Screen Elements
     get supportScreenHeader() {
-        return $('-android uiautomator:new UiSelector().text("Support")');
+        return $(
+            '-android uiautomator:new UiSelector().textContains("live chat")',
+        );
     }
-    get supportFaqTab() {
-        return $('-android uiautomator:new UiSelector().text("FAQ")');
+    get supportWeAreAway() {
+        return $(
+            '-android uiautomator:new UiSelector().text("We are away at the moment")',
+        );
     }
-    get supportChatTab() {
-        return $('-android uiautomator:new UiSelector().text("Chat")');
+    get supportPopularArticles() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Popular Articles")',
+        );
     }
-    get supportAboutTab() {
-        return $('-android uiautomator:new UiSelector().text("About")');
+    get supportAllArticles() {
+        return $(
+            '-android uiautomator:new UiSelector().text("View all articles")',
+        );
     }
 
     // Chat Elements
     get openChatButton() {
-        return $('-android uiautomator:new UiSelector().text("Open Chat")');
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Start conversation")',
+        );
     }
     get chatInputField() {
         return $(
-            '-android uiautomator:new UiSelector().text("Start typing here")',
+            '-android uiautomator:new UiSelector().text("Type your message")',
         );
     }
+
     get chatSendButton() {
         return $('-android uiautomator:new UiSelector().description("Send")');
     }
