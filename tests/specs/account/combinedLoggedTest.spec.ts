@@ -49,15 +49,30 @@ describe("Combined test for the logged in old user with rides history", () => {
 
             // Scroll to bottom - don't modify this scroll
             await driver.pause(2000);
+            // INDIVIDUAL SCROLL (DO NOT MODIFY)
             const { width, height } = await driver.getWindowSize();
-            await driver.executeScript("mobile: scrollGesture", [
+            await driver.performActions([
                 {
-                    left: width / 2,
-                    top: 0,
-                    width: 0,
-                    height: height * 0.8,
-                    direction: "down",
-                    percent: 2,
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
+                            y: 1300,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: 10,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
                 },
             ]);
             await driver.pause(1000);

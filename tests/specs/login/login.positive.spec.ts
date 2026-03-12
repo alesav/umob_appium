@@ -1,6 +1,7 @@
 import submitTestRun from "../../helpers/SendResults.js";
 import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import PostHogHelper from "../../helpers/PosthogHelper.js";
+import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
 
 const posthog = new PostHogHelper();
 
@@ -55,7 +56,7 @@ describe("Login positive scenarios", () => {
             //     '-android uiautomator:new UiSelector().text("Sign up & get €10,-")',
             // );
             const signUpTitle = await driver.$(
-                '-android uiautomator:new UiSelector().text("Ready to ride?")',
+                '-android uiautomator:new UiSelector().textContains("One app to ride them")',
             );
             await expect(signUpTitle).toBeDisplayed();
 
@@ -63,7 +64,7 @@ describe("Login positive scenarios", () => {
             //     '-android uiautomator:new UiSelector().textContains("Sign up to explore or get started right away")',
             // );
             const signUpDescription = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Join over 5.000 people who use umob")',
+                '-android uiautomator:new UiSelector().textContains("Access 20+ operators in a single app")',
             );
             await expect(signUpDescription).toBeDisplayed();
 
@@ -101,7 +102,7 @@ describe("Login positive scenarios", () => {
             const loginButton = await driver.$("accessibility id:login_button");
             await expect(loginButton).toBeDisplayed();
             await loginButton.click();
-
+            /*
             const permissionsPopup = await driver.$(
                 '-android uiautomator:new UiSelector().textContains("Allow")',
             );
@@ -122,6 +123,8 @@ describe("Login positive scenarios", () => {
             );
             await permissionsPopup3.isDisplayed();
             await permissionsPopup3.click();
+*/
+            await PageObjects.handleLocationPermissions();
 
             await PageObjects.clickAccountButton();
 

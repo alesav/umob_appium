@@ -8,6 +8,7 @@ import {
 } from "../../helpers/RegistrationHelper.js";
 //required for second test
 import { getLastRegisteredUser } from "../../helpers/RegistrationHelper.js";
+import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
 
 describe("Registration procedure for a new user in test environment", () => {
     let generatedEmail: string;
@@ -44,51 +45,103 @@ describe("Registration procedure for a new user in test environment", () => {
 
             // Click Start Registration button
             const startRegButton = await driver.$(
-                '-android uiautomator:new UiSelector().text("Start Registration")',
+                '-android uiautomator:new UiSelector().text("Create new account")',
             );
             await expect(startRegButton).toBeDisplayed();
             await startRegButton.click();
 
             // Verify screen header
-            const screenTitle = await driver.$(
-                "accessibility id:screenSubTitle",
-            );
-            await expect(screenTitle).toBeDisplayed();
+            // const screenTitle = await driver.$(
+            //     "accessibility id:screenSubTitle",
+            // );
+            // await expect(screenTitle).toBeDisplayed();
 
-            // Verify top headers
+            // OLD UI. Verify top headers
+            // const accountHeader = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("ACCOUNT")',
+            // );
+            // await expect(accountHeader).toBeDisplayed();
+
+            // const paymentHeader = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("PAYMENT")',
+            // );
+            // await expect(paymentHeader).toBeDisplayed();
+
+            //new UI Headers
             const accountHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("ACCOUNT")',
+                '-android uiautomator:new UiSelector().text("Create new account")',
             );
             await expect(accountHeader).toBeDisplayed();
 
-            const paymentHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("PAYMENT")',
+            const appleButton = await driver.$(
+                '-android uiautomator:new UiSelector().text("Continue with Apple")',
             );
-            await expect(paymentHeader).toBeDisplayed();
+            await expect(appleButton).toBeDisplayed();
 
-            // Fill in name
-            const nameField = await driver.$("accessibility id:account-name");
-            await expect(nameField).toBeDisplayed();
-            await nameField.addValue("TestN");
+            // Fill in name for OLD UI
+            // const nameField = await driver.$("accessibility id:account-name");
+            // await expect(nameField).toBeDisplayed();
+            // await nameField.addValue("TestN");
 
-            // Fill in surname
-            const surname = await driver.$("accessibility id:account-surname");
-            await expect(surname).toBeDisplayed();
-            await surname.addValue("TestS");
+            // Fill in surname for OLD UI
+            // const surname = await driver.$("accessibility id:account-surname");
+            // await expect(surname).toBeDisplayed();
+            // await surname.addValue("TestS");
+
+            // Fill in email (random email in format new{5digits}@gmail.com)
+            //const emailField = await driver.$("accessibility id:email-address");
+            const emailField = await driver.$(
+                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(0)',
+            );
+            await expect(emailField).toBeDisplayed();
+            await emailField.addValue(generatedEmail);
+            console.log(`✓ Email entered: ${generatedEmail}`);
+
+            //add password
+            //const passBox = await driver.$("accessibility id:password");
+            const passBox = await driver.$(
+                '-android uiautomator:new UiSelector().text("Password")',
+            );
+            await expect(passBox).toBeDisplayed();
+            await passBox.addValue(password);
+
+            //click continue
+            const contBtn = await driver.$(
+                '-android uiautomator:new UiSelector().text("Continue")',
+            );
+            await expect(contBtn).toBeDisplayed();
+            await contBtn.click();
+
+            //name surname phone screen header
+            const screenHeader3 = await driver.$(
+                '-android uiautomator:new UiSelector().text("Enter your contact details")',
+            );
+            await expect(screenHeader3).toBeDisplayed();
 
             // Fill in phone number (random 9 digits)
-            const phoneField = await driver.$("accessibility id:phone-number");
+            //const phoneField = await driver.$("accessibility id:phone-number");
+            const phoneField = await driver.$(
+                '-android uiautomator:new UiSelector().className("android.widget.EditText").instance(2)',
+            );
 
             await expect(phoneField).toBeDisplayed();
             await phoneField.addValue(generatedPhone);
             console.log(`✓ Phone number entered: +31${generatedPhone}`);
 
-            // Fill in email (random email in format new{5digits}@gmail.com)
-            const emailField = await driver.$("accessibility id:email-address");
-            await expect(emailField).toBeDisplayed();
-            await emailField.addValue(generatedEmail);
-            console.log(`✓ Email entered: ${generatedEmail}`);
+            //Fill in name
+            const nameField = await driver.$(
+                '-android uiautomator:new UiSelector().text("First name")',
+            );
+            await expect(nameField).toBeDisplayed();
+            await nameField.addValue("TestN");
 
+            // Fill in surname
+            const surname = await driver.$(
+                '-android uiautomator:new UiSelector().text("Last name")',
+            );
+            await expect(surname).toBeDisplayed();
+            await surname.addValue("TestS");
+            /*
             //scroll
             const { width, height } = await driver.getWindowSize();
             await driver.pause(2000);
@@ -118,13 +171,14 @@ describe("Registration procedure for a new user in test environment", () => {
             ]);
 
             await driver.pause(2000);
-
+*/
             // Click Continue button
-            const continueButton = await driver.$(
-                "accessibility id:continue-text",
-            );
-            await expect(continueButton).toBeDisplayed();
-            await continueButton.click();
+            // const continueButton = await driver.$(
+            //     "accessibility id:continue-text",
+            // );
+            const nextBtn = await driver.$("accessibility id:Next");
+            await expect(nextBtn).toBeDisplayed();
+            await nextBtn.click();
 
             // Wait to ensure registration is processed
             await driver.pause(2000);
@@ -161,9 +215,12 @@ describe("Registration procedure for a new user in test environment", () => {
             // const contButton = await driver.$("accessibility id:next");
             // await expect(contButton).toBeDisplayed();
 
-            // Enter verification code - используйте EditText с resource-id="code"
+            // Enter verification code - use EditText with resource-id="code"
+            // const codeInput = await driver.$(
+            //     '-android uiautomator:new UiSelector().resourceId("code")',
+            // );
             const codeInput = await driver.$(
-                '-android uiautomator:new UiSelector().resourceId("code")',
+                "class name:android.widget.EditText",
             );
             await expect(codeInput).toBeDisplayed();
             // click for field activation
@@ -171,81 +228,102 @@ describe("Registration procedure for a new user in test environment", () => {
             await codeInput.addValue("1234");
             await driver.pause(4000);
 
+            const resendCodeButton = await driver.$(
+                "accessibility id:Resend code",
+            );
+            await expect(resendCodeButton).toBeDisplayed();
+
+            await expect(nextBtn).toBeDisplayed();
+            await nextBtn.click();
+
             // Password screen
-            const passHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Choose a password")',
-            );
-            await expect(passHeader).toBeDisplayed();
+            // const passHeader = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Choose a password")',
+            // );
+            // await expect(passHeader).toBeDisplayed();
 
-            const passNotification = await driver.$(
-                '-android uiautomator:new UiSelector().text("Your password must contain at least 8 characters.")',
-            );
-            await expect(passNotification).toBeDisplayed();
+            // const passNotification = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Your password must contain at least 8 characters.")',
+            // );
+            // await expect(passNotification).toBeDisplayed();
 
-            const passBox = await driver.$("accessibility id:password");
-            await expect(passBox).toBeDisplayed();
-            await passBox.addValue(password);
+            // const passBox = await driver.$("accessibility id:password");
+            // await expect(passBox).toBeDisplayed();
+            // await passBox.addValue(password);
 
-            const continueButton2 = await driver.$("accessibility id:continue");
-            await expect(continueButton2).toBeDisplayed();
-            await continueButton2.click();
+            // const continueButton2 = await driver.$("accessibility id:continue");
+            // await expect(continueButton2).toBeDisplayed();
+            // await continueButton2.click();
 
             // Promo code screen
             const promoNotification = await driver.$(
-                '-android uiautomator:new UiSelector().text("Got a promo or referral code? Unlock free rides now!")',
+                '-android uiautomator:new UiSelector().text("Welcome gift unlocked!")',
             );
             await expect(promoNotification).toBeDisplayed();
 
             const promoDescription = await driver.$(
-                '-android uiautomator:new UiSelector().text("Enter your referral or promo code below to get free rides for both you and your friends.")',
+                '-android uiautomator:new UiSelector().textContains("Welcome aboard!")',
             );
             await expect(promoDescription).toBeDisplayed();
 
-            const promoCodeBox = await driver.$(
-                "class name:android.widget.EditText",
+            //lets go button
+            const goBtn = await driver.$(
+                '-android uiautomator:new UiSelector().textContains("Let")',
             );
-            await expect(promoCodeBox).toBeDisplayed();
+            await expect(goBtn).toBeDisplayed();
+            await goBtn.click();
 
-            const skipButton = await driver.$("accessibility id:skip");
-            await expect(skipButton).toBeDisplayed();
-            await skipButton.click();
+            await umobPageObjectsPage.whileUsingAppPermission.waitForDisplayed();
+            await umobPageObjectsPage.whileUsingAppPermission.click();
 
-            // Privacy and Terms screen
-            const almostReadyHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Yes! Almost ready to go!")',
-            );
-            await expect(almostReadyHeader).toBeDisplayed();
+            await driver.pause(2000);
+            await umobPageObjectsPage.promosBtn.waitForDisplayed();
 
-            // privacy description and terms
-            const privacyDescription = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Read and confirm the privacy statement")',
-            );
-            await expect(privacyDescription).toBeDisplayed();
+            // const promoCodeBox = await driver.$(
+            //     "class name:android.widget.EditText",
+            // );
+            // await expect(promoCodeBox).toBeDisplayed();
 
-            const privacyStatement = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Privacy Statement")',
-            );
-            await expect(privacyStatement).toBeDisplayed();
+            // const skipButton = await driver.$("accessibility id:skip");
+            // await expect(skipButton).toBeDisplayed();
+            // await skipButton.click();
 
-            const termsConditions = await driver.$(
-                '-android uiautomator:new UiSelector().textContains("Terms and Conditions")',
-            );
-            await expect(termsConditions).toBeDisplayed();
+            // // Privacy and Terms screen
+            // const almostReadyHeader = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("Yes! Almost ready to go!")',
+            // );
+            // await expect(almostReadyHeader).toBeDisplayed();
 
-            // Click checkboxes
-            const privacyTick = await driver.$(
-                "accessibility id:privacy-toggle",
-            );
-            await expect(privacyTick).toBeDisplayed();
-            await privacyTick.click();
-            const termsTick = await driver.$("accessibility id:terms-toggle");
-            await expect(termsTick).toBeDisplayed();
-            await termsTick.click();
+            // // privacy description and terms
+            // const privacyDescription = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Read and confirm the privacy statement")',
+            // );
+            // await expect(privacyDescription).toBeDisplayed();
 
-            const continueButton3 = await driver.$("accessibility id:continue");
-            await expect(continueButton3).toBeDisplayed();
-            await continueButton3.click();
-            await driver.pause(4000);
+            // const privacyStatement = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Privacy Statement")',
+            // );
+            // await expect(privacyStatement).toBeDisplayed();
+
+            // const termsConditions = await driver.$(
+            //     '-android uiautomator:new UiSelector().textContains("Terms and Conditions")',
+            // );
+            // await expect(termsConditions).toBeDisplayed();
+
+            // // Click checkboxes
+            // const privacyTick = await driver.$(
+            //     "accessibility id:privacy-toggle",
+            // );
+            // await expect(privacyTick).toBeDisplayed();
+            // await privacyTick.click();
+            // const termsTick = await driver.$("accessibility id:terms-toggle");
+            // await expect(termsTick).toBeDisplayed();
+            // await termsTick.click();
+
+            // const continueButton3 = await driver.$("accessibility id:continue");
+            // await expect(continueButton3).toBeDisplayed();
+            // await continueButton3.click();
+            // await driver.pause(4000);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             // NOW save registration data after successful registration
@@ -256,8 +334,8 @@ describe("Registration procedure for a new user in test environment", () => {
             // const allowLocationButton = await driver.$(
             //     "id:com.android.permissioncontroller:id/permission_allow_foreground_only_button",
             // );
-            await PageObjects.whileUsingAppPermission.waitForDisplayed;
-            await PageObjects.whileUsingAppPermission.click();
+            // await PageObjects.whileUsingAppPermission.waitForDisplayed;
+            // await PageObjects.whileUsingAppPermission.click();
 
             // Verify account button is present - registration successful
             await PageObjects.accountButton.waitForDisplayed();
@@ -268,6 +346,7 @@ describe("Registration procedure for a new user in test environment", () => {
             await driver.pause(2000);
 
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
+            const { width, height } = await driver.getWindowSize();
             await driver.performActions([
                 {
                     type: "pointer",

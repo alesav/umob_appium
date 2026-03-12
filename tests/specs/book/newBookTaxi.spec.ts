@@ -59,7 +59,7 @@ describe("Book a Taxi", () => {
                             type: "pointerMove",
                             duration: 1000,
                             x: width / 2,
-                            y: height * 0.1,
+                            y: height * 0.75,
                         },
                         { type: "pointerUp", button: 0 },
                     ],
@@ -80,7 +80,7 @@ describe("Book a Taxi", () => {
             await driver.pause(2000);
             // Verify screen header
             const screenHeader = await driver.$(
-                '-android uiautomator:new UiSelector().text("Book Taxi")',
+                '-android uiautomator:new UiSelector().text("Book taxi")',
             );
             await expect(screenHeader).toBeDisplayed();
 

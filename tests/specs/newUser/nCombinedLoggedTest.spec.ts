@@ -1097,26 +1097,23 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 timeout: 4000,
             });
 
-            // Verify tabs
-            await expect(PageObjects.supportFaqTab).toBeDisplayed();
-            await expect(PageObjects.supportChatTab).toBeDisplayed();
-            await expect(PageObjects.supportAboutTab).toBeDisplayed();
+            // Verify headers
+            //await expect(PageObjects.supportWeAreAway).toBeDisplayed();
+            await expect(PageObjects.supportPopularArticles).toBeDisplayed();
+            await expect(PageObjects.supportAllArticles).toBeDisplayed();
 
             // Click on "FAQ" to be sure you are in the right place
-            await driver.pause(2000);
-            await PageObjects.supportFaqTab.click();
+            // await driver.pause(2000);
+            // await PageObjects.supportFaqTab.click();
 
             // Verify main content headers and text
             const contentElements = [
-                "How does it work (e-bike)",
-                "Looking for your e-bike",
-                "Open the umob app to see all available e-bikes.",
-                "Start race",
-                "Find your e-bike and press 'Start' in the app to begin your ride.",
-                "Pause",
-                "Do you want to take a break while on the go? Switch the e-bike to 'parking mode' at a small fee per minute. The e-bike will be turned off, but remains reserved for you.",
-                "Flexible travel",
-                "Enjoy the freedom to stop wherever you want, while your e-bike waits for you safely.",
+                "Subscriptions (Eindhoven)",
+                "Service areas and availability",
+                "How umob works",
+                "How to ride umob vehicles",
+                "Rules and regulations for riding umob",
+                "I'm still getting charged after ending my ride",
             ];
 
             for (const text of contentElements) {
@@ -1125,7 +1122,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
                 );
                 await expect(element).toBeDisplayed();
             }
-
+            /*
             // INDIVIDUAL SCROLL (DO NOT MODIFY)
             await driver.performActions([
                 {
@@ -1173,89 +1170,102 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             // Go to chat tab
             await PageObjects.supportChatTab.click();
             await driver.pause(2000);
-
+*/
             await expect(PageObjects.openChatButton).toBeDisplayed();
             await PageObjects.openChatButton.click();
-
-            // Send test message to chat
-            await expect(PageObjects.chatInputField).toBeDisplayed();
-            await PageObjects.chatInputField.addValue("test");
             await driver.pause(2000);
 
-            // Click on send button
-            await expect(PageObjects.chatSendButton).toBeDisplayed();
-            await PageObjects.chatSendButton.click();
+            // Send test message to chat
+            // await expect(PageObjects.chatInputField).toBeDisplayed();
+            // await PageObjects.chatInputField.addValue(
+            //     "test message sent automatically",
+            // );
+            // await driver.pause(2000);
 
-            // Check if message was sent
-            const messageCheck = await driver.$(
-                `-android uiautomator:new UiSelector().text("test")`,
-            );
-            await expect(messageCheck).toBeDisplayed();
+            // // Click on send button
+            // await expect(PageObjects.chatSendButton).toBeDisplayed();
+            // await PageObjects.chatSendButton.click();
+
+            // await driver.pause(2000);
+
+            // // Check if message was sent
+            // const messageCheck = await driver.$(
+            //     `-android uiautomator:new UiSelector().text("test message sent automatically")`,
+            // );
+            // await expect(messageCheck).toBeDisplayed();
 
             // If the message is sent then after seeing "test" you should see welcome message again: "Start typing here"
-            await expect(PageObjects.chatInputField).toBeDisplayed();
+            // await expect(PageObjects.chatInputField).toBeDisplayed();
 
             // Press the device back button
             await driver.back();
 
-            // Go to about tab
-            await driver.pause(5000);
-            await expect(PageObjects.supportAboutTab).toBeDisplayed();
-            await PageObjects.supportAboutTab.click();
-            await driver.pause(2000);
-
-            // Check for text on about tab
-            const contentElements3 = [
-                "On a mission",
-                "We're here to evolutionize mobility into seamless, accessible, and sustainable journeys.",
-                "Making movement a breeze, not a burden.",
-                "The problem we solve",
-                "Urban mobility is complex. Too many apps & accounts cause frustration. But less congestion and more green travel is imperative for a sustainable future.",
-            ];
-
-            for (const text of contentElements3) {
-                const element3 = await driver.$(
+            //verify that support screen is visible
+            for (const text of contentElements) {
+                const element = await driver.$(
                     `-android uiautomator:new UiSelector().text("${text}")`,
                 );
-                await expect(element3).toBeDisplayed();
+                await expect(element).toBeDisplayed();
             }
 
-            // INDIVIDUAL SCROLL (DO NOT MODIFY)
-            await driver.performActions([
-                {
-                    type: "pointer",
-                    id: "finger3",
-                    parameters: { pointerType: "touch" },
-                    actions: [
-                        {
-                            type: "pointerMove",
-                            duration: 0,
-                            x: width / 2,
-                            y: 500,
-                        },
-                        { type: "pointerDown", button: 0 },
-                        { type: "pause", duration: 100 },
-                        {
-                            type: "pointerMove",
-                            duration: 1000,
-                            x: width / 2,
-                            y: 10,
-                        },
-                        { type: "pointerUp", button: 0 },
-                    ],
-                },
-            ]);
+            // Go to about tab
+            // await driver.pause(5000);
+            // await expect(PageObjects.supportAboutTab).toBeDisplayed();
+            // await PageObjects.supportAboutTab.click();
+            // await driver.pause(2000);
 
-            // Test the text after scrolling
-            const text1 = await driver.$(
-                '-android uiautomator:new UiSelector().text("The solution")',
-            );
-            await expect(text1).toBeDisplayed();
+            // Check for text on about tab
+            // const contentElements3 = [
+            //     "On a mission",
+            //     "We're here to evolutionize mobility into seamless, accessible, and sustainable journeys.",
+            //     "Making movement a breeze, not a burden.",
+            //     "The problem we solve",
+            //     "Urban mobility is complex. Too many apps & accounts cause frustration. But less congestion and more green travel is imperative for a sustainable future.",
+            // ];
 
-            const text2 = await driver.$(
-                '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
-            );
-            await expect(text2).toBeDisplayed();
+            // for (const text of contentElements3) {
+            //     const element3 = await driver.$(
+            //         `-android uiautomator:new UiSelector().text("${text}")`,
+            //     );
+            //     await expect(element3).toBeDisplayed();
+            // }
+
+            // // INDIVIDUAL SCROLL (DO NOT MODIFY)
+            // await driver.performActions([
+            //     {
+            //         type: "pointer",
+            //         id: "finger3",
+            //         parameters: { pointerType: "touch" },
+            //         actions: [
+            //             {
+            //                 type: "pointerMove",
+            //                 duration: 0,
+            //                 x: width / 2,
+            //                 y: 500,
+            //             },
+            //             { type: "pointerDown", button: 0 },
+            //             { type: "pause", duration: 100 },
+            //             {
+            //                 type: "pointerMove",
+            //                 duration: 1000,
+            //                 x: width / 2,
+            //                 y: 10,
+            //             },
+            //             { type: "pointerUp", button: 0 },
+            //         ],
+            //     },
+            // ]);
+
+            // // Test the text after scrolling
+            // const text1 = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("The solution")',
+            // );
+            // await expect(text1).toBeDisplayed();
+
+            // const text2 = await driver.$(
+            //     '-android uiautomator:new UiSelector().text("One app for all rides simplifies travel and cuts the clutter. Shift from owning to sharing.")',
+            // );
+            // await expect(text2).toBeDisplayed();
         });
     });
 

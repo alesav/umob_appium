@@ -3,6 +3,7 @@ import PageObjects from "../../pageobjects/umobPageObjects.page.js";
 import submitTestRun from "../../helpers/SendResults.js";
 import AppiumHelpers from "../../helpers/AppiumHelpers.js";
 import { getCredentials, executeTest, ENV } from "../../helpers/TestHelpers.js";
+import umobPageObjectsPage from "../../pageobjects/umobPageObjects.page.js";
 
 const TEST_USER = "new61";
 
@@ -90,8 +91,8 @@ const fetchScooterCoordinates = async () => {
             body: JSON.stringify({
                 regionId: "",
                 stationId: "",
-                longitude: 4.465013357657082,
-                latitude: 51.915053266230686,
+                longitude: 4.46615,
+                latitude: 51.92813,
                 radius: 200.6137310913994,
                 zoomLevel: 15.25,
                 subOperators: [],
@@ -132,8 +133,8 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             password: credentials.password,
         });
 
-        const longitude = 4.465013357657082;
-        const latitude = 51.915053266230686;
+        const longitude = 4.46615;
+        const latitude = 51.92813;
 
         await AppiumHelpers.setLocationAndRestartApp(longitude, latitude);
         await driver.pause(3000);
@@ -165,6 +166,9 @@ describe("Check Booking Test with unlimited multi voucher", () => {
             );
             await driver.pause(2000);
             //await AppiumHelpers.clickCenterOfScreen();
+
+            await umobPageObjectsPage.locationButton.waitForDisplayed();
+            await umobPageObjectsPage.locationButton.click();
 
             // get center of the map (not the center of the screen!)
             const { x, y } = await AppiumHelpers.getMapCenterCoordinates();

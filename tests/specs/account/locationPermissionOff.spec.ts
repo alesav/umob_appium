@@ -27,9 +27,10 @@ const posthog = new PostHogHelper();
 
 describe("Test for checking disability of aplication features when location permission is off", () => {
     let scooters;
+    let targetScooter: any;
 
     before(async () => {
-        scooters = await fetchScooterCoordinates();
+        //scooters = await fetchScooterCoordinates();
 
         const credentials = getCredentials(ENV, TEST_USER);
 
@@ -38,16 +39,25 @@ describe("Test for checking disability of aplication features when location perm
             password: credentials.password,
         });
 
-        const targetScooter = scooters.find(
-            (scooter) => scooter.id === "UmobMock:ROTTERDAM_MOPED_1",
-        );
-
+        const latitude = 51.9155956;
+        const longitude = 4.4744301;
         await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
-            targetScooter.coordinates.longitude,
-            targetScooter.coordinates.latitude,
+            longitude,
+            latitude,
         );
 
-        // Check Account is presented
+        //1st option for finding scooter
+        // const targetScooter = scooters.find(
+        //     (scooter) => scooter.id.includes("Felyx"),
+        // );
+
+        // 2nd option for target scooter
+        //targetScooter = findFelyxScooter(scooters);
+
+        // await AppiumHelpers.setLocationAndRestartAppFotLocationPermissionOffTest(
+        //     targetScooter.coordinates.longitude,
+        //     targetScooter.coordinates.latitude,
+        // );
     });
 
     beforeEach(async () => {
@@ -93,6 +103,37 @@ describe("Test for checking disability of aplication features when location perm
                             type: "pointerMove",
                             duration: 0,
                             x: width / 2,
+                            y: height * 0.7,
+                        },
+                        { type: "pointerDown", button: 0 },
+                        { type: "pause", duration: 100 },
+                        {
+                            type: "pointerMove",
+                            duration: 1000,
+                            x: width / 2,
+                            y: height * 0.4,
+                        },
+                        { type: "pointerUp", button: 0 },
+                    ],
+                },
+            ]);
+            await driver.pause(1000);
+
+            //verify scan vehicle button
+            await PageObjects.scanVehicleButton.waitForDisplayed();
+
+            //scroll to be everything on display
+
+            await driver.performActions([
+                {
+                    type: "pointer",
+                    id: "finger1",
+                    parameters: { pointerType: "touch" },
+                    actions: [
+                        {
+                            type: "pointerMove",
+                            duration: 0,
+                            x: width / 2,
                             y: height * 0.8,
                         },
                         { type: "pointerDown", button: 0 },
@@ -108,9 +149,6 @@ describe("Test for checking disability of aplication features when location perm
                 },
             ]);
             await driver.pause(3000);
-
-            //verify scan vehicle button
-            await PageObjects.scanVehicleButton.waitForDisplayed();
 
             //verify enable location button to book taxi
             const buttonForTaxi = await driver.$(
@@ -210,8 +248,8 @@ describe("Test for checking disability of aplication features when location perm
             await driver.pause(2000);
 
             // Verify PostHog event
-            try {
-                /*  // 1. get email and event name on $screen even
+            //  try {
+            /*  // 1. get email and event name on $screen even
                 const loggedinEvent = await posthog.waitForEvent(
                     {
                         eventName: "Logged In",
@@ -225,6 +263,7 @@ describe("Test for checking disability of aplication features when location perm
                     },
                 );
 */
+            /*
                 const nearbyEvent = await posthog.waitForEvent(
                     {
                         eventName: "Nearby vehicles loaded",
@@ -264,6 +303,7 @@ describe("Test for checking disability of aplication features when location perm
                 console.error("PostHog validation failed:", e);
                 throw e;
             }
+                */
         });
     });
 

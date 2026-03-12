@@ -84,7 +84,7 @@ class PageObjects extends Page {
         return $('-android uiautomator:new UiSelector().text("End Trip")');
     }
     get markArrivalButton() {
-        return $('-android uiautomator:new UiSelector().text("Mark Arrival")');
+        return $('-android uiautomator:new UiSelector().text("End Ride")');
     }
     get pauseButton() {
         return $('-android uiautomator:new UiSelector().text("Pause")');
@@ -248,7 +248,7 @@ class PageObjects extends Page {
     // Authentication Elements
     get startRegistrationButton() {
         return $(
-            '-android uiautomator:new UiSelector().textContains("Start Registration")',
+            '-android uiautomator:new UiSelector().textContains("Create new account")',
         );
     }
     get logInButton() {
@@ -388,7 +388,7 @@ class PageObjects extends Page {
 
     // Permission Elements
     get allowPermissionButton() {
-        return $('-android uiautomator:new UiSelector().textContains("Allow")');
+        return $('-android uiautomator:new UiSelector().textContains("ALLOW")');
     }
     get whileUsingAppPermission() {
         return $(
@@ -403,6 +403,11 @@ class PageObjects extends Page {
             "id:com.android.permissioncontroller:id/permission_allow_button",
         );
     }
+    get enableLocationWhenStartApp() {
+        return $("accessibility id:Enable location");
+        //'-android uiautomator:new UiSelector().textContains("Enable location")',
+        //);
+    }
 
     // Help/Support button on home screen (for not logged users)
     get homeHelpButton() {
@@ -411,27 +416,38 @@ class PageObjects extends Page {
 
     // Support Screen Elements
     get supportScreenHeader() {
-        return $('-android uiautomator:new UiSelector().text("Support")');
+        return $(
+            '-android uiautomator:new UiSelector().textContains("live chat")',
+        );
     }
-    get supportFaqTab() {
-        return $('-android uiautomator:new UiSelector().text("FAQ")');
+    get supportWeAreAway() {
+        return $(
+            '-android uiautomator:new UiSelector().text("We are away at the moment")',
+        );
     }
-    get supportChatTab() {
-        return $('-android uiautomator:new UiSelector().text("Chat")');
+    get supportPopularArticles() {
+        return $(
+            '-android uiautomator:new UiSelector().text("Popular Articles")',
+        );
     }
-    get supportAboutTab() {
-        return $('-android uiautomator:new UiSelector().text("About")');
+    get supportAllArticles() {
+        return $(
+            '-android uiautomator:new UiSelector().text("View all articles")',
+        );
     }
 
     // Chat Elements
     get openChatButton() {
-        return $('-android uiautomator:new UiSelector().text("Open Chat")');
+        return $(
+            '-android uiautomator:new UiSelector().textContains("Start conversation")',
+        );
     }
     get chatInputField() {
         return $(
-            '-android uiautomator:new UiSelector().text("Start typing here")',
+            '-android uiautomator:new UiSelector().text("Type your message")',
         );
     }
+
     get chatSendButton() {
         return $('-android uiautomator:new UiSelector().description("Send")');
     }
@@ -456,6 +472,12 @@ class PageObjects extends Page {
             await this.androidPermissionAllowButton.click();
 
             await driver.pause(2000);
+
+            // Handle "enable location" to view a map
+            await this.enableLocationWhenStartApp.waitForDisplayed({
+                timeout: 5000,
+            });
+            await this.enableLocationWhenStartApp.click();
 
             // "While using the app" permission
             await this.whileUsingAppPermission.waitForDisplayed({
@@ -616,7 +638,14 @@ class PageObjects extends Page {
             await loginButton.click();
 
             // Handle location permissions
+            await this.allowPermissionButton.waitForDisplayed();
             await this.allowPermissionButton.click();
+
+            // Handle "enable location" to view a map
+            // await this.enableLocationWhenStartApp.waitForDisplayed();
+            // await this.enableLocationWhenStartApp.click();
+
+            //handle while using the app permission
             await this.handleLocationPermissions();
 
             await this.accountButton.waitForExist();

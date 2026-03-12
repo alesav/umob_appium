@@ -7,6 +7,10 @@ const TEST_USER = "newUser";
 describe("Add Payment Method", () => {
     before(async () => {
         const credentials = getCredentials(ENV, TEST_USER);
+        console.log(
+            `Using credentials for environment: ${ENV}, user: ${TEST_USER}`,
+        );
+        console.log(`Username: ${credentials.username}`);
         await PageObjects.login({
             username: credentials.username,
             password: credentials.password,
