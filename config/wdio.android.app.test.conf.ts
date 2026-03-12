@@ -85,7 +85,7 @@ export const config: WebdriverIO.Config = {
         //"c:/dev/umob_appium/tests/specs/notLoggedTests/combinedNotLogged.spec.ts", //ok
         ///////"c:/dev/umob_appium/tests/specs/book/reserveCheck.spec.ts", //new25 //ok/
         //"c:/dev/umob_appium/tests/specs/newUser/nReserveFelyxNoId.spec.ts", //new38 //ok. not in center, so doesnt click a moped
-        "../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
+        //"../tests/specs/newUser/nCombinedLoggedTest.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts", //new61 (end ride is not clicked because timeout)click on pointer for location during manual run//not in center of the screen (updated test because of new user check voucher presence)
         //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts",
@@ -110,7 +110,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/newUser/addPaymentMethod.spec.ts",
         //"../tests/specs/newUser/nReserveFelyxNoId.spec.ts", //не нью юзер, посмотреть руками
         //"../tests/specs/account/locationPermissionOff.spec.ts", //в приложении скан веикл первый идёт
-        //"../tests/specs/book/2bookPublicTransport.spec.ts", //тоже new12
+        "../tests/specs/book/2bookPublicTransport.spec.ts", //тоже new12
         //"../tests/specs/book/bookPublicTransport.spec.ts", //нью 12, постхог нью56
         //"../tests/specs/book/bookDott.spec.ts", // отображении линии локации, стоимость в май райд?
         //"../tests/specs/book/failedPaymentNoBooking.spec.ts", //норм, нью16
@@ -119,7 +119,7 @@ export const config: WebdriverIO.Config = {
         //"../tests/specs/book/reserveCheck.spec.ts",
         //"../tests/specs/newUser/nReserveCheckNoCard.spec.ts",
         //"../tests/specs/newUserVoucher/vBookCheck.spec.ts",
-        //"../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
+        "../tests/specs/newUserVoucher/vBookFelyx.spec.ts", //нбю 12, мульти отсутствует
         //"../tests/specs/login/login.negative.spec.ts", //норм
         //"../tests/specs/login/login.positive.spec.ts", //норм
         //"../tests/specs/account/combinedLoggedTest.spec.ts", //нью12? сильный скрол

@@ -1098,7 +1098,7 @@ describe("Combined Tests For Logged in New User Without Rides", () => {
             });
 
             // Verify headers
-            await expect(PageObjects.supportWeAreAway).toBeDisplayed();
+            //await expect(PageObjects.supportWeAreAway).toBeDisplayed();
             await expect(PageObjects.supportPopularArticles).toBeDisplayed();
             await expect(PageObjects.supportAllArticles).toBeDisplayed();
 

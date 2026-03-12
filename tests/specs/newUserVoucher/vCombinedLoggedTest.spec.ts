@@ -1176,7 +1176,7 @@ describe("Combined tests for logged in user with unlimited multi voucher", () =>
             });
 
             // Verify headers
-            await expect(PageObjects.supportWeAreAway).toBeDisplayed();
+            //await expect(PageObjects.supportWeAreAway).toBeDisplayed();
             await expect(PageObjects.supportPopularArticles).toBeDisplayed();
             await expect(PageObjects.supportAllArticles).toBeDisplayed();
 

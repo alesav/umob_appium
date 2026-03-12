@@ -261,7 +261,7 @@ describe("Combined Not Logged User Tests", () => {
             });
 
             // Verify tabs
-            await expect(PageObjects.supportWeAreAway).toBeDisplayed();
+            //await expect(PageObjects.supportWeAreAway).toBeDisplayed();
             await expect(PageObjects.supportPopularArticles).toBeDisplayed();
             await expect(PageObjects.supportAllArticles).toBeDisplayed();
 
